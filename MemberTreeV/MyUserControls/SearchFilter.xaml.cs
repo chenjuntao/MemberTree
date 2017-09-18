@@ -40,7 +40,7 @@ namespace MemberTree
 				TextBlock header = new TextBlock();
 				header.Text = optCols[i];
 				mainGrid.Children.Add(header);
-				Grid.SetRow(header, i+7);
+				Grid.SetRow(header, i+8);
 				
 				ComboBox comb = new ComboBox();
 				ComboBoxItem comItem1 = new ComboBoxItem();
@@ -57,13 +57,13 @@ namespace MemberTree
 				comItem4.Content = "包含";
 				comb.Items.Add(comItem4);
 				mainGrid.Children.Add(comb);
-				Grid.SetRow(comb, i+7);
+				Grid.SetRow(comb, i+8);
 				Grid.SetColumn(comb, 1);
 				comboCols.Add(comb);
 				
 				TextBox val = new TextBox();
 				mainGrid.Children.Add(val);
-				Grid.SetRow(val, i+7);
+				Grid.SetRow(val, i+8);
 				Grid.SetColumn(val, 2);
 				txtCols.Add(val);
 			}
