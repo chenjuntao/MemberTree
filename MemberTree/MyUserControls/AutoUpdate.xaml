@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="MemberTree.AutoUpdate" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Grid
+		Height="NaN">
+		<Grid.Background>
+			<RadialGradientBrush>
+				<RadialGradientBrush.GradientStops>
+					<GradientStop
+						Color="#FF99B4D1"
+						Offset="0" />
+					<GradientStop
+						Color="#FFFFFFFF"
+						Offset="1" />
+				</RadialGradientBrush.GradientStops>
+			</RadialGradientBrush>
+		</Grid.Background>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Label
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			FontSize="18"
+			x:Name="lblMsg"
+			Content="正在启动，请稍候..." />
+	</Grid>
+</UserControl>

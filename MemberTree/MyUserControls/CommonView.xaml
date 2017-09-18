@@ -1,0 +1,43 @@
+<UserControl x:Class="MemberTree.CommonView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<UserControl.Resources>
+		<Style TargetType="TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="3,2" />
+			<Setter Property="Background" Value="White" />
+			<Setter Property="BorderThickness" Value="0" />
+		</Style>
+	</UserControl.Resources>
+	<GroupBox>
+		<GroupBox.Header>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock FontWeight="Bold" FontSize="13" Text="数据集" Name="txtDB"/>
+				<TextBlock Text=" 概要信息" />
+			</StackPanel>
+		</GroupBox.Header>
+		<WrapPanel>
+			 <Button Name="btnAll" Foreground="Blue">
+				所有节点总数
+			</Button>
+			<TextBlock Text="="/>
+		    <Button Name="btnTree" Click="BtnTree_Click" Foreground="Green">
+				m个节点构成n棵树
+			</Button>
+			<TextBlock Text="+" Visibility="{Binding ElementName=btnLeaf,Path=Visibility}"/>
+			<Button Name="btnLeaf" Click="BtnTree_Click" Foreground="Orange">
+		        孤立的叶子节点
+		    </Button>
+			<TextBlock Text="+" Visibility="{Binding ElementName=btnRing,Path=Visibility}"/>
+			<Button Name="btnRing" Click="BtnTree_Click" Foreground="HotPink">
+		        构成闭环的节点
+		    </Button>
+			<TextBlock Text="+" Visibility="{Binding ElementName=btnConflict,Path=Visibility}"/>
+		    <Button Name="btnConflict" Click="BtnTree_Click" Foreground="PaleVioletRed">
+		        ID重复的节点
+		    </Button>
+		</WrapPanel>
+	</GroupBox>
+</UserControl>

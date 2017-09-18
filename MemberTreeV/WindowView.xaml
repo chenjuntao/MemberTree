@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl 
+	x:Class="MemberTree.WindowView" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:my="clr-namespace:MemberTree"
+	xmlns:my1="clr-namespace:MemberTree;assembly=MemberTree"
+	mc:Ignorable="d">
+	<UserControl.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="1"></Setter>
+		</Style>
+		<Style TargetType="ComboBox">
+			<Setter Property="Margin" Value="1"></Setter>
+		</Style>
+	</UserControl.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="250" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<Grid Margin="5,0" Name="leftMenu" Grid.RowSpan="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="3*"/>
+				<RowDefinition Height="2*"/>
+			</Grid.RowDefinitions>
+			<GroupBox>
+				<GroupBox.Header>
+					<TextBlock FontWeight="Bold" FontSize="13" Text="查找条件"/>
+				</GroupBox.Header>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<my:SearchFilter x:Name="mySearchFilter"/>
+					<Button FontWeight="Bold" Content="开始查找" Grid.Row="1" Click="ButtonSearch_Click" />
+				</Grid>
+			</GroupBox>
+			<GroupBox Grid.Row="1">
+				<GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock FontWeight="Bold" FontSize="13" Text="查找结果"/>
+						<TextBlock Text="（双击可在树视图中打开查看）" />
+					</StackPanel>
+				</GroupBox.Header>
+				<my:SearchResult Grid.Row="1" x:Name="searchResults" MouseDoubleClick="NodeList_DbClick"/>
+			</GroupBox>
+		</Grid>
+		<Grid Grid.Column="1" Name="mainGrid">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<my1:CommonView x:Name="commonView"/>
+			<my:MyTreeView Grid.Row="1" x:Name="myTreeView" />
+			<my:MyNodeList Grid.Row="1" x:Name="listNodes" Visibility="Hidden" />
+		</Grid>
+		<my1:MyStatusBar Grid.Row="1" Grid.Column="1" x:Name="myStatusBar"/>
+	</Grid>
+</UserControl>
