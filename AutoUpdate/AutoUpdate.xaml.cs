@@ -27,9 +27,8 @@ namespace MemberTree
 	/// </summary>
 	public partial class AutoUpdate : UserControl
 	{
-		private string url = "https://github.com/chenjuntao/MemberTree/DLL/";
+		private string url = "https://github.com/chenjuntao/MemberTree/raw/master/DLL/";
 		private string conf = "version.dll";
-		private delegate void InvokeStringDelegate(string parm);
 		public AutoUpdate()
 		{
 			InitializeComponent();
@@ -50,8 +49,8 @@ namespace MemberTree
 				{
 					for (int i = 1; i < newConf.Count; i++) 
 					{
+						SetStatusMessage("正在更新第"+i+"个("+newConf[i]+")/总共"+newConf.Count+"个...");
 						HttpDownload(url + newConf[i], "dll/" + newConf[i]);
-						SetStatusMessage("正在更新"+i+"/"+newConf.Count+"...");
 					}
 				}
 			}
@@ -100,12 +99,18 @@ namespace MemberTree
 	            Stream responseStream = response.GetResponseStream();
 	            //创建本地文件写入流
 	            Stream stream = new FileStream(path, FileMode.Create);
-	            byte[] bArr = new byte[1024];
+	            byte[] bArr = new byte[10240];
 	            int size = responseStream.Read(bArr, 0, (int)bArr.Length);
+	            long totalBytes = response.ContentLength;
+	            long totalDownloadedByte = 0;
 	            while (size > 0)
 	            {
+	            	
 	                stream.Write(bArr, 0, size);
 	                size = responseStream.Read(bArr, 0, (int)bArr.Length);
+	                totalDownloadedByte = size + totalDownloadedByte;
+	                double percent = (double)totalDownloadedByte / (double)totalBytes * 100;
+	                SetProcessBarValue(percent);
 	            }
 	            stream.Close();
 	            responseStream.Close();
@@ -123,6 +128,7 @@ namespace MemberTree
 		
 		#region 提示文本实时更新
 		//设置状态栏提示文本
+		private delegate void InvokeStringDelegate(string parm);
         private InvokeStringDelegate showTextDelegate = null;
         public void SetStatusMessage(string message)
         {
@@ -137,7 +143,22 @@ namespace MemberTree
         {
             this.lblMsg.Content = message;
         }
-
+  		//设置进度条进度(0-100)
+  		private delegate void InvokeDoubleDelegate(double parm);
+        private InvokeDoubleDelegate processBarValueDelegate = null;
+        public void SetProcessBarValue(double step)
+        {
+            if (processBarValueDelegate == null)
+            {
+                processBarValueDelegate = new InvokeDoubleDelegate(SetProcessBarValueImp);
+            }
+            this.Dispatcher.Invoke(processBarValueDelegate, step);
+            DoEvents();
+        }
+        private void SetProcessBarValueImp(double step)
+        {
+            this.progressBar.Value = step;
+        }
         private void DoEvents()
         {
             DispatcherFrame frame = new DispatcherFrame();

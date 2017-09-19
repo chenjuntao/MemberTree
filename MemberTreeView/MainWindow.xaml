@@ -7,7 +7,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d" Width="600" Height="360" ResizeMode="NoResize"
-	WindowStartupLocation="CenterScreen">
+	WindowStartupLocation="CenterScreen" Title="会员关系树分析查看工具">
 	<Grid x:Name="mainGrid">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition />
