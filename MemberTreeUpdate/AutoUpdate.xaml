@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UserControl
-	x:Class="MemberTree.AutoUpdate" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<Grid
-		Height="NaN">
+<UserControl x:Class="MemberTree.AutoUpdate" 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Grid>
 		<Grid.Background>
 			<RadialGradientBrush>
 				<RadialGradientBrush.GradientStops>
-					<GradientStop
-						Color="#FF99B4D1"
-						Offset="0" />
-					<GradientStop
-						Color="#FFFFFFFF"
-						Offset="1" />
+					<GradientStop Color="#FF99B4D1" Offset="0" />
+					<GradientStop Color="#FFFFFFFF" Offset="1" />
 				</RadialGradientBrush.GradientStops>
 			</RadialGradientBrush>
 		</Grid.Background>

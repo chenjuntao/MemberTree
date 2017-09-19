@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <ProjectGuid>{492B1029-CD3F-4DB5-8AD1-ADCD84CABA1A}</ProjectGuid>
+    <ProjectGuid>{D43FB560-0C0C-48AC-800D-F88CBA4A2924}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>MemberTree</RootNamespace>
-    <AssemblyName>MemberTree</AssemblyName>
+    <RootNamespace>AutoUpdate</RootNamespace>
+    <AssemblyName>AutoUpdate</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
@@ -16,16 +16,16 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>..\..\bin\DLLs</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <BaseAddress>4194304</BaseAddress>
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>..\..\bin\MemberTreeExe</OutputPath>
     <DebugSymbols>True</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
@@ -34,6 +34,7 @@
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
     <DebugSymbols>False</DebugSymbols>
     <DebugType>None</DebugType>
     <Optimize>True</Optimize>
@@ -41,8 +42,8 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data">
-      <HintPath>..\DLL\MySql.Data.dll</HintPath>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -55,72 +56,32 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\DLL\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB\IMyTreeDB.cs" />
-    <Compile Include="DB\MyTreeDBMysql.cs" />
-    <Compile Include="DB\MyTreeDBSqlite.cs" />
-    <Compile Include="MyUserControls\CommonView.xaml.cs">
-      <DependentUpon>CommonView.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="AutoUpdate.xaml.cs">
+      <DependentUpon>AutoUpdate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyUserControls\ForestsView.xaml.cs">
-      <DependentUpon>ForestsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MyUserControls\MyStatusBar.xaml.cs">
-      <DependentUpon>MyStatusBar.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MyUserControls\ProgressView.xaml.cs">
-      <DependentUpon>ProgressView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MyUserControls\WelcomeView.xaml.cs">
-      <DependentUpon>WelcomeView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="IPluginAdmin.cs" />
+    <Compile Include="IPluginHost.cs" />
+    <Compile Include="IPluginView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\INotify.cs" />
-    <Compile Include="Util\InvokeDelegate.cs" />
-    <Compile Include="Util\SysInfo.cs" />
-    <Compile Include="Util\TimingUtil.cs" />
+    <Compile Include="Properties\WPFAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MyUserControls\CommonView.xaml" />
-    <Page Include="MyUserControls\ForestsView.xaml" />
-    <Page Include="MyUserControls\MyStatusBar.xaml" />
-    <Page Include="MyUserControls\ProgressView.xaml" />
-    <Page Include="MyUserControls\WelcomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DB" />
-    <Folder Include="Image" />
-    <Folder Include="MyUserControls" />
-    <Folder Include="Util" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\tree.png" />
-    <Resource Include="Image\tree0.jpg" />
-    <Resource Include="Image\tree1.jpg" />
-    <Resource Include="Image\tree2.jpg" />
-    <Resource Include="Image\tree3.jpg" />
-    <Resource Include="Image\tree4.jpg" />
-    <Resource Include="Image\tree5.jpg" />
-    <Resource Include="Image\tree6.jpg" />
-    <Resource Include="Image\tree7.jpg" />
-    <Resource Include="Image\treeadmin.png" />
-    <Resource Include="Image\treeview.png" />
+    <Page Include="AutoUpdate.xaml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

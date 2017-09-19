@@ -35,7 +35,7 @@ namespace MemberTreeView
 		public void Init()
 		{
 			//自动更新
-			autoUp.Update(false);
+			autoUp.Update();
 			mainGrid.Children.Remove(autoUp);
 			
 			//加载插件
