@@ -62,6 +62,10 @@ namespace MemberTree
 		
 		private List<string> ReadConfig()
 		{
+			if(!Directory.Exists("dll"))
+			{
+				Directory.CreateDirectory("dll");
+			}
 			string confFile = "dll/" + conf;
 			List<string> result = new List<string>();
 			if(File.Exists(confFile))

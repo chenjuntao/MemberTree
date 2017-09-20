@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="MemberTree.WelcomeView" 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	mc:Ignorable="d"
+	d:DesignHeight="300"
+	d:DesignWidth="500">
+	<UserControl.Background>
+		<LinearGradientBrush
+			EndPoint="0.5,1"
+			StartPoint="0.5,0">
+			<GradientStop
+				Color="LightGreen"
+				Offset="0" />
+			<GradientStop
+				Color="White"
+				Offset="0.8" />
+			<GradientStop
+				Color="LightCoral"
+				Offset="1" />
+		</LinearGradientBrush>
+	</UserControl.Background>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Image
+			Name="imgAdmin"
+			Margin="0,30,330,150"
+			Visibility="Hidden"
+			Source="/MemberTree;component/Image/treeadmin.png" />
+		<Image
+			Name="imgView"
+			Margin="0,30,330,150"
+			Visibility="Hidden"
+			Source="/MemberTree;component/Image/treeview.png" />
+		<TextBlock
+			Foreground="LightCyan"
+			FontWeight="Bold"
+			FontSize="28"
+			x:Name="txtHead"
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			Margin="160,20,25,235">
+			<TextBlock.Effect>
+				<DropShadowEffect
+					Opacity="0.6" />
+			</TextBlock.Effect>
+			<Run
+				Text="会员关系树分析查看工具" />
+		</TextBlock>
+		<TextBlock
+			FontSize="18"
+			Foreground="RoyalBlue"
+			x:Name="txtVer"
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			Margin="180,69,21,208">
+			<Run
+				Text="版本：v 5.0" />
+		</TextBlock>
+		<TextBlock
+			FontSize="16"
+			Foreground="DarkCyan"
+			x:Name="txtCpy"
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			Margin="180,103,21,174">
+			<Run
+				Text="Copyright(c)tanry，2014-2017" />
+		</TextBlock>
+		<TextBlock
+			FontSize="15"
+			Foreground="BlueViolet"
+			x:Name="txtPow"
+			ToolTip="13467516757"
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			Margin="180,135,21,141">
+			<Run
+				Text="Powered by cjt(cjtlp2006@163.com)" />
+		</TextBlock>
+		<Button
+			Content="使用本地Sqlite数据库"
+			Margin="79,179,274,65"
+			Click="BtnSqlite_Click" />
+		<Button
+			Content="使用远程Mysql数据库"
+			Margin="289,179,68,65"
+			Click="BtnMysql_Click" />
+	</Grid>
+</UserControl>

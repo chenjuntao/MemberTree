@@ -37,7 +37,8 @@ namespace MemberTree
 			mainWindow = host as Window;
 			mainWindow.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
 			
-			welcomeView = new WelcomeView(false, SysInfo.I.PRODUCT + "查看工具", new InvokeBoolDelegate(SelectDB));
+			welcomeView = new WelcomeView();
+			welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(SelectDB));
 			(mainWindow.Content as Grid).Children.Add(welcomeView);
 		}
         

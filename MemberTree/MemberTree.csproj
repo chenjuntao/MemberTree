@@ -16,7 +16,8 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>..\..\bin\DLLs</OutputPath>
+    <OutputPath>..\DLL</OutputPath>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -92,6 +93,10 @@
     <Compile Include="Util\InvokeDelegate.cs" />
     <Compile Include="Util\SysInfo.cs" />
     <Compile Include="Util\TimingUtil.cs" />
+    <Compile Include="Ver\WindowVerLog.xaml.cs">
+      <DependentUpon>WindowVerLog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MyUserControls\CommonView.xaml" />
@@ -102,12 +107,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ver\WindowVerLog.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DB" />
     <Folder Include="Image" />
     <Folder Include="MyUserControls" />
     <Folder Include="Util" />
+    <Folder Include="Ver" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\tree.png" />
@@ -121,6 +128,14 @@
     <Resource Include="Image\tree7.jpg" />
     <Resource Include="Image\treeadmin.png" />
     <Resource Include="Image\treeview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ver\verlog.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ver\version.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
