@@ -88,15 +88,15 @@
     <Compile Include="MyUserControls\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyUserControls\WindowVerLog.xaml.cs">
+      <DependentUpon>WindowVerLog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\INotify.cs" />
     <Compile Include="Util\InvokeDelegate.cs" />
     <Compile Include="Util\SysInfo.cs" />
     <Compile Include="Util\TimingUtil.cs" />
-    <Compile Include="Ver\WindowVerLog.xaml.cs">
-      <DependentUpon>WindowVerLog.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MyUserControls\CommonView.xaml" />
@@ -107,14 +107,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ver\WindowVerLog.xaml" />
+    <Page Include="MyUserControls\WindowVerLog.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DB" />
     <Folder Include="Image" />
     <Folder Include="MyUserControls" />
     <Folder Include="Util" />
-    <Folder Include="Ver" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\tree.png" />
@@ -130,10 +129,10 @@
     <Resource Include="Image\treeview.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ver\verlog.dll">
+    <None Include="verlog.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ver\version.dll">
+    <None Include="version.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

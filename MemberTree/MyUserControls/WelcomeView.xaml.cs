@@ -83,7 +83,7 @@ namespace MemberTree
 		//读取日志历史文件
 		private void ReadVerLog()
 		{
-			string logFile = "dll/Ver/verlog.dll";
+			string logFile = "dll/verlog.dll";
 			if(File.Exists(logFile))
 			{
 				using(StreamReader mysr = new StreamReader(logFile, Encoding.UTF8))

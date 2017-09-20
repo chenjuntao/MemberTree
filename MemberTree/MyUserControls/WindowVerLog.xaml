@@ -5,6 +5,6 @@
 	ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
     Title="关于会员关系树分析工具" Width="500" Height="600">
 	<Grid>
-		<my:WelcomeView />
+		<my:WelcomeView x:Name="welcomView"/>
 	</Grid>
 </Window>

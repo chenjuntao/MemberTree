@@ -38,7 +38,7 @@ namespace MemberTree
 		{
 			SetStatusMessage("程序正在检查更新...");
 			List<string> oldConf = ReadConfig();
-			if(HttpDownload(url + "Ver/" + conf, "dll/" + conf))
+			if(HttpDownload(url + conf, "dll/" + conf))
 			{
 				List<string> newConf = ReadConfig();
 				if(newConf[0] == oldConf[0])
