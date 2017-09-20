@@ -28,7 +28,7 @@ namespace MemberTree
 	public partial class AutoUpdate : UserControl
 	{
 		private string url = "https://github.com/chenjuntao/MemberTree/raw/master/DLL/";
-		private string conf = "version.dll";
+		private string conf = "Ver/version.dll";
 		public AutoUpdate()
 		{
 			InitializeComponent();

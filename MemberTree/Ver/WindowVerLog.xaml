@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:my="clr-namespace:MemberTree"
 	ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
-    Title="关于会员关系树分析工具" Width="600" Height="800">
+    Title="关于会员关系树分析工具" Width="500" Height="600">
 	<Grid>
 		<my:WelcomeView />
 	</Grid>
