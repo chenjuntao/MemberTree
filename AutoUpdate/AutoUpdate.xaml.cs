@@ -28,7 +28,7 @@ namespace MemberTree
 	public partial class AutoUpdate : UserControl
 	{
 		private string url = "https://github.com/chenjuntao/MemberTree/raw/master/DLL/";
-		private string conf = "Ver/version.dll";
+		private string conf = "version.dll";
 		public AutoUpdate()
 		{
 			InitializeComponent();
@@ -38,7 +38,7 @@ namespace MemberTree
 		{
 			SetStatusMessage("程序正在检查更新...");
 			List<string> oldConf = ReadConfig();
-			if(HttpDownload(url + conf, "dll/" + conf))
+			if(HttpDownload(url + "Ver/" + conf, "dll/" + conf))
 			{
 				List<string> newConf = ReadConfig();
 				if(newConf[0] == oldConf[0])
