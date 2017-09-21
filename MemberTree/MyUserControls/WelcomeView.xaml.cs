@@ -42,7 +42,7 @@ namespace MemberTree
             	isAdmin = true;
             }
             txtHead.Text = title;
-           	txtVer.Text = "版本：v" + SysInfo.I.VERSION + "    by " + SysInfo.I.COMPANY;
+           	txtVer.Text = "版本：v" + SysInfo.I.VERSION;
             txtCpy.Text = SysInfo.I.COPYRIGHT;
 		}
     	
@@ -67,19 +67,25 @@ namespace MemberTree
 		public void InitVerLog(bool isAdmin, string title)
         { 
 			Init(isAdmin, title);
-			mainGrid.Visibility = Visibility.Collapsed;
-			mainTab.Visibility = Visibility.Visible;
+			selectDBGrid.Visibility = Visibility.Collapsed;
+			verGrid.Visibility = Visibility.Visible;
 			
 			ReadVerLog();
 			foreach (string ver in verLogs.Keys) 
 			{
-				TabItem tab = new TabItem();
-				tab.Header = ver;
-				TextBlock txt = new TextBlock();
-				txt.TextWrapping = TextWrapping.WrapWithOverflow;
-				txt.Text = verLogs[ver];
-				tab.Content = txt;
-				mainTab.Items.Add(tab);
+				TabItem item = new TabItem();
+				item.Header = ver;
+				verTab.Items.Add(item);
+			}
+		}
+		
+		private void VerTab_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			TabItem selectItem = verTab.SelectedItem as TabItem;
+			string selectVer = selectItem.Header.ToString();
+			if(verLogs.ContainsKey(selectVer))
+			{
+				verContent.Text = verLogs[selectVer];
 			}
 		}
 		
@@ -98,7 +104,7 @@ namespace MemberTree
 						string line = mysr.ReadLine();
 						if(line.StartsWith("ver"))
 						{
-							if(verContent != "")
+							if(verContent != "" && !verLogs.ContainsKey(verHead))
 							{
 								verLogs.Add(verHead, verContent);
 								verContent = "";

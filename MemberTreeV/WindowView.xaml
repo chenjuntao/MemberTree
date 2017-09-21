@@ -63,7 +63,7 @@
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
 			<my1:CommonView x:Name="commonView"/>
-			<Button Grid.Column="1" Padding="20,5" Content="关于" Click="BtnAbout_Click"/>
+			<Button Grid.Column="1" Padding="15,5" Margin="10,20,10,5" Content="关于" Click="BtnAbout_Click"/>
 			<my:MyTreeView Grid.Row="1" Grid.ColumnSpan="2" x:Name="myTreeView" />
 			<my:MyNodeList Grid.Row="1" Grid.ColumnSpan="2" x:Name="listNodes" Visibility="Hidden" />
 		</Grid>

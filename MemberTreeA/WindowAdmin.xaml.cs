@@ -111,6 +111,12 @@ namespace MemberTree
         }
         
         #endregion
+        
+        private void BtnAbout_Click(object sender, RoutedEventArgs e)
+		{
+			WindowVerLog verLog = new WindowVerLog(true, SysInfo.I.PRODUCT + "管理工具");
+			verLog.ShowDialog();
+		}
     }
 
 }

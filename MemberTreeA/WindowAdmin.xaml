@@ -69,6 +69,9 @@
 							<Button Content="打开csv文件▼" Click="ButtonOpen_Click" />
 						</StackPanel>
 					</GroupBox>
+					<GroupBox Header="关于">
+						<Button Grid.Column="1" Padding="10,5" Margin="5,20" Content="关于" Click="BtnAbout_Click"/>
+					</GroupBox>
 				</StackPanel>
 				<my1:ForestsView Grid.Row="1" x:Name="forestView" />
 				<my1:CommonView Grid.Row="2" x:Name="commonView"/>
