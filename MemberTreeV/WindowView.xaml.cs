@@ -140,7 +140,7 @@ namespace MemberTree
         }
 		private void BtnAbout_Click(object sender, RoutedEventArgs e)
 		{
-			WindowVerLog verLog = new WindowVerLog(true, SysInfo.I.PRODUCT + "查看工具");
+			WindowVerLog verLog = new WindowVerLog(false, SysInfo.I.PRODUCT + "查看工具");
 			verLog.ShowDialog();
 		}
         #endregion
