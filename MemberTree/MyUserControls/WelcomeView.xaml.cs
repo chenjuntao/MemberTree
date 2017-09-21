@@ -75,7 +75,10 @@ namespace MemberTree
 			{
 				TabItem tab = new TabItem();
 				tab.Header = ver;
-				tab.Content = verLogs[ver];
+				TextBlock txt = new TextBlock();
+				txt.TextWrapping = TextWrapping.WrapWithOverflow;
+				txt.Text = verLogs[ver];
+				tab.Content = txt;
 				mainTab.Items.Add(tab);
 			}
 		}
