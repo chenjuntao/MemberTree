@@ -25,6 +25,7 @@ namespace MemberTreeView
             InitializeComponent();
             
             this.Dispatcher.BeginInvoke(new InvokeDelegate(Init));
+            this.Closing += Window_Closing;
         }
         
         public Window GetMainWindow()
@@ -50,6 +51,11 @@ namespace MemberTreeView
                 	pluginView.Load(this);
                 }
             }
+		}
+		
+		void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			Environment.Exit(0);
 		}
     }
 }

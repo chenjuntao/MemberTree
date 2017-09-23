@@ -28,6 +28,7 @@ namespace MemberTree
 	public partial class AutoUpdate : UserControl
 	{
 		private string url = "https://github.com/chenjuntao/MemberTree/raw/master/DLL/";
+//		private string url = "https://coding.net/u/cjtlp2006/p/TemberTreeDLL/git/raw/master/";
 		private string conf = "version.dll";
 		public AutoUpdate()
 		{
@@ -53,6 +54,7 @@ namespace MemberTree
 						HttpDownload(url + newConf[i], "dll/" + newConf[i]);
 					}
 				}
+				HttpDownload(url + conf, "dll/" + conf);
 			}
 			else
 			{
@@ -82,6 +84,7 @@ namespace MemberTree
 			{
 				result.Add("v0.0");
 			}
+			File.Delete(confFile);
 			
 			return result;
 		}
