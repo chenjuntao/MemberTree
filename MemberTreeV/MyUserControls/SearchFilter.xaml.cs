@@ -25,6 +25,7 @@ namespace MemberTree
 	{
 		private List<ComboBox> comboCols = new List<ComboBox>();
 		private List<TextBox> txtCols = new List<TextBox>();
+		private List<string> searchParams;
 		public SearchFilter()
 		{
 			InitializeComponent();
@@ -69,8 +70,9 @@ namespace MemberTree
 			}
 		}
 		
-		public string SearchSql()
+		public string GetSearchSql()
 		{
+			searchParams = new List<string>();
 			StringBuilder sb = new StringBuilder();
 			AddFilter(sb, "sysid", txtSysid, comboSysid);
 			AddFilter(sb, "topid", txtTopid, comboTopid);
@@ -88,11 +90,56 @@ namespace MemberTree
 			if(sb.Length>0)
 			{
 				return "select sysid,topid,name,level,sublevel,subcount,subcountall from " 
-					+ MyTrees.treeDB.TableName + "_calc where 1=1" + sb + " limit 0, 100";
+					+ MyTrees.treeDB.TableName + "_calc where 1=1" + sb + " order by subcountall desc limit 0, 100";
 			}
 			else
 			{
 				return "select sysid from " + MyTrees.treeDB.TableName + "_calc where 1<>1";
+			}
+		}
+		public List<string> GetSearchParams()
+		{
+			return searchParams;
+		}
+		
+		private void AddFilter(StringBuilder sb, string col, TextBox txtBox, ComboBox comboOpr)
+		{
+			string txt = txtBox.Text.Trim();
+			if(txt != "")
+			{
+				string opr = comboOpr.SelectionBoxItem.ToString();
+				sb.Append(" and ");
+				sb.Append(col);
+				if(opr == "等于")
+				{
+					sb.Append(" = @" + searchParams.Count);
+					searchParams.Add(txt);
+				}
+				else if(opr == "大于")
+				{
+					sb.Append(" > @" + searchParams.Count);
+					searchParams.Add(txt);
+				}
+				else if(opr == "小于")
+				{
+					sb.Append(" < @" + searchParams.Count);
+					searchParams.Add(txt);
+				}
+				else if(opr == "开头")
+				{
+					sb.Append(" like @" + searchParams.Count);
+					searchParams.Add(txt+"%");
+				}
+				else if(opr == "结尾")
+				{
+					sb.Append(" like @" + searchParams.Count);
+					searchParams.Add("%"+txt);
+				}
+				else if(opr == "包含")
+				{
+					sb.Append(" like @" + searchParams.Count);
+					searchParams.Add("%"+txt+"%");
+				}
 			}
 		}
 		
@@ -111,52 +158,5 @@ namespace MemberTree
         		txtCols[i].Clear();
         	}
         }
-		
-		private void AddFilter(StringBuilder sb, string col, TextBox txtBox, ComboBox comboOpr)
-		{
-			string txt = txtBox.Text.Trim();
-			if(txt != "")
-			{
-				string opr = comboOpr.SelectionBoxItem.ToString();
-				sb.Append(" and ");
-				sb.Append(col);
-				if(opr == "等于")
-				{
-					sb.Append(" = '");
-					sb.Append(txt);
-					sb.Append("'");
-				}
-				else if(opr == "大于")
-				{
-					sb.Append(" > '");
-					sb.Append(txt);
-					sb.Append("'");
-				}
-				else if(opr == "小于")
-				{
-					sb.Append(" < '");
-					sb.Append(txt);
-					sb.Append("'");
-				}
-				else if(opr == "开头")
-				{
-					sb.Append(" like '");
-					sb.Append(txt);
-					sb.Append("%'");
-				}
-				else if(opr == "结尾")
-				{
-					sb.Append(" like '%");
-					sb.Append(txt);
-					sb.Append("'");
-				}
-				else if(opr == "包含")
-				{
-					sb.Append(" like '%");
-					sb.Append(txt);
-					sb.Append("%'");
-				}
-			}
-		}
 	}
 }

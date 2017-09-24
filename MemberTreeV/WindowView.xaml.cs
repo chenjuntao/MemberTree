@@ -72,8 +72,13 @@ namespace MemberTree
         //查找
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-			string searchsql = mySearchFilter.SearchSql();
-			searchResults.NodeListView.ItemsSource = MyTrees.FindBySql(searchsql);
+        	TimingUtil.StartTiming();
+            WindowView.notify.SetProcessBarVisible(true);
+			string searchsql = mySearchFilter.GetSearchSql();
+			List<string> searchParams = mySearchFilter.GetSearchParams();
+			searchResults.NodeListView.ItemsSource = MyTrees.FindBySql(searchsql, searchParams);
+			WindowView.notify.SetProcessBarVisible(false);
+        	WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());
         }
  
         //切换视图

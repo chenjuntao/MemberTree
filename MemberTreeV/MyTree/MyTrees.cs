@@ -63,7 +63,7 @@ namespace MemberTree
 	        	MyTrees.OpenDB();
 	        	string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "
 					+ treeDB.TableName + "_calc where sysid in (select v from " 
-	        		+ treeDB.TableName + "_profile where k='Tree')";
+	        		+ treeDB.TableName + "_profile where k='Tree') order by subcountall desc";
 	            treeRootNodes = treeDB.SearchNode(sql);
 	            MyTrees.CloseDB();
         	}
@@ -177,10 +177,10 @@ namespace MemberTree
         	return nodes;
         }
         
-        public static List<MyTreeNode> FindBySql(string sql)
+        public static List<MyTreeNode> FindBySql(string sql, List<string> param)
         {
         	treeDB.OpenDB();
-        	List<MyTreeNode> result = treeDB.SearchNode(sql);
+        	List<MyTreeNode> result = treeDB.SearchNode(sql, param);
         	treeDB.CloseDB();
         	return result;
         }
@@ -188,7 +188,7 @@ namespace MemberTree
         public static MyTreeNode GetNodeBySysId(string sysId)
 		{
 			string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "
-				+ treeDB.TableName + "_calc where sysid='" + sysId + "'";
+				+ treeDB.TableName + "_calc where sysid='" + sysId + "' order by subcountall desc";
 			List<MyTreeNode> result = treeDB.SearchNode(sql);
 			if(result.Count>0)
 				return result[0];
@@ -198,7 +198,7 @@ namespace MemberTree
 
         public static string GetStringBySysId(string sysId)
 		{
-			string sql = "select * from " + treeDB.TableName + "_calc where sysid='" + sysId + "'";
+			string sql = "select * from " + treeDB.TableName + "_calc where sysid='" + sysId + "' order by subcountall desc";
 			List<string> result = treeDB.SearchString(sql);
 			if(result.Count>0)
 				return result[0];
@@ -209,13 +209,13 @@ namespace MemberTree
 		public static List<MyTreeNode> GetNodesByTopId(string topId)
 		{
 			string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "
-				+ treeDB.TableName + "_calc where topid='" + topId + "'";
+				+ treeDB.TableName + "_calc where topid='" + topId + "' order by subcountall desc";
             return treeDB.SearchNode(sql);
 		}
 		
 		public static List<string> GetAllByTopIds(string topIds)
 		{
-			string sql = "select * from "+treeDB.TableName+"_calc where topid in ("+topIds+")";
+			string sql = "select * from "+treeDB.TableName+"_calc where topid in ("+topIds+") order by subcountall desc";
             return treeDB.SearchString(sql);
 		}
         

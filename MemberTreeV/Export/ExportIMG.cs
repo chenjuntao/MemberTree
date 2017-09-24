@@ -34,19 +34,18 @@ namespace MemberTree
 	            saveFileDlg.FileName = node.ToString();
 	            if (saveFileDlg.ShowDialog() == true)
 	            {
-	                FileStream fs = new FileStream(saveFileDlg.FileName, FileMode.Create);
-	                SaveImage(mytreeview, saveFileDlg.FileName);
+	                SaveImage(mytreeview.memberTreeView, saveFileDlg.FileName);
 	            }
         	}
 		}
 		
-		internal static void SaveImage(MyTreeView mytreeview, string imgFile)
+		internal static void SaveImage(FrameworkElement frmEle, string imgFile)
 		{
 			FileStream fs = new FileStream(imgFile, FileMode.Create);
-            int width = (int)mytreeview.memberTreeView.ActualWidth;
-            int height = (int)mytreeview.memberTreeView.ActualHeight;
+            int width = (int)frmEle.ActualWidth;
+            int height = (int)frmEle.ActualHeight;
             RenderTargetBitmap bmp = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Default);
-            bmp.Render(mytreeview.memberTreeView);
+            bmp.Render(frmEle);
             BitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bmp));
             encoder.Save(fs);

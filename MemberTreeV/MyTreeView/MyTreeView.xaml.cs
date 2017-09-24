@@ -133,6 +133,8 @@ namespace MemberTree
 	                {
 	                	subItem.Items.Add(NewTreeViewItem(null));
 	                }
+	                
+	                WindowView.notify.SetStatusMessage("正在展开节点" + subItem.Header);
 	            }
 	            
 				if((e.Source as TreeViewItem).IsSelected)
@@ -259,7 +261,6 @@ namespace MemberTree
         {
             memberTreeView.Items.Clear();
             ringNodeIds.Clear();
-            GC.Collect();
 
             if (rootNode != null)
             {
@@ -307,27 +308,66 @@ namespace MemberTree
 
         private void btnAllNode_Click(object sender, RoutedEventArgs e)
         {
+        	List<MyTreeNode> treeRootNodes = MyTrees.GetTreeRootNodes();
+        	string rootHeader = "森林（共" + treeRootNodes.Count + "棵树）";
+        	
+        	if(memberTreeView.HasItems)
+        	{
+        		TreeViewItem rootItem = memberTreeView.Items[0] as TreeViewItem;
+        		if(rootItem.Header.Equals(rootHeader))
+	            {
+	            	WindowView.notify.SetStatusMessage("当前已经是所有树视图！");
+	            	return;
+	            }
+        	}
+            
+        	TimingUtil.StartTiming();
+       		WindowView.notify.SetProcessBarVisible(true);
+            WindowView.notify.SetStatusMessage("正在查询所有构成树的节点。。。");
             SetRootNode(null);
-
-            List<MyTreeNode> treeRootNodes = MyTrees.GetTreeRootNodes();
+            
+            int process = 0;
             if (treeRootNodes.Count > 0)
             {
                 TreeViewItem treeItem = new TreeViewItem();
-                treeItem.Header = "森林（共" + treeRootNodes.Count + "棵树)";
-                treeItem.ToolTip = treeItem.Header;
+                treeItem.Header = rootHeader;
+                treeItem.ToolTip = rootHeader;
                 memberTreeView.Items.Add(treeItem);
-                foreach (MyTreeNode node in treeRootNodes)
-                {
-                    TreeViewItem subItem = NewTreeViewItem(node);
+                treeItem.IsExpanded = true;
+                int loadCount = (treeRootNodes.Count > 10000) ? 10000 : treeRootNodes.Count;
+                for (int i = 0; i < loadCount; i++) {
+                	TreeViewItem subItem = NewTreeViewItem(treeRootNodes[i]);
                     treeItem.Items.Add(subItem);
                     //如果还有子节点，则添加一个节点，使该节点具有折叠的"+"
 	                subItem.Items.Add(NewTreeViewItem(null));
+	                
+	                int newProcess = i * 100 / loadCount;
+		            if (newProcess > process)
+		            {
+		            	WindowView.notify.SetStatusMessage("正在向树视图中添加构成树的节点。。。");
+		            	WindowView.notify.SetProcessBarValue(newProcess);
+		            	process = newProcess;
+		            }
                 }
-                treeItem.IsExpanded = true;
+                
+                if(treeRootNodes.Count > loadCount)
+                {
+	                //太多而无法加载
+	                TreeViewItem moreItem = NewTreeViewItem(null);
+	                treeItem.Items.Add(moreItem);
+	                WindowView.notify.SetStatusMessage("由于树太多而只添加部分树，还有"+(treeRootNodes.Count-loadCount)+"棵树无法加载！");
+                }
+                else
+                {
+                	 WindowView.notify.SetStatusMessage("查询并添加所有树成功！");
+                }
             }
 
             btnUpLevelNode.IsEnabled = false;
             btnUpRootNode.IsEnabled = false;
+            
+            TimingUtil.EndTiming();
+        	WindowView.notify.SetProcessBarVisible(false);
         }
 
         //展开选中项的子项

@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Win32;
 
 namespace MemberTree
 {
@@ -61,11 +63,38 @@ namespace MemberTree
 		internal void SetNode(string node)
 		{
 			string[] nodes = node.Split(new String[]{","}, StringSplitOptions.None);
+			
+			grpNodeInfo.Header = "单个节点详细信息 - " +  nodes[2] + "(" + nodes[0] + ")";
 
 			for (int i = 0; i < nodes.Length; i++) 
 			{
 				nodeInfoCols[i].Text = nodes[i];
 			}
 		}
+		
+		 //导出图片
+        private void btnExportImg_Click(object sender, RoutedEventArgs e)
+        {
+        	SaveFileDialog saveFileDlg = new SaveFileDialog();
+            saveFileDlg.Title = "选择将节点信息导出为文件的位置";
+            saveFileDlg.Filter = "png格式|*.png";
+            saveFileDlg.FileName = grpNodeInfo.Header.ToString().Split(new String[]{" - "}, StringSplitOptions.None)[1];
+            if (saveFileDlg.ShowDialog() == true)
+            {
+                ExportIMG.SaveImage(mainContent, saveFileDlg.FileName);
+            }
+        }
+        
+        //打印
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.UserPageRangeEnabled = true;
+
+            if (printDlg.ShowDialog() == true)
+            {
+                 printDlg.PrintVisual(mainContent, "打印当前节点信息");
+            }
+        }
 	}
 }

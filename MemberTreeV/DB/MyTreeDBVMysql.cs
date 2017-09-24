@@ -43,6 +43,17 @@ namespace MemberTree
             return result;
 		}
 		
+		public List<MyTreeNode> SearchNode(string sql, List<string> param)
+		{
+			for (int i = 0; i < param.Count; i++) 
+			{
+				cmd.Parameters.AddWithValue(i.ToString(), param[i]);
+			}
+			cmd.Parameters.Clear();
+			List<MyTreeNode> result = SearchNode(sql);
+			return result;
+		}
+		
 		public List<string> SearchString(string sql)
 		{
 			cmd.CommandText = sql;

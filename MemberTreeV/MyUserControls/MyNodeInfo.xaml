@@ -11,16 +11,31 @@
 			<Setter Property="TextWrapping" Value="Wrap"></Setter>
 		</Style>
 	</UserControl.Resources>
-	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-		<Grid Background="LightCyan">
+	
+	<GroupBox Header="单个节点详细信息" Name="grpNodeInfo">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<StackPanel x:Name="leftPanel">
-			</StackPanel>
-			<StackPanel x:Name="rightPanel" Grid.Column="1">
-			</StackPanel>
+			<Button Name="btnExportImg" Content="导出png图片" Click="btnExportImg_Click" />
+			<Button Name="btnPrint" Content="打印视图" Grid.Column="1" Click="btnPrint_Click" />
+			<ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+				<Grid Background="LightCyan" Name="mainContent">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="2*"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel x:Name="leftPanel">
+					</StackPanel>
+					<StackPanel x:Name="rightPanel" Grid.Column="1">
+					</StackPanel>
+				</Grid>
+			</ScrollViewer>
 		</Grid>
-	</ScrollViewer>
+	</GroupBox>
 </UserControl>

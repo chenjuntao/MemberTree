@@ -31,7 +31,6 @@
 			<Button x:Name="btnUpRootNode" Content="▲显示到顶级" Click="btnUpRootNode_Click" IsEnabled="False" />
 			<Button x:Name="btnUpLevelNode" Content="▲显示上级" Click="btnUpLevelNode_Click" IsEnabled="False" />
 			<Button x:Name="btnAllNode" Content="显示所有树" Click="btnAllNode_Click" />
-<!--		<CheckBox x:Name="isAutoExpand" Content="鼠标滑过自动展开节点"  />-->
 			<Menu Margin="5">
 				<MenuItem Header="展开子项">
 					<MenuItem Header="展开2级子项" Tag="2" Click="item_Expand" />
@@ -59,8 +58,6 @@
 				</TreeView.Resources>
 			</TreeView>
 		</ScrollViewer>
-		<GroupBox Grid.Column="1" Grid.RowSpan="3" Header="单个节点详细信息">
-			<my:MyNodeInfo x:Name="myNodeInfo" Width="250"/>
-		</GroupBox>
+		<my:MyNodeInfo Grid.Column="1" Grid.RowSpan="3"  x:Name="myNodeInfo" Width="220"/>
 	</Grid>
 </UserControl>
