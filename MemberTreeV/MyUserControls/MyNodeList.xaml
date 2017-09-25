@@ -13,15 +13,12 @@
 		<ListView Name="nodeList">
 			<ListView.View>
 				<GridView x:Name="gridView">
-					<GridViewColumn
-						Header="会员ID"
-						DisplayMemberBinding="{Binding Path=SysId}" />
-					<GridViewColumn
-						Header="父节点ID"
-						DisplayMemberBinding="{Binding Path=TopId}" />
-					<GridViewColumn
-						Header="会员名字"
-						DisplayMemberBinding="{Binding Path=Name}" />
+					<GridViewColumn Header="会员ID"
+						DisplayMemberBinding="{Binding [0]}" />
+					<GridViewColumn Header="父节点ID"
+						DisplayMemberBinding="{Binding [1]}" />
+					<GridViewColumn Header="会员名字"
+						DisplayMemberBinding="{Binding [2]}" />
 				</GridView>
 			</ListView.View>
 		</ListView>

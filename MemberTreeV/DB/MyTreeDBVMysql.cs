@@ -49,8 +49,8 @@ namespace MemberTree
 			{
 				cmd.Parameters.AddWithValue(i.ToString(), param[i]);
 			}
-			cmd.Parameters.Clear();
 			List<MyTreeNode> result = SearchNode(sql);
+			cmd.Parameters.Clear();
 			return result;
 		}
 		

@@ -93,21 +93,7 @@ namespace MemberTree
             {
                 listNodes.Visibility = Visibility.Visible;
                 myTreeView.Visibility = Visibility.Collapsed;
-                if (tab == "conflict")
-	            {
-	        		listNodes.grpHeader.Text = "ID重复的节点";
-	            	listNodes.nodeList.ItemsSource = MyTrees.GetIdConflictNodes();
-	            }
-	            else if (tab == "leaf")
-	            {
-	            	listNodes.grpHeader.Text = "孤立的叶子节点";
-	            	listNodes.nodeList.ItemsSource = MyTrees.GetLeafAloneNodes().Values;
-	            }
-	            else if (tab == "ring")
-	            {
-	            	listNodes.grpHeader.Text = "构成闭环的节点";
-	            	listNodes.nodeList.ItemsSource = MyTrees.GetRingNodes().Values;
-	            }
+                listNodes.SetDataSource(tab);
             }
         }
         

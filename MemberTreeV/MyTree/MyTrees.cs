@@ -70,8 +70,8 @@ namespace MemberTree
             return treeRootNodes;
         }
 
-        private static List<MyTreeNode> conflictNodes;
-        internal static List<MyTreeNode> GetIdConflictNodes()
+        private static List<string> conflictNodes;
+        internal static List<string> GetIdConflictNodes()
         {
         	if(conflictNodes == null)
         	{
@@ -79,14 +79,14 @@ namespace MemberTree
 	        	string sql = "select * from "
 					+ treeDB.TableName + "_calc where sysid in (select v from " 
 	        		+ treeDB.TableName + "_profile where k='Conflict')";
-	            conflictNodes = treeDB.SearchNode(sql);
+	            conflictNodes = treeDB.SearchString(sql);
 	            MyTrees.CloseDB();
         	}
             return conflictNodes;
         }
         
-        private static Dictionary<string, MyTreeNode> leafAloneNodes;
-        internal static Dictionary<string, MyTreeNode> GetLeafAloneNodes()
+        private static Dictionary<string, string> leafAloneNodes;
+        internal static Dictionary<string, string> GetLeafAloneNodes()
         {
         	if(leafAloneNodes == null)
         	{
@@ -94,22 +94,23 @@ namespace MemberTree
 	        	string sql = "select * from "
 					+ treeDB.TableName + "_calc where sysid in (select v from " 
 	        		+ treeDB.TableName + "_profile where k='Leaf')";
-	            List<MyTreeNode> nodes = treeDB.SearchNode(sql);
+	            List<string> nodes = treeDB.SearchString(sql);
 	            MyTrees.CloseDB();
 	            
-	            leafAloneNodes = new Dictionary<string, MyTreeNode>();
-	            foreach (MyTreeNode node in nodes) {
-	            	if(!leafAloneNodes.ContainsKey(node.SysId))
+	            leafAloneNodes = new Dictionary<string, string>();
+	            foreach (string node in nodes) {
+	            	string sysid = node.Substring(0,node.IndexOf(","));
+	            	if(!leafAloneNodes.ContainsKey(sysid))
 	            	{
-	            		leafAloneNodes.Add(node.SysId, node);
+	            		leafAloneNodes.Add(sysid, node);
 	            	}
 	            }
         	}
             return leafAloneNodes;
         }
         
-        private static Dictionary<string, MyTreeNode> ringNodes;
-        internal static Dictionary<string, MyTreeNode> GetRingNodes()
+        private static Dictionary<string, string> ringNodes;
+        internal static Dictionary<string, string> GetRingNodes()
         {
         	if(ringNodes == null)
         	{
@@ -117,14 +118,15 @@ namespace MemberTree
 	        	string sql = "select * from "
 					+ treeDB.TableName + "_calc where sysid in (select v from " 
 	        		+ treeDB.TableName + "_profile where k='Ring')";
-	            List<MyTreeNode> nodes = treeDB.SearchNode(sql);
+	            List<string> nodes = treeDB.SearchString(sql);
 	            MyTrees.CloseDB();
 	            
-	            ringNodes = new Dictionary<string, MyTreeNode>();
-	            foreach (MyTreeNode node in nodes) {
-	            	if(!ringNodes.ContainsKey(node.SysId))
+	            ringNodes = new Dictionary<string, string>();
+	            foreach (string node in nodes) {
+	            	string sysid = node.Substring(0,node.IndexOf(","));
+	            	if(!ringNodes.ContainsKey(sysid))
 	            	{
-	            		ringNodes.Add(node.SysId, node);
+	            		ringNodes.Add(sysid, node);
 	            	}
 	            }
         	}
