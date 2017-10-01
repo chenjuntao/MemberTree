@@ -17,13 +17,25 @@
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
+		<GroupBox>
+			<GroupBox.Header>
+				<Label FontSize="18" x:Name="lblVer" Content="ver"/>
+			</GroupBox.Header>
+			<ScrollViewer VerticalScrollBarVisibility="Auto">
+				<Label x:Name="lblVerInfo"/>
+			</ScrollViewer>
+		</GroupBox>
 		<Label
 			HorizontalAlignment="Center"
 			VerticalAlignment="Center"
-			FontSize="18"
+			FontSize="16"
 			x:Name="lblMsg"
+			Grid.Row="1"
 			Content="正在启动，请稍候..." />
-			<ProgressBar Name="progressBar" Grid.Row="1" Height="30"/>
+		<ProgressBar Name="progressBar" 
+		             Grid.Row="2" 
+		             Height="30"/>
 	</Grid>
 </UserControl>

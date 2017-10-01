@@ -165,9 +165,9 @@
     <Folder Include="MyWindows" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoUpdate\AutoUpdate.csproj">
-      <Project>{d43fb560-0c0c-48ac-800d-f88cba4a2924}</Project>
-      <Name>AutoUpdate</Name>
+    <ProjectReference Include="..\MemberFmk\MemberFmk.csproj">
+      <Project>{D43FB560-0C0C-48AC-800D-F88CBA4A2924}</Project>
+      <Name>MemberFmk</Name>
     </ProjectReference>
     <ProjectReference Include="..\MemberTree\MemberTree.csproj">
       <Project>{492b1029-cd3f-4db5-8ad1-adcd84caba1a}</Project>

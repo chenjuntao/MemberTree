@@ -10,15 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
+using Newtonsoft.Json;
 
 namespace MemberTree
 {
@@ -27,9 +22,6 @@ namespace MemberTree
 	/// </summary>
 	public partial class AutoUpdate : UserControl
 	{
-		private string url = "https://github.com/chenjuntao/MemberTree/raw/master/DLL/";
-//		private string url = "https://coding.net/u/cjtlp2006/p/TemberTreeDLL/git/raw/master/";
-		private string conf = "version.dll";
 		public AutoUpdate()
 		{
 			InitializeComponent();
@@ -37,56 +29,35 @@ namespace MemberTree
 		
 		public void Update()
 		{
-			SetStatusMessage("程序正在检查更新...");
-			List<string> oldConf = ReadConfig();
-			if(HttpDownload(url + conf, "dll/" + conf))
+			AutoUpdateVer oldVer = AutoUpdateVer.ReadVer();
+			lblVer.Content = "当前版本：" + oldVer.Version;
+			lblVerInfo.Content = oldVer.VerInfo;
+			SetStatusMessage("程序正在检查是否有新版本...");
+			if(HttpDownload(oldVer.Url + "ver.dll", "dll/ver.dll"))
 			{
-				List<string> newConf = ReadConfig();
-				if(newConf[0] == oldConf[0])
+				AutoUpdateVer newVer = AutoUpdateVer.ReadVer();
+				lblVer.Content = "当前版本：" + oldVer.Version + "——>新版本：" + newVer.Version;
+				lblVerInfo.Content = newVer.VerInfo;
+				SetStatusMessage("发现新版本，正在更新...");
+				File.Delete("dll/ver.dll");
+				int allCount = newVer.DLLs.Count;
+				int count = 1;
+				foreach (string dll in newVer.DLLs.Keys) 
 				{
-					SetStatusMessage("目前已经是最新版本，无需更新！");
-				}
-				else
-				{
-					for (int i = 1; i < newConf.Count; i++) 
+					SetStatusMessage("正在更新第"+count+"个("+dll+")/总共"+allCount+"个...");
+					if(!oldVer.DLLs.ContainsKey(dll)&&
+						newVer.DLLs[dll] != oldVer.DLLs[dll]) //更新文件
 					{
-						SetStatusMessage("正在更新第"+i+"个("+newConf[i]+")/总共"+newConf.Count+"个...");
-						HttpDownload(url + newConf[i], "dll/" + newConf[i]);
+						HttpDownload(newVer.Url + dll, "dll/" + dll);
 					}
+					count++;
 				}
-				HttpDownload(url + conf, "dll/" + conf);
+				HttpDownload(oldVer.Url + "ver.dll", "dll/ver.dll");
 			}
 			else
 			{
 				SetStatusMessage("连接更新主机出错，更新中断！");
 			}
-		}
-		
-		private List<string> ReadConfig()
-		{
-			if(!Directory.Exists("dll"))
-			{
-				Directory.CreateDirectory("dll");
-			}
-			string confFile = "dll/" + conf;
-			List<string> result = new List<string>();
-			if(File.Exists(confFile))
-			{
-				using(StreamReader mysr = new StreamReader(confFile, Encoding.UTF8))
-				{
-					while(!mysr.EndOfStream)
-	                {
-						result.Add(mysr.ReadLine());
-					}
-				}
-			}
-			else
-			{
-				result.Add("v0.0");
-			}
-			File.Delete(confFile);
-			
-			return result;
 		}
 		
 		/// <summary>

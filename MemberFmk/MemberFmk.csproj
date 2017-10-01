@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>AutoUpdate</RootNamespace>
-    <AssemblyName>AutoUpdate</AssemblyName>
+    <AssemblyName>MemberFmk</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
@@ -46,6 +46,9 @@
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -57,9 +60,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -72,17 +72,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoUpdate.xaml.cs">
+    <Compile Include="AutoUpdate\AutoUpdate.xaml.cs">
       <DependentUpon>AutoUpdate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AutoUpdate\AutoUpdateVer.cs" />
     <Compile Include="IPluginAdmin.cs" />
     <Compile Include="IPluginHost.cs" />
     <Compile Include="IPluginView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\WPFAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AutoUpdate.xaml" />
+    <Page Include="AutoUpdate\AutoUpdate.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AutoUpdate" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

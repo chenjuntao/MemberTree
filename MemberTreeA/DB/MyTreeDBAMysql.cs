@@ -30,7 +30,7 @@ namespace MemberTree
             cmd.CommandText = "create table " 
             	+ dbNameProfile 
             	+ "(k varchar(16)," 
-            	+ "v varchar(32))";
+            	+ "v varchar(32))engine=MyISAM";
             cmd.ExecuteNonQuery();
             
             //创建calc表

@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberTreeV", "MemberTreeV\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberTree", "MemberTree\MemberTree.csproj", "{492B1029-CD3F-4DB5-8AD1-ADCD84CABA1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "AutoUpdate\AutoUpdate.csproj", "{D43FB560-0C0C-48AC-800D-F88CBA4A2924}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberFmk", "MemberFmk\MemberFmk.csproj", "{D43FB560-0C0C-48AC-800D-F88CBA4A2924}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

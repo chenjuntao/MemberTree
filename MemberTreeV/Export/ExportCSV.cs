@@ -108,7 +108,7 @@ namespace MemberTree
         private static void ExportAllChildren2CSV(StreamWriter mysw, StringBuilder allLines, MyTreeNode node)
         {
         	List<string> topIds = new List<string>();
-        	List<string> subNodes = MyTrees.GetAllByTopIds(node.SysId);
+        	List<string> subNodes = MyTrees.GetAllByTopIds("'"+node.SysId+"'");
         	int levelNum = 1;
         	while (subNodes.Count > 0) 
         	{
@@ -116,7 +116,7 @@ namespace MemberTree
 	        	for (int i = 0; i < subNodes.Count; i++) 
 	            {
 	        		mysw.WriteLine(subNodes[i]);
-	        		topIds.Add(subNodes[i].Substring(0,subNodes[i].IndexOf(",")));
+	        		topIds.Add("'"+subNodes[i].Substring(0,subNodes[i].IndexOf(","))+"'");
 	            }
 	        	WindowView.notify.SetStatusMessage("正在导出该节点的第"+levelNum+"层（共"+subNodes.Count+"个）子节点，共有"+node.ChildrenLevels+"层子节点");
 	        	WindowView.notify.SetProcessBarValue((int)(100.0 * levelNum / node.ChildrenLevels));

@@ -129,6 +129,9 @@
     <Resource Include="Image\treeview.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ver.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="verlog.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
