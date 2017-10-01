@@ -21,19 +21,19 @@
 		</Grid.RowDefinitions>
 		<GroupBox>
 			<GroupBox.Header>
-				<Label FontSize="18" x:Name="lblVer" Content="ver"/>
+				<TextBlock FontSize="18" x:Name="lblVer" Text="ver0.0"/>
 			</GroupBox.Header>
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Label x:Name="lblVerInfo"/>
+				<TextBlock x:Name="lblVerInfo" TextWrapping="WrapWithOverflow"/>
 			</ScrollViewer>
 		</GroupBox>
-		<Label
+		<TextBlock
 			HorizontalAlignment="Center"
 			VerticalAlignment="Center"
 			FontSize="16"
 			x:Name="lblMsg"
 			Grid.Row="1"
-			Content="正在启动，请稍候..." />
+			Text="正在启动，请稍候..." />
 		<ProgressBar Name="progressBar" 
 		             Grid.Row="2" 
 		             Height="30"/>

@@ -7,13 +7,10 @@
  * 要改变这种模板请点击 工具|选项|代码编写|编辑标准头文件
  */
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Newtonsoft.Json;
 
 namespace MemberTree
 {
@@ -30,14 +27,14 @@ namespace MemberTree
 		public void Update()
 		{
 			AutoUpdateVer oldVer = AutoUpdateVer.ReadVer();
-			lblVer.Content = "当前版本：" + oldVer.Version;
-			lblVerInfo.Content = oldVer.VerInfo;
+			lblVer.Text = "当前版本：" + oldVer.Version;
+			lblVerInfo.Text = oldVer.VerInfo;
 			SetStatusMessage("程序正在检查是否有新版本...");
 			if(HttpDownload(oldVer.Url + "ver.dll", "dll/ver.dll"))
 			{
 				AutoUpdateVer newVer = AutoUpdateVer.ReadVer();
-				lblVer.Content = "当前版本：" + oldVer.Version + "——>新版本：" + newVer.Version;
-				lblVerInfo.Content = newVer.VerInfo;
+				lblVer.Text = "当前版本：" + oldVer.Version + "——>新版本：" + newVer.Version;
+				lblVerInfo.Text = newVer.VerInfo;
 				SetStatusMessage("发现新版本，正在更新...");
 				File.Delete("dll/ver.dll");
 				int allCount = newVer.DLLs.Count;
@@ -45,7 +42,7 @@ namespace MemberTree
 				foreach (string dll in newVer.DLLs.Keys) 
 				{
 					SetStatusMessage("正在更新第"+count+"个("+dll+")/总共"+allCount+"个...");
-					if(!oldVer.DLLs.ContainsKey(dll)&&
+					if(!oldVer.DLLs.ContainsKey(dll) ||
 						newVer.DLLs[dll] != oldVer.DLLs[dll]) //更新文件
 					{
 						HttpDownload(newVer.Url + dll, "dll/" + dll);
@@ -119,7 +116,7 @@ namespace MemberTree
         }
         private void SetStatusMessageImp(string message)
         {
-            this.lblMsg.Content = message;
+            this.lblMsg.Text = message;
         }
   		//设置进度条进度(0-100)
   		private delegate void InvokeDoubleDelegate(double parm);

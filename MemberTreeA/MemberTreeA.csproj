@@ -112,6 +112,14 @@
     <Compile Include="MyTree\TextUtil.cs" />
     <Compile Include="MyTree\MyTrees.cs" />
     <Compile Include="MyTree\MyTreeNode.cs" />
+    <Compile Include="MyWindows\AdminDataSet.xaml.cs">
+      <DependentUpon>AdminDataSet.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyWindows\AdminUser.xaml.cs">
+      <DependentUpon>AdminUser.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MyWindows\ConnDBWindow.xaml.cs">
       <DependentUpon>ConnDBWindow.xaml</DependentUpon>
     </Compile>
@@ -127,6 +135,8 @@
       <DependentUpon>WindowAdmin.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MyWindows\AdminDataSet.xaml" />
+    <Page Include="MyWindows\AdminUser.xaml" />
     <Page Include="MyWindows\ConnDBWindow.xaml" />
     <Page Include="MyWindows\CsvErrCheck.xaml" />
     <Page Include="MyWindows\WindowColsCheck.xaml" />

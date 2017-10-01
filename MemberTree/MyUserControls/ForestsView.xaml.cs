@@ -24,10 +24,22 @@ namespace MemberTree
 	public partial class ForestsView : UserControl
 	{
 		private InvokeStringDelegate startupDelegate;
-		
+		private Button selectDatasetBtn = null;
 		public ForestsView()
 		{
 			InitializeComponent();
+		}
+		
+		public string GetSelectDataset()
+		{
+			if(selectDatasetBtn == null)
+			{
+				return null;
+			}
+			else
+			{
+				return selectDatasetBtn.Content.ToString();
+			}
 		}
 		
 		public void RefreshDB(IMyTreeDB treeDB)
@@ -44,6 +56,7 @@ namespace MemberTree
 					btn.Click += Btn_Click;
 					btn.Height = 50;
 					btn.Width = 150;
+					btn.Background = Brushes.Azure;
 					mainPanel.Children.Add(btn);
 				}
 			}
@@ -65,10 +78,46 @@ namespace MemberTree
 		
 		private void Btn_Click(object sender, RoutedEventArgs e)
 		{
+			Button btn = sender as Button;
+			if(selectDatasetBtn != null)
+			{
+				if(selectDatasetBtn == btn)
+				{
+					return;
+				}
+				selectDatasetBtn.Background = Brushes.Azure;
+				selectDatasetBtn.FontWeight = FontWeights.Normal;
+				selectDatasetBtn.FontSize = 12;
+			}
+			btn.Background = Brushes.LightSkyBlue;
+			btn.FontWeight = FontWeights.Bold;
+			btn.FontSize = 14;
+			selectDatasetBtn = btn;
+			
 			if(startupDelegate != null)
 			{
-				Button btn = sender as Button;
 				startupDelegate.Invoke(btn.Content.ToString());
+			}
+		}
+		
+		public void DeleteBtn(string btnTxt)
+		{
+			if(selectDatasetBtn.Content.ToString() == btnTxt)
+			{
+				mainPanel.Children.Remove(selectDatasetBtn);
+				selectDatasetBtn = null;
+			}
+			else
+			{
+				foreach (UIElement ele in mainPanel.Children)
+				{
+					Button btn = ele as Button;
+					if(btn.Content.ToString() == btnTxt)
+					{
+						mainPanel.Children.Remove(btn);
+						break;
+					}
+				}
 			}
 		}
 	}

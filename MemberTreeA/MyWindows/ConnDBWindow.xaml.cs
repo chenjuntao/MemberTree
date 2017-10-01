@@ -109,7 +109,6 @@ namespace MemberTree
                 txtSysid.IsEnabled = false;
                 txtRealname.IsEnabled = false;
                 txtTopid.IsEnabled = false;
-                txtLayer.IsEnabled = false;
             }
             return null;
 		}
@@ -145,22 +144,15 @@ namespace MemberTree
 			}
 		}
 		
-		void btnClose_Click(object sender, RoutedEventArgs e)
-		{
-			this.Close();
-		}
-		
 		//表名变化时，更新列名下拉框
 		void txtTableName_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			txtSysid.IsEnabled = true;
 			txtRealname.IsEnabled = true;
 			txtTopid.IsEnabled = true;
-			txtLayer.IsEnabled = true;
 			txtSysid.Items.Clear();
 			txtRealname.Items.Clear();
 			txtTopid.Items.Clear();
-			txtLayer.Items.Clear();
 			SqlConnection sConn = Connect();
             try
             {
@@ -173,7 +165,7 @@ namespace MemberTree
                 	txtSysid.Items.Add(sdr.GetString(0));
                 	txtRealname.Items.Add(sdr.GetString(0));
                 	txtTopid.Items.Add(sdr.GetString(0));
-                	txtLayer.Items.Add(sdr.GetString(0));
+//                	txtLayer.Items.Add(sdr.GetString(0));
                 }
                 sdr.Close();
             }
@@ -183,7 +175,7 @@ namespace MemberTree
                 txtSysid.IsEnabled = false;
 				txtRealname.IsEnabled = false;
 				txtTopid.IsEnabled = false;
-				txtLayer.IsEnabled = false;
+//				txtLayer.IsEnabled = false;
             }
             finally
             {
@@ -223,10 +215,10 @@ namespace MemberTree
                 	strBld.Append(txtRealname.SelectedValue + "], [");
                 }
                 strBld .Append(txtTopid.SelectedValue);
-                if(txtLayer.SelectedIndex != -1)
-                {
-                	strBld.Append("], [" + txtLayer.SelectedValue);
-                }
+//                if(txtLayer.SelectedIndex != -1)
+//                {
+//                	strBld.Append("], [" + txtLayer.SelectedValue);
+//                }
                 strBld.Append("] from [" + txtTableName.SelectedValue + "]");
                 sCmd.CommandText = strBld.ToString();
 	            sdr = sCmd.ExecuteReader();
@@ -255,11 +247,11 @@ namespace MemberTree
 		            	allLines.Append(sdr[1].ToString().Replace(',',' '));
 		            }
 		            allLines.Append(",");
-		            if(txtLayer.SelectedIndex != -1)
-	                {
-			           
-			            allLines.Append(sdr[3].ToString().Replace(',',' '));
-		            }
+//		            if(txtLayer.SelectedIndex != -1)
+//	                {
+//			           
+//			            allLines.Append(sdr[3].ToString().Replace(',',' '));
+//		            }
 		            row++;
 		            if (row % step == 0)
 		            {
