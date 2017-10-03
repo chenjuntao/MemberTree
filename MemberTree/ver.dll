@@ -17,6 +17,6 @@
   	<MemberTreeV.dll ver="5.8.1.0"/>
   	<System.Data.SQLite.dll ver="1.0.94.0"/>
   	<MySql.Data.dll ver="5.2.3.0"/>
-  	<Newtonsoft.Json.dll ver="1.1.1.0"/>
+  	<Newtonsoft.Json.dll ver="10.0.1.20720"/>
   </dlls>
 </AutoupdateVer>

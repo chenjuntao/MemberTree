@@ -20,7 +20,8 @@ namespace MemberTree
     {
         internal static INotify notify = null;
         private WelcomeView welcomeView;
-        private ForestsView forestView;
+        private ConnDBView connectView;
+        private DatasetListView datasetListView;
         private Window mainWindow;
 
         private List<MyTreeNode> findResultNodes = new List<MyTreeNode>();
@@ -38,29 +39,52 @@ namespace MemberTree
 			mainWindow.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
 			
 			welcomeView = new WelcomeView();
-			welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(SelectDB));
+			welcomeView.InitSelectDB(false, SysInfo.I.PRODUCT + "查看工具", new InvokeBoolDelegate(ConnectDB));
 			(mainWindow.Content as Grid).Children.Add(welcomeView);
 		}
         
-       	private void SelectDB(bool isSqlite)
+        private void ConnectDB(bool isSqlite)
 		{
-       		MyTrees.InitTreeDB(isSqlite);
-       		forestView = new ForestsView();
-       		forestView.RefreshDB(MyTrees.treeDB);
-       		forestView.SetCallBack(new InvokeStringDelegate(StartUp));
-			(mainWindow.Content as Grid).Children.Remove(welcomeView);
-			(mainWindow.Content as Grid).Children.Add(forestView);
+			MyTrees.InitTreeDB(isSqlite);
+       		if(isSqlite)
+       		{
+       			SelectDB();
+       		}
+       		else
+       		{
+       			connectView = new ConnDBView(new InvokeDelegate(SelectDB), false, MyTrees.treeDB);
+				(mainWindow.Content as Grid).Children.Remove(welcomeView);
+				(mainWindow.Content as Grid).Children.Add(connectView);
+       		}
+		}
+        
+       	private void SelectDB()
+		{
+       		datasetListView = new DatasetListView();
+       		datasetListView.RefreshDB(MyTrees.treeDB);
+       		datasetListView.SetCallBack(new InvokeStringDelegate(StartUp));
+       		
+       		Grid main_Grid = mainWindow.Content as Grid;
+			if(main_Grid.Children.Contains(welcomeView))
+			{
+				main_Grid.Children.Remove(welcomeView);
+			}
+			else if(main_Grid.Children.Contains(connectView))
+			{
+				main_Grid.Children.Remove(connectView);
+			}
+			main_Grid.Children.Add(datasetListView);
 		}
        	
 		private void StartUp(string selectDB)
 		{
-			(mainWindow.Content as Grid).Children.Remove(forestView);
+			(mainWindow.Content as Grid).Children.Remove(datasetListView);
 			(mainWindow.Content as Grid).Children.Add(this);
 			mainWindow.ResizeMode = ResizeMode.CanResize;
 			mainWindow.WindowState = WindowState.Maximized;
 			MyTrees.SetDBName(selectDB);
-			commonView.Init(MyTrees.treeDB);
-			commonView.SetCallBack(SwitchTabView);
+			datasetInfoView.Init(MyTrees.treeDB);
+			datasetInfoView.SetCallBack(SwitchTabView);
 			mySearchFilter.InitCols();
 			listNodes.InitCols();
 			myTreeView.myNodeInfo.InitCols();
@@ -110,7 +134,7 @@ namespace MemberTree
                	 	myTreeView.Visibility = Visibility.Collapsed;
             		listNodes.grpHeader.Text = "孤立的叶子节点";
             		listNodes.nodeList.ItemsSource = new List<MyTreeNode>{selectedNode};
-            		commonView.SelectTab("leaf");
+            		datasetInfoView.SelectTab("leaf");
             	}
             	else if(MyTrees.GetRingNodes().ContainsKey(selectedNode.SysId))
             	{
@@ -118,13 +142,13 @@ namespace MemberTree
                 	myTreeView.Visibility = Visibility.Collapsed;
             		listNodes.grpHeader.Text = "构成闭环的节点";
             		listNodes.nodeList.ItemsSource = new List<MyTreeNode>{selectedNode};
-            		commonView.SelectTab("ring");
+            		datasetInfoView.SelectTab("ring");
             	}
             	else
             	{
 	                myTreeView.SetRootNode(selectedNode);
 	                SwitchTabView("tree");
-	                commonView.SelectTab("tree");
+	                datasetInfoView.SelectTab("tree");
 	                myTreeView.ExpandRootNode(1);//打开一级子节点
             	}
             }

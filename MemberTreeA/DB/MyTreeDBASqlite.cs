@@ -46,6 +46,10 @@ namespace MemberTree
 		
 		public void DeleteDB(string dbName)
 		{
+			cmd.Dispose();
+			conn.Dispose();  
+			GC.Collect();  
+			GC.WaitForPendingFinalizers();  
 			string dbFile = "db/" + dbName + ".db";
 			File.Delete(dbFile);
 		}

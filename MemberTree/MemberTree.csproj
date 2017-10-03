@@ -45,6 +45,9 @@
     <Reference Include="MySql.Data">
       <HintPath>..\DLL\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -67,15 +70,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\DBSession.cs" />
     <Compile Include="DB\IMyTreeDB.cs" />
     <Compile Include="DB\MyTreeDBMysql.cs" />
     <Compile Include="DB\MyTreeDBSqlite.cs" />
-    <Compile Include="MyUserControls\CommonView.xaml.cs">
-      <DependentUpon>CommonView.xaml</DependentUpon>
+    <Compile Include="MyUserControls\DatasetInfoView.xaml.cs">
+      <DependentUpon>DatasetInfoView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\ForestsView.xaml.cs">
-      <DependentUpon>ForestsView.xaml</DependentUpon>
+    <Compile Include="MyUserControls\ConnDBView.xaml.cs">
+      <DependentUpon>ConnDBView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyUserControls\DatasetListView.xaml.cs">
+      <DependentUpon>DatasetListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyUserControls\MyStatusBar.xaml.cs">
       <DependentUpon>MyStatusBar.xaml</DependentUpon>
@@ -93,14 +100,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\EncryptHelper.cs" />
     <Compile Include="Util\INotify.cs" />
     <Compile Include="Util\InvokeDelegate.cs" />
     <Compile Include="Util\SysInfo.cs" />
     <Compile Include="Util\TimingUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MyUserControls\CommonView.xaml" />
-    <Page Include="MyUserControls\ForestsView.xaml" />
+    <Page Include="MyUserControls\DatasetInfoView.xaml" />
+    <Page Include="MyUserControls\ConnDBView.xaml" />
+    <Page Include="MyUserControls\DatasetListView.xaml" />
     <Page Include="MyUserControls\MyStatusBar.xaml" />
     <Page Include="MyUserControls\ProgressView.xaml" />
     <Page Include="MyUserControls\WelcomeView.xaml">
@@ -129,6 +138,7 @@
     <Resource Include="Image\treeview.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="ver.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

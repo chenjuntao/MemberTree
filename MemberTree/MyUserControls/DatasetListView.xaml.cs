@@ -19,13 +19,13 @@ using System.Windows.Media;
 namespace MemberTree
 {
 	/// <summary>
-	/// Interaction logic for ForestsView.xaml
+	/// 所有数据集的集合列表
 	/// </summary>
-	public partial class ForestsView : UserControl
+	public partial class DatasetListView : UserControl
 	{
 		private InvokeStringDelegate startupDelegate;
 		private Button selectDatasetBtn = null;
-		public ForestsView()
+		public DatasetListView()
 		{
 			InitializeComponent();
 		}

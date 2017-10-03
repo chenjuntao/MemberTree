@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Windows;
 using MySql.Data.MySqlClient;
 
 namespace MemberTree
@@ -21,14 +22,46 @@ namespace MemberTree
 	public class MyTreeDBMysql : IMyTreeDB
 	{
 	    private string server = "114.55.33.130";
-	    private string database = "test";
 	    private string userid = "root";
 	    private string password = "passwd";
+	    private uint port = 3306;
 	    protected MySqlConnection conn;
 	    protected MySqlCommand cmd;
 	    protected string dbName;
 	    protected string dbNameProfile;
 	    protected string dbNameCalc;
+	    
+	    public bool TestPing(DBSession dbSession)
+	    {
+	    	this.server = dbSession.ServerIP;
+	    	this.userid = dbSession.UserID;
+	    	this.password = dbSession.Password;
+	    	this.port = uint.Parse(dbSession.Port);
+	    	
+	    	//连接数据库
+	        MySqlConnectionStringBuilder connstr = new MySqlConnectionStringBuilder();
+	        connstr.Server = server;
+	        connstr.UserID = userid;
+	        connstr.Password = password;
+	        connstr.Port = port;
+	        connstr.AllowUserVariables = true;
+
+	        MySqlConnection testConn = new MySqlConnection();
+	        testConn.ConnectionString = connstr.ConnectionString;
+	        try {
+	        	testConn.Open();
+		        if(testConn.Ping())
+		        {
+		        	testConn.Close();
+		        	return true;
+		        }
+		        testConn.Close();
+		        return false;
+	        } catch (Exception ex) {
+	        	MessageBox.Show(ex.Message);
+	        	return false;
+	        }
+	    }
 			
 		public string DBName
 		{
@@ -47,7 +80,7 @@ namespace MemberTree
 				ConnectDB("");
 			}
 			OpenDB();
-			cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '"+database+"'";
+			cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'tree'";
 			MySqlDataReader reader = cmd.ExecuteReader();
 			List<string> tables = new List<string>();
 			while(reader.Read())
@@ -76,9 +109,10 @@ namespace MemberTree
 				//连接数据库
 		        MySqlConnectionStringBuilder connstr = new MySqlConnectionStringBuilder();
 		        connstr.Server = server;
-		        connstr.Database = database;
+//		        connstr.Database = database;
 		        connstr.UserID = userid;
 		        connstr.Password = password;
+		        connstr.Port = port;
 		        connstr.AllowUserVariables = true;
 	
 		        conn = new MySqlConnection();
@@ -87,10 +121,16 @@ namespace MemberTree
 		        cmd = new MySqlCommand();
 		        cmd.Connection = conn;
 		        
+		        conn.Open();
 		        if(conn.Ping())
 		        {
+		        	cmd.CommandText = "CREATE DATABASE if not exists tree DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_bin";
+		        	cmd.ExecuteNonQuery();
+		        	conn.ChangeDatabase("tree");
+		        	conn.Close();
 		        	return true;
 		        }
+		        conn.Close();
 			}
 			else
 			{

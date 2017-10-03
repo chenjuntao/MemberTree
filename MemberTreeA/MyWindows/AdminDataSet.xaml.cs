@@ -28,13 +28,13 @@ namespace MemberTree
 		public AdminDataSet()
 		{
 			InitializeComponent();
-			forestView.SetCallBack(new InvokeStringDelegate(SelectDB));
+			datasetListView.SetCallBack(new InvokeStringDelegate(SelectDB));
 		}
 		
 		private void SelectDB(string selectDB)
 		{
 			MyTrees.SetDBName(selectDB);
-			commonView.Init(MyTrees.treeDB);
+			datasetInfoView.Init(MyTrees.treeDB);
 		}
 		
         //检查csv文件合法性
@@ -59,7 +59,7 @@ namespace MemberTree
                 int trim = comboTrim.SelectedIndex;
                 MyTrees.OpenCSVFile(openfileDlg.FileName, upperLower, DBCSBC, trim);
                 
-                forestView.RefreshDB(MyTrees.treeDB);
+                datasetListView.RefreshDB(MyTrees.treeDB);
             }
         }
         
@@ -79,7 +79,7 @@ namespace MemberTree
         //删除数据集
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-        	string selectDataset = forestView.GetSelectDataset();
+        	string selectDataset = datasetListView.GetSelectDataset();
         	if(selectDataset != null)
         	{
         		MessageBoxResult msgResult = MessageBox.Show("您确定要删除数据集"+selectDataset+"吗？", 
@@ -87,7 +87,7 @@ namespace MemberTree
         		if(msgResult == MessageBoxResult.OK)
         		{
         			MyTrees.treeDB.DeleteDB(selectDataset);
-        			forestView.DeleteBtn(selectDataset);
+        			datasetListView.DeleteBtn(selectDataset);
         		}
         	}
         }

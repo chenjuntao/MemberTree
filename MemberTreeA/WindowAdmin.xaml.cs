@@ -20,6 +20,7 @@ namespace MemberTree
     {
         internal static INotify notify = null;
         private WelcomeView welcomeView;
+        private ConnDBView connectView;
         private Window mainWindow;
 
         private List<MyTreeNode> findResultNodes = new List<MyTreeNode>();
@@ -38,18 +39,40 @@ namespace MemberTree
 			mainWindow.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
 			
 			welcomeView = new WelcomeView();
-			welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(StartUp));
+			welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(ConnectDB));
 			(mainWindow.Content as Grid).Children.Add(welcomeView);
 		}
 		
-		private void StartUp(bool isSqlite)
+		private void ConnectDB(bool isSqlite)
 		{
 			MyTrees.InitTreeDB(isSqlite);
-			(mainWindow.Content as Grid).Children.Remove(welcomeView);
+       		if(isSqlite)
+       		{
+       			StartUp();
+       		}
+       		else
+       		{
+       			connectView = new ConnDBView(new InvokeDelegate(StartUp), true, MyTrees.treeDB);
+				(mainWindow.Content as Grid).Children.Remove(welcomeView);
+				(mainWindow.Content as Grid).Children.Add(connectView);
+       		}
+		}
+		
+		private void StartUp()
+		{
+			Grid main_Grid = mainWindow.Content as Grid;
+			if(main_Grid.Children.Contains(welcomeView))
+			{
+				main_Grid.Children.Remove(welcomeView);
+			}
+			else if(main_Grid.Children.Contains(connectView))
+			{
+				main_Grid.Children.Remove(connectView);
+			}
 			(mainWindow.Content as Grid).Children.Add(this);
 			mainWindow.ResizeMode = ResizeMode.CanResize;
 			mainWindow.WindowState = WindowState.Maximized;
-			adminDataset.forestView.RefreshDB(MyTrees.treeDB);
+			adminDataset.datasetListView.RefreshDB(MyTrees.treeDB);
 		}
     }
 }

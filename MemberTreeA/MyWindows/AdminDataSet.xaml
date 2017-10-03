@@ -49,7 +49,7 @@
 				<Button Padding="10,5" Margin="5,20" Content="本程序" Click="BtnAbout_Click"/>
 			</GroupBox>
 		</StackPanel>
-		<my1:ForestsView Grid.Row="1" x:Name="forestView" />
-		<my1:CommonView Grid.Row="2" x:Name="commonView"/>
+		<my1:DatasetListView Grid.Row="1" x:Name="datasetListView" />
+		<my1:DatasetInfoView Grid.Row="2" x:Name="datasetInfoView"/>
 	</Grid>
 </UserControl>

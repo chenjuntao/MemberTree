@@ -8,25 +8,20 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MemberTree
 {
 	/// <summary>
-	/// Interaction logic for UserControl1.xaml
+	/// 单个数据集概要信息
 	/// </summary>
-	public partial class CommonView : UserControl
+	public partial class DatasetInfoView : UserControl
 	{
-//		internal WindowView mainWindow;
 		private InvokeStringDelegate btnClickDel;
 		private Button btnPressed;
-		public CommonView()
+		public DatasetInfoView()
 		{
 			InitializeComponent();
 		}

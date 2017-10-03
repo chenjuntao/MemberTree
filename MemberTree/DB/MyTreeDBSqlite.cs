@@ -36,8 +36,8 @@ namespace MemberTree
 		}
 		
 		public List<string> GetDBs()
-		{
-			//创建一个数据库文件  
+		{			
+			//创建一个数据库文件
 			if(!Directory.Exists("db"))
 			{
 				Directory.CreateDirectory("db");

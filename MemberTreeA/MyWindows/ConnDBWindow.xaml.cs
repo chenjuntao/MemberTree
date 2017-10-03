@@ -38,7 +38,7 @@ namespace MemberTree
 			txtDBServer.Background = Brushes.Gray;
 		}
 		
-		void rbOtherHost_Checked(object sender, RoutedEventArgs e)
+		void rbRemotHost_Checked(object sender, RoutedEventArgs e)
 		{
 			txtDBServer.Text= "";
 			txtDBServer.IsEnabled = true;
@@ -82,21 +82,23 @@ namespace MemberTree
 		   		return null;
 		    }
 			
-			// 使用一个IntPtr类型值来存储加密字符串的起始点  
-            IntPtr p = System.Runtime.InteropServices.Marshal.SecureStringToBSTR(txtPwd.SecurePassword); 
-            // 使用.NET内部算法把IntPtr指向处的字符集合转换成字符串  
-            string password = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(p);
-			if(password=="")
+			if( txtPwd.Password=="")
 			{
 				txtPwd.BorderBrush = Brushes.Red;
 				MessageBox.Show("密码不能为空！");
 			}
 		
-			string connStr = "server="+ txtDBServer.Text
-				+ ";database=" + txtDBName.Text
-				+ ";uid=" + txtUserName.Text
-				+ ";pwd=" + password;
-            SqlConnection sConn = new SqlConnection(connStr);
+			SqlConnectionStringBuilder sqlStrBuilder = new SqlConnectionStringBuilder();
+			sqlStrBuilder.DataSource = txtDBServer.Text; //server ip
+			sqlStrBuilder.InitialCatalog = txtDBName.Text; //数据库名
+			sqlStrBuilder.UserID = txtUserName.Text;  //用户名
+			sqlStrBuilder.Password = txtPwd.Password;  //密码
+			sqlStrBuilder.IntegratedSecurity = false; //false:用户名密码验证；true：windows身份验证
+//			string connStr = "server="+ txtDBServer.Text
+//				+ ";database=" + txtDBName.Text
+//				+ ";uid=" + txtUserName.Text
+//				+ ";pwd=" + password;
+            SqlConnection sConn = new SqlConnection(sqlStrBuilder.ConnectionString);
             try
             {
                 sConn.Open();
@@ -145,7 +147,7 @@ namespace MemberTree
 		}
 		
 		//表名变化时，更新列名下拉框
-		void txtTableName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		void txtTable_SelectChange(object sender, SelectionChangedEventArgs e)
 		{
 			txtSysid.IsEnabled = true;
 			txtRealname.IsEnabled = true;
