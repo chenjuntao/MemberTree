@@ -120,8 +120,11 @@
       <DependentUpon>AdminUser.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyWindows\ConnDBWindow.xaml.cs">
-      <DependentUpon>ConnDBWindow.xaml</DependentUpon>
+    <Compile Include="MyWindows\ConnMysql.xaml.cs">
+      <DependentUpon>ConnMysql.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyWindows\ConnSqlserver.xaml.cs">
+      <DependentUpon>ConnSqlserver.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyWindows\CsvErrCheck.xaml.cs">
       <DependentUpon>CsvErrCheck.xaml</DependentUpon>
@@ -137,7 +140,8 @@
     </Compile>
     <Page Include="MyWindows\AdminDataSet.xaml" />
     <Page Include="MyWindows\AdminUser.xaml" />
-    <Page Include="MyWindows\ConnDBWindow.xaml" />
+    <Page Include="MyWindows\ConnMysql.xaml" />
+    <Page Include="MyWindows\ConnSqlserver.xaml" />
     <Page Include="MyWindows\CsvErrCheck.xaml" />
     <Page Include="MyWindows\WindowColsCheck.xaml" />
     <Page Include="WindowAdmin.xaml">

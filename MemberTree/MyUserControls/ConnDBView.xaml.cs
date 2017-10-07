@@ -86,17 +86,6 @@ namespace MemberTree
 			btnSave.IsEnabled = true;
 			btnConnect.IsEnabled = false;
 		}
-	
-		private bool CheckTxtBox(TextBox txtBox, string name)
-		{
-			if(txtBox.Text=="")
-			{
-				txtBox.BorderBrush = Brushes.Red;
-				MessageBox.Show(name +"不能为空！");
-				return false;
-			}
-			return true;
-		}
 		
 		private void btnNew_Click(object sender, RoutedEventArgs e)
 		{
@@ -161,7 +150,6 @@ namespace MemberTree
 			};
 			if(treeDB.TestPing(dbSession))
 			{
-				MessageBox.Show("测试成功！");
 				btnConnect.IsEnabled = true;
 			}
 		}

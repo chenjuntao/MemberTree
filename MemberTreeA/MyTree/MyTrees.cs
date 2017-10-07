@@ -78,7 +78,49 @@ namespace MemberTree
         
         #endregion
         
-        #region 读取/检查csv，计算树结构，写入数据库
+        #region 读取数据(csv或tab)，计算树结构，写入数据库
+        
+        public static void OpenTabFile(string filepath, int upperLower, int DBCSBC, int trim)
+        {
+        	List<string> dbs = treeDB.GetDBs();
+        	FileInfo fileInfo = new FileInfo(filepath);
+        	string dbName = fileInfo.Name.Replace(fileInfo.Extension, "").ToLower();
+	        if(dbs.Contains(dbName))
+	        {
+	        	MessageBoxResult msgResult = MessageBox.Show("该数据文件已经存在，是否重新计算并覆盖旧文件？","提示",MessageBoxButton.OKCancel);
+	        	if(msgResult == MessageBoxResult.OK)
+	        	{
+	        		treeDB.DeleteDB(dbName);
+	        	}
+	        	else
+	        	{
+	        		return;
+	        	}
+	        }
+	        
+	        TimingUtil.StartTiming();
+           
+	        //读取文件数据并构造树节点-------------------------------------
+	        bool readSuccess = ReadLine2Node(filepath, upperLower, DBCSBC, trim);
+			if(readSuccess)
+			{
+				//将树节点计算并构造树结构-------------------------------------
+				ConstructTree();
+            	//写入数据库-------------------------------------------------
+            	Write2DB(filepath, dbName);
+            	
+            	WindowAdmin.notify.SetStatusMessage(TimingUtil.EndTiming());
+			}
+			else
+			{
+				WindowAdmin.notify.SetProcessBarVisible(false);
+			}
+            allNodes.Clear();
+            NoParentNodes.Clear();
+            IdConflictNodes.Clear();
+            TreeRootNodes.Clear();
+            RingNodes.Clear();
+        }
 
         public static void OpenCSVFile(string filepath, int upperLower, int DBCSBC, int trim)
         {
@@ -288,6 +330,7 @@ namespace MemberTree
                 //继续循环遍历查找父节点的父节点，直到根节点
                 parent = FindParentNode(parent.TopId);
             }
+            
             
             if(node.Level == 0)
             {

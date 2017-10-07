@@ -11,10 +11,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace MemberTree
 {
@@ -51,7 +47,7 @@ namespace MemberTree
 				for (int i = 3; i < heads.Length; i++) {
 					Button btn = new Button();
 					btn.Content = heads[i];
-					mainPanel.Children.Add(btn);
+					optColsPanel.Children.Add(btn);
 				}
 			}
 		}

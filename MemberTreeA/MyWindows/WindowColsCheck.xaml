@@ -28,7 +28,7 @@
 			</StackPanel>
 		</GroupBox>
 		<GroupBox Grid.Column="1" Grid.ColumnSpan="3" Header="可选列" Name="grpOptCols">
-			<WrapPanel Name="mainPanel">
+			<WrapPanel Name="optColsPanel">
 			</WrapPanel>
 		</GroupBox>
 		

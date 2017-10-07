@@ -7,27 +7,22 @@
  * 要改变这种模板请点击 工具|选项|代码编写|编辑标准头文件
  */
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Threading;
 
 namespace MemberTree
 {
 	/// <summary>
-	/// Interaction logic for ConnDBWindow.xaml
+	/// 连接到Sqlserver并导出数据
 	/// </summary>
-	public partial class ConnDBWindow : Window
+	public partial class ConnSqlserver : Window
 	{
-		public ConnDBWindow()
+		public ConnSqlserver()
 		{
 			InitializeComponent();
 		}
@@ -263,7 +258,6 @@ namespace MemberTree
 		            }
                 }
                 sdr.Close();
-                sConn.Close();
                 
                 //保存到csv文件中
                 string csvName = "user" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".csv";

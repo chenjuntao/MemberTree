@@ -66,14 +66,15 @@ namespace MemberTree
         //sqlserver导出csv文件
         private void ButtonSqlServer2CSV_Click(object sender, RoutedEventArgs e)
         {
-        	ConnDBWindow connDB = new ConnDBWindow();
+        	ConnSqlserver connDB = new ConnSqlserver();
         	connDB.ShowDialog();
         }
         
         //直连Mysql
         private void ButtonConnectMysql_Click(object sender, RoutedEventArgs e)
         {
-        	MessageBox.Show("功能正在开发中！");
+        	ConnMysql connDB = new ConnMysql();
+        	connDB.ShowDialog();
         }
         
         //删除数据集
