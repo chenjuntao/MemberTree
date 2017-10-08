@@ -79,50 +79,8 @@ namespace MemberTree
         #endregion
         
         #region 读取数据(csv或tab)，计算树结构，写入数据库
-        
-        public static void OpenTabFile(string filepath, int upperLower, int DBCSBC, int trim)
-        {
-        	List<string> dbs = treeDB.GetDBs();
-        	FileInfo fileInfo = new FileInfo(filepath);
-        	string dbName = fileInfo.Name.Replace(fileInfo.Extension, "").ToLower();
-	        if(dbs.Contains(dbName))
-	        {
-	        	MessageBoxResult msgResult = MessageBox.Show("该数据文件已经存在，是否重新计算并覆盖旧文件？","提示",MessageBoxButton.OKCancel);
-	        	if(msgResult == MessageBoxResult.OK)
-	        	{
-	        		treeDB.DeleteDB(dbName);
-	        	}
-	        	else
-	        	{
-	        		return;
-	        	}
-	        }
-	        
-	        TimingUtil.StartTiming();
-           
-	        //读取文件数据并构造树节点-------------------------------------
-	        bool readSuccess = ReadLine2Node(filepath, upperLower, DBCSBC, trim);
-			if(readSuccess)
-			{
-				//将树节点计算并构造树结构-------------------------------------
-				ConstructTree();
-            	//写入数据库-------------------------------------------------
-            	Write2DB(filepath, dbName);
-            	
-            	WindowAdmin.notify.SetStatusMessage(TimingUtil.EndTiming());
-			}
-			else
-			{
-				WindowAdmin.notify.SetProcessBarVisible(false);
-			}
-            allNodes.Clear();
-            NoParentNodes.Clear();
-            IdConflictNodes.Clear();
-            TreeRootNodes.Clear();
-            RingNodes.Clear();
-        }
 
-        public static void OpenCSVFile(string filepath, int upperLower, int DBCSBC, int trim)
+        public static void OpenDBFile(string filepath, string separator, int upperLower, int DBCSBC, int trim)
         {
         	List<string> dbs = treeDB.GetDBs();
         	FileInfo fileInfo = new FileInfo(filepath);
@@ -143,13 +101,13 @@ namespace MemberTree
 	        TimingUtil.StartTiming();
            
 	        //读取文件数据并构造树节点-------------------------------------
-	        bool readSuccess = ReadLine2Node(filepath, upperLower, DBCSBC, trim);
+	        bool readSuccess = ReadLine2Node(filepath, separator, upperLower, DBCSBC, trim);
 			if(readSuccess)
 			{
 				//将树节点计算并构造树结构-------------------------------------
 				ConstructTree();
             	//写入数据库-------------------------------------------------
-            	Write2DB(filepath, dbName);
+            	Write2DB(filepath, dbName, separator);
             	
             	WindowAdmin.notify.SetStatusMessage(TimingUtil.EndTiming());
 			}
@@ -165,7 +123,7 @@ namespace MemberTree
         }
         
         //读取文件数据并构造树节点
-        private static bool ReadLine2Node(string filepath, int upperLower, int DBCSBC, int trim)
+        private static bool ReadLine2Node(string filepath, string separator, int upperLower, int DBCSBC, int trim)
         {
 	        Encoding encoding = TextUtil.GetFileEncodeType(filepath);
             StreamReader mysr = new StreamReader(filepath, encoding);
@@ -178,7 +136,7 @@ namespace MemberTree
 
                 string firstLine = mysr.ReadLine(); //第一行是表头，读取之后不处理，直接跳过
                 DBUtil.Clear();
-                if (!DBUtil.CheckHead(firstLine)) //检查表头
+                if (!DBUtil.CheckHead(firstLine, separator)) //检查表头
                 {
                 	WindowAdmin.notify.SetStatusMessage("文件格式不正确，最少必须包含三列，前三列为“会员id,上级会员id,会员姓名”且顺序固定，请重新选择正确的文件！");
                 	mysr.Close();
@@ -187,7 +145,7 @@ namespace MemberTree
                 while(!mysr.EndOfStream)
                 {
                 	string line = mysr.ReadLine();
-                	string[] aryline = line.Split(new char[] { ',' });
+                	string[] aryline = line.Split(new String[] { separator }, StringSplitOptions.None);
                 	if(!DBUtil.CheckLen(aryline))
 		        	{
                 		//发现出错的数据
@@ -338,7 +296,7 @@ namespace MemberTree
             }
         }
         	
-        private static void Write2DB(string filepath, string dbName)
+        private static void Write2DB(string filepath, string dbName, string separator)
         {
         	if(treeDB.CreateDB(dbName))
             {
@@ -352,7 +310,7 @@ namespace MemberTree
 	                while(!mysr.EndOfStream)
 	                {
 	                	line = mysr.ReadLine();
-	                	string[] aryline = line.Split(new char[] { ',' });
+	                	string[] aryline = line.Split(new String[] { separator }, StringSplitOptions.None);
 	                	treeDB.InsertNodes(MyTrees.allNodes[aryline[0]] ,aryline);
 
 	                    row++;

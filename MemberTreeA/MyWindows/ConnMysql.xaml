@@ -2,11 +2,9 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow"
-	Title="连接到Mysql/MariaDB" Height="360" Width="500">
+	Title="连接到Mysql/MariaDB" Height="390" Width="560">
 	<Window.Resources>
 		<Style TargetType="TextBlock">
-			<Setter Property="Margin" Value="5"></Setter>
-			<Setter Property="Padding" Value="5" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="HorizontalAlignment" Value="Right" />
 		</Style>
@@ -49,6 +47,7 @@
 			<RowDefinition/>
 			<RowDefinition/>
 			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		
 		<TextBlock Text="服务器IP："/>
@@ -62,10 +61,11 @@
 		<PasswordBox Grid.Row="1" Grid.Column="3" x:Name="txtPwd" HorizontalAlignment="Left"
 		             Margin="5" Width="120" Height="20" PasswordChanged="TextChanged"/>
 		
+		<Button Grid.Row="2" Content="断开连接" x:Name="btnDisConnect" Click="btnDisConnect_Click"/>
 		<Button Grid.Row="2" Grid.Column="1" Content="连接到数据库" x:Name="btnConnect" Click="btnConnect_Click"/>
 		
 		<TextBlock Grid.Row="3" Text="数据库名：" />
-		<ComboBox Grid.Row="3" Grid.Column="1" x:Name="txtDBName" SelectionChanged="DB_SelectChange"/>
+		<ComboBox Grid.Row="3" Grid.Column="1" x:Name="txtDBName" SelectionChanged="DB_SelectChange" />
 		<TextBlock Grid.Row="4" Text="表名："/>
 		<ComboBox Grid.Row="4" Grid.Column="1" x:Name="txtTable" SelectionChanged="Table_SelectChange" />
 		
@@ -84,9 +84,9 @@
 		</GroupBox>
 		
 		<Button Grid.Row="7" Grid.Column="2" Content="仅导出数据" x:Name="btnExport" Click="btnExport_Click"/>
-		<Button Grid.Row="7" Grid.Column="3" Content="导出数据并计算" x:Name="btnCompute" Click="btnExport_Click"/>
+		<Button Grid.Row="7" Grid.Column="3" Content="下载数据并计算" x:Name="btnCompute" Click="btnCompute_Click"/>
 		
-		<TextBlock Grid.Row="5" Grid.ColumnSpan="2" x:Name="labelMessage" HorizontalAlignment="Left"/>
-		<ProgressBar Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="prograss" Visibility="Hidden"/>
+		<TextBlock Grid.Row="8" Grid.ColumnSpan="2" x:Name="labelMessage" HorizontalAlignment="Left"/>
+		<ProgressBar Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" x:Name="prograss" Visibility="Hidden"/>
 	</Grid>
 </Window>

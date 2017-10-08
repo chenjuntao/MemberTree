@@ -57,8 +57,7 @@ namespace MemberTree
                 int upperLower = comboToLower.SelectedIndex;
                 int DBCSBC = comboToHalf.SelectedIndex;
                 int trim = comboTrim.SelectedIndex;
-                MyTrees.OpenCSVFile(openfileDlg.FileName, upperLower, DBCSBC, trim);
-                
+                MyTrees.OpenDBFile(openfileDlg.FileName, ",", upperLower, DBCSBC, trim);
                 datasetListView.RefreshDB(MyTrees.treeDB);
             }
         }
@@ -75,6 +74,7 @@ namespace MemberTree
         {
         	ConnMysql connDB = new ConnMysql();
         	connDB.ShowDialog();
+        	datasetListView.RefreshDB(MyTrees.treeDB);
         }
         
         //删除数据集

@@ -34,9 +34,9 @@ namespace MemberTree
 		}
 		
 		//检查判断表头是否合法
-		public static bool CheckHead(string head)
+		public static bool CheckHead(string head, string separator)
 		{
-			string[] heads = head.Split(new char[] { ',' });
+			string[] heads = head.Split(new String[] { separator }, StringSplitOptions.None);
 			WindowColsCheck window = new WindowColsCheck(heads);
 			if((bool)window.ShowDialog())
 			{
