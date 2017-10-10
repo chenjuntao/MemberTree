@@ -39,7 +39,7 @@ namespace MemberTree
         //判断闭环是否关闭
         private static bool isRingClose(string id)
         {
-        	if (MyTrees.GetRingNodes().ContainsKey(id))
+        	if (MyTrees.GetRingNodeIds().Contains(id))
             {
                 if (ringNodeIds.Contains(id))
                 {

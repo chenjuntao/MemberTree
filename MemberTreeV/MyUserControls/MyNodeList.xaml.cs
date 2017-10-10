@@ -19,6 +19,7 @@ namespace MemberTree
     /// </summary>
     public partial class MyNodeList : UserControl
     {
+    	private string dsType;
         public MyNodeList()
         {
             InitializeComponent();
@@ -37,24 +38,54 @@ namespace MemberTree
 
         public void SetDataSource(string dsType)
         {
-        	List<string> nodes = new List<string>();
+        	this.dsType = dsType;
+        	
+        	int nodesCount = 0;
         	if (dsType == "conflict")
             {
         		grpHeader.Text = "ID重复的节点";
-            	nodes = MyTrees.GetIdConflictNodes();
+        		nodesCount = MyTrees.GetIdConflictNodesCount();
             }
             else if (dsType == "leaf")
             {
             	grpHeader.Text = "孤立的叶子节点";
-            	nodes = MyTrees.GetLeafAloneNodes().Values.ToList();
+            	nodesCount = MyTrees.GetLeafAloneNodesCount();
             }
             else if (dsType == "ring")
             {
             	grpHeader.Text = "构成闭环的节点";
-            	nodes = MyTrees.GetRingNodes().Values.ToList().ToList();
+            	nodesCount = MyTrees.GetRingNodesCount();
             }
             
-        	foreach (string node in nodes) 
+            pager.Init(nodesCount);
+        }
+
+		/// <summary>  
+		/// 分页控件回调函数  
+		/// </summary>  
+		/// <param name="pageNo">页码，由分页控件传入</param>
+		/// <param name="pageSize">每页记录数</param>
+		/// <returns></returns>  
+		private void LoadPageData(int pageNo, int pageSize) 
+        {
+			nodeList.Items.Clear();
+			List<string> nodes = new List<string>();
+        	if (dsType == "conflict")
+            {
+        		grpHeader.Text = "ID重复的节点";
+            	nodes = MyTrees.GetIdConflictNodes(pageNo, pageSize);
+            }
+            else if (dsType == "leaf")
+            {
+            	grpHeader.Text = "孤立的叶子节点";
+            	nodes = MyTrees.GetLeafAloneNodes(pageNo, pageSize).Values.ToList();
+            }
+            else if (dsType == "ring")
+            {
+            	grpHeader.Text = "构成闭环的节点";
+            	nodes = MyTrees.GetRingNodes(pageNo, pageSize).Values.ToList().ToList();
+            }
+			foreach (string node in nodes) 
         	{
             	string[] nodeProp = node.Split(new String[]{","}, StringSplitOptions.None);
         		nodeList.Items.Add(nodeProp);

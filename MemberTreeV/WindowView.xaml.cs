@@ -96,13 +96,18 @@ namespace MemberTree
         //查找
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-        	TimingUtil.StartTiming();
-            WindowView.notify.SetProcessBarVisible(true);
 			string searchsql = mySearchFilter.GetSearchSql();
-			List<string> searchParams = mySearchFilter.GetSearchParams();
-			searchResults.NodeListView.ItemsSource = MyTrees.FindBySql(searchsql, searchParams);
-			WindowView.notify.SetProcessBarVisible(false);
-        	WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());
+			if(searchsql != null)
+			{
+				TimingUtil.StartTiming();
+				WindowView.notify.SetStatusMessage("正在查询，请稍后。。。");
+            	WindowView.notify.SetProcessBarVisible(true);
+				List<string> searchParams = mySearchFilter.GetSearchParams();
+				searchResults.NodeListView.ItemsSource = MyTrees.FindBySql(searchsql, searchParams);
+				WindowView.notify.SetStatusMessage("查询完成！");
+				WindowView.notify.SetProcessBarVisible(false);
+	        	WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());
+			}
         }
  
         //切换视图
@@ -128,7 +133,7 @@ namespace MemberTree
             MyTreeNode selectedNode = currentList.SelectedItem as MyTreeNode;
             if (selectedNode != null)
             {
-            	if(MyTrees.GetLeafAloneNodes().ContainsKey(selectedNode.SysId))
+            	if(MyTrees.GetLeafAloneNodeIds().Contains(selectedNode.SysId))
             	{
             		listNodes.Visibility = Visibility.Visible;
                	 	myTreeView.Visibility = Visibility.Collapsed;
@@ -136,7 +141,7 @@ namespace MemberTree
             		listNodes.nodeList.ItemsSource = new List<MyTreeNode>{selectedNode};
             		datasetInfoView.SelectTab("leaf");
             	}
-            	else if(MyTrees.GetRingNodes().ContainsKey(selectedNode.SysId))
+            	else if(MyTrees.GetRingNodeIds().Contains(selectedNode.SysId))
             	{
             		listNodes.Visibility = Visibility.Visible;
                 	myTreeView.Visibility = Visibility.Collapsed;

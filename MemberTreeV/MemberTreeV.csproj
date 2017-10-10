@@ -133,6 +133,10 @@
     <Compile Include="MyTreeView\GraphTreeStyle.xaml.cs">
       <DependentUpon>GraphTreeStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyUserControls\PageBar.xaml.cs">
+      <DependentUpon>PageBar.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MyUserControls\SearchFilter.xaml.cs">
       <DependentUpon>SearchFilter.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -163,6 +167,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MyUserControls\PageBar.xaml" />
     <Page Include="MyUserControls\SearchFilter.xaml" />
     <Page Include="MyUserControls\SearchResult.xaml">
       <SubType>Designer</SubType>

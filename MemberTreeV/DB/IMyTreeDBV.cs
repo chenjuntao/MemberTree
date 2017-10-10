@@ -25,5 +25,7 @@ namespace MemberTree
 		List<MyTreeNode> SearchNode(string sql, List<string> param);
 		
 		List<string> SearchString(string sql);
+		
+		int SearchCount(string sql);
     }
 }

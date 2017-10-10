@@ -21,6 +21,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition x:Name="contentRow"/>
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition x:Name="contentCol"/>
@@ -58,6 +59,7 @@
 				</TreeView.Resources>
 			</TreeView>
 		</ScrollViewer>
-		<my:MyNodeInfo Grid.Column="1" Grid.RowSpan="3"  x:Name="myNodeInfo" Width="220"/>
+		<my:PageBar x:Name="pager" Grid.Row="3" GetDataDelegateHandler="LoadPageData"/>
+		<my:MyNodeInfo Grid.Column="1" Grid.RowSpan="4"  x:Name="myNodeInfo" Width="220"/>
 	</Grid>
 </UserControl>

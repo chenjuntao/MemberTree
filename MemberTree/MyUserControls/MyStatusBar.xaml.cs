@@ -53,15 +53,17 @@ namespace MemberTree
         private InvokeBoolDelegate processBarVisibleDelegate = null;
         public void SetProcessBarVisible(bool visible)
         {
-            if (processBarVisibleDelegate == null)
-            {
-                processBarVisibleDelegate = new InvokeBoolDelegate(SetProcessBarVisibleImp);
-            }
-            this.Dispatcher.Invoke(processBarVisibleDelegate, visible);
+//            if (processBarVisibleDelegate == null)
+//            {
+//                processBarVisibleDelegate = new InvokeBoolDelegate(SetProcessBarVisibleImp);
+//            }
+//            this.Dispatcher.Invoke(processBarVisibleDelegate, visible);
+SetProcessBarVisibleImp(visible);
             DoEvents();
         }
         private void SetProcessBarVisibleImp(bool visible)
         {
+        	int a = Environment.TickCount;
             progressBar.Value = 0;
             progressBar.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
             if(progressView !=null)

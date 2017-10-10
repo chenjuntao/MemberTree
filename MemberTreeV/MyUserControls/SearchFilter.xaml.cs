@@ -94,7 +94,7 @@ namespace MemberTree
 			}
 			else
 			{
-				return "select sysid from " + MyTrees.treeDB.TableName + "_calc where 1<>1";
+				return null;
 			}
 		}
 		public List<string> GetSearchParams()

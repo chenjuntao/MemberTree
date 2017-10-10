@@ -55,82 +55,136 @@ namespace MemberTree
 		
         #region 查询特定不同类型的节点
         
-        private static List<MyTreeNode> treeRootNodes;
-        internal static List<MyTreeNode> GetTreeRootNodes()
+        internal static int GetTreeRootNodesCount()
         {
-        	if(treeRootNodes == null)
-        	{
-	        	MyTrees.OpenDB();
-	        	string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "
-					+ treeDB.TableName + "_calc where sysid in (select v from " 
-	        		+ treeDB.TableName + "_profile where k='Tree') order by subcountall desc";
-	            treeRootNodes = treeDB.SearchNode(sql);
-	            MyTrees.CloseDB();
-        	}
+        	MyTrees.OpenDB();
+        	string sql = "select count(*) from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Tree')";
+            int count = treeDB.SearchCount(sql);
+            MyTrees.CloseDB();
+            return count;
+        }
+        internal static List<MyTreeNode> GetTreeRootNodes(int pageNo, int pageSize)
+        {
+        	MyTrees.OpenDB();
+        	string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Tree') order by subcountall desc limit "
+        		+ (pageNo * pageSize) + ", " + pageSize;
+            List<MyTreeNode> treeRootNodes = treeDB.SearchNode(sql);
+            MyTrees.CloseDB();
             return treeRootNodes;
         }
 
-        private static List<string> conflictNodes;
-        internal static List<string> GetIdConflictNodes()
+        internal static int GetIdConflictNodesCount()
         {
-        	if(conflictNodes == null)
-        	{
-	        	MyTrees.OpenDB();
-	        	string sql = "select * from "
-					+ treeDB.TableName + "_calc where sysid in (select v from " 
-	        		+ treeDB.TableName + "_profile where k='Conflict')";
-	            conflictNodes = treeDB.SearchString(sql);
-	            MyTrees.CloseDB();
-        	}
+        	MyTrees.OpenDB();
+        	string sql = "select count(*) from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Conflict')";
+            int count = treeDB.SearchCount(sql);
+            MyTrees.CloseDB();
+            return count;
+        }
+        internal static List<string> GetIdConflictNodes(int pageNo, int pageSize)
+        {
+        	MyTrees.OpenDB();
+        	string sql = "select * from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Conflict') limit "
+        		+ (pageNo * pageSize) + ", " + pageSize;
+            List<string> conflictNodes = treeDB.SearchString(sql);
+            MyTrees.CloseDB();
             return conflictNodes;
         }
         
-        private static Dictionary<string, string> leafAloneNodes;
-        internal static Dictionary<string, string> GetLeafAloneNodes()
+        internal static int GetLeafAloneNodesCount()
         {
-        	if(leafAloneNodes == null)
-        	{
-	        	MyTrees.OpenDB();
-	        	string sql = "select * from "
-					+ treeDB.TableName + "_calc where sysid in (select v from " 
-	        		+ treeDB.TableName + "_profile where k='Leaf')";
-	            List<string> nodes = treeDB.SearchString(sql);
-	            MyTrees.CloseDB();
-	            
-	            leafAloneNodes = new Dictionary<string, string>();
-	            foreach (string node in nodes) {
-	            	string sysid = node.Substring(0,node.IndexOf(","));
-	            	if(!leafAloneNodes.ContainsKey(sysid))
-	            	{
-	            		leafAloneNodes.Add(sysid, node);
-	            	}
-	            }
-        	}
+        	MyTrees.OpenDB();
+        	string sql = "select count(*) from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Leaf')";
+            int count = treeDB.SearchCount(sql);
+            MyTrees.CloseDB();
+            return count;
+        }
+        internal static Dictionary<string, string> GetLeafAloneNodes(int pageNo, int pageSize)
+        {
+        	MyTrees.OpenDB();
+        	string sql = "select * from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Leaf') limit "
+        		+ (pageNo * pageSize) + ", " + pageSize;
+            List<string> nodes = treeDB.SearchString(sql);
+            MyTrees.CloseDB();
+            
+            Dictionary<string, string> leafAloneNodes = new Dictionary<string, string>();
+            foreach (string node in nodes) {
+            	string sysid = node.Substring(0,node.IndexOf(","));
+            	if(!leafAloneNodes.ContainsKey(sysid))
+            	{
+            		leafAloneNodes.Add(sysid, node);
+            	}
+            }
             return leafAloneNodes;
         }
+        private static List<string> leafAloneNodeIds;
+        internal static List<string> GetLeafAloneNodeIds()
+        {
+        	if(leafAloneNodeIds == null)
+        	{
+        		leafAloneNodeIds = new List<string>();
+	        	MyTrees.OpenDB();
+	        	string sql = "select v from " + treeDB.TableName + "_profile where k='Leaf'";
+	            leafAloneNodeIds = treeDB.SearchString(sql);
+	            MyTrees.CloseDB();
+        	}
+            return leafAloneNodeIds;
+        }
         
-        private static Dictionary<string, string> ringNodes;
-        internal static Dictionary<string, string> GetRingNodes()
+       	internal static int GetRingNodesCount()
+       	{
+       		MyTrees.OpenDB();
+        	string sql = "select count(*) from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Ring')";
+            int count = treeDB.SearchCount(sql);
+            MyTrees.CloseDB();
+            return count;
+       	}
+        internal static Dictionary<string, string> GetRingNodes(int pageNo, int pageSize)
+        {
+        	MyTrees.OpenDB();
+        	string sql = "select * from "
+				+ treeDB.TableName + "_calc where sysid in (select v from " 
+        		+ treeDB.TableName + "_profile where k='Ring') limit "
+        		+ (pageNo * pageSize) + ", " + pageSize;
+            List<string> nodes = treeDB.SearchString(sql);
+            MyTrees.CloseDB();
+            
+            Dictionary<string, string> ringNodes = new Dictionary<string, string>();
+            foreach (string node in nodes) {
+            	string sysid = node.Substring(0,node.IndexOf(","));
+            	if(!ringNodes.ContainsKey(sysid))
+            	{
+            		ringNodes.Add(sysid, node);
+            	}
+            }
+            return ringNodes;
+        }
+       	private static List<string> ringNodes;
+        internal static List<string> GetRingNodeIds()
         {
         	if(ringNodes == null)
         	{
+        		ringNodes = new List<string>();
 	        	MyTrees.OpenDB();
-	        	string sql = "select * from "
-					+ treeDB.TableName + "_calc where sysid in (select v from " 
-	        		+ treeDB.TableName + "_profile where k='Ring')";
-	            List<string> nodes = treeDB.SearchString(sql);
+	        	string sql = "select v from " + treeDB.TableName + "_profile where k='Ring'";
+	            ringNodes = treeDB.SearchString(sql);
 	            MyTrees.CloseDB();
-	            
-	            ringNodes = new Dictionary<string, string>();
-	            foreach (string node in nodes) {
-	            	string sysid = node.Substring(0,node.IndexOf(","));
-	            	if(!ringNodes.ContainsKey(sysid))
-	            	{
-	            		ringNodes.Add(sysid, node);
-	            	}
-	            }
         	}
-            return ringNodes;
+            return leafAloneNodeIds;
         }
         
         private static List<string> tableOptCols;

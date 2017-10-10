@@ -71,5 +71,18 @@ namespace MemberTree
             reader.Close();
             return result;
 		}
+		
+		public int SearchCount(string sql)
+		{
+			cmd.CommandText = sql;
+			SQLiteDataReader reader = cmd.ExecuteReader();
+			int result = 0;
+            while (reader.Read())
+            {
+            	result = reader.GetInt32(0);
+            }
+            reader.Close();
+            return result;
+		}
     }  
 }
