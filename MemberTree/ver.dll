@@ -1,20 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AutoupdateVer>
-  <vers ver="5.8.1.0" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
-1.查询结果按照子节点数量自动排序,自动按照子节点数量从高到低排序；
-2.查询条件增加反sql注入功能，保证用户输入特殊符号也能查询，增强程序安全性和稳定性；
-3.优化了程序启动时，以及点击“显示所有树”按钮时，加载所有树节点的等待状态；
-4.限制显示所有树时，最多只加载10000棵树，否则太多树会导致程序卡死；
-5.右侧单个树节点详细信息也加上“导出图片”以及“打印”功能；
-6.修正远程mysql模式下查询数据查不到结果的bug；
-7.查看孤立的单个叶子节点集合、ID有冲突的节点集合以及形成闭环的节点集合显示全部动态列信息；
+  <vers ver="5.11.1.0" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
+  用户导入数据可以直连数据库：
+1.增加用户直接连接mysql数据库功能，用户可以连接到mysql数据，作为要导入的数据源；
+2.用户可以选择指定的表，并对必要的列（sysid、topid、name）进行手动选择，不一定按照原先数据库表的固定次序；
+3.用户连接到指定的mysql数据库，可以将数据进行导出为tab文件（以tab分割），保证不会像csv文件那样出现很多错误数据；
+4.管理员可以直接在管理端界面上选择指定的数据集进行删除，程序会自动将所有关联的数据库表或者文件进行清理；
   </vers>
   <dlls>
-  	<verlog.dll ver="5.8.1.0"/>
-  	<AutoUpdate.dll ver="5.8.1.0"/>
-  	<MemberTree.dll ver="5.8.1.0"/>
-  	<MemberTreeA.dll ver="5.8.1.0"/>
-  	<MemberTreeV.dll ver="5.8.1.0"/>
+  	<verlog.dll ver="5.11.1.0"/>
+  	<MemberFmk.dll ver="5.11.1.0"/>
+  	<MemberTree.dll ver="5.11.1.0"/>
+  	<MemberTreeA.dll ver="5.11.1.0"/>
+  	<MemberTreeV.dll ver="5.11.1.0"/>
   	<System.Data.SQLite.dll ver="1.0.94.0"/>
   	<MySql.Data.dll ver="5.2.3.0"/>
   	<Newtonsoft.Json.dll ver="10.0.1.20720"/>
