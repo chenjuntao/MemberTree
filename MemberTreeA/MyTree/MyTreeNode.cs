@@ -8,34 +8,33 @@ using System.Windows;
 namespace MemberTree
 {
     public class MyTreeNode
-    {
-        public string SysId { get; set; }
-        public string Name { get; set; }
-        public string TopId { get; set; }
-        public int Level { get; set; }
-        public int LineCount { get; set; }
+    {    	
+    	public string SysId;
+//    	public string Name;
+    	public string TopId;
+    	public int Level;
         
+    	//直接下属孩子节点数量
+    	public int SubCount;
         //所有的后代子孙节点数量
-        public int ChildrenCount { get; set; }
+        public int ChildrenCount;
         //所有的后代子孙最深级别数
-        public int ChildrenLevels { get; set; }
+        public int ChildrenLevels;
         
         //子节点集合
-        public List<MyTreeNode> ChildrenNodes = new List<MyTreeNode>();
+//        public List<MyTreeNode> ChildrenNodes = new List<MyTreeNode>();
         
         public MyTreeNode()
         {
         }
         
-        public MyTreeNode(string sysId, string topId, string name, int lineCount)
+        public MyTreeNode(string sysId, string topId)
         {
             this.SysId = sysId;
-            this.Name = name;
+//            this.Name = name;
             this.TopId = topId;
             this.Level = 0;
-           
-            this.LineCount = lineCount;
-            
+ 
             switch (TextUtil.enUpperLower) 
             {
         		case EnumUpperLower.Lower:

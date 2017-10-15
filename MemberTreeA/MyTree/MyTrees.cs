@@ -123,29 +123,24 @@ namespace MemberTree
         }
         
         //读取文件数据并构造树节点
-        private static bool ReadLine2Node(string filepath, string separator, bool checkHead)
+        private static bool ReadLine2Node(string filepath, string separator, bool confirm)
         {
 	        Encoding encoding = TextUtil.GetFileEncodeType(filepath);
             StreamReader mysr = new StreamReader(filepath, encoding);
             int row = 0;
-            List<string> errLines = new List<string>();
             try
             {
             	WindowAdmin.notify.SetProcessBarVisible(true);
                 WindowAdmin.notify.SetStatusMessage("开始读取文件......");
 
                 string firstLine = mysr.ReadLine(); //第一行是表头，读取之后不处理，直接跳过
-                DBUtil.Clear();
-                if(checkHead)
+                if (!DBUtil.CheckHead(firstLine, separator, confirm)) //检查表头
                 {
-	                if (!DBUtil.CheckHead(firstLine, separator)) //检查表头
-	                {
-	                	string errMsg = "文件格式不正确，最少必须包含三列，前三列为“会员id,上级会员id,会员姓名”且顺序固定，请重新选择正确的文件！";
-	                	MessageBox.Show(errMsg);
-	                	WindowAdmin.notify.SetStatusMessage(errMsg);
-	                	mysr.Close();
-						return false;
-	                }
+                	string errMsg = "文件格式不正确，最少必须包含三列，前三列为“会员id,上级会员id,会员姓名”且顺序固定，请重新选择正确的文件！";
+                	MessageBox.Show(errMsg);
+                	WindowAdmin.notify.SetStatusMessage(errMsg);
+                	mysr.Close();
+					return false;
                 }
                 while(!mysr.EndOfStream)
                 {
@@ -160,7 +155,8 @@ namespace MemberTree
 						mysr.Close();
 						return false;
 		        	}
-		            MyTreeNode myNode = new MyTreeNode(aryline[0], aryline[1], aryline[2], row + 1);
+
+		            MyTreeNode myNode = new MyTreeNode(aryline[0], aryline[1]);
 		        	
 		            if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
 		            {
@@ -170,7 +166,7 @@ namespace MemberTree
 		            {
 		                allNodes.Add(myNode.SysId, myNode);
 		            }
-		
+
 		            row++;
 		            if (row % 1000 == 0)
 		            {
@@ -210,11 +206,11 @@ namespace MemberTree
                         WindowAdmin.notify.SetStatusMessage("【第一步：读取数据完成】——>【第二步：正在构造树结构" + row + "/" + allNodeCount +"】——>【第三步：写入数据库】");
                     }
                 }
-//                foreach (MyTreeNode node in IdConflictNodes)
-//                {
-//                    //将节点加入树中合适的位置去
-//                    ConstructTree(node);
-//                }
+                foreach (MyTreeNode node in IdConflictNodes)
+                {
+                    //将节点加入树中合适的位置去
+                    ConstructTree(node);
+                }
                 
                 #region 找出所有构成树的节点
                 foreach (MyTreeNode node in NoParentNodes) 
@@ -244,7 +240,8 @@ namespace MemberTree
             if (parentNode != null)
             {
                 ChildrenCountInc(myNode);//所有父节点的子孙节点加1
-                parentNode.ChildrenNodes.Add(myNode);
+//                parentNode.ChildrenNodes.Add(myNode);
+                parentNode.SubCount++;
             }
             else
             {

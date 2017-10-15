@@ -95,10 +95,10 @@ namespace MemberTree
 			cmd.Parameters.AddRange(new[] {
             new MySqlParameter("@0_"+n, node.SysId),
             new MySqlParameter("@1_"+n, node.TopId),
-            new MySqlParameter("@2_"+n, node.Name),
+            new MySqlParameter("@2_"+n, optCols[2]),
             new MySqlParameter("@3_"+n, node.Level),
             new MySqlParameter("@4_"+n, node.ChildrenLevels),
-            new MySqlParameter("@5_"+n, node.ChildrenNodes.Count),
+            new MySqlParameter("@5_"+n, node.SubCount),
 			new MySqlParameter("@6_"+n, node.ChildrenCount)});
 			
 			for (int i = 3; i < optCols.Length; i++) 

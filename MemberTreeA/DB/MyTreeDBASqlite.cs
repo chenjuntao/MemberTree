@@ -86,10 +86,10 @@ namespace MemberTree
             cmd.Parameters.AddRange(new[] {
             new SQLiteParameter("@0", node.SysId),
             new SQLiteParameter("@1", node.TopId),
-            new SQLiteParameter("@2", node.Name),
+            new SQLiteParameter("@2", optCols[2]),
             new SQLiteParameter("@3", node.Level),
             new SQLiteParameter("@4", node.ChildrenLevels),
-            new SQLiteParameter("@5", node.ChildrenNodes.Count),
+            new SQLiteParameter("@5", node.SubCount),
             new SQLiteParameter("@6", node.ChildrenCount)});
 			
 			for (int i = 3; i < optCols.Length; i++) 

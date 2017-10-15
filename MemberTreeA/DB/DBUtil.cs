@@ -25,28 +25,61 @@ namespace MemberTree
 		//其他可选列的长度
 		public static List<int> OptColsLen = new List<int>();
 		
-		public static void Clear()
+		//检查判断表头是否合法
+		public static bool CheckHead(string head, string separator, bool confirm)
 		{
 			idLen = 1;
 			nameLen = 1;
 			OptCols.Clear();
 			OptColsLen.Clear();
-		}
-		
-		//检查判断表头是否合法
-		public static bool CheckHead(string head, string separator)
-		{
+			
 			string[] heads = head.Split(new String[] { separator }, StringSplitOptions.None);
-			WindowColsCheck window = new WindowColsCheck(heads);
-			if((bool)window.ShowDialog())
+			for (int i = 3; i < heads.Length; i++) 
 			{
-				for (int i = 3; i < heads.Length; i++) {
-					OptCols.Add(heads[i]);
-					OptColsLen.Add(1);
+				if(heads[i] == "sysid")
+				{
+					heads[i] = heads[i] + "1";
 				}
-				return true;
+				else if(heads[i] == "topid")
+				{
+					heads[i] = heads[i] + "1";
+				}
+				else if(heads[i] == "name")
+				{
+					heads[i] = heads[i] + "1";
+				}
+				else if(heads[i] == "level")
+				{
+					heads[i] = heads[i] + "1";
+				}
+				else if(heads[i] == "sublevel")
+				{
+					heads[i] = heads[i] + "1";
+				}
+				else if(heads[i] == "subcount")
+				{
+					heads[i] = heads[i] + "1";
+				}
+				else if(heads[i] == "subcountall")
+				{
+					heads[i] = heads[i] + "1";
+				}
+				while(OptCols.Contains(heads[i]))
+				{
+					heads[i] = heads[i] + "1";
+				}
+				OptCols.Add(heads[i]);
+				OptColsLen.Add(1);
 			}
-			return false;
+			if(confirm)
+			{
+				WindowColsCheck window = new WindowColsCheck(heads);
+				if(!(bool)window.ShowDialog())
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 		
 		//判断各列数据是否合法，并判断各列最大长度
