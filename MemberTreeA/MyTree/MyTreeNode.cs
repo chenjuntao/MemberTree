@@ -27,7 +27,7 @@ namespace MemberTree
         {
         }
         
-        public MyTreeNode(string sysId, string topId, string name, int lineCount, int upperLower, int DBCSBC, int trim)
+        public MyTreeNode(string sysId, string topId, string name, int lineCount)
         {
             this.SysId = sysId;
             this.Name = name;
@@ -36,40 +36,50 @@ namespace MemberTree
            
             this.LineCount = lineCount;
             
-            if(trim == 1)
+            switch (TextUtil.enUpperLower) 
             {
-            	SysId = SysId.Trim();
-            	TopId = TopId.Trim();
+        		case EnumUpperLower.Lower:
+        			SysId = SysId.ToLower();
+               		TopId = TopId.ToLower();
+        			break;
+        		case EnumUpperLower.Upper:
+        			SysId = SysId.ToUpper();
+                	TopId = TopId.ToUpper();
+        			break;
+        		default:
+        			break;
             }
-            else if(trim == 2)
+           
+            switch (TextUtil.enTrim)
             {
-            	SysId = SysId.TrimStart();
-            	TopId = TopId.TrimStart();
+            	case EnumTrim.All:
+            		SysId = SysId.Trim();
+            		TopId = TopId.Trim();
+            		break;
+            	case EnumTrim.Start:
+            		SysId = SysId.TrimStart();
+            		TopId = TopId.TrimStart();
+            		break;
+            	case EnumTrim.End:
+            		SysId = SysId.TrimEnd();
+            		TopId = TopId.TrimEnd();
+            		break;
+            	default:
+            		break;
             }
-            else if(trim == 3)
+           
+            switch (TextUtil.enDBCSBC)
             {
-            	SysId = SysId.TrimEnd();
-            	TopId = TopId.TrimEnd();
-            }
-            if (upperLower == 1)
-            {
-                SysId = SysId.ToLower();
-                TopId = TopId.ToLower();
-            }
-            else if (upperLower == 2)
-            {
-                SysId = SysId.ToUpper();
-                TopId = TopId.ToUpper();
-            }
-            if (DBCSBC == 1)
-            {
-                SysId = TextUtil.SBCToDBC(SysId);
-                TopId = TextUtil.SBCToDBC(TopId);
-            }
-            else if (DBCSBC == 2)
-            {
-                SysId = TextUtil.DBCToSBC(SysId);
-                TopId = TextUtil.DBCToSBC(TopId);
+            	case EnumDBCSBC.DBC:
+            		SysId = TextUtil.SBCToDBC(SysId);
+                	TopId = TextUtil.SBCToDBC(TopId);
+            		break;
+            	case EnumDBCSBC.SBC:
+            		SysId = TextUtil.DBCToSBC(SysId);
+                	TopId = TextUtil.DBCToSBC(TopId);
+                	break;
+                default:
+                	break;
             }
         }
     }

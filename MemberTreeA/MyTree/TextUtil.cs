@@ -6,11 +6,40 @@ using System.IO;
 
 namespace MemberTree
 {
+	//大小写转换
+	public enum EnumUpperLower
+	{
+		None=0, //不转换
+		Lower=1,//转换为小写
+		Upper=2	//转换为大写
+	};
+	
+	//全角半角转换
+	public enum EnumDBCSBC
+	{
+		None=0, //不转换
+		DBC=1,	//转换为全角符号
+		SBC=2	//转换为半角符号
+	};
+	
+	//剔除空白字符
+	public enum EnumTrim
+	{
+		None=0, //不作处理
+		All=1,	//剔除首尾空白字符
+		Start=2, //剔除首部空白字符
+		End=3	//剔除尾部空白字符
+	};
+    	
     /// <summary>
     ///  判断文件的编码，全角半角的相互转换  
     /// </summary>  
     public static class TextUtil
     {
+    	public static EnumUpperLower enUpperLower;
+    	public static EnumDBCSBC enDBCSBC;
+    	public static EnumTrim enTrim;
+    	
         //判断文件编码
         public static Encoding GetFileEncodeType(string filename)
         {
@@ -91,6 +120,6 @@ namespace MemberTree
             }
             return new string(cc);
         }
-    }
+    }  
 }
 

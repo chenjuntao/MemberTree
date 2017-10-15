@@ -308,7 +308,7 @@ namespace MemberTree
 	    	if(ExportData(expName))
 	    	{
 	    		this.Close();
-	    		MyTrees.OpenDBFile(expName, "\t", 0, 0, 0);
+	    		MyTrees.OpenDBFile(expName, "\t", false);
 	    		File.Delete(expName);
 	    	}
 	   	}

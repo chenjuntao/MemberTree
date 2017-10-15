@@ -80,7 +80,7 @@ namespace MemberTree
         
         #region 读取数据(csv或tab)，计算树结构，写入数据库
 
-        public static void OpenDBFile(string filepath, string separator, int upperLower, int DBCSBC, int trim)
+        public static void OpenDBFile(string filepath, string separator, bool checkHead)
         {
         	List<string> dbs = treeDB.GetDBs();
         	FileInfo fileInfo = new FileInfo(filepath);
@@ -101,7 +101,7 @@ namespace MemberTree
 	        TimingUtil.StartTiming();
            
 	        //读取文件数据并构造树节点-------------------------------------
-	        bool readSuccess = ReadLine2Node(filepath, separator, upperLower, DBCSBC, trim);
+	        bool readSuccess = ReadLine2Node(filepath, separator, checkHead);
 			if(readSuccess)
 			{
 				//将树节点计算并构造树结构-------------------------------------
@@ -123,7 +123,7 @@ namespace MemberTree
         }
         
         //读取文件数据并构造树节点
-        private static bool ReadLine2Node(string filepath, string separator, int upperLower, int DBCSBC, int trim)
+        private static bool ReadLine2Node(string filepath, string separator, bool checkHead)
         {
 	        Encoding encoding = TextUtil.GetFileEncodeType(filepath);
             StreamReader mysr = new StreamReader(filepath, encoding);
@@ -136,11 +136,16 @@ namespace MemberTree
 
                 string firstLine = mysr.ReadLine(); //第一行是表头，读取之后不处理，直接跳过
                 DBUtil.Clear();
-                if (!DBUtil.CheckHead(firstLine, separator)) //检查表头
+                if(checkHead)
                 {
-                	WindowAdmin.notify.SetStatusMessage("文件格式不正确，最少必须包含三列，前三列为“会员id,上级会员id,会员姓名”且顺序固定，请重新选择正确的文件！");
-                	mysr.Close();
-					return false;
+	                if (!DBUtil.CheckHead(firstLine, separator)) //检查表头
+	                {
+	                	string errMsg = "文件格式不正确，最少必须包含三列，前三列为“会员id,上级会员id,会员姓名”且顺序固定，请重新选择正确的文件！";
+	                	MessageBox.Show(errMsg);
+	                	WindowAdmin.notify.SetStatusMessage(errMsg);
+	                	mysr.Close();
+						return false;
+	                }
                 }
                 while(!mysr.EndOfStream)
                 {
@@ -155,7 +160,7 @@ namespace MemberTree
 						mysr.Close();
 						return false;
 		        	}
-		            MyTreeNode myNode = new MyTreeNode(aryline[0], aryline[1], aryline[2], row + 1, upperLower, DBCSBC, trim);
+		            MyTreeNode myNode = new MyTreeNode(aryline[0], aryline[1], aryline[2], row + 1);
 		        	
 		            if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
 		            {
@@ -288,7 +293,6 @@ namespace MemberTree
                 //继续循环遍历查找父节点的父节点，直到根节点
                 parent = FindParentNode(parent.TopId);
             }
-            
             
             if(node.Level == 0)
             {

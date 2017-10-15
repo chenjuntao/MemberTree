@@ -5,19 +5,10 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:my="clr-namespace:MemberTree"
 	xmlns:my1="clr-namespace:MemberTree;assembly=MemberTree">
-	<UserControl.Resources>
-		<Style TargetType="Button">
-			<Setter Property="Margin" Value="5"></Setter>
-			<Setter Property="Padding" Value="5" />
-		</Style>
-		<Style TargetType="ComboBox">
-			<Setter Property="Margin" Value="2"></Setter>
-		</Style>
-	</UserControl.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="3*"/>
+			<ColumnDefinition Width="2*"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />

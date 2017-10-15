@@ -47,17 +47,20 @@ namespace MemberTree
         //打开文件
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
+        	string btnTxt = (sender as Button).Content.ToString();
+        	bool csv_or_tab = (btnTxt == "打开csv文件");
+        	
             OpenFileDialog openfileDlg = new OpenFileDialog();
             openfileDlg.Title = "打开要作为会员树数据源的文件";
-            openfileDlg.Filter = "CSV文件|*.csv";
+            openfileDlg.Filter = csv_or_tab ? "CSV逗号分隔文件|*.csv" : "TAB键分割文件|*.tab";
             if (openfileDlg.ShowDialog() == true)
             {
             	windowAdmin.progressView.SetCsvFile(openfileDlg.FileName);
-            	
-                int upperLower = comboToLower.SelectedIndex;
-                int DBCSBC = comboToHalf.SelectedIndex;
-                int trim = comboTrim.SelectedIndex;
-                MyTrees.OpenDBFile(openfileDlg.FileName, ",", upperLower, DBCSBC, trim);
+            	TextUtil.enUpperLower = (EnumUpperLower)comboToLower.SelectedIndex;
+                TextUtil.enDBCSBC = (EnumDBCSBC)comboToHalf.SelectedIndex;
+                TextUtil.enTrim = (EnumTrim)comboTrim.SelectedIndex;
+                string separator = csv_or_tab ? "," : "\t";
+                MyTrees.OpenDBFile(openfileDlg.FileName, separator, true);
                 datasetListView.RefreshDB(MyTrees.treeDB);
             }
         }

@@ -3,13 +3,22 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:my="clr-namespace:MemberTree"
 	xmlns:my1="clr-namespace:MemberTree;assembly=MemberTree">
+	<UserControl.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="2" />
+			<Setter Property="Padding" Value="2" />
+		</Style>
+		<Style TargetType="ComboBox">
+			<Setter Property="Margin" Value="2" />
+		</Style>
+	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto" />
 			<RowDefinition />
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<StackPanel Orientation="Horizontal">
+		<ToolBar ToolBarTray.IsLocked="True">
 			<GroupBox Header="数据选项">
 				<StackPanel>
 					<ComboBox Name="comboToLower">
@@ -38,17 +47,18 @@
 			</GroupBox>
 			<GroupBox Header="打开文件">
 				<StackPanel>
-					<Button Content="检查csv文件" Click="ButtonCheck_Click" />
-					<Button Content="打开csv文件▼" Click="ButtonOpen_Click" />
+					<Button Content="检查csv文件" Click="ButtonCheck_Click"/>
+					<Button Content="打开csv文件" Click="ButtonOpen_Click" />
+					<Button Content="打开tab文件" Click="ButtonOpen_Click" />
 				</StackPanel>
 			</GroupBox>
 			<GroupBox Header="数据集管理">
-				<Button Padding="10,5" Margin="5,20" Content="删除选中" Click="ButtonDelete_Click" />
+				<Button Padding="10,5" Margin="5,22" Content="删除选中" Click="ButtonDelete_Click" />
 			</GroupBox>
 			<GroupBox Header="关于">
-				<Button Padding="10,5" Margin="5,20" Content="本程序" Click="BtnAbout_Click"/>
+				<Button Padding="10,5" Margin="5,22" Content="本程序" Click="BtnAbout_Click"/>
 			</GroupBox>
-		</StackPanel>
+		</ToolBar>
 		<my1:DatasetListView Grid.Row="1" x:Name="datasetListView" />
 		<my1:DatasetInfoView Grid.Row="2" x:Name="datasetInfoView"/>
 	</Grid>
