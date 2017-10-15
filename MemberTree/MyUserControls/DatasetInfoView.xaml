@@ -34,7 +34,7 @@
 			<Button Name="btnRing" Click="BtnTree_Click" Foreground="HotPink">
 		        构成闭环的节点
 		    </Button>
-			<TextBlock Text="+" Visibility="{Binding ElementName=btnConflict,Path=Visibility}"/>
+			<TextBlock Text=",其中包括" Visibility="{Binding ElementName=btnConflict,Path=Visibility}"/>
 		    <Button Name="btnConflict" Click="BtnTree_Click" Foreground="PaleVioletRed">
 		        ID重复的节点
 		    </Button>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AutoupdateVer>
-  <vers ver="5.11.1.0" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
+  <vers ver="5.11.1.1" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
   用户导入数据可以直连数据库：
 1.增加用户直接连接mysql数据库功能，用户可以连接到mysql数据，作为要导入的数据源；
 2.用户可以选择指定的表，并对必要的列（sysid、topid、name）进行手动选择，不一定按照原先数据库表的固定次序；
@@ -8,11 +8,11 @@
 4.管理员可以直接在管理端界面上选择指定的数据集进行删除，程序会自动将所有关联的数据库表或者文件进行清理；
   </vers>
   <dlls>
-  	<verlog.dll ver="5.11.1.0"/>
-  	<MemberFmk.dll ver="5.11.1.0"/>
-  	<MemberTree.dll ver="5.11.1.0"/>
-  	<MemberTreeA.dll ver="5.11.1.0"/>
-  	<MemberTreeV.dll ver="5.11.1.0"/>
+  	<verlog.dll ver="5.11.1.1"/>
+  	<MemberFmk.dll ver="5.11.1.1"/>
+  	<MemberTree.dll ver="5.11.1.1"/>
+  	<MemberTreeA.dll ver="5.11.1.1"/>
+  	<MemberTreeV.dll ver="5.11.1.1"/>
   	<System.Data.SQLite.dll ver="1.0.94.0"/>
   	<MySql.Data.dll ver="5.2.3.0"/>
   	<Newtonsoft.Json.dll ver="10.0.1.20720"/>
