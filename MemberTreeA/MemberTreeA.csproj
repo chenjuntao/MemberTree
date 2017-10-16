@@ -109,6 +109,7 @@
     <Compile Include="DB\IMyTreeDBA.cs" />
     <Compile Include="DB\MyTreeDBASqlite.cs" />
     <Compile Include="DB\MyTreeDBAMysql.cs" />
+    <Compile Include="DB\UserAdmin.cs" />
     <Compile Include="MyTree\TextUtil.cs" />
     <Compile Include="MyTree\MyTrees.cs" />
     <Compile Include="MyTree\MyTreeNode.cs" />
@@ -130,6 +131,14 @@
       <DependentUpon>CsvErrCheck.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MyWindows\UserInfoSet.xaml.cs">
+      <DependentUpon>UserInfoSet.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyWindows\UserPrivilege.xaml.cs">
+      <DependentUpon>UserPrivilege.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MyWindows\WindowColsCheck.xaml.cs">
       <DependentUpon>WindowColsCheck.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -143,6 +152,8 @@
     <Page Include="MyWindows\ConnMysql.xaml" />
     <Page Include="MyWindows\ConnSqlserver.xaml" />
     <Page Include="MyWindows\CsvErrCheck.xaml" />
+    <Page Include="MyWindows\UserInfoSet.xaml" />
+    <Page Include="MyWindows\UserPrivilege.xaml" />
     <Page Include="MyWindows\WindowColsCheck.xaml" />
     <Page Include="WindowAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>

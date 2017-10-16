@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="MemberTree.UserInfoSet"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<GroupBox Header="用户列表">
+			<ListView x:Name="userList"/>
+		</GroupBox>
+		<GroupBox Grid.Row="1" Header="用户信息">
+		</GroupBox>
+	</Grid>
+</UserControl>

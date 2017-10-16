@@ -1,6 +1,7 @@
 <UserControl x:Class="MemberTree.AdminUser"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:MemberTree" Loaded="UserControl_Loaded">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -11,11 +12,14 @@
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<StackPanel Grid.ColumnSpan="2" Background="Azure">
-			<CheckBox Margin="10">启用用户权限管理功能</CheckBox>
+			<CheckBox x:Name="checkIsEnableUser" Content="启用用户权限管理功能"
+			         Margin="10" Checked="CheckBox_Click" Unchecked="CheckBox_Click"/>
 		</StackPanel>
-		<GroupBox Grid.Row="1" Header="用户列表">
+		<GroupBox Grid.Row="1" Header="用户管理" Name="gpUserAdmin">
+			<my:UserInfoSet />
 		</GroupBox>
-		<GroupBox Grid.Row="2" Grid.Column="1" Header="用户权限">
+		<GroupBox Grid.Row="2" Grid.Column="1" Header="用户权限管理" Name="gpUserPrivilege">
+			<my:UserPrivilege />
 		</GroupBox>
 	</Grid>
 </UserControl>

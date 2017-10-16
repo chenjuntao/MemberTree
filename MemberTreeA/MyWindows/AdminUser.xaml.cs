@@ -27,5 +27,24 @@ namespace MemberTree
 		{
 			InitializeComponent();
 		}
+		
+		private void UserControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			if(UserAdmin.I != null)
+			{
+				checkIsEnableUser.IsChecked = UserAdmin.I.UserAdminEnabled;
+				gpUserAdmin.IsEnabled = (bool)checkIsEnableUser.IsChecked;
+				gpUserPrivilege.IsEnabled = (bool)checkIsEnableUser.IsChecked;
+			}
+		}
+
+		//是否启用用户权限管理
+		private void CheckBox_Click(object sender, RoutedEventArgs e)
+		{
+			gpUserAdmin.IsEnabled = (bool)checkIsEnableUser.IsChecked;
+			gpUserPrivilege.IsEnabled = (bool)checkIsEnableUser.IsChecked;
+			UserAdmin.I.UserAdminEnabled = (bool)checkIsEnableUser.IsChecked;
+		}
+		
 	}
 }

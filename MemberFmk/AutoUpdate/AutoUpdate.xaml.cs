@@ -67,9 +67,11 @@ namespace MemberTree
         	try {
 	            // 设置参数
 	            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+	            request.Timeout = 5000;
 	 
 	            //发送请求并获取相应回应数据
 	            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+	       
 	            //直到request.GetResponse()程序才开始向目标网页发送Post请求
 	            Stream responseStream = response.GetResponseStream();
 	            //创建本地文件写入流

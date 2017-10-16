@@ -14,13 +14,16 @@
 	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="auto" />
 			<RowDefinition />
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<ToolBar ToolBarTray.IsLocked="True">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.RowSpan="2" Background="Azure">
 			<GroupBox Header="数据选项">
-				<StackPanel Orientation="Horizontal">
+				<StackPanel>
 					<ComboBox Name="comboToLower">
 						<ComboBoxItem IsSelected="True">不转换大小写</ComboBoxItem>
 						<ComboBoxItem>转换为小写</ComboBoxItem>
@@ -40,13 +43,13 @@
 				</StackPanel>
 			</GroupBox>
 			<GroupBox Header="直连数据库">
-				<StackPanel Orientation="Horizontal">
+				<StackPanel>
 					<Button Content="Sqlserver导出csv" Click="ButtonSqlServer2CSV_Click" />
 					<Button Content="直连Mysql" Click="ButtonConnectMysql_Click" />
 				</StackPanel>
 			</GroupBox>
 			<GroupBox Header="打开文件">
-				<StackPanel Orientation="Horizontal">
+				<StackPanel>
 					<Button Content="检查csv文件" Click="ButtonCheck_Click"/>
 					<Button Content="打开csv文件" Click="ButtonOpen_Click" />
 					<Button Content="打开tab文件" Click="ButtonOpen_Click" />
@@ -58,8 +61,8 @@
 			<GroupBox Header="关于">
 				<Button Content="关于本程序" Click="BtnAbout_Click"/>
 			</GroupBox>
-		</ToolBar>
-		<my1:DatasetListView Grid.Row="1" x:Name="datasetListView" />
-		<my1:DatasetInfoView Grid.Row="2" x:Name="datasetInfoView"/>
+		</StackPanel>
+		<my1:DatasetListView Grid.Column="1" x:Name="datasetListView" />
+		<my1:DatasetInfoView Grid.Row="1" Grid.Column="1" x:Name="datasetInfoView"/>
 	</Grid>
 </UserControl>

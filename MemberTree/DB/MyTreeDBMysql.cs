@@ -26,7 +26,7 @@ namespace MemberTree
 	    private string password = "123456";
 	    private uint port = 3306;
 	    protected MySqlConnection conn;
-	    protected MySqlCommand cmd;
+	    public MySqlCommand cmd;
 	    protected string dbName;
 	    protected string dbNameProfile;
 	    protected string dbNameCalc;
@@ -124,9 +124,17 @@ namespace MemberTree
 		        conn.Open();
 		        if(conn.Ping())
 		        {
+		        	//如果不存在tree数据库，则创建一个
 		        	cmd.CommandText = "CREATE DATABASE if not exists tree DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_bin";
 		        	cmd.ExecuteNonQuery();
 		        	conn.ChangeDatabase("tree");
+		        	//如果不存在用户信息表，则创建一个(Id,姓名,备注,是否启用,创建日期,最近一次登陆日期,登陆次数,在线时长分钟数)
+		        	cmd.CommandText = "create table if not exists tree_userinfo(id varchar(16), name varchar(32), remark varchar(100)," +
+		        	"enable char(1), create_date varchar(8), last_login_date varchar(8), login_time int, online_time int)";
+		        	cmd.ExecuteNonQuery();
+		        	//如果不存在用户权限表，则创建一个
+		        	cmd.CommandText = "create table if not exists tree_userprivilege(user_id varchar(16), table_name varchar(64))";
+		        	cmd.ExecuteNonQuery();
 		        	conn.Close();
 		        	return true;
 		        }
