@@ -31,11 +31,12 @@ namespace MemberTree
 			this.treeDB = treeDB as MyTreeDBMysql;
 			if(!isServer)
 			{
-				gridSessionInfo.IsEnabled = false;
 				btnNew.Visibility = Visibility.Hidden;
 				btnDelete.Visibility = Visibility.Hidden;
 				btnSave.Visibility = Visibility.Hidden;
 			}
+			
+			gridSessionInfo.IsEnabled = false;
 			
 			//会话列表
 			List<string> sessionNames = DBSession.GetSessionNames();
@@ -52,6 +53,7 @@ namespace MemberTree
 				DBSession dbSession = DBSession.GetSession(sessionList.SelectedItem.ToString());
 				if(dbSession != null)
 				{
+					gridSessionInfo.IsEnabled = true;
 					this.DataContext = dbSession;
 					this.txtPwd.Password = dbSession.Password;
 					btnSave.IsEnabled = false;
@@ -66,6 +68,7 @@ namespace MemberTree
 			btnTest.IsEnabled = false;
 			btnDelete.IsEnabled = false;
 			btnConnect.IsEnabled = false;
+			gridSessionInfo.IsEnabled = false;
 		}
 		
 		//会话名称和备注信息改变时，保存修改按钮enable可用
@@ -90,10 +93,10 @@ namespace MemberTree
 		private void btnNew_Click(object sender, RoutedEventArgs e)
 		{
 			DBSession dbSession = new DBSession();
-			sessionList.Items.Add(dbSession.SessionName);
-			sessionList.SelectedItem = dbSession.SessionName;
 			this.DataContext = dbSession;
 			DBSession.SaveSession(dbSession);
+			sessionList.Items.Add(dbSession.SessionName);
+			sessionList.SelectedItem = dbSession.SessionName;
 		}
 				
 		private void btnDelete_Click(object sender, RoutedEventArgs e)
