@@ -1,7 +1,21 @@
-﻿<UserControl x:Class="MemberTree.AdminUser"
+<UserControl x:Class="MemberTree.AdminUser"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Grid>
-		
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.ColumnSpan="2" Background="Azure">
+			<CheckBox Margin="10">启用用户权限管理功能</CheckBox>
+		</StackPanel>
+		<GroupBox Grid.Row="1" Header="用户列表">
+		</GroupBox>
+		<GroupBox Grid.Row="2" Grid.Column="1" Header="用户权限">
+		</GroupBox>
 	</Grid>
 </UserControl>

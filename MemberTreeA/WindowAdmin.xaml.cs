@@ -21,7 +21,7 @@ namespace MemberTree
         public WindowAdmin()
         {
             InitializeComponent();
-            myStatusBar.SetShowHideView(progressView, null, new UIElement[]{grpboxTree, grpboxUser});
+            myStatusBar.SetShowHideView(progressView, null, new UIElement[]{mainTab});
             notify = myStatusBar;
             adminDataset.windowAdmin = this;
         }
@@ -41,6 +41,7 @@ namespace MemberTree
 			MyTrees.InitTreeDB(isSqlite);
        		if(isSqlite)
        		{
+       			tabAdminUser.Visibility = Visibility.Hidden;
        			StartUp();
        		}
        		else

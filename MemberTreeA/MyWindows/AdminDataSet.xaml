@@ -20,7 +20,7 @@
 		</Grid.RowDefinitions>
 		<ToolBar ToolBarTray.IsLocked="True">
 			<GroupBox Header="数据选项">
-				<StackPanel>
+				<StackPanel Orientation="Horizontal">
 					<ComboBox Name="comboToLower">
 						<ComboBoxItem IsSelected="True">不转换大小写</ComboBoxItem>
 						<ComboBoxItem>转换为小写</ComboBoxItem>
@@ -40,23 +40,23 @@
 				</StackPanel>
 			</GroupBox>
 			<GroupBox Header="直连数据库">
-				<StackPanel>
+				<StackPanel Orientation="Horizontal">
 					<Button Content="Sqlserver导出csv" Click="ButtonSqlServer2CSV_Click" />
 					<Button Content="直连Mysql" Click="ButtonConnectMysql_Click" />
 				</StackPanel>
 			</GroupBox>
 			<GroupBox Header="打开文件">
-				<StackPanel>
+				<StackPanel Orientation="Horizontal">
 					<Button Content="检查csv文件" Click="ButtonCheck_Click"/>
 					<Button Content="打开csv文件" Click="ButtonOpen_Click" />
 					<Button Content="打开tab文件" Click="ButtonOpen_Click" />
 				</StackPanel>
 			</GroupBox>
 			<GroupBox Header="数据集管理">
-				<Button Padding="10,5" Margin="5,22" Content="删除选中" Click="ButtonDelete_Click" />
+				<Button Content="删除选中的数据集" Click="ButtonDelete_Click" />
 			</GroupBox>
 			<GroupBox Header="关于">
-				<Button Padding="10,5" Margin="5,22" Content="本程序" Click="BtnAbout_Click"/>
+				<Button Content="关于本程序" Click="BtnAbout_Click"/>
 			</GroupBox>
 		</ToolBar>
 		<my1:DatasetListView Grid.Row="1" x:Name="datasetListView" />

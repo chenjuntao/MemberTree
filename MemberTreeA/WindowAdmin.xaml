@@ -6,27 +6,25 @@
 	xmlns:my="clr-namespace:MemberTree"
 	xmlns:my1="clr-namespace:MemberTree;assembly=MemberTree">
 	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="3*"/>
-			<ColumnDefinition Width="2*"/>
-		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<GroupBox Margin="5,0" Name="grpboxTree">
-			<GroupBox.Header>
-				<TextBlock FontWeight="Bold" FontSize="15" Text="会员关系树数据集管理"/>
-			</GroupBox.Header>
-			<my:AdminDataSet x:Name="adminDataset"/>
-		</GroupBox>
-		<GroupBox Grid.Column="2" Grid.RowSpan="3" x:Name="grpboxUser">
-			<GroupBox.Header>
-				<TextBlock FontWeight="Bold" FontSize="15" Text="用户客户端管理"/>
-			</GroupBox.Header>
-			<my:AdminUser x:Name="adminUser" />
-		</GroupBox>
-		<my1:ProgressView x:Name="progressView" Grid.ColumnSpan="2" Visibility="Hidden"/>
-		<my1:MyStatusBar Grid.Row="1" Grid.ColumnSpan="2" x:Name="myStatusBar"/>
+		<TabControl x:Name="mainTab">
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Margin="10,2" FontWeight="Bold" FontSize="15" Text="会员关系树数据集管理"/>
+				</TabItem.Header>
+				<my:AdminDataSet x:Name="adminDataset"/>
+			</TabItem>
+			<TabItem x:Name="tabAdminUser">
+				<TabItem.Header>
+					<TextBlock Margin="10,2" FontWeight="Bold" FontSize="15" Text="用户权限管理"/>
+				</TabItem.Header>
+				<my:AdminUser x:Name="adminUser" />
+			</TabItem>
+		</TabControl>
+		<my1:ProgressView x:Name="progressView" Visibility="Hidden"/>
+		<my1:MyStatusBar Grid.Row="1" x:Name="myStatusBar"/>
 	</Grid>
 </UserControl>
