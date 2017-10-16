@@ -2,7 +2,7 @@
 <AutoupdateVer>
   <vers ver="5.12.1.0" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
 数据导入优化：
-1.将原先的MyTreeNode数据结构中的直接子孙节点ChildrenNodes由List<MyTreeNode>类型替换为int类型的SubNodeCount来表示；
+1.将原先的MyTreeNode数据结构中的直接子孙节点ChildrenNodes由List(MyTreeNode)类型替换为int类型的SubNodeCount来表示；
 2.将原先的MyTreeNode数据结构中LineCount去掉，现在该字段已无意义；
 3.将原先的MyTreeNode数据结构中Name字段去掉，可以使用DBUtil.OptCols中的数据来替代；
 经过上面一系列优化之后，以600万条样例数据做测试进行对比，占用的内存量由原先980M降低到640M，降低了大约三分之一，保证处理更大规模的数据不会内存溢出。

@@ -22,8 +22,8 @@ namespace MemberTree
 	public class MyTreeDBMysql : IMyTreeDB
 	{
 	    private string server = "114.55.33.130";
-	    private string userid = "root";
-	    private string password = "passwd";
+	    private string userid = "user1";
+	    private string password = "123456";
 	    private uint port = 3306;
 	    protected MySqlConnection conn;
 	    protected MySqlCommand cmd;
