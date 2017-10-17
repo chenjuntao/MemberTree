@@ -16,9 +16,14 @@ namespace MemberTree
 	/// </summary>
 	public class UserAdmin
 	{
+		private MyTreeDBAMysql db;	
+		
 		internal static UserAdmin I;
-		private MyTreeDBAMysql db;
-		public UserAdmin()
+		internal static void Init()
+		{
+			I = new UserAdmin();
+		}
+		private UserAdmin()
 		{
 			db = MyTrees.treeDB as MyTreeDBAMysql;
 		}

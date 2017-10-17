@@ -110,36 +110,36 @@
     <Compile Include="DB\MyTreeDBASqlite.cs" />
     <Compile Include="DB\MyTreeDBAMysql.cs" />
     <Compile Include="DB\UserAdmin.cs" />
-    <Compile Include="MyTree\TextUtil.cs" />
-    <Compile Include="MyTree\MyTrees.cs" />
-    <Compile Include="MyTree\MyTreeNode.cs" />
-    <Compile Include="MyWindows\AdminDataSet.xaml.cs">
+    <Compile Include="BL\TextUtil.cs" />
+    <Compile Include="BL\MyTrees.cs" />
+    <Compile Include="BL\MyTreeNode.cs" />
+    <Compile Include="UI\AdminDataSet.xaml.cs">
       <DependentUpon>AdminDataSet.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyWindows\AdminUser.xaml.cs">
+    <Compile Include="UI\AdminUser.xaml.cs">
       <DependentUpon>AdminUser.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyWindows\ConnMysql.xaml.cs">
+    <Compile Include="UI\ConnMysql.xaml.cs">
       <DependentUpon>ConnMysql.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyWindows\ConnSqlserver.xaml.cs">
+    <Compile Include="UI\ConnSqlserver.xaml.cs">
       <DependentUpon>ConnSqlserver.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyWindows\CsvErrCheck.xaml.cs">
+    <Compile Include="UI\CsvErrCheck.xaml.cs">
       <DependentUpon>CsvErrCheck.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyWindows\UserInfoSet.xaml.cs">
+    <Compile Include="UI\UserInfoSet.xaml.cs">
       <DependentUpon>UserInfoSet.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyWindows\UserPrivilege.xaml.cs">
+    <Compile Include="UI\UserPrivilege.xaml.cs">
       <DependentUpon>UserPrivilege.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyWindows\WindowColsCheck.xaml.cs">
+    <Compile Include="UI\WindowColsCheck.xaml.cs">
       <DependentUpon>WindowColsCheck.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -147,14 +147,14 @@
       <DependentUpon>WindowAdmin.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MyWindows\AdminDataSet.xaml" />
-    <Page Include="MyWindows\AdminUser.xaml" />
-    <Page Include="MyWindows\ConnMysql.xaml" />
-    <Page Include="MyWindows\ConnSqlserver.xaml" />
-    <Page Include="MyWindows\CsvErrCheck.xaml" />
-    <Page Include="MyWindows\UserInfoSet.xaml" />
-    <Page Include="MyWindows\UserPrivilege.xaml" />
-    <Page Include="MyWindows\WindowColsCheck.xaml" />
+    <Page Include="UI\AdminDataSet.xaml" />
+    <Page Include="UI\AdminUser.xaml" />
+    <Page Include="UI\ConnMysql.xaml" />
+    <Page Include="UI\ConnSqlserver.xaml" />
+    <Page Include="UI\CsvErrCheck.xaml" />
+    <Page Include="UI\UserInfoSet.xaml" />
+    <Page Include="UI\UserPrivilege.xaml" />
+    <Page Include="UI\WindowColsCheck.xaml" />
     <Page Include="WindowAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -185,9 +185,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MyTree" />
+    <Folder Include="BL" />
     <Folder Include="DB" />
-    <Folder Include="MyWindows" />
+    <Folder Include="UI" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MemberFmk\MemberFmk.csproj">
