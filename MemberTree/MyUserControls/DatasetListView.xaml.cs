@@ -45,17 +45,17 @@ namespace MemberTree
 		public void RefreshDB(IMyTreeDB treeDB)
 		{
 			mainPanel.Children.Clear();
-			List<string> dbList = treeDB.GetDBs();
+			List<DatasetInfo> dbList = treeDB.GetDatasets();
 			if(dbList!=null && dbList.Count > 0)
 			{
-				foreach (string db in dbList)
+				foreach (DatasetInfo db in dbList)
 				{
 					Button btn = new Button();
-					btn.Content = db;
-					btn.ToolTip = db;
+					btn.Content = db.Name;
+					btn.ToolTip = db.Name + "\n共" + db.ColCount +"列,"+db.RowCount+"条数据";
 					btn.Click += Btn_Click;
-					btn.Height = 50;
-					btn.Width = 150;
+					btn.Height = 20 + calcBtnHeight(db.RowCount);
+					btn.Width = 100 + db.ColCount;
 					btn.Background = Brushes.Azure;
 					mainPanel.Children.Add(btn);
 				}
@@ -68,6 +68,30 @@ namespace MemberTree
 				btn.Width = 185;
 				btn.Background = Brushes.Red;
 				mainPanel.Children.Add(btn);
+			}
+		}
+		
+		private int calcBtnHeight(int row)
+		{
+			if(row<10000)
+			{
+				return row/200;
+			}
+			else if(row<100000)
+			{
+				return 50 + row/2000;
+			}
+			else if(row<1000000)
+			{
+				return 100 + row/20000;
+			}
+			else if(row<10000000)
+			{
+				return 150 + row/200000;
+			}
+			else
+			{
+				return 200 + row/1000000;
 			}
 		}
 		

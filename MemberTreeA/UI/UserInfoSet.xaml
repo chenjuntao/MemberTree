@@ -1,15 +1,76 @@
-﻿<UserControl x:Class="MemberTree.UserInfoSet"
+<UserControl x:Class="MemberTree.UserInfoSet"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<UserControl.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="10,2,10,10"/>
+			<Setter Property="Padding" Value="2"/>
+			<Setter Property="IsEnabled" Value="False"/>
+		</Style>
+		<Style TargetType="TextBlock">
+			<Setter Property="TextAlignment" Value="Right"/>
+		</Style>
+	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<GroupBox Header="用户列表">
-			<ListView x:Name="userList"/>
-		</GroupBox>
-		<GroupBox Grid.Row="1" Header="用户信息">
-		</GroupBox>
+		<ListView x:Name="userList" Margin="5" SelectionChanged="UserList_SelectionChanged">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="用户ID" DisplayMemberBinding="{Binding ID}" />
+					<GridViewColumn Header="用户姓名" DisplayMemberBinding="{Binding Name}" />
+					<GridViewColumn Header="用户状态" DisplayMemberBinding="{Binding Enable}" />
+					<GridViewColumn Header="创建日期" DisplayMemberBinding="{Binding CreateDateStr}" />
+					<GridViewColumn Header="上次登陆" DisplayMemberBinding="{Binding LastLoginDateStr}" />
+					<GridViewColumn Header="登陆次数" DisplayMemberBinding="{Binding LoginTimes}" />
+					<GridViewColumn Header="在线时长" DisplayMemberBinding="{Binding OnlineTime}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+		<Grid Grid.Row="1" Margin="5">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Button Content="新增" IsEnabled="True" x:Name="btnNew" Click="BtnNew_Click"/>
+			<Button Grid.Column="1" Content="修改" x:Name="btnModify" Click="BtnModify_Click"/>
+			<Button Grid.Column="2" Content="保存" x:Name="btnSave" Click="BtnSave_Click"/>
+			<Button Grid.Column="3" Content="删除" x:Name="btnDelete" Click="BtnDelete_Click"/>
+			
+			<Grid Grid.Row="2" Grid.ColumnSpan="4" x:Name="gridUserInfo" IsEnabled="False">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="用户ID："/>
+				<TextBox Grid.Column="1" x:Name="txtID"/>
+				<TextBlock Grid.Column="2" Text="用户姓名："/>
+				<TextBox Grid.Column="3" x:Name="txtName"/>
+				
+				<TextBlock Grid.Row="1" Text="密码："/>
+				<PasswordBox Grid.Row="1" Grid.Column="1" x:Name="txtPwd"/>
+				<TextBlock Grid.Row="1" Grid.Column="2" Text="是否启用："/>
+				<CheckBox Grid.Row="1" Grid.Column="3" Content="启用" x:Name="checkEnable"/>
+				
+				<TextBlock Grid.Row="2" Text="描述信息："/>
+				<TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="txtRemark" Height="50" TextWrapping="WrapWithOverflow"/>
+			</Grid>
+		</Grid>
 	</Grid>
 </UserControl>

@@ -18,12 +18,13 @@ namespace MemberTree
 	/// </summary>
 	public interface IMyTreeDB
 	{
-		string DBName {get;}
+		string DatasetName {get;}
 		string TableName{get;}
-		List<string> GetDBs();
 		bool ConnectDB(string dbName);
 		void OpenDB();
 		void CloseDB();
 		Dictionary<string,int> GetCounts();
+		List<string> GetDatasetNames();
+		List<DatasetInfo> GetDatasets();
     }
 }

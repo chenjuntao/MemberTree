@@ -82,7 +82,7 @@ namespace MemberTree
 
         public static void OpenDBFile(string filepath, string separator, bool checkHead)
         {
-        	List<string> dbs = treeDB.GetDBs();
+        	List<string> dbs = treeDB.GetDatasetNames();
         	FileInfo fileInfo = new FileInfo(filepath);
         	string dbName = fileInfo.Name.Replace(fileInfo.Extension, "").ToLower();
 	        if(dbs.Contains(dbName))

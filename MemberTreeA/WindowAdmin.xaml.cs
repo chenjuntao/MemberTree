@@ -67,7 +67,11 @@ namespace MemberTree
 			mainWindow.ResizeMode = ResizeMode.CanResize;
 			mainWindow.WindowState = WindowState.Maximized;
 			adminDataset.datasetListView.RefreshDB(MyTrees.treeDB);
-			UserAdmin.Init();
+			if(MyTrees.treeDB is MyTreeDBAMysql)
+			{
+				UserAdmin.Init();
+				adminUser.userInfoSet.Init();
+			}
 		}
     }
 }

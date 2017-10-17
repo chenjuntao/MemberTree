@@ -27,5 +27,130 @@ namespace MemberTree
 		{
 			InitializeComponent();
 		}
+		 
+		public void Init()
+		{
+			userList.ItemsSource = UserAdmin.I.GetUserInfoList();
+		}
+		
+		private void ClearTxt()
+		{
+			txtID.Clear();
+			txtID.BorderBrush = Brushes.LightBlue;
+			txtName.Clear();
+			txtName.BorderBrush = Brushes.LightBlue;
+			txtPwd.Clear();
+			txtPwd.BorderBrush = Brushes.LightBlue;
+			txtRemark.Clear();
+		}
+		
+		//选择用户变化
+		void UserList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			UserInfo userInfo = userList.SelectedItem as UserInfo;
+			if(userInfo != null)
+			{
+				btnModify.IsEnabled = true;
+				btnDelete.IsEnabled = true;
+				txtID.IsReadOnly = true;
+				txtID.Text = userInfo.ID;
+				txtName.Text = userInfo.Name;
+				txtPwd.Password = EncryptHelper.Decrypt(userInfo.Pwd);
+			}
+			else
+			{
+				gridUserInfo.IsEnabled = false;
+				checkEnable.IsChecked = true;
+				btnSave.IsEnabled = true;
+				ClearTxt();
+			}
+		}
+		
+		//新增用户
+		void BtnNew_Click(object sender, RoutedEventArgs e)
+		{
+			userList.SelectedIndex = -1;
+			gridUserInfo.IsEnabled = true;
+			txtID.IsReadOnly = false;
+			checkEnable.IsChecked = true;
+			btnNew.IsEnabled = false;
+			btnSave.IsEnabled = true;
+			btnModify.IsEnabled = false;
+			btnDelete.IsEnabled = false;
+		}
+		
+		//修改
+		void BtnModify_Click(object sender, RoutedEventArgs e)
+		{
+			gridUserInfo.IsEnabled = true;
+			btnNew.IsEnabled = false;
+			btnSave.IsEnabled = true;
+			btnModify.IsEnabled = false;
+			btnDelete.IsEnabled = false;
+		}
+		
+		//保存
+		void BtnSave_Click(object sender, RoutedEventArgs e)
+		{
+			if(txtID.Text == "")
+			{
+				txtID.BorderBrush = Brushes.Red;
+				MessageBox.Show("用户ID不能为空！");
+				return;
+			}
+			else
+			{
+				txtID.BorderBrush = Brushes.LightBlue;
+			}
+			if(txtName.Text == "")
+			{
+				txtName.BorderBrush = Brushes.Red;
+				MessageBox.Show("用户姓名不能为空！");
+				return;
+			}
+			else
+			{
+				txtName.BorderBrush = Brushes.LightBlue;
+			}
+			if(txtPwd.Password == "")
+			{
+				txtPwd.BorderBrush = Brushes.Red;
+				MessageBox.Show("用户密码不能为空！");
+				return;
+			}
+			else
+			{
+				txtPwd.BorderBrush = Brushes.LightBlue;
+			}
+			
+			if(txtID.IsReadOnly)
+			{
+				UserAdmin.I.UpdateUserInfo(txtID.Text, txtName.Text, EncryptHelper.Encrypt(txtPwd.Password), txtRemark.Text);
+			}
+			else
+			{
+				UserInfo userInfo = new UserInfo();
+				userInfo.ID = txtID.Text;
+				userInfo.Name = txtName.Text;
+				userInfo.Pwd = EncryptHelper.Encrypt(txtPwd.Password);
+				userInfo.Remark = txtRemark.Text;
+				userInfo.Status = checkEnable.IsEnabled ? "启用":"停用";
+				userInfo.CreateDate = DateTime.Now;
+				userInfo.LoginTimes = 0;
+				userInfo.OnlineTime = 0;
+				UserAdmin.I.AddUserInfo(userInfo);
+			}
+			
+			gridUserInfo.IsEnabled = false;
+			btnSave.IsEnabled = false;
+			txtID.IsReadOnly = true;
+			Init();
+		}
+		
+		//删除
+		void BtnDelete_Click(object sender, RoutedEventArgs e)
+		{
+			ClearTxt();
+		}
 	}
 }

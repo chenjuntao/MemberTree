@@ -31,11 +31,6 @@ namespace MemberTree
     		 treeDB.ConnectDB(dbName);
     	}
     	
-    	public static List<string> GetDBs()
-    	{
-    		return treeDB.GetDBs();
-    	}
-    	
     	#region 打开关闭连接
     	private static int openTimes = 0;
 		public static void OpenDB()

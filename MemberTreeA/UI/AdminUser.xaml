@@ -16,10 +16,10 @@
 			         Margin="10" Checked="CheckBox_Click" Unchecked="CheckBox_Click"/>
 		</StackPanel>
 		<GroupBox Grid.Row="1" Header="用户管理" Name="gpUserAdmin">
-			<my:UserInfoSet />
+			<my:UserInfoSet x:Name="userInfoSet"/>
 		</GroupBox>
 		<GroupBox Grid.Row="2" Grid.Column="1" Header="用户权限管理" Name="gpUserPrivilege">
-			<my:UserPrivilege />
+			<my:UserPrivilege x:Name="userPrivilege"/>
 		</GroupBox>
 	</Grid>
 </UserControl>
