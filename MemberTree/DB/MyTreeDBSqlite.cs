@@ -23,11 +23,11 @@ namespace MemberTree
 		protected SQLiteConnection conn;
 		protected SQLiteCommand cmd;
 		protected SQLiteTransaction trans;
-		protected string dbName;
+		protected string datasetName;
 		
-		public string DBName
+		public string DatasetName
 		{
-			get{return dbName;}
+			get{return datasetName;}
 		}
 
 		public string TableName
@@ -35,7 +35,7 @@ namespace MemberTree
 			get{return "tree";}
 		}
 		
-		public List<string> GetDBs()
+		public List<string> GetDatasetNames()
 		{			
 			//创建一个数据库文件
 			if(!Directory.Exists("db"))
@@ -52,10 +52,28 @@ namespace MemberTree
 			return result;
 		}
 		
+		public List<DatasetInfo> GetDatasets()
+		{
+			List<string> datasetNames = GetDatasetNames();
+			List<DatasetInfo> result = new List<DatasetInfo>();
+			foreach (string dsName in datasetNames) 
+			{
+				ConnectDB(dsName);
+				OpenDB();
+				DatasetInfo dsInfo = new DatasetInfo();
+				dsInfo.Name = dsName;
+				dsInfo.RowCount = getCount("select v from tree_profile where k = 'AllNodeCount'");
+				dsInfo.ColCount = 7 + getCount("select count(*) from tree_profile where k = 'TableOptCol'");
+				result.Add(dsInfo);
+				CloseDB();
+			}
+			return result;
+		}
+		
 		public bool ConnectDB(string dbName)
 		{
 			//连接数据库
-			this.dbName = dbName;
+			this.datasetName = dbName;
 			string dbFile = "db/" + dbName + ".db";
 			if(File.Exists(dbFile))
 			{

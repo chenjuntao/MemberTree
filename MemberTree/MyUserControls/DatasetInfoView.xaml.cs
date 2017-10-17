@@ -28,7 +28,7 @@ namespace MemberTree
 		
 		public void Init(IMyTreeDB treeDB)
 		{
-			txtDB.Text = treeDB.DBName;
+			txtDB.Text = treeDB.DatasetName;
 			
 			Dictionary<string, int> counts = treeDB.GetCounts();
 			

@@ -70,10 +70,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\DatasetInfo.cs" />
     <Compile Include="DB\DBSession.cs" />
     <Compile Include="DB\IMyTreeDB.cs" />
     <Compile Include="DB\MyTreeDBMysql.cs" />
     <Compile Include="DB\MyTreeDBSqlite.cs" />
+    <Compile Include="DB\UserInfo.cs" />
     <Compile Include="MyUserControls\DatasetInfoView.xaml.cs">
       <DependentUpon>DatasetInfoView.xaml</DependentUpon>
       <SubType>Code</SubType>

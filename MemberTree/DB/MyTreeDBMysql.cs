@@ -27,7 +27,7 @@ namespace MemberTree
 	    private uint port = 3306;
 	    protected MySqlConnection conn;
 	    public MySqlCommand cmd;
-	    protected string dbName;
+	    protected string datasetName;
 	    protected string dbNameProfile;
 	    protected string dbNameCalc;
 	    
@@ -63,23 +63,24 @@ namespace MemberTree
 	        }
 	    }
 			
-		public string DBName
+		public string DatasetName
 		{
-			get{return dbName;}
+			get{return datasetName;}
 		}
 		
 		public string TableName
 		{
-			get{return dbName;}
+			get{return datasetName;}
 		}
 	    
-		public List<string> GetDBs()
+		public List<string> GetDatasetNames()
 		{
 			if(conn == null)
 			{
 				ConnectDB("");
 			}
 			OpenDB();
+			//查询数据库tree下面所有的表名
 			cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'tree'";
 			MySqlDataReader reader = cmd.ExecuteReader();
 			List<string> tables = new List<string>();
@@ -87,6 +88,7 @@ namespace MemberTree
 			{
 				tables.Add(reader.GetString(0));
 			}
+			reader.Close();
 			List<string> result = new List<string>();
 			foreach (string table in tables) 
 			{
@@ -97,6 +99,23 @@ namespace MemberTree
 						result.Add(table.Replace("_calc", ""));
 					}
 				}
+			}
+			CloseDB();
+			return result;
+		}
+		
+		public List<DatasetInfo> GetDatasets()
+		{
+			List<string> datasetNames = GetDatasetNames();
+			List<DatasetInfo> result = new List<DatasetInfo>();
+			OpenDB();
+			foreach (string dsName in datasetNames) 
+			{
+				DatasetInfo dsInfo = new DatasetInfo();
+				dsInfo.Name = dsName;
+				dsInfo.RowCount = getCount("select v from " + dsName + "_profile where k = 'AllNodeCount'");
+				dsInfo.ColCount = 7 + getCount("select count(*) from " + dsName + "_profile where k = 'TableOptCol'");
+				result.Add(dsInfo);
 			}
 			CloseDB();
 			return result;
@@ -127,13 +146,16 @@ namespace MemberTree
 		        	//如果不存在tree数据库，则创建一个
 		        	cmd.CommandText = "CREATE DATABASE if not exists tree DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_bin";
 		        	cmd.ExecuteNonQuery();
+		        	//切换到tree数据库
 		        	conn.ChangeDatabase("tree");
-		        	//如果不存在用户信息表，则创建一个(Id,姓名,备注,是否启用,创建日期,最近一次登陆日期,登陆次数,在线时长分钟数)
-		        	cmd.CommandText = "create table if not exists tree_userinfo(id varchar(16), name varchar(32), remark varchar(100)," +
-		        	"enable char(1), create_date varchar(8), last_login_date varchar(8), login_time int, online_time int)";
+
+		        	cmd.ExecuteNonQuery();
+		        	//如果不存在用户信息表，则创建一个(Id,姓名,备注,是否启用,创建日期,最近一次登陆日期,登陆次数,在线时长分钟数,限制到期日期,限制最大使用时长)
+		        	cmd.CommandText = "create table if not exists tree_userinfo(id varchar(16), name varchar(32), remark varchar(100), enable char(1),"
+		        	+ "create_date varchar(12), last_login_date varchar(12), login_time int, online_time int, due_date varchar(12), due_time int)engine=MyISAM";
 		        	cmd.ExecuteNonQuery();
 		        	//如果不存在用户权限表，则创建一个
-		        	cmd.CommandText = "create table if not exists tree_userprivilege(user_id varchar(16), table_name varchar(64))";
+		        	cmd.CommandText = "create table if not exists tree_userprivilege(user_id varchar(16), table_name varchar(64))engine=MyISAM";
 		        	cmd.ExecuteNonQuery();
 		        	conn.Close();
 		        	return true;
@@ -142,7 +164,7 @@ namespace MemberTree
 			}
 			else
 			{
-				this.dbName = dbName;
+				this.datasetName = dbName;
 				this.dbNameProfile = dbName + "_profile";
 				this.dbNameCalc = dbName + "_calc";
 				return true;
@@ -163,24 +185,6 @@ namespace MemberTree
 			if(conn.State == ConnectionState.Open)
 			{
 				conn.Close();
-			}
-		}
-		
-		public int Count
-		{
-			get
-			{
-				OpenDB();
-				cmd.CommandText = "select AllNodeCount from " + dbNameProfile;
-	            MySqlDataReader reader = cmd.ExecuteReader();
-	            int result = 0;
-	            while (reader.Read())
-	            {
-	            	result = int.Parse(reader.GetString(0));
-	            	break;
-	            }
-	            CloseDB();
-	            return result;
 			}
 		}
 		
