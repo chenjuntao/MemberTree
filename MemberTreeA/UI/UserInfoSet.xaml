@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<UserControl.Resources>
 		<Style TargetType="Button">
-			<Setter Property="Margin" Value="10,2,10,10"/>
+			<Setter Property="Margin" Value="10,0,10,10"/>
 			<Setter Property="Padding" Value="2"/>
 			<Setter Property="IsEnabled" Value="False"/>
 		</Style>
@@ -16,7 +16,12 @@
 			<RowDefinition/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<ListView x:Name="userList" Margin="5" SelectionChanged="UserList_SelectionChanged">
+		<ListView x:Name="userList" Margin="5" SelectionChanged="UserList_SelectionChanged" MouseEnter="UserList_MouseEnter">
+			<ListView.ItemContainerStyle>
+				<Style TargetType="{x:Type ListViewItem}">
+					<Setter Property="ToolTip" Value="{Binding Path=Remark}" />
+				</Style>
+			</ListView.ItemContainerStyle> 
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="用户ID" DisplayMemberBinding="{Binding ID}" />
@@ -26,6 +31,7 @@
 					<GridViewColumn Header="上次登陆" DisplayMemberBinding="{Binding LastLoginDateStr}" />
 					<GridViewColumn Header="登陆次数" DisplayMemberBinding="{Binding LoginTimes}" />
 					<GridViewColumn Header="在线时长" DisplayMemberBinding="{Binding OnlineTime}" />
+					<GridViewColumn Header="备注信息" DisplayMemberBinding="{Binding Remark}" Width="200"/>
 				</GridView>
 			</ListView.View>
 		</ListView>

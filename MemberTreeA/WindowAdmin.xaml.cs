@@ -69,8 +69,7 @@ namespace MemberTree
 			adminDataset.datasetListView.RefreshDB(MyTrees.treeDB);
 			if(MyTrees.treeDB is MyTreeDBAMysql)
 			{
-				UserAdmin.Init();
-				adminUser.userInfoSet.Init();
+				adminUser.InitUserAdmin();
 			}
 		}
     }

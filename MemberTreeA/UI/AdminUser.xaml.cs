@@ -28,14 +28,15 @@ namespace MemberTree
 			InitializeComponent();
 		}
 		
-		private void UserControl_Loaded(object sender, RoutedEventArgs e)
+		public void InitUserAdmin()
 		{
-			if(UserAdmin.I != null)
-			{
-				checkIsEnableUser.IsChecked = UserAdmin.I.UserAdminEnabled;
-				gpUserAdmin.IsEnabled = (bool)checkIsEnableUser.IsChecked;
-				gpUserPrivilege.IsEnabled = (bool)checkIsEnableUser.IsChecked;
-			}
+			UserAdmin.InitDB();
+
+			checkIsEnableUser.IsChecked = UserAdmin.UserAdminEnabled;
+			gpUserAdmin.IsEnabled = (bool)checkIsEnableUser.IsChecked;
+			gpUserPrivilege.IsEnabled = (bool)checkIsEnableUser.IsChecked;
+			
+			userInfoSet.RefreshUserList();
 		}
 
 		//是否启用用户权限管理
@@ -43,7 +44,7 @@ namespace MemberTree
 		{
 			gpUserAdmin.IsEnabled = (bool)checkIsEnableUser.IsChecked;
 			gpUserPrivilege.IsEnabled = (bool)checkIsEnableUser.IsChecked;
-			UserAdmin.I.UserAdminEnabled = (bool)checkIsEnableUser.IsChecked;
+			UserAdmin.UserAdminEnabled = (bool)checkIsEnableUser.IsChecked;
 		}
 		
 	}

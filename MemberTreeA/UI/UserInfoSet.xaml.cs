@@ -28,9 +28,9 @@ namespace MemberTree
 			InitializeComponent();
 		}
 		 
-		public void Init()
+		public void RefreshUserList()
 		{
-			userList.ItemsSource = UserAdmin.I.GetUserInfoList();
+			userList.ItemsSource = UserAdmin.GetUserInfoList();
 		}
 		
 		private void ClearTxt()
@@ -56,6 +56,7 @@ namespace MemberTree
 				txtID.Text = userInfo.ID;
 				txtName.Text = userInfo.Name;
 				txtPwd.Password = EncryptHelper.Decrypt(userInfo.Pwd);
+				txtRemark.Text = userInfo.Remark;
 			}
 			else
 			{
@@ -92,6 +93,7 @@ namespace MemberTree
 		//保存
 		void BtnSave_Click(object sender, RoutedEventArgs e)
 		{
+			#region 判断是否为空
 			if(txtID.Text == "")
 			{
 				txtID.BorderBrush = Brushes.Red;
@@ -122,11 +124,18 @@ namespace MemberTree
 			{
 				txtPwd.BorderBrush = Brushes.LightBlue;
 			}
+			#endregion
 			
 			if(txtID.IsReadOnly)
 			{
-				UserAdmin.I.UpdateUserInfo(txtID.Text, txtName.Text, EncryptHelper.Encrypt(txtPwd.Password), txtRemark.Text);
+				UserAdmin.UpdateUserInfo(txtID.Text, txtName.Text, EncryptHelper.Encrypt(txtPwd.Password), txtRemark.Text);
 			}
+			else if(UserAdmin.GetUserInfo(txtID.Text) != null)
+			{
+				txtID.BorderBrush = Brushes.Red;
+				txtID.SelectAll();
+				MessageBox.Show("当前用户ID在数据库中已存在，请使用其他ID！");
+			} 
 			else
 			{
 				UserInfo userInfo = new UserInfo();
@@ -138,19 +147,23 @@ namespace MemberTree
 				userInfo.CreateDate = DateTime.Now;
 				userInfo.LoginTimes = 0;
 				userInfo.OnlineTime = 0;
-				UserAdmin.I.AddUserInfo(userInfo);
+				UserAdmin.AddUserInfo(userInfo);
 			}
-			
+		
 			gridUserInfo.IsEnabled = false;
 			btnSave.IsEnabled = false;
 			txtID.IsReadOnly = true;
-			Init();
+			RefreshUserList();
 		}
 		
 		//删除
 		void BtnDelete_Click(object sender, RoutedEventArgs e)
 		{
 			ClearTxt();
+		}
+		void UserList_MouseEnter(object sender, MouseEventArgs e)
+		{
+			
 		}
 	}
 }
