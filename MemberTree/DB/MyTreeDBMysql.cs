@@ -150,9 +150,9 @@ namespace MemberTree
 		        	conn.ChangeDatabase("tree");
 
 		        	cmd.ExecuteNonQuery();
-		        	//如果不存在用户信息表，则创建一个(Id,姓名,密码,备注,是否启用,创建日期,最近一次登陆日期,登陆次数,在线时长分钟数,限制到期日期,限制最大使用时长)
-		        	cmd.CommandText = "create table if not exists tree_userinfo(id varchar(16), name varchar(32), pwd varchar(32), remark varchar(100)," +
-		        	"status varchar(10), create_date datetime, last_login_date datetime, login_times int, online_time int, due_date datetime, due_time int)";
+		        	//如果不存在用户信息表，则创建一个(Id,姓名,密码,备注,是否启用,创建时间,修改时间，最近一次登陆时间,登陆次数,在线时长分钟数,限制到期日期,限制最大使用时长)
+		        	cmd.CommandText = "create table if not exists tree_userinfo(id varchar(16), name varchar(32), pwd varchar(32), remark varchar(100), enable tinyint," +
+		        	"create_date datetime, modify_date datetime, last_login_date datetime, login_times int, online_time int, due_date datetime, due_time int)";
 		        	cmd.ExecuteNonQuery();
 		        	//如果不存在用户权限表，则创建一个
 		        	cmd.CommandText = "create table if not exists tree_userprivilege(user_id varchar(16), data_name varchar(64))";

@@ -16,30 +16,44 @@ namespace MemberTree
 	public class UserInfo
 	{
 		public string ID{get;set;}			//编号
-		public string Name{get;set;}			//姓名
-		public string Pwd{get;set;}	//密码
+		public string Name{get;set;}		//姓名
+		public string Pwd{get;set;}			//密码
 		public string Remark{get;set;}		//备注
-		public string Status{get;set;}			//是否启用
-		public DateTime CreateDate{get;set;}		//创建日期
-		public DateTime LastLoginDate{get;set;}	//上次登陆日期
-		public int LoginTimes;	//登陆次数
-		public int OnlineTime;	//登陆时长（分钟为单位）
-		public DateTime DueDate = DateTime.MaxValue;	//限制使用到期日期
-		public int DueTime = int.MaxValue;		//限制使用最大时长（分钟数）
-		
+		public bool Enable{get;set;}		//状态：启用，停用
+		public DateTime CreateDate;			//创建时间
+		public DateTime ModifyDate;			//修改时间
+		public DateTime LastLoginDate;		//上次登陆时间
+		public int LoginTimes{get;set;}		//登陆次数
+		public int OnlineTime{get;set;}		//登陆时长（分钟为单位）
+		public DateTime DueDate{get;set;}	//限制使用到期日期
+		public int DueTime{get;set;}		//限制使用最大时长（分钟数）
 		
 		public string CreateDateStr
 		{
-			get{return CreateDate.ToShortTimeString(); }
+			get{return CreateDate.ToString("yyyy-MM-dd hh:mm:ss"); }
+		}
+		
+		public string ModifyDateStr
+		{
+			get{return ModifyDate.ToString("yyyy-MM-dd hh:mm:ss"); }
 		}
 		
 		public string LastLoginDateStr
 		{
-			get{return LastLoginDate.ToShortTimeString(); }
+			get{return LastLoginDate.ToString("yyyy-MM-dd hh:mm:ss"); }
 		}
 		
-		public UserInfo()
+		public UserInfo(string id, string name, string pwd, string remark)
 		{
+			this.ID = id;
+			this.Name = name;
+			this.Pwd = pwd;
+			this.Remark = remark;
+			this.Enable = true;
+			this.CreateDate = DateTime.Now;
+			this.ModifyDate = DateTime.Now;
+			this.DueDate = DateTime.MaxValue;
+			this.DueTime = int.MaxValue;
 		}
 	}
 }

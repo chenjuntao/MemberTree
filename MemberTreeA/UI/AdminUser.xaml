@@ -8,8 +8,8 @@
 			<RowDefinition/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-			<ColumnDefinition/>
+			<ColumnDefinition Width="4*"/>
+			<ColumnDefinition Width="3*"/>
 		</Grid.ColumnDefinitions>
 		<StackPanel Grid.ColumnSpan="2" Background="Azure">
 			<CheckBox x:Name="checkIsEnableUser" Content="启用用户权限管理功能"

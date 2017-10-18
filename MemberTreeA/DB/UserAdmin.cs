@@ -66,16 +66,7 @@ namespace MemberTree
 			MySqlDataReader reader = db.cmd.ExecuteReader();
 			if(reader.Read())
 			{
-				userInfo = new UserInfo();
-				userInfo.ID = reader.GetString("id");
-				userInfo.Name = reader.GetString("name");
-				userInfo.Pwd = reader.GetString("pwd");
-				userInfo.Remark = reader.GetString("remark");
-				userInfo.Status = reader.GetString("status");
-				userInfo.CreateDate = reader.GetDateTime("create_date");
-				userInfo.LastLoginDate = reader.GetDateTime("last_login_date");
-				userInfo.LoginTimes = reader.GetInt32("login_times");
-				userInfo.OnlineTime = reader.GetInt32("online_time");
+				userInfo = GetUserInfoByReader(reader);
 			}
 			reader.Close();
 			db.CloseDB();
@@ -91,35 +82,42 @@ namespace MemberTree
 			MySqlDataReader reader = db.cmd.ExecuteReader();
 			while(reader.Read())
 			{
-				UserInfo userInfo = new UserInfo();
-				userInfo.ID = reader.GetString("id");
-				userInfo.Name = reader.GetString("name");
-				userInfo.Pwd = reader.GetString("pwd");
-				userInfo.Remark = reader.GetString("remark");
-				userInfo.Status = reader.GetString("status");
-				userInfo.CreateDate = reader.GetDateTime("create_date");
-				userInfo.LastLoginDate = reader.GetDateTime("last_login_date");
-				userInfo.LoginTimes = reader.GetInt32("login_times");
-				userInfo.OnlineTime = reader.GetInt32("online_time");
-				result.Add(userInfo);
+				result.Add(GetUserInfoByReader(reader));
 			}
 			reader.Close();
 			db.CloseDB();
 			return result;
 		}
 		
+		private static UserInfo GetUserInfoByReader(MySqlDataReader reader)
+		{
+			string id = reader.GetString("id");
+			string name = reader.GetString("name");
+			string pwd = reader.GetString("pwd");
+			string remark = reader.GetString("remark");
+			UserInfo userInfo = new UserInfo(id, name, pwd, remark);
+			userInfo.Enable = reader.GetBoolean("enable");
+			userInfo.CreateDate = reader.GetDateTime("create_date");
+			userInfo.ModifyDate = reader.GetDateTime("modify_date");
+			userInfo.LastLoginDate = reader.GetDateTime("last_login_date");
+			userInfo.LoginTimes = reader.GetInt32("login_times");
+			userInfo.OnlineTime = reader.GetInt32("online_time");
+			return userInfo;
+		}
+		
 		//添加用户信息
 		public static void AddUserInfo(UserInfo userInfo)
 		{
 			db.OpenDB();
-			db.cmd.CommandText = "insert into tree_userinfo values(@id, @name, @pwd,@remark,@status," +
-				"@create_date,@last_login_date,@login_times,@online_time,@due_date,@due_time)";
+			db.cmd.CommandText = "insert into tree_userinfo values(@id, @name, @pwd,@remark,@enable," +
+				"@create_date,@modify_date,@last_login_date,@login_times,@online_time,@due_date,@due_time)";
 			db.cmd.Parameters.AddWithValue("@id", userInfo.ID);
 			db.cmd.Parameters.AddWithValue("@name", userInfo.Name);
 			db.cmd.Parameters.AddWithValue("@pwd", userInfo.Pwd);
 			db.cmd.Parameters.AddWithValue("@remark", userInfo.Remark);
-			db.cmd.Parameters.AddWithValue("@status", userInfo.Status);
+			db.cmd.Parameters.AddWithValue("@enable", userInfo.Enable);
 			db.cmd.Parameters.AddWithValue("@create_date", userInfo.CreateDate);
+			db.cmd.Parameters.AddWithValue("@modify_date", userInfo.ModifyDate);
 			db.cmd.Parameters.AddWithValue("@last_login_date", userInfo.LastLoginDate);
 			db.cmd.Parameters.AddWithValue("@login_times", userInfo.LoginTimes);
 			db.cmd.Parameters.AddWithValue("@online_time", userInfo.OnlineTime);
@@ -134,23 +132,25 @@ namespace MemberTree
 		public static void UpdateUserInfo(string id, string name, string pwd, string remark)
 		{
 			db.OpenDB();
-			db.cmd.CommandText = "update tree_userinfo set name=@name, pwd=@pwd, remark=@remark where id=@id";
+			db.cmd.CommandText = "update tree_userinfo set name=@name, pwd=@pwd, remark=@remark, modify_date=@modify_date where id=@id";
 			db.cmd.Parameters.AddWithValue("@id", id);
 			db.cmd.Parameters.AddWithValue("@name", name);
 			db.cmd.Parameters.AddWithValue("@pwd", pwd);
 			db.cmd.Parameters.AddWithValue("@remark", remark);
+			db.cmd.Parameters.AddWithValue("@modify_date", DateTime.Now);
 			db.cmd.ExecuteNonQuery();
 			db.cmd.Parameters.Clear();
 			db.CloseDB();
 		}
 		
 		//修改用户启用状态
-		public static void UpdateUserEnabled(string id, string status)
+		public static void UpdateUserEnabled(string id, bool enable)
 		{
 			db.OpenDB();
-			db.cmd.CommandText = "update tree_userinfo set status=@status where id=@id";
+			db.cmd.CommandText = "update tree_userinfo set enable=@enable, modify_date=@modify_date where id=@id";
 			db.cmd.Parameters.AddWithValue("@id", id);
-			db.cmd.Parameters.AddWithValue("@status", status);
+			db.cmd.Parameters.AddWithValue("@enable", enable);
+			db.cmd.Parameters.AddWithValue("@modify_date", DateTime.Now);
 			db.cmd.ExecuteNonQuery();
 			db.cmd.Parameters.Clear();
 			db.CloseDB();
