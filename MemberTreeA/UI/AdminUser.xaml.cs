@@ -42,10 +42,20 @@ namespace MemberTree
 		//是否启用用户权限管理
 		private void CheckBox_Click(object sender, RoutedEventArgs e)
 		{
-			gpUserAdmin.IsEnabled = (bool)checkIsEnableUser.IsChecked;
-			gpUserPrivilege.IsEnabled = (bool)checkIsEnableUser.IsChecked;
-			UserAdmin.UserAdminEnabled = (bool)checkIsEnableUser.IsChecked;
+			if((bool)checkIsEnableUser.IsChecked)
+			{
+				gpUserAdmin.IsEnabled = true;
+				gpUserPrivilege.IsEnabled = true;
+				UserAdmin.UserAdminEnabled = true;
+				WindowAdmin.notify.SetStatusMessage("已经将用户权限管理功能打开！");
+			}
+			else
+			{
+				gpUserAdmin.IsEnabled = false;
+				gpUserPrivilege.IsEnabled = false;
+				UserAdmin.UserAdminEnabled = false;
+				WindowAdmin.notify.SetStatusMessage("已经将用户权限管理功能关闭！");
+			}
 		}
-		
 	}
 }

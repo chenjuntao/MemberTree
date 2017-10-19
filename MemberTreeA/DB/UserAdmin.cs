@@ -129,14 +129,26 @@ namespace MemberTree
 		}
 		
 		//修改用户信息
-		public static void UpdateUserInfo(string id, string name, string pwd, string remark)
+		public static void UpdateUserInfo(string id, string name, string remark)
 		{
 			db.OpenDB();
-			db.cmd.CommandText = "update tree_userinfo set name=@name, pwd=@pwd, remark=@remark, modify_date=@modify_date where id=@id";
+			db.cmd.CommandText = "update tree_userinfo set name=@name, remark=@remark, modify_date=@modify_date where id=@id";
 			db.cmd.Parameters.AddWithValue("@id", id);
 			db.cmd.Parameters.AddWithValue("@name", name);
-			db.cmd.Parameters.AddWithValue("@pwd", pwd);
 			db.cmd.Parameters.AddWithValue("@remark", remark);
+			db.cmd.Parameters.AddWithValue("@modify_date", DateTime.Now);
+			db.cmd.ExecuteNonQuery();
+			db.cmd.Parameters.Clear();
+			db.CloseDB();
+		}
+		
+		//修改用户密码
+		public static void UpdateUserPwd(string id, string pwd)
+		{
+			db.OpenDB();
+			db.cmd.CommandText = "update tree_userinfo set pwd=@pwd, modify_date=@modify_date where id=@id";
+			db.cmd.Parameters.AddWithValue("@id", id);
+			db.cmd.Parameters.AddWithValue("@pwd", pwd);
 			db.cmd.Parameters.AddWithValue("@modify_date", DateTime.Now);
 			db.cmd.ExecuteNonQuery();
 			db.cmd.Parameters.Clear();
