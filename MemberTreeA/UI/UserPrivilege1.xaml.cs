@@ -45,6 +45,7 @@ namespace MemberTree
 				btn.Width = 150;
 				btn.Height = 30;
 				btn.Content = user.ToShortString();
+				btn.Tag = user.ID;
 				btn.ToolTip = user.Remark;
 				btn.Click += btnUser_Click;
 				panelUser.Children.Add(btn);
@@ -77,7 +78,7 @@ namespace MemberTree
 			btnModify.IsEnabled = true;
 			
 			//根据用户ID获取对应的数据权限
-			List<string> allowData = UserAdmin.GetAllowDataByUser(btnUser.Content.ToString());
+			List<string> allowData = UserAdmin.GetAllowDataByUser(btnUser.Tag.ToString());
 			foreach (CheckBox cbx in panelDataset.Children)
 			{
 				cbx.IsChecked = (allowData.Contains(cbx.Content.ToString()));
@@ -89,44 +90,58 @@ namespace MemberTree
 			btnSelectAll.IsEnabled = true;
 			btnSelectNone.IsEnabled = true;
 			btnSave.IsEnabled = true;
+			panelDataset.IsEnabled = true;
+			panelUser.IsEnabled = false;
 			btnModify.IsEnabled = false;
-			panelUser.IsEnabled = true;
 		}
 		
 		void BtnSelectAll_Click(object sender, RoutedEventArgs e)
 		{
-			//根据用户ID获取对应的数据权限
-			List<string> allowData = UserAdmin.GetAllowDataByUser(selectedUserBtn.Content.ToString());
 			foreach (CheckBox cbx in panelDataset.Children)
 			{
-				string db = cbx.Content.ToString();
-				if(!allowData.Contains(db))
-				{
-					addDataPrivileges.Add(db);
-					cbx.IsEnabled = true;
-				}
+				cbx.IsChecked = true;
 			}
 		}
 	
 		void BtnSelectNone_Click(object sender, RoutedEventArgs e)
 		{
-			//根据用户ID获取对应的数据权限
-			List<string> allowData = UserAdmin.GetAllowDataByUser(selectedUserBtn.Content.ToString());
 			foreach (CheckBox cbx in panelDataset.Children)
 			{
-				string db = cbx.Content.ToString();
-				if(allowData.Contains(db))
-				{
-					removeDataPrivileges.Add(db);
-					cbx.IsEnabled = false;
-				}
+				cbx.IsChecked = false;
 			}
 		}
 		
 		void BtnSave_Click(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			//根据用户ID获取对应的数据权限
+			string usrId = selectedUserBtn.Tag.ToString();
+			List<string> allowData = UserAdmin.GetAllowDataByUser(usrId);
+			foreach (CheckBox cbx in panelDataset.Children)
+			{
+				string dsName = cbx.Content.ToString();
+				if((bool)cbx.IsChecked)
+				{
+					if(!allowData.Contains(dsName))
+					{
+						UserAdmin.AddUserPrivilege(usrId, dsName);
+					}
+				}
+				else
+				{
+					if(allowData.Contains(dsName))
+					{
+						UserAdmin.DeleteUserPrivilege(usrId, dsName);
+					}
+				}
+			}
+			
+			btnSelectAll.IsEnabled = false;
+			btnSelectNone.IsEnabled = false;
+			btnSave.IsEnabled = false;
+			panelDataset.IsEnabled = false;
+			panelUser.IsEnabled = true;
+			btnModify.IsEnabled = true;
+			WindowAdmin.notify.SetStatusMessage(string.Format("成功修改了用户{0}的所对应的数据集权限！", usrId));
 		}
-		
 	}
 }

@@ -220,7 +220,7 @@ namespace MemberTree
 			MySqlDataReader reader = db.cmd.ExecuteReader();
 			bool hasExist = reader.Read();
 			reader.Close();
-			if(hasExist)
+			if(!hasExist)
 			{
 				db.cmd.CommandText = "insert into tree_userprivilege values('" + userId + "','" + dataName + "')";
 				db.cmd.ExecuteNonQuery();

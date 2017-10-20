@@ -42,6 +42,7 @@ namespace MemberTree
 				CheckBox cbx = new CheckBox();
 				cbx.Margin = new Thickness(5);
 				cbx.Content = user.ToShortString();
+				cbx.Tag = user.ID;
 				cbx.ToolTip = user.Remark;
 				panelUser.Children.Add(cbx);
 			}
@@ -80,7 +81,7 @@ namespace MemberTree
 			List<string> allowUser = UserAdmin.GetAllowUserByData(btnDataset.Content.ToString());
 			foreach (CheckBox cbx in panelUser.Children)
 			{
-				cbx.IsChecked = (allowUser.Contains(cbx.Content.ToString()));
+				cbx.IsChecked = (allowUser.Contains(cbx.Tag.ToString()));
 			}
 		}
 		
@@ -89,43 +90,58 @@ namespace MemberTree
 			btnSelectAll.IsEnabled = true;
 			btnSelectNone.IsEnabled = true;
 			btnSave.IsEnabled = true;
+			panelUser.IsEnabled =true;
+			panelDataset.IsEnabled = false;
 			btnModify.IsEnabled = false;
-			panelUser.IsEnabled = true;
 		}
 		
 		void BtnSelectAll_Click(object sender, RoutedEventArgs e)
 		{
-			//根据数据集名字获取对应的用户权限
-			List<string> allowUser = UserAdmin.GetAllowUserByData(selectedDatasetBtn.Content.ToString());
 			foreach (CheckBox cbx in panelUser.Children)
 			{
-				string usr = cbx.Content.ToString();
-				if(!allowUser.Contains(usr))
-				{
-					addUserPrivileges.Add(usr);
-					cbx.IsEnabled = true;
-				}
+				cbx.IsChecked = true;
 			}
 		}
 		
 		void BtnSelectNone_Click(object sender, RoutedEventArgs e)
 		{
-			//根据数据集名字获取对应的用户权限
-			List<string> allowUser = UserAdmin.GetAllowUserByData(selectedDatasetBtn.Content.ToString());
 			foreach (CheckBox cbx in panelUser.Children)
 			{
-				string usr = cbx.Content.ToString();
-				if(allowUser.Contains(usr))
-				{
-					removeUserPrivileges.Add(usr);
-					cbx.IsEnabled = false;
-				}
+				cbx.IsChecked = false;
 			}
 		}
 		
 		void BtnSave_Click(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			//根据数据集名字获取对应的用户权限
+			string dsName = selectedDatasetBtn.Content.ToString();
+			List<string> allowUser = UserAdmin.GetAllowUserByData(dsName);
+			foreach (CheckBox cbx in panelUser.Children)
+			{
+				string usrId = cbx.Tag.ToString();
+				if((bool)cbx.IsChecked)
+				{
+					if(!allowUser.Contains(usrId))
+					{
+						UserAdmin.AddUserPrivilege(usrId, dsName);
+					}
+				}
+				else
+				{
+					if(allowUser.Contains(usrId))
+					{
+						UserAdmin.DeleteUserPrivilege(usrId, dsName);
+					}
+				}
+			}
+			
+			btnSelectAll.IsEnabled = false;
+			btnSelectNone.IsEnabled = false;
+			btnSave.IsEnabled = false;
+			panelUser.IsEnabled = false;
+			panelDataset.IsEnabled = true;
+			btnModify.IsEnabled = true;
+			WindowAdmin.notify.SetStatusMessage(string.Format("成功修改了数据集{0}的所对应的用户权限！", dsName));
 		}
 		
 	}
