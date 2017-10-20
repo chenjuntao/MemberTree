@@ -117,7 +117,7 @@ namespace MemberTree
 				dsInfo.ColCount = 7 + getCount("select count(*) from " + dsName + "_profile where k = 'TableOptCol'");
 				
 				#region 查询数据集创建日期
-				cmd.CommandText = "select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='tree' and TABLE_NAME='"+dsName+"_calc'";
+				cmd.CommandText = "select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='tree' and TABLE_NAME='"+dsName+"_profile'";
 		        MySqlDataReader reader = cmd.ExecuteReader();
 		        if(reader.Read())
 		        {

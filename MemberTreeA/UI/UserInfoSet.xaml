@@ -36,7 +36,7 @@
 					<GridViewColumn Header="上次登陆时间" DisplayMemberBinding="{Binding LastLoginDateStr}" />
 					<GridViewColumn Header="登陆次数" DisplayMemberBinding="{Binding LoginTimes}" />
 					<GridViewColumn Header="在线时长" DisplayMemberBinding="{Binding OnlineTime}" />
-					<GridViewColumn Header="备注信息" Width="120">
+					<GridViewColumn Header="备注信息" Width="250">
 						<GridViewColumn.CellTemplate>
 			              <DataTemplate>
 			                <TextBlock Text="{Binding Remark}">
@@ -50,8 +50,8 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
-		
-		<Grid Grid.Row="1" Margin="5">
+
+		<Grid Grid.Row="1" Margin="5" Background="Azure">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition/>

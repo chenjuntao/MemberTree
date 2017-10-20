@@ -135,8 +135,12 @@
       <DependentUpon>UserInfoSet.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\UserPrivilege.xaml.cs">
-      <DependentUpon>UserPrivilege.xaml</DependentUpon>
+    <Compile Include="UI\UserPrivilege1.xaml.cs">
+      <DependentUpon>UserPrivilege1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserPrivilege2.xaml.cs">
+      <DependentUpon>UserPrivilege2.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UI\WindowColsCheck.xaml.cs">
@@ -153,7 +157,8 @@
     <Page Include="UI\ConnSqlserver.xaml" />
     <Page Include="UI\CsvErrCheck.xaml" />
     <Page Include="UI\UserInfoSet.xaml" />
-    <Page Include="UI\UserPrivilege.xaml" />
+    <Page Include="UI\UserPrivilege1.xaml" />
+    <Page Include="UI\UserPrivilege2.xaml" />
     <Page Include="UI\WindowColsCheck.xaml" />
     <Page Include="WindowAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>

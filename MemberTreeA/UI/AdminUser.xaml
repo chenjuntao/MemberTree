@@ -7,19 +7,20 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="4*"/>
-			<ColumnDefinition Width="3*"/>
-		</Grid.ColumnDefinitions>
+
 		<StackPanel Background="Azure" Orientation="Horizontal">
-			<RadioButton Content="启用用户及权限管理功能" Margin="5" FontSize="15" x:Name="rbEnable" Click="RadioBtnEnable_Click"/>
-			<RadioButton Content="停用用户及权限管理功能" Margin="5" FontSize="15" x:Name="rbDisable" Click="RadioBtnEnable_Click"/>
+			<CheckBox Content="是否启用用户及权限管理功能" x:Name="ckEnable" Margin="20,10,10,10" Click="CkEnable_Click"/>
+			
+			<ToolBar Name="toolBar">
+				<RadioButton Content="用户基本信息管理" Name="btnUserAdmin" Margin="10,2" Padding="5,2" 
+				             BorderBrush="Black" BorderThickness="1" Checked="switchTabPage_Checked"/>
+				<RadioButton Content="用户——>数据集权限管理" Name="btnUsrDst" Margin="10,2" Padding="5,2" 
+				             BorderBrush="Black" BorderThickness="1" Checked="switchTabPage_Checked"/>
+				<RadioButton Content="数据集——>用户权限管理" Name="btnDstUsr" Margin="10,2" Padding="5,2" 
+				             BorderBrush="Black" BorderThickness="1" Checked="switchTabPage_Checked"/>
+			</ToolBar>
 		</StackPanel>
-		<GroupBox Grid.Row="1" Header="用户基本信息管理" Name="gpUserAdmin">
-			<my:UserInfoSet x:Name="userInfoSet"/>
-		</GroupBox>
-		<GroupBox Grid.RowSpan="2" Grid.Column="1" Header="用户权限管理" Name="gpUserPrivilege">
-			<my:UserPrivilege x:Name="userPrivilege"/>
-		</GroupBox>
+		
+		<Grid Name="gridContent" Grid.Row="1"/>
 	</Grid>
 </UserControl>

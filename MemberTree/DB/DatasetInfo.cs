@@ -19,5 +19,17 @@ namespace MemberTree
 		public int ColCount;	//列数
 		public int RowCount;	//行数，节点数量
 		public DateTime CreateData;	//创建日期
+		
+		public string GetOtherString()
+		{
+			string rowStr = RowCount.ToString();
+			if(RowCount > 10000)
+			{
+				int big = RowCount / 10000;
+				int small = RowCount % 10000;
+				rowStr = string.Format("{0}万{1}", big, small);
+			}
+			return string.Format("{0}列,{1}条数据,创建日期:{2}", ColCount, rowStr, CreateData);
+		}
 	}
 }

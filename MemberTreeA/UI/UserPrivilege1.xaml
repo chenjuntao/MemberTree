@@ -1,0 +1,23 @@
+<UserControl x:Class="MemberTree.UserPrivilege1"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<GroupBox Header="用户列表">
+			<WrapPanel Name="panelUser"/>
+		</GroupBox>
+		<StackPanel Grid.Column="1">
+			<Button Content="全选" Name="btnSelectAll" IsEnabled="False" Margin="5,20" Padding="1,10" Click="BtnSelectAll_Click"/>
+			<Button Content="全不选" Name="btnSelectNone" IsEnabled="False" Margin="5,20" Padding="1,10" Click="BtnSelectNone_Click"/>
+			<Button Content="修改" Name="btnModify" IsEnabled="False" Margin="5,20" Padding="1,10" Click="BtnModify_Click"/>
+			<Button Content="确定" Name="btnSave" IsEnabled="False" Margin="5,20" Padding="1,10" Click="BtnSave_Click"/>
+		</StackPanel>
+		<GroupBox Header="数据集列表" Grid.Column="2">
+			<WrapPanel Name="panelDataset" IsEnabled="False"/>
+		</GroupBox>
+	</Grid>
+</UserControl>

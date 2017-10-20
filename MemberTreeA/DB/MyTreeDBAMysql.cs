@@ -52,6 +52,8 @@ namespace MemberTree
 			cmd.ExecuteNonQuery();
 			cmd.CommandText = "drop table if exists "+dbName+"_profile";
 			cmd.ExecuteNonQuery();
+			cmd.CommandText = "delete from tree_userprivilege where data_name = '"+ dbName +"'";
+			cmd.ExecuteNonQuery();
 			CloseDB();
 		}
 		

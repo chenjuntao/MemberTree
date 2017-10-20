@@ -58,7 +58,7 @@ namespace MemberTree
 		
 		public string ToShortString()
 		{
-			return string.Format("用户 ID：{0}, 姓名：{1}", ID, Name);
+			return string.Format("{0}({1})", Name, ID);
 		}
 		
 		public string ToLongString()
