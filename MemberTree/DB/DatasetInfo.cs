@@ -18,6 +18,6 @@ namespace MemberTree
 		public string Name;		//数据集名字
 		public int ColCount;	//列数
 		public int RowCount;	//行数，节点数量
-		public DateTime Create_Date;	//创建日期
+		public DateTime CreateData;	//创建日期
 	}
 }

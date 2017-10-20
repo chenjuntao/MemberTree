@@ -32,17 +32,18 @@ namespace MemberTree
 		{
 			UserAdmin.InitDB();
 
-			checkIsEnableUser.IsChecked = UserAdmin.UserAdminEnabled;
-			gpUserAdmin.IsEnabled = (bool)checkIsEnableUser.IsChecked;
-			gpUserPrivilege.IsEnabled = (bool)checkIsEnableUser.IsChecked;
+			rbEnable.IsChecked = UserAdmin.UserAdminEnabled;
+			rbDisable.IsChecked = !UserAdmin.UserAdminEnabled;
+			gpUserAdmin.IsEnabled = (bool)rbEnable.IsChecked;
+			gpUserPrivilege.IsEnabled = (bool)rbEnable.IsChecked;
 			
 			userInfoSet.RefreshUserList();
 		}
 
 		//是否启用用户权限管理
-		private void CheckBox_Click(object sender, RoutedEventArgs e)
+		void RadioBtnEnable_Click(object sender, RoutedEventArgs e)
 		{
-			if((bool)checkIsEnableUser.IsChecked)
+			if((bool)rbEnable.IsChecked)
 			{
 				gpUserAdmin.IsEnabled = true;
 				gpUserPrivilege.IsEnabled = true;

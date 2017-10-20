@@ -69,7 +69,7 @@ namespace MemberTree
 				txtID.Text = userInfo.ID;
 				txtName.Text = userInfo.Name;
 				txtRemark.Text = userInfo.Remark;
-				WindowAdmin.notify.SetStatusMessage("当前选中的用户ID："+userInfo.ID+"，用户姓名："+userInfo.Name);
+				WindowAdmin.notify.SetStatusMessage("当前选中的"+userInfo.ToLongString());
 			}
 			else
 			{
@@ -194,27 +194,24 @@ namespace MemberTree
 			CheckBox checkBox = e.Source as CheckBox;
 			if(checkBox != null)
 			{
-				UserAdmin.UpdateUserEnabled(checkBox.Tag.ToString(), (bool)checkBox.IsChecked);
-				if((bool)checkBox.IsChecked)
-				{
-					WindowAdmin.notify.SetStatusMessage("已经将用户启用!");
-				}
-				else
-				{
-					WindowAdmin.notify.SetStatusMessage("已经将用户停用!");
-				}
+				string userId = checkBox.Tag.ToString();
+				bool isEnable = (bool)checkBox.IsChecked;
+				UserAdmin.UpdateUserEnabled(userId, IsEnabled);
+				
+				string enableStr = isEnable ? "启用" : "停用";
+				WindowAdmin.notify.SetStatusMessage("已经将用户"+userId+enableStr);
 			}
 		}
 		
 		//删除
 		void BtnDelete_Click(object sender, RoutedEventArgs e)
 		{
-			string tipTxt = "确定要删除该用户?\n用户ID："+txtID.Text+"，用户姓名："+txtName.Text;
-			if(MessageBox.Show(tipTxt, "删除确认", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+			string userStr = string.Format("用户ID：{0}，用户姓名：{1}", txtID.Text, txtName.Text);
+			if(MessageBox.Show("确定要删除该用户?\n"+userStr, "删除确认", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 			{
 				UserAdmin.DeleteUserInfo(txtID.Text);
 				RefreshUserList();
-				WindowAdmin.notify.SetStatusMessage("删除用户成功！被删除的用户ID："+txtID.Text+"，用户姓名："+txtName.Text);
+				WindowAdmin.notify.SetStatusMessage("删除用户成功！被删除的" + userStr);
 			}
 		}
 	}

@@ -11,14 +11,14 @@
 			<ColumnDefinition Width="4*"/>
 			<ColumnDefinition Width="3*"/>
 		</Grid.ColumnDefinitions>
-		<StackPanel Grid.ColumnSpan="2" Background="Azure">
-			<CheckBox x:Name="checkIsEnableUser" Content="启用用户权限管理功能"
-			         Margin="10" Checked="CheckBox_Click" Unchecked="CheckBox_Click"/>
+		<StackPanel Background="Azure" Orientation="Horizontal">
+			<RadioButton Content="启用用户及权限管理功能" Margin="5" FontSize="15" x:Name="rbEnable" Click="RadioBtnEnable_Click"/>
+			<RadioButton Content="停用用户及权限管理功能" Margin="5" FontSize="15" x:Name="rbDisable" Click="RadioBtnEnable_Click"/>
 		</StackPanel>
-		<GroupBox Grid.Row="1" Header="用户管理" Name="gpUserAdmin">
+		<GroupBox Grid.Row="1" Header="用户基本信息管理" Name="gpUserAdmin">
 			<my:UserInfoSet x:Name="userInfoSet"/>
 		</GroupBox>
-		<GroupBox Grid.Row="2" Grid.Column="1" Header="用户权限管理" Name="gpUserPrivilege">
+		<GroupBox Grid.RowSpan="2" Grid.Column="1" Header="用户权限管理" Name="gpUserPrivilege">
 			<my:UserPrivilege x:Name="userPrivilege"/>
 		</GroupBox>
 	</Grid>

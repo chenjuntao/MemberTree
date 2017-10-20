@@ -55,5 +55,15 @@ namespace MemberTree
 			this.DueDate = DateTime.MaxValue;
 			this.DueTime = int.MaxValue;
 		}
+		
+		public string ToShortString()
+		{
+			return string.Format("用户 ID：{0}, 姓名：{1}", ID, Name);
+		}
+		
+		public string ToLongString()
+		{
+			return string.Format("用户 ID：{0}, 姓名：{1}, 备注信息：{2}", ID, Name, Remark);
+		}
 	}
 }

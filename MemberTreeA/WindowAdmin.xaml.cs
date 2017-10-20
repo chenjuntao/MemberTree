@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MemberTree
 {
@@ -71,6 +72,12 @@ namespace MemberTree
 			{
 				adminUser.InitUserAdmin();
 			}
+		}
+		
+		//主TabControl进行Tab页面切换
+		void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			notify.SetStatusMessage("进入" + (sender as TextBlock).Text);
 		}
     }
 }

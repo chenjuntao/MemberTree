@@ -24,7 +24,7 @@ namespace MemberTree
 	public partial class DatasetListView : UserControl
 	{
 		private InvokeStringDelegate startupDelegate;
-		private Button selectDatasetBtn = null;
+		private DatasetBtn selectDatasetBtn = null;
 		public DatasetListView()
 		{
 			InitializeComponent();
@@ -50,12 +50,8 @@ namespace MemberTree
 			{
 				foreach (DatasetInfo db in dbList)
 				{
-					Button btn = new Button();
-					btn.Content = db.Name;
-					btn.ToolTip = db.Name + "\n共" + db.ColCount +"列,"+db.RowCount+"条数据";
-					btn.Click += Btn_Click;
-					btn.Height = 20 + calcBtnHeight(db.RowCount);
-					btn.Width = 100 + db.ColCount;
+					DatasetBtn btn = new DatasetBtn(db);
+					btn.MouseDown += Btn_Click;
 					btn.Background = Brushes.Azure;
 					mainPanel.Children.Add(btn);
 				}
@@ -65,33 +61,9 @@ namespace MemberTree
 				Button btn = new Button();
 				btn.Content = "没有发现可用的数据！";
 				btn.Height = 50;
-				btn.Width = 185;
+				btn.Width = 200;
 				btn.Background = Brushes.Red;
 				mainPanel.Children.Add(btn);
-			}
-		}
-		
-		private int calcBtnHeight(int row)
-		{
-			if(row<10000)
-			{
-				return row/200;
-			}
-			else if(row<100000)
-			{
-				return 50 + row/2000;
-			}
-			else if(row<1000000)
-			{
-				return 100 + row/20000;
-			}
-			else if(row<10000000)
-			{
-				return 150 + row/200000;
-			}
-			else
-			{
-				return 200 + row/1000000;
 			}
 		}
 		
@@ -102,31 +74,27 @@ namespace MemberTree
 		
 		private void Btn_Click(object sender, RoutedEventArgs e)
 		{
-			Button btn = sender as Button;
+			DatasetBtn btn = sender as DatasetBtn;
 			if(selectDatasetBtn != null)
 			{
 				if(selectDatasetBtn == btn)
 				{
 					return;
 				}
-				selectDatasetBtn.Background = Brushes.Azure;
-				selectDatasetBtn.FontWeight = FontWeights.Normal;
-				selectDatasetBtn.FontSize = 12;
+				selectDatasetBtn.UnSelect();
 			}
-			btn.Background = Brushes.LightSkyBlue;
-			btn.FontWeight = FontWeights.Bold;
-			btn.FontSize = 14;
+			btn.Select();
 			selectDatasetBtn = btn;
 			
 			if(startupDelegate != null)
 			{
-				startupDelegate.Invoke(btn.Content.ToString());
+				startupDelegate.Invoke(btn.DatasetName);
 			}
 		}
 		
 		public void DeleteBtn(string btnTxt)
 		{
-			if(selectDatasetBtn.Content.ToString() == btnTxt)
+			if(selectDatasetBtn.DatasetName == btnTxt)
 			{
 				mainPanel.Children.Remove(selectDatasetBtn);
 				selectDatasetBtn = null;
@@ -135,8 +103,8 @@ namespace MemberTree
 			{
 				foreach (UIElement ele in mainPanel.Children)
 				{
-					Button btn = ele as Button;
-					if(btn.Content.ToString() == btnTxt)
+					DatasetBtn btn = ele as DatasetBtn;
+					if(btn.DatasetName == btnTxt)
 					{
 						mainPanel.Children.Remove(btn);
 						break;

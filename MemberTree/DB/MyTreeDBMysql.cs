@@ -81,7 +81,7 @@ namespace MemberTree
 			}
 			OpenDB();
 			//查询数据库tree下面所有的表名
-			cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'tree'";
+			cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'tree' order by create_time";
 			MySqlDataReader reader = cmd.ExecuteReader();
 			List<string> tables = new List<string>();
 			while(reader.Read())
@@ -115,6 +115,17 @@ namespace MemberTree
 				dsInfo.Name = dsName;
 				dsInfo.RowCount = getCount("select v from " + dsName + "_profile where k = 'AllNodeCount'");
 				dsInfo.ColCount = 7 + getCount("select count(*) from " + dsName + "_profile where k = 'TableOptCol'");
+				
+				#region 查询数据集创建日期
+				cmd.CommandText = "select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='tree' and TABLE_NAME='"+dsName+"_calc'";
+		        MySqlDataReader reader = cmd.ExecuteReader();
+		        if(reader.Read())
+		        {
+		        	dsInfo.CreateData = reader.GetDateTime(0);
+		        }
+		        reader.Close();
+				#endregion
+				
 				result.Add(dsInfo);
 			}
 			CloseDB();

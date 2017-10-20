@@ -44,6 +44,8 @@ namespace MemberTree
 			}
 			DirectoryInfo dir = new DirectoryInfo("db");
 			FileInfo[] files = dir.GetFiles("*.db");
+			//按创建时间排序
+			Array.Sort(files, (FileInfo x, FileInfo y) => x.CreationTime.CompareTo(y.CreationTime));
 			List<string> result = new List<string>();
 			foreach (FileInfo file in files) 
 			{
@@ -64,6 +66,15 @@ namespace MemberTree
 				dsInfo.Name = dsName;
 				dsInfo.RowCount = getCount("select v from tree_profile where k = 'AllNodeCount'");
 				dsInfo.ColCount = 7 + getCount("select count(*) from tree_profile where k = 'TableOptCol'");
+				
+				#region 获取创建时间
+				FileInfo file = new FileInfo("db/"+dsName+".db");
+				if(file != null)
+				{
+					dsInfo.CreateData = file.CreationTime;
+				}
+				#endregion
+				
 				result.Add(dsInfo);
 				CloseDB();
 			}
