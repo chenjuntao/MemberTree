@@ -109,7 +109,6 @@
     <Compile Include="DB\IMyTreeDBA.cs" />
     <Compile Include="DB\MyTreeDBASqlite.cs" />
     <Compile Include="DB\MyTreeDBAMysql.cs" />
-    <Compile Include="DB\UserAdmin.cs" />
     <Compile Include="BL\TextUtil.cs" />
     <Compile Include="BL\MyTrees.cs" />
     <Compile Include="BL\MyTreeNode.cs" />
@@ -120,6 +119,9 @@
     <Compile Include="UI\AdminUser.xaml.cs">
       <DependentUpon>AdminUser.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\ConnDBView.xaml.cs">
+      <DependentUpon>ConnDBView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ConnMysql.xaml.cs">
       <DependentUpon>ConnMysql.xaml</DependentUpon>
@@ -153,6 +155,7 @@
     </Compile>
     <Page Include="UI\AdminDataSet.xaml" />
     <Page Include="UI\AdminUser.xaml" />
+    <Page Include="UI\ConnDBView.xaml" />
     <Page Include="UI\ConnMysql.xaml" />
     <Page Include="UI\ConnSqlserver.xaml" />
     <Page Include="UI\CsvErrCheck.xaml" />

@@ -75,6 +75,7 @@
     <Compile Include="DB\IMyTreeDB.cs" />
     <Compile Include="DB\MyTreeDBMysql.cs" />
     <Compile Include="DB\MyTreeDBSqlite.cs" />
+    <Compile Include="DB\UserAdmin.cs" />
     <Compile Include="DB\UserInfo.cs" />
     <Compile Include="MyUserControls\DatasetBtn.xaml.cs">
       <DependentUpon>DatasetBtn.xaml</DependentUpon>
@@ -83,9 +84,6 @@
     <Compile Include="MyUserControls\DatasetInfoView.xaml.cs">
       <DependentUpon>DatasetInfoView.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MyUserControls\ConnDBView.xaml.cs">
-      <DependentUpon>ConnDBView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyUserControls\DatasetListView.xaml.cs">
       <DependentUpon>DatasetListView.xaml</DependentUpon>
@@ -115,7 +113,6 @@
   <ItemGroup>
     <Page Include="MyUserControls\DatasetBtn.xaml" />
     <Page Include="MyUserControls\DatasetInfoView.xaml" />
-    <Page Include="MyUserControls\ConnDBView.xaml" />
     <Page Include="MyUserControls\DatasetListView.xaml" />
     <Page Include="MyUserControls\MyStatusBar.xaml" />
     <Page Include="MyUserControls\ProgressView.xaml" />

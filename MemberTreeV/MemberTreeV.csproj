@@ -115,6 +115,9 @@
     <Compile Include="Export\ExportIMG.cs" />
     <Compile Include="Export\ExportPDF.cs" />
     <Compile Include="MyTree\MyTrees.cs" />
+    <Compile Include="MyUserControls\ConnDBView.xaml.cs">
+      <DependentUpon>ConnDBView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyUserControls\MyNodeInfo.xaml.cs">
       <DependentUpon>MyNodeInfo.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -154,6 +157,7 @@
     <Compile Include="MyTreeView\MyTreeView.xaml.cs">
       <DependentUpon>MyTreeView.xaml</DependentUpon>
     </Compile>
+    <Page Include="MyUserControls\ConnDBView.xaml" />
     <Page Include="MyUserControls\MyNodeInfo.xaml" />
     <Page Include="MyUserControls\MyNodeList.xaml">
       <SubType>Designer</SubType>

@@ -35,7 +35,7 @@
 					<GridViewColumn Header="修改时间" DisplayMemberBinding="{Binding ModifyDateStr}" />
 					<GridViewColumn Header="上次登陆时间" DisplayMemberBinding="{Binding LastLoginDateStr}" />
 					<GridViewColumn Header="登陆次数" DisplayMemberBinding="{Binding LoginTimes}" />
-					<GridViewColumn Header="在线时长" DisplayMemberBinding="{Binding OnlineTime}" />
+					<GridViewColumn Header="累计在线时长" DisplayMemberBinding="{Binding OnlineTimeStr}" />
 					<GridViewColumn Header="备注信息" Width="250">
 						<GridViewColumn.CellTemplate>
 			              <DataTemplate>

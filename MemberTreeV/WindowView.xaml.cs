@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Microsoft.Win32;
+using System.Timers;
 
 namespace MemberTree
 {
@@ -18,12 +18,17 @@ namespace MemberTree
     /// </summary>
     public partial class WindowView : UserControl, IPluginView
     {
-        internal static INotify notify = null;
+    	internal static INotify notify = null;
+    	
+    	//当前登录的用户ID
+    	internal static string UserID = "";
+    	
+    	//用于记录用户在线时长
+    	internal static int tickCount = 0;
         private WelcomeView welcomeView;
         private ConnDBView connectView;
         private DatasetListView datasetListView;
         private Window mainWindow;
-
         private List<MyTreeNode> findResultNodes = new List<MyTreeNode>();
 
         public WindowView()
@@ -32,7 +37,7 @@ namespace MemberTree
             myStatusBar.SetShowHideView(null, new UIElement[]{leftMenu, mainGrid}, null);
             notify = myStatusBar;
         }
-        
+      
         public void Load(IPluginHost host)
 		{
 			mainWindow = host as Window;
@@ -52,7 +57,8 @@ namespace MemberTree
        		}
        		else
        		{
-       			connectView = new ConnDBView(new InvokeDelegate(SelectDB), false, MyTrees.treeDB);
+       			UserAdmin.InitDB(MyTrees.treeDB);
+       			connectView = new ConnDBView(new InvokeDelegate(SelectDB), MyTrees.treeDB);
 				(mainWindow.Content as Grid).Children.Remove(welcomeView);
 				(mainWindow.Content as Grid).Children.Add(connectView);
        		}
@@ -61,7 +67,7 @@ namespace MemberTree
        	private void SelectDB()
 		{
        		datasetListView = new DatasetListView();
-       		datasetListView.RefreshDB(MyTrees.treeDB);
+       		datasetListView.RefreshDB(MyTrees.treeDB, UserID);
        		datasetListView.SetCallBack(new InvokeStringDelegate(StartUp));
        		
        		Grid main_Grid = mainWindow.Content as Grid;
@@ -75,7 +81,7 @@ namespace MemberTree
 			}
 			main_Grid.Children.Add(datasetListView);
 		}
-       	
+
 		private void StartUp(string selectDB)
 		{
 			(mainWindow.Content as Grid).Children.Remove(datasetListView);
@@ -89,8 +95,28 @@ namespace MemberTree
 			listNodes.InitCols();
 			myTreeView.myNodeInfo.InitCols();
 			myTreeView.btnAllNode.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+			
+			if(UserID!="")
+			{
+				//更新用户的最近登陆时间和登陆次数
+				UserAdmin.UpdateUserLogin(UserID);
+				tickCount = Environment.TickCount;
+			}
 		}
-
+		
+		internal static void Refresh_Online_time()
+		{
+			if(UserID!="")
+			{
+				int minutes = (Environment.TickCount-tickCount) / 60000;
+				if(minutes > 0)
+				{
+					UserAdmin.UpdateUserOnline(UserID, minutes);
+					tickCount = Environment.TickCount;
+				}
+			}
+		}
+        
         #region 左侧按钮事件
 
         //查找
@@ -108,6 +134,7 @@ namespace MemberTree
 				WindowView.notify.SetProcessBarVisible(false);
 	        	WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());
 			}
+			Refresh_Online_time();
         }
  
         //切换视图
@@ -124,6 +151,7 @@ namespace MemberTree
                 myTreeView.Visibility = Visibility.Collapsed;
                 listNodes.SetDataSource(tab);
             }
+            Refresh_Online_time();
         }
         
         //用户双击选中进入查看某个查找结果
@@ -157,6 +185,7 @@ namespace MemberTree
 	                myTreeView.ExpandRootNode(1);//打开一级子节点
             	}
             }
+            Refresh_Online_time();
         }
 		private void BtnAbout_Click(object sender, RoutedEventArgs e)
 		{

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="MemberTree.ConnDBView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<UserControl.Resources>
+		<Style TargetType="TextBlock">
+			<Setter Property="Padding" Value="5" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="HorizontalAlignment" Value="Right" />
+		</Style>
+		<Style TargetType="TextBox">
+			<Setter Property="Width" Value="120" />
+			<Setter Property="Height" Value="20" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style TargetType="Button">
+			<Setter Property="Padding" Value="5,3" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="IsEnabled" Value="False" />
+		</Style>
+	</UserControl.Resources>
+	<Grid Margin="5">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="1.5*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<GroupBox Header="会话列表" Grid.ColumnSpan="2">
+			<ListBox x:Name="sessionList" SelectionChanged="SessionList_SelectionChanged"/>
+		</GroupBox>
+		<GroupBox Header="会话信息" Grid.Column="2" Grid.ColumnSpan="4">
+			<Grid x:Name="gridSessionInfo">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="2*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition Height="2*"/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				
+				<TextBlock Text="会话名称："/>
+				<TextBox Grid.Column="1" x:Name="txtSessionName" Text="{Binding SessionName}" IsEnabled="False"/>
+				
+				<TextBlock Grid.Row="1" Text="备注信息："/>
+				<TextBox Grid.Row="1" Grid.Column="1" x:Name="txtSessionRemark" Width="150" Height="50" 
+				         Text="{Binding SessionRemark}" TextWrapping="WrapWithOverflow" IsEnabled="False"/>
+				
+				<TextBlock Grid.Row="2" Text="服务器IP："/>
+				<TextBox Grid.Row="2" Grid.Column="1" x:Name="txtDBServer" Text="{Binding ServerIP}" IsEnabled="False"/>
+				
+				<TextBlock Grid.Row="3" Text="用户ID：" x:Name="lblUserID" Visibility="Collapsed"/>
+				<TextBox Grid.Row="3" Grid.Column="1" x:Name="txtUserID" Visibility="Collapsed" TextChanged="TextChanged"/>
+				
+				<TextBlock Grid.Row="4" Text="密码：" x:Name="lblPwd" Visibility="Collapsed"/>
+				<PasswordBox Grid.Row="4" Grid.Column="1" x:Name="txtPwd" Width="120" Height="20" Visibility="Collapsed"
+				             HorizontalAlignment="Left" PasswordChanged="TxtPwd_PasswordChanged"/>
+			</Grid>
+		</GroupBox>
+		<TextBlock Grid.Row="1" Grid.ColumnSpan="5" x:Name="lblTip"/>
+		<Button Grid.Row="1" Grid.Column="5" Content="  登 陆  " x:Name="btnConnect" Click="btnConnect_Click"/>
+	</Grid>
+</UserControl>

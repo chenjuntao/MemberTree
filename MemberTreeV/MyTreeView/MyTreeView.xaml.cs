@@ -161,6 +161,7 @@ namespace MemberTree
 	        		}
         		}
         	}
+        	WindowView.Refresh_Online_time();
         }
         
         //显示到顶级根节点
@@ -484,6 +485,7 @@ namespace MemberTree
         {
         	MyTreeNode node = GetSelectedNode();
         	ExportCSV.ExportNodes(node);
+        	WindowView.Refresh_Online_time();
         }
 
         //导出图片
@@ -491,6 +493,7 @@ namespace MemberTree
         {
         	MyTreeNode node = GetSelectedNode();
         	ExportIMG.SaveNode2Image(this, node);
+        	WindowView.Refresh_Online_time();
         }
         
         //导出PDF
@@ -498,6 +501,7 @@ namespace MemberTree
         {
             MyTreeNode node = GetSelectedNode();
         	ExportPDF.Export2PDF(this, node);
+        	WindowView.Refresh_Online_time();
         }
 
         //打印
@@ -510,6 +514,7 @@ namespace MemberTree
             {
                  printDlg.PrintVisual(memberTreeView, "打印当前会员树视图");
             }
+            WindowView.Refresh_Online_time();
         }
         #endregion
     }

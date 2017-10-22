@@ -75,10 +75,7 @@ namespace MemberTree
 	    
 		public List<string> GetDatasetNames()
 		{
-			if(conn == null)
-			{
-				ConnectDB("");
-			}
+			ConnectDB("");
 			OpenDB();
 			//查询数据库tree下面所有的表名
 			cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'tree' order by create_time";
@@ -134,7 +131,7 @@ namespace MemberTree
 		
 		public bool ConnectDB(string dbName)
 		{
-			if(conn == null)
+			if(dbName == "")
 			{
 				//连接数据库
 		        MySqlConnectionStringBuilder connstr = new MySqlConnectionStringBuilder();

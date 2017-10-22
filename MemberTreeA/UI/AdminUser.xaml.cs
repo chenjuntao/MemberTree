@@ -30,7 +30,7 @@ namespace MemberTree
 		
 		public void InitUserAdmin()
 		{
-			UserAdmin.InitDB();
+			UserAdmin.InitDB(MyTrees.treeDB);
 
 			ckEnable.IsChecked = UserAdmin.UserAdminEnabled;
 			gridContent.IsEnabled = (bool)ckEnable.IsChecked;

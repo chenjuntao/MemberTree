@@ -43,6 +43,24 @@ namespace MemberTree
 			get{return LastLoginDate.ToString("yyyy-MM-dd hh:mm:ss"); }
 		}
 		
+		public string OnlineTimeStr
+		{
+			get
+			{
+				if(OnlineTime<60)
+				{
+					return OnlineTime + "分钟";
+				}
+				else
+				{
+					int hours = OnlineTime/60;
+					int minutes = OnlineTime%60;
+					return string.Format("{0}小时{1}分钟", hours, minutes);
+				}
+			}
+		}
+		
+		
 		public UserInfo(string id, string name, string pwd, string remark)
 		{
 			this.ID = id;

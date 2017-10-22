@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 5.1
+# SharpDevelop 5.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberTreeAdmin", "MemberTreeAdmin\MemberTreeAdmin.csproj", "{360B1C56-20F6-423E-978D-4F4095EC09D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberTreeView", "MemberTreeView\MemberTreeView.csproj", "{FFE94DE7-54D8-43E0-9055-0BA5E4F4633A}"

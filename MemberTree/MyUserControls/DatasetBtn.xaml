@@ -11,7 +11,7 @@
 			<RowDefinition Height="3*"/>
 		</Grid.RowDefinitions>
 	
-		<TextBlock x:Name="dsName" Text="数据集名称" FontWeight="Bold" FontSize="15"/>
+		<TextBlock x:Name="dsName" Text="数据集名称" FontWeight="Bold" FontSize="15" Foreground="Maroon"/>
 	
 		<TextBlock Grid.Row="1">
 			<TextBlock Text="共" />

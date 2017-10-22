@@ -61,7 +61,7 @@ namespace MemberTree
                 TextUtil.enTrim = (EnumTrim)comboTrim.SelectedIndex;
                 string separator = csv_or_tab ? "," : "\t";
                 MyTrees.OpenDBFile(openfileDlg.FileName, separator, true);
-                datasetListView.RefreshDB(MyTrees.treeDB);
+                datasetListView.RefreshDB(MyTrees.treeDB, "");
             }
         }
         
@@ -77,7 +77,7 @@ namespace MemberTree
         {
         	ConnMysql connDB = new ConnMysql();
         	connDB.ShowDialog();
-        	datasetListView.RefreshDB(MyTrees.treeDB);
+        	datasetListView.RefreshDB(MyTrees.treeDB, "");
         }
         
         //删除数据集

@@ -47,7 +47,7 @@ namespace MemberTree
        		}
        		else
        		{
-       			connectView = new ConnDBView(new InvokeDelegate(StartUp), true, MyTrees.treeDB);
+       			connectView = new ConnDBView(new InvokeDelegate(StartUp), MyTrees.treeDB);
 				(mainWindow.Content as Grid).Children.Remove(welcomeView);
 				(mainWindow.Content as Grid).Children.Add(connectView);
        		}
@@ -67,7 +67,7 @@ namespace MemberTree
 			(mainWindow.Content as Grid).Children.Add(this);
 			mainWindow.ResizeMode = ResizeMode.CanResize;
 			mainWindow.WindowState = WindowState.Maximized;
-			adminDataset.datasetListView.RefreshDB(MyTrees.treeDB);
+			adminDataset.datasetListView.RefreshDB(MyTrees.treeDB, "");
 			if(MyTrees.treeDB is MyTreeDBAMysql)
 			{
 				adminUser.InitUserAdmin();

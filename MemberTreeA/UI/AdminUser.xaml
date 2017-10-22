@@ -14,9 +14,9 @@
 			<ToolBar Name="toolBar">
 				<RadioButton Content="用户基本信息管理" Name="btnUserAdmin" Margin="10,2" Padding="5,2" 
 				             BorderBrush="Black" BorderThickness="1" Checked="switchTabPage_Checked"/>
-				<RadioButton Content="用户——>数据集权限管理" Name="btnUsrDst" Margin="10,2" Padding="5,2" 
+				<RadioButton Content="权限管理(用户——>数据集)" Name="btnUsrDst" Margin="10,2" Padding="5,2" 
 				             BorderBrush="Black" BorderThickness="1" Checked="switchTabPage_Checked"/>
-				<RadioButton Content="数据集——>用户权限管理" Name="btnDstUsr" Margin="10,2" Padding="5,2" 
+				<RadioButton Content="权限管理(数据集——>用户)" Name="btnDstUsr" Margin="10,2" Padding="5,2" 
 				             BorderBrush="Black" BorderThickness="1" Checked="switchTabPage_Checked"/>
 			</ToolBar>
 		</StackPanel>

@@ -17,11 +17,11 @@ namespace MemberTree
 	/// </summary>
 	public class UserAdmin
 	{
-		private static MyTreeDBAMysql db;	
+		private static MyTreeDBMysql db;	
 		
-		public static void InitDB()
+		public static void InitDB(IMyTreeDB treeDB)
 		{
-			db = MyTrees.treeDB as MyTreeDBAMysql;
+			db = treeDB as MyTreeDBMysql;
 		}
 		
 		//是否启用用户权限管理
@@ -163,6 +163,30 @@ namespace MemberTree
 			db.cmd.Parameters.AddWithValue("@id", id);
 			db.cmd.Parameters.AddWithValue("@enable", enable);
 			db.cmd.Parameters.AddWithValue("@modify_date", DateTime.Now);
+			db.cmd.ExecuteNonQuery();
+			db.cmd.Parameters.Clear();
+			db.CloseDB();
+		}
+		
+		//修改用户登陆次数+1，更新最近登陆时间
+		public static void UpdateUserLogin(string id)
+		{
+			db.OpenDB();
+			db.cmd.CommandText = "update tree_userinfo set login_times=login_times+1, last_login_date=@last_login_date where id=@id";
+			db.cmd.Parameters.AddWithValue("@id", id);
+			db.cmd.Parameters.AddWithValue("@last_login_date", DateTime.Now);
+			db.cmd.ExecuteNonQuery();
+			db.cmd.Parameters.Clear();
+			db.CloseDB();
+		}
+		
+		//修改用户累计登陆在线时长(分钟)
+		public static void UpdateUserOnline(string id, int addminutes)
+		{
+			db.OpenDB();
+			db.cmd.CommandText = "update tree_userinfo set online_time=online_time+@add_minutes where id=@id";
+			db.cmd.Parameters.AddWithValue("@id", id);
+			db.cmd.Parameters.AddWithValue("@add_minutes", addminutes);
 			db.cmd.ExecuteNonQuery();
 			db.cmd.Parameters.Clear();
 			db.CloseDB();

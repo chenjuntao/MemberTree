@@ -38,7 +38,7 @@
 			<ListBox x:Name="sessionList" SelectionChanged="SessionList_SelectionChanged"/>
 		</GroupBox>
 		<GroupBox Header="会话信息" Grid.Column="2" Grid.ColumnSpan="4">
-			<Grid x:Name="gridSessionInfo" >
+			<Grid x:Name="gridSessionInfo" IsEnabled="False">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition Width="2*" />
@@ -61,16 +61,16 @@
 				
 				<TextBlock Grid.Row="2" Text="服务器IP："/>
 				<TextBox Grid.Row="2" Grid.Column="1" x:Name="txtDBServer" Text="{Binding ServerIP}" TextChanged="TextChanged"/>
+				
+				<TextBlock Grid.Row="3" Text="端口号："/>
+				<TextBox Grid.Row="3" Grid.Column="1" x:Name="txtDBPort" Text="{Binding Port}" TextChanged="TextChanged"/>
 		
-				<TextBlock Grid.Row="3" Text="用户名："/>
-				<TextBox Grid.Row="3" Grid.Column="1" x:Name="txtUserID" Text="{Binding UserID}" TextChanged="TextChanged"/>
+				<TextBlock Grid.Row="4" Text="用户名："/>
+				<TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDBUserID" Text="{Binding UserID}" TextChanged="TextChanged"/>
 				
-				<TextBlock Grid.Row="4" Text="密码："/>
-				<PasswordBox Grid.Row="4" Grid.Column="1" x:Name="txtPwd" Width="120" Height="20"
+				<TextBlock Grid.Row="5" Text="密码："/>
+				<PasswordBox Grid.Row="5" Grid.Column="1" x:Name="txtDBPwd" Width="120" Height="20"
 				             HorizontalAlignment="Left" PasswordChanged="TxtPwd_PasswordChanged"/>
-				
-				<TextBlock Grid.Row="5" Text="端口号："/>
-				<TextBox Grid.Row="5" Grid.Column="1" x:Name="txtPort" Text="{Binding Port}" TextChanged="TextChanged"/>
 			</Grid>
 		</GroupBox>
 		<Button Grid.Row="1" IsEnabled="True" Content="新建会话" x:Name="btnNew" Click="btnNew_Click" />

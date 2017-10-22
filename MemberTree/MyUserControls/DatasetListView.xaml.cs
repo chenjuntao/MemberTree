@@ -38,15 +38,28 @@ namespace MemberTree
 			}
 			else
 			{
-				return selectDatasetBtn.Content.ToString();
+				return selectDatasetBtn.DatasetName;
 			}
 		}
 		
-		public void RefreshDB(IMyTreeDB treeDB)
+		public void RefreshDB(IMyTreeDB treeDB, string userId)
 		{
 			mainPanel.Children.Clear();
 			List<DatasetInfo> dbList = treeDB.GetDatasets();
-			if(dbList!=null && dbList.Count > 0)
+			if(userId != "") //如果用户权限启用，则进行用户数据集权限筛选
+			{
+				List<DatasetInfo> allowDbList = new List<DatasetInfo>();
+				List<string> allowDbName = UserAdmin.GetAllowDataByUser(userId);
+				foreach (DatasetInfo db in dbList) 
+				{
+					if(allowDbName.Contains(db.Name))
+					{
+						allowDbList.Add(db);
+					}
+				}
+				dbList = allowDbList;
+			}
+			if(dbList.Count > 0)
 			{
 				foreach (DatasetInfo db in dbList)
 				{

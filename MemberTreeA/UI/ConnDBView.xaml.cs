@@ -24,19 +24,11 @@ namespace MemberTree
 	{
 		private InvokeDelegate startupDelegate;
 		private MyTreeDBMysql treeDB;
-		public ConnDBView(InvokeDelegate startupDelegate, bool isServer, IMyTreeDB treeDB)
+		public ConnDBView(InvokeDelegate startupDelegate, IMyTreeDB treeDB)
 		{
 			InitializeComponent();
 			this.startupDelegate = startupDelegate;
 			this.treeDB = treeDB as MyTreeDBMysql;
-			if(!isServer)
-			{
-				btnNew.Visibility = Visibility.Hidden;
-				btnDelete.Visibility = Visibility.Hidden;
-				btnSave.Visibility = Visibility.Hidden;
-			}
-			
-			gridSessionInfo.IsEnabled = false;
 			
 			//会话列表
 			List<string> sessionNames = DBSession.GetSessionNames();
@@ -55,7 +47,7 @@ namespace MemberTree
 				{
 					gridSessionInfo.IsEnabled = true;
 					this.DataContext = dbSession;
-					this.txtPwd.Password = dbSession.Password;
+					this.txtDBPwd.Password = dbSession.Password;
 					btnSave.IsEnabled = false;
 					btnTest.IsEnabled = true;
 					btnDelete.IsEnabled = true;
@@ -63,7 +55,7 @@ namespace MemberTree
 				}
 			}
 			this.DataContext = "";
-			this.txtPwd.Password = "";
+			this.txtDBPwd.Password = "";
 			btnSave.IsEnabled = false;
 			btnTest.IsEnabled = false;
 			btnDelete.IsEnabled = false;
@@ -83,6 +75,7 @@ namespace MemberTree
 			btnSave.IsEnabled = true;
 			btnConnect.IsEnabled = false;
 		}
+		
 		//密码改变时，保存修改按钮enable可用，连接数据库按钮enable不可用
 		private void TxtPwd_PasswordChanged(object sender, RoutedEventArgs e)
 		{
@@ -125,9 +118,9 @@ namespace MemberTree
 					SessionName = txtSessionName.Text,
 					SessionRemark = txtSessionRemark.Text,
 					ServerIP = txtDBServer.Text,
-					UserID = txtUserID.Text,
-					Password = txtPwd.Password,
-					Port = txtPort.Text
+					UserID = txtDBUserID.Text,
+					Password = txtDBPwd.Password,
+					Port = txtDBPort.Text
 				};
 				DBSession.SaveSession(dbSession);
 				btnSave.IsEnabled = false;
@@ -147,9 +140,9 @@ namespace MemberTree
 				SessionName = txtSessionName.Text,
 				SessionRemark = txtSessionRemark.Text,
 				ServerIP = txtDBServer.Text,
-				UserID = txtUserID.Text,
-				Password = txtPwd.Password,
-				Port = txtPort.Text
+				UserID = txtDBUserID.Text,
+				Password = txtDBPwd.Password,
+				Port = txtDBPort.Text
 			};
 			if(treeDB.TestPing(dbSession))
 			{
