@@ -30,17 +30,17 @@ namespace MemberTree
 		
 		public string CreateDateStr
 		{
-			get{return CreateDate.ToString("yyyy-MM-dd hh:mm:ss"); }
+			get{return CreateDate.ToString("yyyy-MM-dd HH:mm:ss"); }
 		}
 		
 		public string ModifyDateStr
 		{
-			get{return ModifyDate.ToString("yyyy-MM-dd hh:mm:ss"); }
+			get{return ModifyDate.ToString("yyyy-MM-dd HH:mm:ss"); }
 		}
 		
 		public string LastLoginDateStr
 		{
-			get{return LastLoginDate.ToString("yyyy-MM-dd hh:mm:ss"); }
+			get{return LastLoginDate.ToString("yyyy-MM-dd HH:mm:ss"); }
 		}
 		
 		public string OnlineTimeStr

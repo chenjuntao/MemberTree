@@ -15,6 +15,7 @@
 			<Button Content="全不选" Name="btnSelectNone" IsEnabled="False" Margin="5,20" Padding="1,10" Click="BtnSelectNone_Click"/>
 			<Button Content="修改" Name="btnModify" IsEnabled="False" Margin="5,20" Padding="1,10" Click="BtnModify_Click"/>
 			<Button Content="确定" Name="btnSave" IsEnabled="False" Margin="5,20" Padding="1,10" Click="BtnSave_Click"/>
+			<Button Content="取消" Name="btnCancel" IsEnabled="False" Margin="5,20" Padding="1,10" Click="btnCancel_Click"/>
 		</StackPanel>
 		<GroupBox Header="用户列表" Grid.Column="2">
 			<WrapPanel Name="panelUser" IsEnabled="False"/>

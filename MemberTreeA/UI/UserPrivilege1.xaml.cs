@@ -15,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace MemberTree
 {
@@ -23,9 +24,7 @@ namespace MemberTree
 	/// </summary>
 	public partial class UserPrivilege1 : UserControl
 	{
-		private Button selectedUserBtn;
-		private List<string> addDataPrivileges = new List<string>();
-		private List<string> removeDataPrivileges = new List<string>();
+		private BtnUserInfo selectedUserBtn;
 		public UserPrivilege1()
 		{
 			InitializeComponent();
@@ -39,15 +38,8 @@ namespace MemberTree
 			panelUser.Children.Clear();
 			List<UserInfo> userList = UserAdmin.GetUserInfoList();
 			foreach (UserInfo user in userList) {
-				Button btn = new Button();
-				btn.Background = Brushes.Azure;
-				btn.Margin = new Thickness(3);
-				btn.Width = 150;
-				btn.Height = 30;
-				btn.Content = user.ToShortString();
-				btn.Tag = user.ID;
-				btn.ToolTip = user.Remark;
-				btn.Click += btnUser_Click;
+				BtnUserInfo btn = new BtnUserInfo(user);
+				btn.MouseDown += btnUser_Click;
 				panelUser.Children.Add(btn);
 			}
 		}
@@ -57,10 +49,8 @@ namespace MemberTree
 			panelDataset.Children.Clear();
 			List<DatasetInfo> dbList = MyTrees.treeDB.GetDatasets();
 			foreach (DatasetInfo db in dbList) {
-				CheckBox cbx = new CheckBox();
-				cbx.Margin = new Thickness(5);
-				cbx.Content = db.Name;
-				cbx.ToolTip = db.GetOtherString();	
+				BtnDataset cbx = new BtnDataset(db);
+				cbx.MouseDown += cbxDataset_Click;
 				panelDataset.Children.Add(cbx);
 			}
 		}
@@ -68,21 +58,28 @@ namespace MemberTree
 		//选中某个用户时，可以修改该用户对应的数据集权限
 		private void btnUser_Click(object sender, RoutedEventArgs e)
 		{
-			Button btnUser = sender as Button;
+			BtnUserInfo btnUser = sender as BtnUserInfo;
 			if(selectedUserBtn != null)
 			{
-				selectedUserBtn.Background = Brushes.Azure;
+				selectedUserBtn.isSelected = false;
 			}
 			selectedUserBtn = btnUser;
-			btnUser.Background = Brushes.LightBlue;
+			btnUser.isSelected = true;
 			btnModify.IsEnabled = true;
 			
 			//根据用户ID获取对应的数据权限
-			List<string> allowData = UserAdmin.GetAllowDataByUser(btnUser.Tag.ToString());
-			foreach (CheckBox cbx in panelDataset.Children)
+			List<string> allowData = UserAdmin.GetAllowDataByUser(btnUser.UserId);
+			foreach (BtnDataset cbx in panelDataset.Children)
 			{
-				cbx.IsChecked = (allowData.Contains(cbx.Content.ToString()));
+				cbx.isSelected = (allowData.Contains(cbx.DatasetName));
 			}
+		}
+		
+		//点击某个数据集时，自动改变其选中状态
+		private void cbxDataset_Click(object sender, RoutedEventArgs e)
+		{
+			BtnDataset cbx = sender as BtnDataset;
+			cbx.isSelected = !cbx.isSelected;
 		}
 		
 		void BtnModify_Click(object sender, RoutedEventArgs e)
@@ -90,6 +87,7 @@ namespace MemberTree
 			btnSelectAll.IsEnabled = true;
 			btnSelectNone.IsEnabled = true;
 			btnSave.IsEnabled = true;
+			btnCancel.IsEnabled = true;
 			panelDataset.IsEnabled = true;
 			panelUser.IsEnabled = false;
 			btnModify.IsEnabled = false;
@@ -97,29 +95,29 @@ namespace MemberTree
 		
 		void BtnSelectAll_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (CheckBox cbx in panelDataset.Children)
+			foreach (BtnDataset cbx in panelDataset.Children)
 			{
-				cbx.IsChecked = true;
+				cbx.isSelected = true;
 			}
 		}
 	
 		void BtnSelectNone_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (CheckBox cbx in panelDataset.Children)
+			foreach (BtnDataset cbx in panelDataset.Children)
 			{
-				cbx.IsChecked = false;
+				cbx.isSelected = false;
 			}
 		}
 		
 		void BtnSave_Click(object sender, RoutedEventArgs e)
 		{
 			//根据用户ID获取对应的数据权限
-			string usrId = selectedUserBtn.Tag.ToString();
+			string usrId = selectedUserBtn.UserId;
 			List<string> allowData = UserAdmin.GetAllowDataByUser(usrId);
-			foreach (CheckBox cbx in panelDataset.Children)
+			foreach (BtnDataset cbx in panelDataset.Children)
 			{
-				string dsName = cbx.Content.ToString();
-				if((bool)cbx.IsChecked)
+				string dsName = cbx.DatasetName;
+				if((bool)cbx.isSelected)
 				{
 					if(!allowData.Contains(dsName))
 					{
@@ -138,10 +136,29 @@ namespace MemberTree
 			btnSelectAll.IsEnabled = false;
 			btnSelectNone.IsEnabled = false;
 			btnSave.IsEnabled = false;
+			btnCancel.IsEnabled = false;
 			panelDataset.IsEnabled = false;
 			panelUser.IsEnabled = true;
 			btnModify.IsEnabled = true;
 			WindowAdmin.notify.SetStatusMessage(string.Format("成功修改了用户{0}的所对应的数据集权限！", usrId));
+		}
+		
+		void btnCancel_Click(object sender, RoutedEventArgs e)
+		{
+			btnSelectAll.IsEnabled = false;
+			btnSelectNone.IsEnabled = false;
+			btnSave.IsEnabled = false;
+			btnCancel.IsEnabled = false;
+			panelDataset.IsEnabled = false;
+			panelUser.IsEnabled = true;
+			btnModify.IsEnabled = true;
+			
+			//根据用户ID获取对应的数据权限
+			List<string> allowData = UserAdmin.GetAllowDataByUser(selectedUserBtn.UserId);
+			foreach (BtnDataset cbx in panelDataset.Children)
+			{
+				cbx.isSelected = (allowData.Contains(cbx.DatasetName));
+			}
 		}
 	}
 }

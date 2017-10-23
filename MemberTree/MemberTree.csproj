@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Resource Include="Image\data.png" />
     <None Include="ver.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

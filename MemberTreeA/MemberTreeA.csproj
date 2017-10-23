@@ -120,6 +120,14 @@
       <DependentUpon>AdminUser.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UI\BtnDataset.xaml.cs">
+      <DependentUpon>BtnDataset.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\BtnUserInfo.xaml.cs">
+      <DependentUpon>BtnUserInfo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UI\ConnDBView.xaml.cs">
       <DependentUpon>ConnDBView.xaml</DependentUpon>
     </Compile>
@@ -155,6 +163,8 @@
     </Compile>
     <Page Include="UI\AdminDataSet.xaml" />
     <Page Include="UI\AdminUser.xaml" />
+    <Page Include="UI\BtnDataset.xaml" />
+    <Page Include="UI\BtnUserInfo.xaml" />
     <Page Include="UI\ConnDBView.xaml" />
     <Page Include="UI\ConnMysql.xaml" />
     <Page Include="UI\ConnSqlserver.xaml" />
@@ -186,6 +196,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Img\data.png" />
+    <Resource Include="Img\user.png" />
+    <Resource Include="Img\data1.png" />
+    <Resource Include="Img\user1.png" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -195,6 +209,7 @@
   <ItemGroup>
     <Folder Include="BL" />
     <Folder Include="DB" />
+    <Folder Include="Img" />
     <Folder Include="UI" />
   </ItemGroup>
   <ItemGroup>
