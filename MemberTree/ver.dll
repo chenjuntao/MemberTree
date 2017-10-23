@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AutoupdateVer>
-  <vers ver="5.12.1.0" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
-数据导入优化：
-1.将原先的MyTreeNode数据结构中的直接子孙节点ChildrenNodes由List(MyTreeNode)类型替换为int类型的SubNodeCount来表示；
-2.将原先的MyTreeNode数据结构中LineCount去掉，现在该字段已无意义；
-3.将原先的MyTreeNode数据结构中Name字段去掉，可以使用DBUtil.OptCols中的数据来替代；
-经过上面一系列优化之后，以600万条样例数据做测试进行对比，占用的内存量由原先980M降低到640M，降低了大约三分之一，保证处理更大规模的数据不会内存溢出。
-修复一些bug：
-1.导入数据时，可以选择将数据中的大小写进行转换、将数据中的空格进行清理、全角/半角符号进行转换，保证用户随意输入的数据一致性；
-2.导入数据时，对列头进行检查，如果列头发生重复，就在重复的列头后面加上“1”，保证列头的唯一性；
-3.统计子节点数量时，将ID重复的节点数量也统计进去，保证最终导出的数据与界面显示的数量一致；
+  <vers ver="5.13.1.0" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
+数据导入优化：经过一系列优化之后，以600万条样例数据做测试进行对比，占用的内存量由原先980M降低到640M，降低了大约三分之一，保证处理更大规模的数据不会内存溢出。
+用户客户端管理功能等：
+1.管理端/服务端加上客户端用户账户管理功能；
+2.管理员可以进行客户端账户开户、销户、重置密码、启用停用等功能；
+3.对客户端的登陆次数、登陆时间进行统计，服务端可以进行查看；
+4.管理员可以控制客户端账户能查看哪些数据集，不能查看哪些数据集的权限控制功能；
   </vers>
   <dlls>
-  	<verlog.dll ver="5.12.1.0"/>
-  	<MemberFmk.dll ver="5.12.1.0"/>
-  	<MemberTree.dll ver="5.12.1.0"/>
-  	<MemberTreeA.dll ver="5.12.1.0"/>
-  	<MemberTreeV.dll ver="5.12.1.0"/>
+  	<verlog.dll ver="5.13.1.0"/>
+  	<MemberFmk.dll ver="5.13.1.0"/>
+  	<MemberTree.dll ver="5.13.1.0"/>
+  	<MemberTreeA.dll ver="5.13.1.0"/>
+  	<MemberTreeV.dll ver="5.13.1.0"/>
   	<System.Data.SQLite.dll ver="1.0.94.0"/>
   	<MySql.Data.dll ver="5.2.3.0"/>
   	<Newtonsoft.Json.dll ver="10.0.1.20720"/>
