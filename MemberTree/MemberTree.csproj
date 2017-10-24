@@ -77,29 +77,29 @@
     <Compile Include="DB\MyTreeDBSqlite.cs" />
     <Compile Include="DB\UserAdmin.cs" />
     <Compile Include="DB\UserInfo.cs" />
-    <Compile Include="MyUserControls\DatasetBtn.xaml.cs">
+    <Compile Include="MyWindow\DatasetBtn.xaml.cs">
       <DependentUpon>DatasetBtn.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\DatasetInfoView.xaml.cs">
+    <Compile Include="MyWindow\DatasetInfoView.xaml.cs">
       <DependentUpon>DatasetInfoView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\DatasetListView.xaml.cs">
+    <Compile Include="MyWindow\DatasetListView.xaml.cs">
       <DependentUpon>DatasetListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyUserControls\MyStatusBar.xaml.cs">
+    <Compile Include="MyWindow\MyStatusBar.xaml.cs">
       <DependentUpon>MyStatusBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\ProgressView.xaml.cs">
+    <Compile Include="MyWindow\ProgressView.xaml.cs">
       <DependentUpon>ProgressView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\WelcomeView.xaml.cs">
+    <Compile Include="MyWindow\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyUserControls\WindowVerLog.xaml.cs">
+    <Compile Include="MyWindow\WindowVerLog.xaml.cs">
       <DependentUpon>WindowVerLog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -111,21 +111,21 @@
     <Compile Include="Util\TimingUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MyUserControls\DatasetBtn.xaml" />
-    <Page Include="MyUserControls\DatasetInfoView.xaml" />
-    <Page Include="MyUserControls\DatasetListView.xaml" />
-    <Page Include="MyUserControls\MyStatusBar.xaml" />
-    <Page Include="MyUserControls\ProgressView.xaml" />
-    <Page Include="MyUserControls\WelcomeView.xaml">
+    <Page Include="MyWindow\DatasetBtn.xaml" />
+    <Page Include="MyWindow\DatasetInfoView.xaml" />
+    <Page Include="MyWindow\DatasetListView.xaml" />
+    <Page Include="MyWindow\MyStatusBar.xaml" />
+    <Page Include="MyWindow\ProgressView.xaml" />
+    <Page Include="MyWindow\WelcomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MyUserControls\WindowVerLog.xaml" />
+    <Page Include="MyWindow\WindowVerLog.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DB" />
     <Folder Include="Image" />
-    <Folder Include="MyUserControls" />
+    <Folder Include="MyWindow" />
     <Folder Include="Util" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +144,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <Resource Include="Image\data.png" />
+    <Resource Include="Image\data1.png" />
+    <Resource Include="Image\user.png" />
+    <Resource Include="Image\user1.png" />
     <None Include="ver.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

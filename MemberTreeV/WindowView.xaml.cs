@@ -101,6 +101,7 @@ namespace MemberTree
 				//更新用户的最近登陆时间和登陆次数
 				UserAdmin.UpdateUserLogin(UserID);
 				tickCount = Environment.TickCount;
+				btnUser.Visibility = Visibility.Visible;
 			}
 		}
 		
@@ -187,10 +188,15 @@ namespace MemberTree
             }
             Refresh_Online_time();
         }
-		private void BtnAbout_Click(object sender, RoutedEventArgs e)
+		private void BtnAboutApp_Click(object sender, RoutedEventArgs e)
 		{
-			WindowVerLog verLog = new WindowVerLog(false, SysInfo.I.PRODUCT + "查看工具");
+			WindowVerLog verLog = new WindowVerLog(false);
 			verLog.ShowDialog();
+		}
+		private void BtnAboutUser_Click(object sender, RoutedEventArgs e)
+		{
+			UserInfoWindow userWindow = new UserInfoWindow(UserID);
+			userWindow.ShowDialog();
 		}
         #endregion
     }

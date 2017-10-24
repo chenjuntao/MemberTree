@@ -196,10 +196,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Img\data.png" />
-    <Resource Include="Img\user.png" />
-    <Resource Include="Img\data1.png" />
-    <Resource Include="Img\user1.png" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -209,7 +205,6 @@
   <ItemGroup>
     <Folder Include="BL" />
     <Folder Include="DB" />
-    <Folder Include="Img" />
     <Folder Include="UI" />
   </ItemGroup>
   <ItemGroup>

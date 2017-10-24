@@ -29,8 +29,12 @@ namespace MemberTree
             InitializeComponent();
     	}
     	
-    	private void Init(bool isAdmin, string title)
+    	private void Init(bool isAdmin)
 		{
+    		txtHead.Text = SysInfo.I.PRODUCT;
+           	txtVer.Text = "版本：v" + SysInfo.I.VERSION;
+            txtCpy.Text = SysInfo.I.COPYRIGHT;
+    		
            if(isAdmin)
             {
             	imgAdmin.Visibility = Visibility.Visible;
@@ -40,16 +44,13 @@ namespace MemberTree
             {
             	imgView.Visibility = Visibility.Visible;
             	isAdmin = true;
-            }
-            txtHead.Text = title;
-           	txtVer.Text = "版本：v" + SysInfo.I.VERSION;
-            txtCpy.Text = SysInfo.I.COPYRIGHT;
+            } 
 		}
     	
     	//显示修改数据库窗体
         public void InitSelectDB(bool isAdmin, string title, InvokeBoolDelegate startupDelegate)
         {
-        	Init(isAdmin, title);
+        	Init(isAdmin);
             this.startupDelegate = startupDelegate;
         }
         
@@ -64,9 +65,9 @@ namespace MemberTree
 		}
 		
 		//显示版本修改历史窗体
-		public void InitVerLog(bool isAdmin, string title)
+		public void InitVerLog(bool isAdmin)
         { 
-			Init(isAdmin, title);
+			Init(isAdmin);
 			selectDBGrid.Visibility = Visibility.Collapsed;
 			verGrid.Visibility = Visibility.Visible;
 			

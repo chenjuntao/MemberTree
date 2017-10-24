@@ -99,7 +99,7 @@ namespace MemberTree
         //关于
         private void BtnAbout_Click(object sender, RoutedEventArgs e)
 		{
-			WindowVerLog verLog = new WindowVerLog(true, SysInfo.I.PRODUCT + "管理工具");
+			WindowVerLog verLog = new WindowVerLog(true);
 			verLog.ShowDialog();
 		}
 	}

@@ -176,6 +176,33 @@ namespace MemberTree
 		{
 			if(nodes.Count > 0)
 			{
+				//如果数量太大，则分阶段插入
+				int stepCount = nodes.Count;
+				int step = nodes.Count / 1000;
+				int mod = nodes.Count % 1000;
+				
+				//大于1000的部分，每组1000进行分组插入
+				for (int n = 0; n < step; n++) 
+				{
+					sb.Clear();
+					cmd.Parameters.Clear();
+					sb.Append("insert into ");
+					sb.Append(dbNameProfile);
+					sb.Append(" values(@k0,@v0)");
+					cmd.Parameters.AddWithValue("@k0",nodeType);
+					cmd.Parameters.AddWithValue("@v0", nodes[0]);
+					for (int i = 1; i < 1000; i++) 
+					{
+						sb.Append(",(@k" + i);
+						sb.Append(",@v" + i + ")");
+						cmd.Parameters.AddWithValue("@k" + i, nodeType);
+						cmd.Parameters.AddWithValue("@v" + i, nodes[i+n*1000]);
+					}
+					cmd.CommandText = sb.ToString();
+					cmd.ExecuteNonQuery();
+				}
+				
+				//不足1000的部分
 				sb.Clear();
 				cmd.Parameters.Clear();
 				sb.Append("insert into ");
@@ -183,11 +210,12 @@ namespace MemberTree
 				sb.Append(" values(@k0,@v0)");
 				cmd.Parameters.AddWithValue("@k0",nodeType);
 				cmd.Parameters.AddWithValue("@v0", nodes[0]);
-				for (int i = 1; i < nodes.Count; i++) {
+				for (int i = 1; i < mod; i++) 
+				{
 					sb.Append(",(@k" + i);
 					sb.Append(",@v" + i + ")");
-					cmd.Parameters.AddWithValue("@k" + i,nodeType);
-					cmd.Parameters.AddWithValue("@v" + i, nodes[i]);
+					cmd.Parameters.AddWithValue("@k" + i, nodeType);
+					cmd.Parameters.AddWithValue("@v" + i, nodes[i+step*1000]);
 				}
 				cmd.CommandText = sb.ToString();
 				cmd.ExecuteNonQuery();

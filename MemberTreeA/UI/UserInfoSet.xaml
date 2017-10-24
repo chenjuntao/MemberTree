@@ -24,7 +24,7 @@
 				<GridView>
 					<GridViewColumn Header="用户ID" DisplayMemberBinding="{Binding ID}" />
 					<GridViewColumn Header="用户姓名" DisplayMemberBinding="{Binding Name}" />
-					<GridViewColumn Header="启用" >
+					<GridViewColumn Header="是否启用" >
 						<GridViewColumn.CellTemplate>
 			              <DataTemplate>
 			                <CheckBox IsChecked="{Binding Enable}" Tag="{Binding ID}" Checked="Enable_Check" Unchecked="Enable_Check"/>
@@ -33,7 +33,7 @@
 					</GridViewColumn>
 					<GridViewColumn Header="创建时间" DisplayMemberBinding="{Binding CreateDateStr}" />
 					<GridViewColumn Header="修改时间" DisplayMemberBinding="{Binding ModifyDateStr}" />
-					<GridViewColumn Header="上次登陆时间" DisplayMemberBinding="{Binding LastLoginDateStr}" />
+					<GridViewColumn Header="最近登陆时间" DisplayMemberBinding="{Binding LastLoginDateStr}" />
 					<GridViewColumn Header="登陆次数" DisplayMemberBinding="{Binding LoginTimes}" />
 					<GridViewColumn Header="累计在线时长" DisplayMemberBinding="{Binding OnlineTimeStr}" />
 					<GridViewColumn Header="备注信息" Width="250">

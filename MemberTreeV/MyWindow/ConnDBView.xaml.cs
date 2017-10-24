@@ -131,6 +131,12 @@ namespace MemberTree
 					txtPwd.BorderBrush = Brushes.Red;
 					return;
 				}
+				else if(!userInfo.Enable)
+				{
+					MessageBox.Show("对不起，您的账号未启用，请联系管理员开通访问权限！");
+					lblTip.Text = "该的账号未启用，请联系管理员开通访问权限！";
+					return;
+				}
 			}
 			
 			lblTip.Text = "登陆成功！正在进入程序。。。";

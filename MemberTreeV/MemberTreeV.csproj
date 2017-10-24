@@ -115,14 +115,14 @@
     <Compile Include="Export\ExportIMG.cs" />
     <Compile Include="Export\ExportPDF.cs" />
     <Compile Include="MyTree\MyTrees.cs" />
-    <Compile Include="MyUserControls\ConnDBView.xaml.cs">
+    <Compile Include="MyWindow\ConnDBView.xaml.cs">
       <DependentUpon>ConnDBView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyUserControls\MyNodeInfo.xaml.cs">
+    <Compile Include="MyWindow\MyNodeInfo.xaml.cs">
       <DependentUpon>MyNodeInfo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\MyNodeList.xaml.cs">
+    <Compile Include="MyWindow\MyNodeList.xaml.cs">
       <DependentUpon>MyNodeList.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyTree\MyTreeNode.cs" />
@@ -136,16 +136,20 @@
     <Compile Include="MyTreeView\GraphTreeStyle.xaml.cs">
       <DependentUpon>GraphTreeStyle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyUserControls\PageBar.xaml.cs">
+    <Compile Include="MyWindow\PageBar.xaml.cs">
       <DependentUpon>PageBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\SearchFilter.xaml.cs">
+    <Compile Include="MyWindow\SearchFilter.xaml.cs">
       <DependentUpon>SearchFilter.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\SearchResult.xaml.cs">
+    <Compile Include="MyWindow\SearchResult.xaml.cs">
       <DependentUpon>SearchResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyWindow\UserInfoWindow.xaml.cs">
+      <DependentUpon>UserInfoWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="TreeViewGraph\DPoint.cs" />
     <Compile Include="TreeViewGraph\ITreeNode.cs" />
@@ -157,9 +161,9 @@
     <Compile Include="MyTreeView\MyTreeView.xaml.cs">
       <DependentUpon>MyTreeView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MyUserControls\ConnDBView.xaml" />
-    <Page Include="MyUserControls\MyNodeInfo.xaml" />
-    <Page Include="MyUserControls\MyNodeList.xaml">
+    <Page Include="MyWindow\ConnDBView.xaml" />
+    <Page Include="MyWindow\MyNodeInfo.xaml" />
+    <Page Include="MyWindow\MyNodeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,12 +175,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MyUserControls\PageBar.xaml" />
-    <Page Include="MyUserControls\SearchFilter.xaml" />
-    <Page Include="MyUserControls\SearchResult.xaml">
+    <Page Include="MyWindow\PageBar.xaml" />
+    <Page Include="MyWindow\SearchFilter.xaml" />
+    <Page Include="MyWindow\SearchResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MyWindow\UserInfoWindow.xaml" />
     <Page Include="WindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,7 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyTree" />
-    <Folder Include="MyUserControls" />
+    <Folder Include="MyWindow" />
     <Folder Include="DB" />
     <Folder Include="Export" />
   </ItemGroup>

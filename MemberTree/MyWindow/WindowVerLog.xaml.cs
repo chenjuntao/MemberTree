@@ -19,10 +19,10 @@ namespace MemberTree
 	/// </summary>
 	public partial class WindowVerLog : Window
 	{
-		public WindowVerLog(bool isAdmin, string title)
+		public WindowVerLog(bool isAdmin)
 		{
 			InitializeComponent();
-			this.welcomView.InitVerLog(isAdmin, title);
+			this.welcomView.InitVerLog(isAdmin);
 		}
 	}
 }

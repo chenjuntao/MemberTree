@@ -196,7 +196,7 @@ namespace MemberTree
 			{
 				string userId = checkBox.Tag.ToString();
 				bool isEnable = (bool)checkBox.IsChecked;
-				UserAdmin.UpdateUserEnabled(userId, IsEnabled);
+				UserAdmin.UpdateUserEnabled(userId, isEnable);
 				
 				string enableStr = isEnable ? "启用" : "停用";
 				WindowAdmin.notify.SetStatusMessage("已经将用户"+userId+enableStr);

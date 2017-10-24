@@ -63,7 +63,13 @@
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
 			<my1:DatasetInfoView x:Name="datasetInfoView"/>
-			<Button Grid.Column="1" Padding="15,5" Margin="10,20,10,5" Content="关于本程序" Click="BtnAbout_Click"/>
+			
+			<GroupBox Grid.Column="1" Header="关于">
+				<StackPanel Orientation="Horizontal">
+					<Button Padding="10,3" Margin="10,2,5,2" Content="本用户" Click="BtnAboutUser_Click" x:Name="btnUser" Visibility="Collapsed"/>
+					<Button Padding="10,3" Margin="5,2,10,2" Content="本程序" Click="BtnAboutApp_Click"/>
+				</StackPanel>
+			</GroupBox>
 			<my:MyTreeView Grid.Row="1" Grid.ColumnSpan="2" x:Name="myTreeView" />
 			<my:MyNodeList Grid.Row="1" Grid.ColumnSpan="2" x:Name="listNodes" Visibility="Hidden" />
 		</Grid>

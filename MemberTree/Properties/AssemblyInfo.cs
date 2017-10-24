@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("cjt")]
-[assembly: AssemblyProduct("会员关系树分析")]
+[assembly: AssemblyProduct("会员关系树分析工具")]
 [assembly: AssemblyCopyright("Copyright © 湖南警察学院 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

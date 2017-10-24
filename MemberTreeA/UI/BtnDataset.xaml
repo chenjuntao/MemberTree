@@ -7,7 +7,7 @@
 			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
-		<Image Source="/MemberTreeA;component/Img/data.png" x:Name="img"/>
+		<Image Source="/MemberTree;component/Image/data.png" x:Name="img"/>
 		<TextBlock Grid.Column="1" Name="txtName" TextWrapping="WrapWithOverflow" Text="数据集" VerticalAlignment="Center"/>
 	</Grid>
 </UserControl>
