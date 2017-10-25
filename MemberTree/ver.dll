@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AutoupdateVer>
-  <vers ver="5.13.1.0" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
+  <vers ver="5.13.1.1" url="https://github.com/chenjuntao/MemberTree/raw/master/DLL/">
 数据导入优化：经过一系列优化之后，以600万条样例数据做测试进行对比，占用的内存量由原先980M降低到640M，降低了大约三分之一，保证处理更大规模的数据不会内存溢出。
 用户客户端管理功能等：
 1.管理端/服务端加上客户端用户账户管理功能；
@@ -9,11 +9,11 @@
 4.管理员可以控制客户端账户能查看哪些数据集，不能查看哪些数据集的权限控制功能；
   </vers>
   <dlls>
-  	<verlog.dll ver="5.13.1.0"/>
-  	<MemberFmk.dll ver="5.13.1.0"/>
-  	<MemberTree.dll ver="5.13.1.0"/>
-  	<MemberTreeA.dll ver="5.13.1.0"/>
-  	<MemberTreeV.dll ver="5.13.1.0"/>
+  	<verlog.dll ver="5.13.1.1"/>
+  	<MemberFmk.dll ver="5.13.1.1"/>
+  	<MemberTree.dll ver="5.13.1.1"/>
+  	<MemberTreeA.dll ver="5.13.1.1"/>
+  	<MemberTreeV.dll ver="5.13.1.1"/>
   	<System.Data.SQLite.dll ver="1.0.94.0"/>
   	<MySql.Data.dll ver="5.2.3.0"/>
   	<Newtonsoft.Json.dll ver="10.0.1.20720"/>
