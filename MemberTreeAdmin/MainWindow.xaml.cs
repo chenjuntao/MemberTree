@@ -11,41 +11,54 @@ namespace MemberTreeAdmin
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window, IPluginHost
+    public partial class MainWindow : Window
     {
-    	private delegate void InvokeDelegate();
+    	private ConnDBView connectView;
         public MainWindow()
         {
             InitializeComponent();
-          
-            this.Dispatcher.BeginInvoke(new InvokeDelegate(Init));
-            this.Closing+=Window_Closing;
-        }
-
-        public Window GetMainWindow()
-		{
-        	return this;
-		}
-		
-		public void Init()
-		{
-			//自动更新
-			autoUp.Update();
-            mainGrid.Children.Remove(autoUp);
             
-            //加载插件
-			Assembly ab = Assembly.LoadFrom("dll/MemberTreeA.dll");
-            Type[] types = ab.GetTypes();
-            foreach (Type t in types)
-            {
-               //如果某些类实现了预定义的IMsg.IMsgPlug接口，则认为该类适配与主程序(是主程序的插件)
-                if (t.GetInterface("IPluginAdmin")!=null)
-                {
-                	IPluginAdmin pluginAdmin = (IPluginAdmin)ab.CreateInstance(t.FullName);
-                	pluginAdmin.Load(this);
-                }
-            }
+			this.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
+			welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(ConnectDB));
+        }
+        
+        private void ConnectDB(bool isSqlite)
+		{
+			MyTrees.InitTreeDB(isSqlite);
+			
+       		if(isSqlite)
+       		{
+
+       			StartUp();
+       		}
+       		else
+       		{
+       			connectView = new ConnDBView(new InvokeDelegate(StartUp), MyTrees.treeDB);
+				mainGrid.Children.Remove(welcomeView);
+				mainGrid.Children.Add(connectView);
+       		}
 		}
+        
+        private void StartUp()
+		{
+			if(mainGrid.Children.Contains(welcomeView))
+			{
+				mainGrid.Children.Remove(welcomeView);
+			}
+			else if(mainGrid.Children.Contains(connectView))
+			{
+				mainGrid.Children.Remove(connectView);
+			}
+			
+			WindowAdmin windowAdmin = new WindowAdmin();
+			mainGrid.Children.Add(windowAdmin);
+			
+			this.WindowState = WindowState.Maximized;
+			this.ResizeMode = ResizeMode.CanResize;
+			this.Width = 900;
+			this.Height = 600;
+		}
+        
 		void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			Environment.Exit(0);

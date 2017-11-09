@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MemberTreeView.Properties {
+namespace MemberTree.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

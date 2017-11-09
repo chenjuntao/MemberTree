@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{360B1C56-20F6-423E-978D-4F4095EC09D7}</ProjectGuid>
+    <ProjectGuid>{E7C0BDC5-9A9C-4D62-9D0A-8C912B9EC232}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MemberTreeAdmin</RootNamespace>
+    <RootNamespace>MemberTree</RootNamespace>
     <AssemblyName>MemberTreeAdmin</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -23,6 +23,8 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <SourceAnalysisOverrideSettingsFile>C:\Users\Administrator\AppData\Roaming\ICSharpCode\SharpDevelop5\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>MemberTreeAdmin.App</StartupObject>
+    <ApplicationIcon>treeadmin.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -42,12 +44,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>treeadmin.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>MemberTreeAdmin.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -89,9 +85,18 @@
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\DLL\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\DLL\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -102,6 +107,70 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DB\DBUtil.cs" />
+    <Compile Include="DB\IMyTreeDBA.cs" />
+    <Compile Include="DB\MyTreeDBASqlite.cs" />
+    <Compile Include="DB\MyTreeDBAMysql.cs" />
+    <Compile Include="BL\TextUtil.cs" />
+    <Compile Include="BL\MyTrees.cs" />
+    <Compile Include="BL\MyTreeNode.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\AdminDataSet.xaml.cs">
+      <DependentUpon>AdminDataSet.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\AdminUser.xaml.cs">
+      <DependentUpon>AdminUser.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\BtnDataset.xaml.cs">
+      <DependentUpon>BtnDataset.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\BtnUserInfo.xaml.cs">
+      <DependentUpon>BtnUserInfo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\ConnDBView.xaml.cs">
+      <DependentUpon>ConnDBView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ConnMysql.xaml.cs">
+      <DependentUpon>ConnMysql.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ConnSqlserver.xaml.cs">
+      <DependentUpon>ConnSqlserver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CsvErrCheck.xaml.cs">
+      <DependentUpon>CsvErrCheck.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserInfoSet.xaml.cs">
+      <DependentUpon>UserInfoSet.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserPrivilege1.xaml.cs">
+      <DependentUpon>UserPrivilege1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\UserPrivilege2.xaml.cs">
+      <DependentUpon>UserPrivilege2.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\WindowColsCheck.xaml.cs">
+      <DependentUpon>WindowColsCheck.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WindowAdmin.xaml.cs">
+      <DependentUpon>WindowAdmin.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -110,14 +179,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="UI\AdminDataSet.xaml" />
+    <Page Include="UI\AdminUser.xaml" />
+    <Page Include="UI\BtnDataset.xaml" />
+    <Page Include="UI\BtnUserInfo.xaml" />
+    <Page Include="UI\ConnDBView.xaml" />
+    <Page Include="UI\ConnMysql.xaml" />
+    <Page Include="UI\ConnSqlserver.xaml" />
+    <Page Include="UI\CsvErrCheck.xaml" />
+    <Page Include="UI\UserInfoSet.xaml" />
+    <Page Include="UI\UserPrivilege1.xaml" />
+    <Page Include="UI\UserPrivilege2.xaml" />
+    <Page Include="UI\WindowColsCheck.xaml" />
+    <Page Include="WindowAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -137,18 +214,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="treeadmin.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MemberFmk\MemberFmk.csproj">
-      <Project>{D43FB560-0C0C-48AC-800D-F88CBA4A2924}</Project>
-      <Name>MemberFmk</Name>
+    <Folder Include="BL" />
+    <Folder Include="DB" />
+    <Folder Include="UI" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MemberTreeCommon\MemberTreeCommon.csproj">
+      <Project>{492B1029-CD3F-4DB5-8AD1-ADCD84CABA1A}</Project>
+      <Name>MemberTreeCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

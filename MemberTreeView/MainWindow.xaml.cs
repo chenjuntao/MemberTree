@@ -10,47 +10,70 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using MemberTree;
-using Microsoft.Win32;
 
 namespace MemberTreeView
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window, IPluginHost
+    public partial class MainWindow : Window
     {
-    	private delegate void InvokeDelegate();
+    	private ConnDBView connectView;
+        private DatasetListView datasetListView;
+    	
         public MainWindow()
         {
             InitializeComponent();
             
-            this.Dispatcher.BeginInvoke(new InvokeDelegate(Init));
-            this.Closing += Window_Closing;
+            this.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
+			welcomeView.InitSelectDB(false, SysInfo.I.PRODUCT + "查看工具", new InvokeBoolDelegate(ConnectDB));
         }
         
-        public Window GetMainWindow()
+        private void ConnectDB(bool isSqlite)
 		{
-        	return this;
+			MyTrees.InitTreeDB(isSqlite);
+       		if(isSqlite)
+       		{
+       			SelectDB();
+       		}
+       		else
+       		{
+       			UserAdmin.InitDB(MyTrees.treeDB);
+       			connectView = new ConnDBView(new InvokeDelegate(SelectDB), MyTrees.treeDB);
+				mainGrid.Children.Remove(welcomeView);
+				mainGrid.Children.Add(connectView);
+       		}
 		}
-		
-		public void Init()
+        
+       	private void SelectDB()
 		{
-			//自动更新
-			autoUp.Update();
-			mainGrid.Children.Remove(autoUp);
+       		datasetListView = new DatasetListView();
+       		datasetListView.RefreshDB(MyTrees.treeDB, WindowView.UserID);
+       		datasetListView.SetCallBack(new InvokeStringDelegate(StartUp));
+       		
+			if(mainGrid.Children.Contains(welcomeView))
+			{
+				mainGrid.Children.Remove(welcomeView);
+			}
+			else if(mainGrid.Children.Contains(connectView))
+			{
+				mainGrid.Children.Remove(connectView);
+			}
+			mainGrid.Children.Add(datasetListView);
+		}
+
+		private void StartUp(string selectDB)
+		{
+			MyTrees.SetDBName(selectDB);
 			
-			//加载插件
-			Assembly ab = Assembly.LoadFrom("dll/MemberTreeV.dll");
-            Type[] types = ab.GetTypes();
-            foreach (Type t in types)
-            {
-               //如果某些类实现了预定义的IMsg.IMsgPlug接口，则认为该类适配与主程序(是主程序的插件)
-                if (t.GetInterface("IPluginView")!=null)
-                {
-                	IPluginView pluginView = (IPluginView)ab.CreateInstance(t.FullName);
-                	pluginView.Load(this);
-                }
-            }
+			WindowView windowView = new WindowView();
+			mainGrid.Children.Remove(datasetListView);
+			mainGrid.Children.Add(windowView);
+				
+			this.WindowState = WindowState.Maximized;
+			this.ResizeMode = ResizeMode.CanResize;
+			this.Width = 900;
+			this.Height = 600;
 		}
 		
 		void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

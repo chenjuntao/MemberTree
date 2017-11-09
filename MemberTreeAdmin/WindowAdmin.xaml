@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl 
+	x:Class="MemberTree.WindowAdmin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:MemberTree"
+	xmlns:my1="clr-namespace:MemberTree;assembly=MemberTreeCommon">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="auto" />
+		</Grid.RowDefinitions>
+		<TabControl x:Name="mainTab">
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Margin="10,2" FontWeight="Bold" FontSize="15" Text="会员关系树数据集管理" MouseDown="TextBlock_MouseDown"/>
+				</TabItem.Header>
+				<my:AdminDataSet x:Name="adminDataset"/>
+			</TabItem>
+			<TabItem x:Name="tabAdminUser" Visibility="Hidden">
+				<TabItem.Header>
+					<TextBlock Margin="10,2" FontWeight="Bold" FontSize="15" Text="用户及权限管理"/>
+				</TabItem.Header>
+				<my:AdminUser x:Name="adminUser" />
+			</TabItem>
+		</TabControl>
+		<my1:ProgressView x:Name="progressView" Visibility="Hidden"/>
+		<my1:MyStatusBar Grid.Row="1" x:Name="myStatusBar"/>
+	</Grid>
+</UserControl>
