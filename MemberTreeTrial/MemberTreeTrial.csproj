@@ -29,7 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
+    <OutputPath>..\..\trial\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -96,7 +96,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite">
-      <HintPath>dll\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\DLL\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
@@ -115,43 +115,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ConnDBWindow.xaml.cs">
-      <DependentUpon>ConnDBWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MyTree\CsvErrCheck.xaml.cs">
-      <DependentUpon>CsvErrCheck.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MyTree\ExportCSV.cs" />
     <Compile Include="MyTree\ExportPDF.cs" />
     <Compile Include="MyTree\MyTreeDB.cs" />
     <Compile Include="MyTree\MyTreeNodeDB.cs" />
-    <Compile Include="MyTree\TextUtilTool.cs" />
-    <Compile Include="MyUserControls\CommonView.xaml.cs">
+    <Compile Include="MyWindow\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\MyForest.xaml.cs">
+    <Compile Include="MyWindow\DatasetInfoView.xaml.cs">
+      <DependentUpon>DatasetInfoView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyWindow\MyForest.xaml.cs">
       <DependentUpon>MyForest.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\MyNodeInfo.xaml.cs">
+    <Compile Include="MyWindow\MyNodeInfo.xaml.cs">
       <DependentUpon>MyNodeInfo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\MyNodeList.xaml.cs">
+    <Compile Include="MyWindow\MyNodeList.xaml.cs">
       <DependentUpon>MyNodeList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyUserControls\ProgressView.xaml.cs">
+    <Compile Include="MyWindow\ProgressView.xaml.cs">
       <DependentUpon>ProgressView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\SearchFilter.xaml.cs">
+    <Compile Include="MyWindow\SearchFilter.xaml.cs">
       <DependentUpon>SearchFilter.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyUserControls\WelcomeView.xaml.cs">
+    <Compile Include="MyWindow\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyTree\MyTreeNode.cs" />
@@ -162,10 +157,6 @@
     </Compile>
     <Compile Include="MyTreeView\LineTreeStyle.xaml.cs">
       <DependentUpon>LineTreeStyle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SearchMultiInput.xaml.cs">
-      <DependentUpon>SearchMultiInput.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="MyTreeView\GraphTreeStyle.xaml.cs">
       <DependentUpon>GraphTreeStyle.xaml</DependentUpon>
@@ -180,18 +171,17 @@
     <Compile Include="MyTreeView\MyTreeView.xaml.cs">
       <DependentUpon>MyTreeView.xaml</DependentUpon>
     </Compile>
-    <Page Include="ConnDBWindow.xaml" />
-    <Page Include="MyTree\CsvErrCheck.xaml" />
-    <Page Include="MyUserControls\CommonView.xaml" />
-    <Page Include="MyUserControls\MyForest.xaml" />
-    <Page Include="MyUserControls\MyNodeInfo.xaml" />
-    <Page Include="MyUserControls\MyNodeList.xaml">
+    <Page Include="MyWindow\CommonView.xaml" />
+    <Page Include="MyWindow\DatasetInfoView.xaml" />
+    <Page Include="MyWindow\MyForest.xaml" />
+    <Page Include="MyWindow\MyNodeInfo.xaml" />
+    <Page Include="MyWindow\MyNodeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MyUserControls\ProgressView.xaml" />
-    <Page Include="MyUserControls\SearchFilter.xaml" />
-    <Page Include="MyUserControls\WelcomeView.xaml">
+    <Page Include="MyWindow\ProgressView.xaml" />
+    <Page Include="MyWindow\SearchFilter.xaml" />
+    <Page Include="MyWindow\WelcomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,7 +213,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SearchMultiInput.xaml" />
     <Page Include="TreeViewGraph\MyGraphView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +249,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="SampleData\sampledata1.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\tree0.jpg" />
@@ -279,7 +271,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyTree" />
-    <Folder Include="MyUserControls" />
+    <Folder Include="MyWindow" />
+    <Folder Include="SampleData" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

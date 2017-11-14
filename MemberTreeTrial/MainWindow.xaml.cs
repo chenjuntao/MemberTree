@@ -35,28 +35,30 @@ namespace MemberTree
         }
 
         #region 左侧按钮事件
+        //直接连接数据库
+        private void ButtonConnectDB_Click(object sender, RoutedEventArgs e)
+        {
+        	MessageBox.Show("直接连接数据库，可以将数据库中的数据表作为数据源进行计算和导入，\n目前支持Mysql和Sqlserver。\n但当前版本为试用版，该功能无法使用，请使用正式版!");
+        }
         //检查csv文件合法性
         private void ButtonCheck_Click(object sender, RoutedEventArgs e)
         {
-        	CsvErrCheck csvErrCheck = new CsvErrCheck();
-        	csvErrCheck.ShowDialog();
+        	MessageBox.Show("可以检查作为数据源的csv文件中是否存在数据错误，并提示用户修改保存。\n但当前版本为试用版，该功能无法使用，请使用正式版!");
         }
         
         //打开文件
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openfileDlg = new OpenFileDialog();
-            openfileDlg.Title = "打开要作为会员树数据源的文件";
-            openfileDlg.Filter = "CSV文件|*.csv";
-            if (openfileDlg.ShowDialog() == true)
+        	string file = "SampleData\\sampledata1.csv";
+        	if (File.Exists(file))
             {
             	homeView.Visibility = Visibility.Collapsed;
-            	progressView.SetCsvFile(openfileDlg.FileName);
+            	progressView.SetCsvFile(file);
             	
                 int upperLower = comboToLower.SelectedIndex;
                 int DBCSBC = comboToHalf.SelectedIndex;
                 int trim = comboTrim.SelectedIndex;
-                MyTrees.OpenCSVFile(openfileDlg.FileName, upperLower, DBCSBC, trim);
+                MyTrees.OpenCSVFile(file);
                 
                 tabView.SelectedItem = tabHome;
                 
@@ -64,7 +66,7 @@ namespace MemberTree
                 
                 //myGraphView.InitMyTree();
                 //显示统计信息
-                commonView.SetSummary(openfileDlg.FileName, 
+                commonView.SetSummary(file, 
                                       MyTrees.ForestNodeCount,
                                       MyTrees.IdConflictNodes.Count,
                                       MyTrees.RingNodes.Count,
@@ -75,69 +77,19 @@ namespace MemberTree
                 tabIdNull.Header = "信息不完整（" + MyTrees.IdNullNodes.Count + "个）";
                 tabRingErr.Header = "形成闭环（" + MyTrees.RingNodes.Count + "个）";
             }
+        	else
+        	{
+        		MessageBox.Show("样例数据不存在！");
+        	}
         }
-         //直接连接数据库
-        private void ButtonConnectDB_Click(object sender, RoutedEventArgs e)
-        {
-        	ConnDBWindow connDB = new ConnDBWindow();
-        	connDB.ShowDialog();
-        }
+        
 
         //查找
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-//            if (txtSearch.Text != "")
-//            {
-//                string searchType = (comboSearchType.SelectedItem as ComboBoxItem).Content.ToString();
-//
-//                if (searchType == "根据ID查找")
-//                {
-//                    findResultNodes = MyTrees.FindNodeById(txtSearch.Text);
-//                }
-//                else if (searchType == "根据姓名查找")
-//                {
-//                    findResultNodes = MyTrees.FindNodeByName(txtSearch.Text);
-//                }
-//                else if (searchType == "根据级别查找")
-//                {
-//                	ushort txt2num = 0;
-//                    if (ushort.TryParse(txtSearch.Text, out txt2num))
-//                    {
-//                    	findResultNodes = MyTrees.FindNodeByLevel(txt2num);
-//                    }
-//                }
-//                else if (searchType == "根据下线人数查找")
-//                {
-//                    int txt2num = 0;
-//                    if (int.TryParse(txtSearch.Text, out txt2num))
-//                    {
-//                        findResultNodes = MyTrees.FindNodeByChildrenCount(txt2num);
-//                    }
-//                }
-//                else if (searchType == "根据下线层数查找")
-//                {
-//                    ushort txt2num = 0;
-//                    if (ushort.TryParse(txtSearch.Text, out txt2num))
-//                    {
-//                        findResultNodes = MyTrees.FindNodeByChildrenLevels(txt2num);
-//                    }
-//                }
-
-				string searchsql = mySearchFilter.SearchSql();
-                listNodes.NodeListView.ItemsSource = MyTrees.FindBySql(searchsql);
-                tabView.SelectedItem = tabFindResult;
-//            }
-//            else
-//            {
-//                MessageBox.Show("输入不能为空！");
-//            }
-        }
-        
-         //查找多个并导出
-        private void ButtonSearchMulti_Click(object sender, RoutedEventArgs e)
-        {
-        	SearchMultiInput searchMultiWindow = new SearchMultiInput();
-        	searchMultiWindow.ShowDialog();
+			string searchsql = mySearchFilter.SearchSql();
+            listNodes.NodeListView.ItemsSource = MyTrees.FindBySql(searchsql);
+            tabView.SelectedItem = tabFindResult;
         }
 
         #region 导出表格

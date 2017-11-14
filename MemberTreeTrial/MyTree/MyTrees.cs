@@ -201,11 +201,10 @@ namespace MemberTree
         
         public static Dictionary<string, MyTreeNode> RingNodes = new Dictionary<string, MyTreeNode>();
 
-        public static void OpenCSVFile(string filepath, int upperLower, int DBCSBC, int trim)
+        public static void OpenCSVFile(string filepath)
         {
             ClearAllNodes();
-            Encoding encoding = TextUtilTool.GetFileEncodeType(filepath);
-            StreamReader mysr = new StreamReader(filepath, encoding);
+            StreamReader mysr = new StreamReader(filepath, Encoding.UTF8);
             int row = 0;
             List<string> errLines = new List<string>();
             try
@@ -214,16 +213,31 @@ namespace MemberTree
                 MainWindow.notify.SetStatusMessage("开始读取文件......");
 
                 string firstLine = mysr.ReadLine(); //第一行是表头，读取之后不处理，直接跳过
-                if (firstLine.ToLower() != TextUtilTool.CSVInHeader)
-                {
-                	MessageBox.Show("文件格式不正确，第一行必须由标题头("+TextUtilTool.CSVInHeader+")组成！");
-                    return;
-                }
+                MyTreeNode.SetCSVHeader(firstLine);
                 
                 while(!mysr.EndOfStream)
                 {
                 	string line = mysr.ReadLine();
-                	Line2TreeNode(line, ref errLines, ref row, upperLower, DBCSBC, trim);
+		            MyTreeNode myNode = new MyTreeNode(line);
+		        	
+		            if(myNode.SysId == "") //信息不完整（ID为空）的节点
+		            {
+		            	IdNullNodes.Add(myNode);
+		            }
+		           	else if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
+		            {
+		                IdConflictNodes.Add(myNode);
+		            }
+		            else
+		            {
+		                allNodes.Add(myNode.SysId, myNode);
+		            }
+		
+		            row++;
+		            if (row % 1000 == 0)
+		            {
+		                MainWindow.notify.SetStatusMessage("【第一步：正在读取第" + row + "个节点】——>【第二步：构造树结构】——>【第三步：写入数据库】");
+		            }
                 }
                 
                 //处理出错的数据
@@ -246,7 +260,6 @@ namespace MemberTree
                 mysr.Close();
             }
             
-            
 			//构造计算树结构----------------------------------------------------------------------------------------------------------
             try
             {
@@ -268,45 +281,6 @@ namespace MemberTree
                     //将节点加入树中合适的位置去
                     ConstructTree(node);
                 }
-                
-	            //写入数据库----------------------------------------------------------------------------------------------------------
-	            if(treeDB.CreateDB(filepath))
-	            {
-		            row = 0;
-		            mysr = new StreamReader(filepath, encoding);
-		            SQLiteTransaction trans = treeDB.BeginInsert();
-		            try
-		            {
-		            	string line = mysr.ReadLine();
-		                while(!mysr.EndOfStream)
-		                {
-		                	line = mysr.ReadLine();
-		                	string[] aryline = line.Split(new char[] { ',' });
-		                    MyTreeNodeDB myNode = new MyTreeNodeDB(aryline);
-		                	
-	                		treeDB.InsertNodes(myNode);
-	
-		                    row++;
-		                    if (row % 1000 == 0)
-		                    {
-		                        MainWindow.notify.SetStatusMessage("【第一步：读取数据完成】——>【第二步：构造树结构完成】——>【第三步：正在写入数据库" + row + "/" + allNodeCount +"】");
-		                    }
-		                }
-		                treeDB.TransCommit(trans);
-		                MainWindow.notify.SetStatusMessage("【第一步：读取数据完成】——>【第二步：构造树结构完成】——>【第三步：正在创建数据库索引。。。】");
-		                treeDB.CreateIndex();
-		            }
-		            catch (Exception ex)
-		            {
-		            	MainWindow.notify.SetProcessBarVisible(false);
-		                MainWindow.notify.SetStatusMessage("文件读取出错！+\n" + ex.Message);
-		                return;
-		            }
-		            finally
-		            {
-		                mysr.Close();
-		            }
-	            }
 
                 MainWindow.notify.SetProcessBarVisible(false);
                 MainWindow.notify.SetStatusMessage("计算完成！");
@@ -317,35 +291,6 @@ namespace MemberTree
             }
         }
         
-        private static void Line2TreeNode(string line,ref List<string> errLines,ref int row, int upperLower, int DBCSBC, int trim)
-        {
-	        string[] aryline = line.Split(new char[] { ',' });
-        	if(aryline.Length<10){
-				errLines.Add(line);
-				return;
-        	}
-            MyTreeNode myNode = new MyTreeNode(aryline[0], aryline[1], aryline[2], row + 1, upperLower, DBCSBC, trim);
-        	
-            if(myNode.SysId == "") //信息不完整（ID为空）的节点
-            {
-            	IdNullNodes.Add(myNode);
-            }
-           	else if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
-            {
-                IdConflictNodes.Add(myNode);
-            }
-            else
-            {
-                allNodes.Add(myNode.SysId, myNode);
-            }
-
-            row++;
-            if (row % 1000 == 0)
-            {
-                MainWindow.notify.SetStatusMessage("【第一步：正在读取第" + row + "个节点】——>【第二步：构造树结构】——>【第三步：写入数据库】");
-            }
-        }
-
         private static void ClearAllNodes()
         {
             allNodes.Clear();

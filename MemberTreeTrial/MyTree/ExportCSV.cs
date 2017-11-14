@@ -95,7 +95,7 @@ namespace MemberTree
             
             MainWindow.notify.SetStatusMessage("正在将数据写入CSV文件。。。");
             StreamWriter mysw = new StreamWriter(outputfile, true, Encoding.Default);
-            mysw.WriteLine(TextUtilTool.CSVOutHeader);
+            mysw.WriteLine(MyTreeNode.CSVHeader);
 
             StringBuilder allLines = new StringBuilder();
             List<MyTreeNode> parentNodes = MyTrees.FindToRootNodeList(node.TopId);
@@ -141,52 +141,14 @@ namespace MemberTree
             allLines.Append(",");
             allLines.Append(node.ChildrenLevels);
             allLines.Append(",");
-            allLines.Append(node.ChildrenNodes.Count);
-            allLines.Append(",");
             allLines.Append(node.ChildrenCount);
             allLines.Append(",");
-            allLines.Append(nodeDB.Account);
-            allLines.Append(",");
-            allLines.Append(nodeDB.IdCard);
-            allLines.Append(",");
-            allLines.Append(nodeDB.Tel);
-            allLines.Append(",");
-            allLines.Append(nodeDB.Email);
-            allLines.Append(",");
-            allLines.Append(nodeDB.Bank);
-            allLines.Append(",");
-            allLines.Append(nodeDB.BankCard);
-            allLines.Append(",");
-            allLines.Append(nodeDB.Addr);
-            
-            allLines.Append(",");
-            allLines.Append(nodeDB.ywczyze);
-            allLines.Append(",");
-            allLines.Append(nodeDB.ywcszze);
-            allLines.Append(",");
-            allLines.Append(nodeDB.ywczycs);
-            allLines.Append(",");
-            allLines.Append(nodeDB.ywcszcs);
-            allLines.Append(",");
-            allLines.Append(nodeDB.yzcszz);
-            allLines.Append(",");
-            allLines.Append(nodeDB.yzcsxb);
-            allLines.Append(",");
-            allLines.Append(nodeDB.yzcsjb);
-            allLines.Append(",");
-            allLines.Append(nodeDB.cjqbyzc);
-            allLines.Append(",");
-            allLines.Append(nodeDB.glqbyzc);
-            allLines.Append(",");
-            allLines.Append(nodeDB.syszz);
-            allLines.Append(",");
-            allLines.Append(nodeDB.sysxb);
-            allLines.Append(",");
-            allLines.Append(nodeDB.sysjb);
-            allLines.Append(",");
-            allLines.Append(nodeDB.cjqbsy);
-            allLines.Append(",");
-            allLines.Append(nodeDB.glqbsy);
+            allLines.Append(node.ChildrenCountAll);
+            foreach (string prop in node.OtherProps) 
+            {
+            	allLines.Append(",");
+            	allLines.Append(prop);
+            }
             
             mysw.WriteLine(allLines.ToString());
             row++;

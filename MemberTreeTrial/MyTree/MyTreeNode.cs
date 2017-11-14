@@ -9,77 +9,48 @@ namespace MemberTree
 {
     public class MyTreeNode
     {
+    	public static string CSVHeader = "会员Id,上级Id,会员姓名,所在层级,下级层级,直接下级数,总下级会员数";
+    	public static void SetCSVHeader(string line)
+    	{
+    		string[] ary = line.Split(new char[] { ',' });
+    		 for (int i = 3; i < ary.Length; i++) {
+        		CSVHeader+=(","+ary[i]);
+            }
+    	}
+    	
+    	
         public string SysId { get; set; }
-        public string Name { get; set; }
         public string TopId { get; set; }
-        public ushort Level { get; set; }
-        public int LineCount { get; set; }
+        public string Name { get; set; }
+        public int Level { get; set; }
+        public int ChildrenLevels { get; set; }
+        public int ChildrenCount { get; set; }
+        public int ChildrenCountAll { get; set; }
+        
+        public List<string> OtherProps = new List<string>();
         
         public MyTreeNode()
         {
         }
         
-        public MyTreeNode(string sysId, string topId, string name, int lineCount, int upperLower, int DBCSBC, int trim)
+        public MyTreeNode(string line)
         {
-            this.SysId = sysId;
-            this.Name = name;
-            this.TopId = topId;
-            this.Level = 0;
-           
-            this.LineCount = lineCount;
-            
-            if(trim == 1)
-            {
-            	SysId = SysId.Trim();
-            	TopId = TopId.Trim();
-            }
-            else if(trim == 2)
-            {
-            	SysId = SysId.TrimStart();
-            	TopId = TopId.TrimStart();
-            }
-            else if(trim == 3)
-            {
-            	SysId = SysId.TrimEnd();
-            	TopId = TopId.TrimEnd();
-            }
-            if (upperLower == 1)
-            {
-                SysId = SysId.ToLower();
-                TopId = TopId.ToLower();
-            }
-            else if (upperLower == 2)
-            {
-                SysId = SysId.ToUpper();
-                TopId = TopId.ToUpper();
-            }
-            if (DBCSBC == 1)
-            {
-                SysId = TextUtilTool.SBCToDBC(SysId);
-                TopId = TextUtilTool.SBCToDBC(TopId);
-            }
-            else if (DBCSBC == 2)
-            {
-                SysId = TextUtilTool.DBCToSBC(SysId);
-                TopId = TextUtilTool.DBCToSBC(TopId);
+        	string[] ary = line.Split(new char[] { ',' });
+        	this.SysId = ary[0];
+        	this.TopId = ary[1];
+        	this.Name = ary[2];
+            for (int i = 3; i < ary.Length; i++) {
+        		OtherProps.Add(ary[i]);
             }
         }
-
-        //所有的后代子孙节点数量
-        public int ChildrenCount { get; set; }
-        //所有的后代子孙最深级别数
-        public ushort ChildrenLevels { get; set; }
-
-        //返回父节点
-//        public MyTreeNode ParentNode { get; set; }
-
+        
         //子节点集合
         public List<MyTreeNode> ChildrenNodes = new List<MyTreeNode>();
         
         public override string ToString()
         {
-        	return string.Format("{0}({1}),父ID{2},所在层级{3},下级层数{4},直接下级{5},总下级会员数{6}",
-        	                     Name, SysId, TopId, Level, ChildrenLevels, ChildrenNodes.Count, ChildrenCount);
+        	return string.Format("{0}({1}),父ID{2},所在层级{3},下级层数{4},直接下级数{5},总下级会员数{6}",
+        	                     Name, SysId, TopId, Level, ChildrenLevels, ChildrenCount, ChildrenCountAll);
         }
     }
 }

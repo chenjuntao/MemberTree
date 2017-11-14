@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Window 
 	xmlns:my="clr-namespace:MemberTree"
 	x:Class="MemberTree.MainWindow" 
@@ -7,7 +7,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d" Width="800" Height="600"
-	WindowState="Maximized" Title="会员名单树 v4.3">
+	WindowState="Maximized" Title="会员名单树(试用版) v5.13">
 	<Window.Resources>
 		<Style TargetType="Button">
 			<Setter Property="Margin" Value="1"></Setter>
@@ -50,7 +50,7 @@
 					</Expander>
 					<Button Content="直接连数据库" Click="ButtonConnectDB_Click" />
 					<Button Content="检查csv文件" Click="ButtonCheck_Click" />
-					<Button Content="打开csv文件▼" Click="ButtonOpen_Click" />
+					<Button Content="加载样例数据" Click="ButtonOpen_Click" />
 				</StackPanel>
 			</GroupBox>
 			<GroupBox Header="查找">
