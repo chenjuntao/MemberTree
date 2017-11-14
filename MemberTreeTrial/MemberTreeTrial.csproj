@@ -29,7 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -90,11 +90,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp">
-      <HintPath>dll\itextsharp.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>dll/MySql.Data.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\DLL\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -129,7 +125,6 @@
     </Compile>
     <Compile Include="MyTree\ExportCSV.cs" />
     <Compile Include="MyTree\ExportPDF.cs" />
-    <Compile Include="MyTree\MysqlHelper.cs" />
     <Compile Include="MyTree\MyTreeDB.cs" />
     <Compile Include="MyTree\MyTreeNodeDB.cs" />
     <Compile Include="MyTree\TextUtilTool.cs" />
