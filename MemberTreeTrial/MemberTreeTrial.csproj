@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{360B1C56-20F6-423E-978D-4F4095EC09D7}</ProjectGuid>
+    <ProjectGuid>{5B6DC2FE-FC57-4579-8533-75FF5CF0C398}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MemberTree</RootNamespace>
@@ -23,13 +23,15 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <SourceAnalysisOverrideSettingsFile>C:\Users\Administrator\AppData\Roaming\ICSharpCode\SharpDevelop5\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>MemberTreeView.App</StartupObject>
+    <ApplicationIcon>tree.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>..\..\trial\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,12 +44,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>tree.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>MemberTree.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -95,9 +91,6 @@
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\DLL\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
@@ -111,24 +104,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="MyTree\ExportCSV.cs" />
-    <Compile Include="MyTree\ExportPDF.cs" />
-    <Compile Include="MyTree\MyTreeDB.cs" />
-    <Compile Include="MyTree\MyTreeNodeDB.cs" />
-    <Compile Include="MyWindow\CommonView.xaml.cs">
-      <DependentUpon>CommonView.xaml</DependentUpon>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Export\ExportCSV.cs" />
+    <Compile Include="Export\ExportIMG.cs" />
+    <Compile Include="Export\ExportPDF.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyTree\MyTrees.cs" />
+    <Compile Include="MyWindow\DatasetBtn.xaml.cs">
+      <DependentUpon>DatasetBtn.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MyWindow\DatasetInfoView.xaml.cs">
       <DependentUpon>DatasetInfoView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MyWindow\MyForest.xaml.cs">
-      <DependentUpon>MyForest.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MyWindow\MyNodeInfo.xaml.cs">
@@ -138,19 +131,7 @@
     <Compile Include="MyWindow\MyNodeList.xaml.cs">
       <DependentUpon>MyNodeList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyWindow\ProgressView.xaml.cs">
-      <DependentUpon>ProgressView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MyWindow\SearchFilter.xaml.cs">
-      <DependentUpon>SearchFilter.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MyWindow\WelcomeView.xaml.cs">
-      <DependentUpon>WelcomeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MyTree\MyTreeNode.cs" />
-    <Compile Include="MyTree\MyTrees.cs" />
     <Compile Include="MyTreeView\BoxTreeStyle.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>BoxTreeStyle.xaml</DependentUpon>
@@ -160,6 +141,28 @@
     </Compile>
     <Compile Include="MyTreeView\GraphTreeStyle.xaml.cs">
       <DependentUpon>GraphTreeStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyWindow\MyStatusBar.xaml.cs">
+      <DependentUpon>MyStatusBar.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyWindow\PageBar.xaml.cs">
+      <DependentUpon>PageBar.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyWindow\ProgressView.xaml.cs">
+      <DependentUpon>ProgressView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyWindow\SearchFilter.xaml.cs">
+      <DependentUpon>SearchFilter.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyWindow\SearchResult.xaml.cs">
+      <DependentUpon>SearchResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyWindow\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TreeViewGraph\DPoint.cs" />
     <Compile Include="TreeViewGraph\ITreeNode.cs" />
@@ -171,17 +174,18 @@
     <Compile Include="MyTreeView\MyTreeView.xaml.cs">
       <DependentUpon>MyTreeView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MyWindow\CommonView.xaml" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MyWindow\DatasetBtn.xaml" />
     <Page Include="MyWindow\DatasetInfoView.xaml" />
-    <Page Include="MyWindow\MyForest.xaml" />
     <Page Include="MyWindow\MyNodeInfo.xaml" />
     <Page Include="MyWindow\MyNodeList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MyWindow\ProgressView.xaml" />
-    <Page Include="MyWindow\SearchFilter.xaml" />
-    <Page Include="MyWindow\WelcomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,16 +197,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="MyWindow\MyStatusBar.xaml" />
+    <Page Include="MyWindow\PageBar.xaml" />
+    <Page Include="MyWindow\ProgressView.xaml" />
+    <Page Include="MyWindow\SearchFilter.xaml" />
+    <Page Include="MyWindow\SearchResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyWindow\WelcomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Util\DatasetInfo.cs" />
+    <Compile Include="Util\INotify.cs" />
+    <Compile Include="Util\InvokeDelegate.cs" />
+    <Compile Include="Util\TimingUtil.cs" />
+    <Compile Include="WindowView.xaml.cs">
+      <DependentUpon>WindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MyTreeView\GraphTreeStyle.xaml">
@@ -243,35 +259,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Image\tree.png" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="SampleData\sampledata1.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\tree0.jpg" />
-    <Resource Include="Image\tree.png" />
-    <Resource Include="Image\damage.jpg" />
-    <Resource Include="Image\forest.jpg" />
-    <Resource Include="Image\ring.jpg" />
-    <Resource Include="Image\tree1.jpg" />
-    <Resource Include="Image\tree2.jpg" />
-    <Resource Include="Image\tree3.jpg" />
-    <Resource Include="Image\tree4.jpg" />
-    <Resource Include="Image\tree5.jpg" />
-    <Resource Include="Image\tree6.jpg" />
-    <Resource Include="Image\tree7.jpg" />
-    <Resource Include="Image\conflict.jpg" />
-    <Resource Include="tree.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyTree" />
     <Folder Include="MyWindow" />
-    <Folder Include="SampleData" />
+    <Folder Include="Export" />
+    <Folder Include="Util" />
+    <Folder Include="Image" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

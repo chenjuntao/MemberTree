@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="MemberTree.MyNodeInfo" 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	mc:Ignorable="d">
+	<UserControl.Resources>
+		<Style TargetType="TextBlock">
+			<Setter Property="TextWrapping" Value="Wrap"></Setter>
+		</Style>
+	</UserControl.Resources>
+	<Grid Background="LightCyan">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<TextBlock
+			Text="会员ID：" />
+		<TextBlock
+			Grid.Column="1"
+			Text="{Binding Path=SysId}" />
+		<TextBlock
+			Grid.Row="1"
+			Text="上级ID：" />
+		<TextBlock
+			Grid.Row="1"
+			Grid.Column="1"
+			Text="{Binding Path=TopId}" />
+		<TextBlock
+			Grid.Row="2"
+			Text="会员姓名：" />
+		<TextBlock
+			Grid.Row="2"
+			Grid.Column="1"
+			Text="{Binding Path=Name}" />
+		<TextBlock
+			Grid.Row="3"
+			Text="会员账号：" />
+		<TextBlock
+			Grid.Row="3"
+			Grid.Column="1"
+			Text="{Binding Path=Account}" />
+		<TextBlock
+			Grid.Row="4"
+			Text="身份证号：" />
+		<TextBlock
+			Grid.Row="4"
+			Grid.Column="1" 
+			Text="{Binding Path=IdCard}"/>
+		<TextBlock
+			Grid.Row="5"
+			Text="电话号码：" />
+		<TextBlock
+			Grid.Row="5"
+			Grid.Column="1"
+			Text="{Binding Path=Tel}" />
+		<TextBlock
+			Grid.Row="6"
+			Text="登记住址：" />
+		<TextBlock
+			Grid.Row="6"
+			Grid.Column="1"
+			Text="{Binding Path=Addr}" />
+		<TextBlock
+			Grid.Row="7"
+			Text="开户行：" />
+		<TextBlock
+			Grid.Row="7"
+			Grid.Column="1" 
+			Text="{Binding Path=Bank}"/>
+		<TextBlock
+			Grid.Row="8"
+			Text="银行账户：" />
+		<TextBlock
+			Grid.Row="8"
+			Grid.Column="1"
+			Text="{Binding Path=BankCard}" />
+		<TextBlock
+			Grid.Row="9"
+			Text="email：" />
+		<TextBlock
+			Grid.Row="9"
+			Grid.Column="1"
+			Text="{Binding Path=Email}" />
+	</Grid>
+</UserControl>

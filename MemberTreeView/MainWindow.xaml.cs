@@ -72,8 +72,8 @@ namespace MemberTreeView
 				
 			this.WindowState = WindowState.Maximized;
 			this.ResizeMode = ResizeMode.CanResize;
-			this.Width = 900;
-			this.Height = 600;
+			this.Width = 1000;
+			this.Height = 700;
 		}
 		
 		void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

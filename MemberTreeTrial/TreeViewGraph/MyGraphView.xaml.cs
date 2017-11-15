@@ -25,38 +25,39 @@ namespace MemberTree
             InitializeComponent();
         }
 
-        public void InitMyTree()
-        {
-            memberTreeView.Clear();
-
-            //加载所有根节点
-            Button rootBtn = new Button();
-            rootBtn.Content = "会员列表";
-            TreeNode memNode = memberTreeView.AddRoot(rootBtn);
-            foreach (MyTreeNode subNode in MyTrees.NoParentNodes)
-            {
-                Button subItem = NewTreeViewItem(subNode);
-                TreeNode rootNode = memberTreeView.AddNode(subItem, memNode);
-                rootNode.Tag = subNode;
-                rootNode.Collapsed = true;
-            }
-        }
-
-        public void AddFindedNode(MyTreeNode node)
-        {
-            memberTreeView.Clear();
-
-            Button rootBtn = NewTreeViewItem(node);
-            TreeNode memNode = memberTreeView.AddRoot(rootBtn);
-            List<MyTreeNode> childrenNodes = node.ChildrenNodes;
-            foreach (MyTreeNode subNode in childrenNodes)
-            {
-                Button subItem = NewTreeViewItem(subNode);
-                TreeNode rootNode = memberTreeView.AddNode(subItem, memNode);
-                rootNode.Tag = subNode;
-                rootNode.Collapsed = true;
-            }
-        }
+//        public void InitMyTree()
+//        {
+//            memberTreeView.Clear();
+//
+//            //加载所有根节点
+//            Button rootBtn = new Button();
+//            rootBtn.Content = "会员列表";
+//            TreeNode memNode = memberTreeView.AddRoot(rootBtn);
+//            List<MyTreeNode> treeRootNodes = MyTrees.GetTreeRootNodes();
+//            foreach (MyTreeNode subNode in treeRootNodes)
+//            {
+//                Button subItem = NewTreeViewItem(subNode);
+//                TreeNode rootNode = memberTreeView.AddNode(subItem, memNode);
+//                rootNode.Tag = subNode;
+//                rootNode.Collapsed = true;
+//            }
+//        }
+//
+//        public void AddFindedNode(MyTreeNode node)
+//        {
+//            memberTreeView.Clear();
+//
+//            Button rootBtn = NewTreeViewItem(node);
+//            TreeNode memNode = memberTreeView.AddRoot(rootBtn);
+//            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(node.SysId);
+//            foreach (MyTreeNode subNode in childrenNodes)
+//            {
+//                Button subItem = NewTreeViewItem(subNode);
+//                TreeNode rootNode = memberTreeView.AddNode(subItem, memNode);
+//                rootNode.Tag = subNode;
+//                rootNode.Collapsed = true;
+//            }
+//        }
 
         private Button NewTreeViewItem(MyTreeNode subNode)
         {
@@ -74,7 +75,7 @@ namespace MemberTree
             MyTreeNode node = tn.Tag as MyTreeNode;
             if (node != null)
             {
-            	List<MyTreeNode> childrenNodes = node.ChildrenNodes;
+            	List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(node.SysId);
                 foreach (MyTreeNode subNode in childrenNodes)
                 {
                     Button grandson = NewTreeViewItem(subNode);

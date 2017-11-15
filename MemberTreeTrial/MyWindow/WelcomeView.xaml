@@ -1,37 +1,92 @@
-<UserControl x:Class="MemberTree.WelcomeView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="500">
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="MemberTree.WelcomeView" 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	mc:Ignorable="d"
+	d:DesignHeight="300"
+	d:DesignWidth="500">
+	<UserControl.Resources>
+		<Style TargetType="TextBlock">
+			<Setter Property="Margin" Value="10, 5"></Setter>
+		</Style>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="5"></Setter>
+		</Style>
+	</UserControl.Resources>
 	<UserControl.Background>
-		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="LightGreen" Offset="0" />
-            <GradientStop Color="White" Offset="0.8" />
-            <GradientStop Color="LightCoral" Offset="1" />
-        </LinearGradientBrush>
+		<LinearGradientBrush
+			EndPoint="0.5,1"
+			StartPoint="0.5,0">
+			<GradientStop
+				Color="LightGreen"
+				Offset="0" />
+			<GradientStop
+				Color="White"
+				Offset="0.8" />
+			<GradientStop
+				Color="LightCoral"
+				Offset="1" />
+		</LinearGradientBrush>
 	</UserControl.Background>
-    <Grid Height="300" Width="500">
-        <Image Name="imgLogo" Margin="0,20,330,160" Source="/MemberTree;component/Image/tree.png" />
-        <TextBlock Foreground="LightCyan" FontWeight="Bold" FontSize="28" Margin="180,20,27,217" Text="会员树状列表查看工具">
-            <TextBlock.Effect>
-                <DropShadowEffect Opacity="0.6" />
-            </TextBlock.Effect>
-        </TextBlock>
-        <TextBlock FontSize="18" Foreground="RoyalBlue" Margin="180,70,21,164" Text="版本：v 4.0     by cjt"/>
-        <TextBlock FontSize="16" Foreground="DarkCyan" Margin="180,107,27,164" Text="Copyright(c)湖南警察学院，2014-2017"/>
-        
-        <StackPanel Margin="12" VerticalAlignment="Bottom">
-            <TextBlock FontWeight="Bold">v3.0程序使用说明：</TextBlock>
-            <TextBlock >1、本版本不支持excel格式，只支持csv格式的数据导入和导出；</TextBlock>
-            <TextBlock >2、输入的文件必须以"sysid,realname,topid,layer"四个标题头开始；</TextBlock>
-            <TextBlock >3、程序可以让用户选择是否自动对输入的数据中大小写格式互相转换；</TextBlock>
-            <TextBlock >4、程序可以让用户选择是否自动对输入的数据中全半角符号互相转换</TextBlock>
-            <TextBlock >5、在查找等页面下双击指定的节点，可以将其在树视图中打开查看；</TextBlock>
-            <TextBlock >6、节点总数 = 组成森林的节点 + 形成闭环的节点 + 信息不完整的节点；</TextBlock>
-            <TextBlock >7、前一个v2.1版本中，支持的最大数据量为百万级别；</TextBlock>
-    		<TextBlock >8、本版本v3.0中，支持的最大数据量为千万级别。</TextBlock>
-    		<TextBlock >9、打开csv文件前，请一定确保文件编码为utf-8。</TextBlock>
-    	</StackPanel>
-    </Grid>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Image
+			Width="100"
+			Height="100"
+			Margin="30, 20, 10, 10"
+			Source="/MemberTreeTrial;component/Image/tree.png" />
+		<StackPanel Grid.Column="1">
+			<TextBlock
+				Foreground="LightCyan"
+				FontWeight="Bold"
+				FontSize="28"
+				x:Name="txtHead"
+				Margin="0, 20, 0, 5">
+				<TextBlock.Effect>
+					<DropShadowEffect Opacity="0.6" />
+				</TextBlock.Effect>
+				<Run Text="会员关系树分析工具" />
+			</TextBlock>
+			<TextBlock
+				FontSize="18"
+				Foreground="RoyalBlue">
+				<Run Text="版本：v5.13 -（试用版）" />
+			</TextBlock>
+			<TextBlock
+				FontSize="16"
+				Foreground="BlueViolet"
+				x:Name="txtCpy">
+				<Run Text="Copyright © 湖南警察学院 ( hnpolice.com | hnpolice.cn )" />
+			</TextBlock>
+			<TextBlock
+				FontSize="14"
+				TextWrapping="WrapWithOverflow"
+				Foreground="DarkCyan">
+				<Run Text="地址：长沙市经济技术开发区远大三路九号" />
+			</TextBlock>
+			<TextBlock
+				FontSize="14"
+				TextWrapping="WrapWithOverflow"
+				Foreground="DarkCyan">
+				<Run Text="邮政编码：410138，电话：0731-82791600" />
+			</TextBlock>
+		</StackPanel>
+		
+		<GroupBox Name="selectDBGrid" Header="" Grid.ColumnSpan="2" Grid.Row="1">
+			<ScrollViewer VerticalScrollBarVisibility="Auto">
+				<WrapPanel x:Name="mainPanel">
+				</WrapPanel>
+			</ScrollViewer>
+		</GroupBox>
+	</Grid>
 </UserControl>

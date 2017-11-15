@@ -1,133 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Window 
-	xmlns:my="clr-namespace:MemberTree"
-	x:Class="MemberTree.MainWindow" 
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	x:Class="MemberTreeView.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d" Width="800" Height="600"
-	WindowState="Maximized" Title="会员名单树(试用版) v5.13">
-	<Window.Resources>
-		<Style TargetType="Button">
-			<Setter Property="Margin" Value="1"></Setter>
-		</Style>
-		<Style TargetType="ComboBox">
-			<Setter Property="Margin" Value="1"></Setter>
-		</Style>
-	</Window.Resources>
-	<Grid>
+	xmlns:my="clr-namespace:MemberTree"
+	mc:Ignorable="d" Width="600" Height="360" ResizeMode="NoResize"
+	WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+	<Grid x:Name="mainGrid">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />
-			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<StackPanel Margin="5,0" Name="leftMenu">
-			<GroupBox Header="打开">
-				<StackPanel>
-					<Expander Header="打开参数设置">
-						<StackPanel>
-							<ComboBox Name="comboToLower">
-								<ComboBoxItem IsSelected="True">不转换大小写</ComboBoxItem>
-								<ComboBoxItem>转换为小写</ComboBoxItem>
-								<ComboBoxItem>转换为大写</ComboBoxItem>
-							</ComboBox>
-							<ComboBox Name="comboToHalf">
-								<ComboBoxItem IsSelected="True">不转换全半角</ComboBoxItem>
-								<ComboBoxItem>转换为半角</ComboBoxItem>
-								<ComboBoxItem>转换为全角</ComboBoxItem>
-							</ComboBox>
-							<ComboBox Name="comboTrim">
-								<ComboBoxItem IsSelected="True">不删除空格</ComboBoxItem>
-								<ComboBoxItem>删除首尾空格</ComboBoxItem>
-								<ComboBoxItem>删除首部空格</ComboBoxItem>
-								<ComboBoxItem>删除尾部空格</ComboBoxItem>
-							</ComboBox>
-						</StackPanel>
-					</Expander>
-					<Button Content="直接连数据库" Click="ButtonConnectDB_Click" />
-					<Button Content="检查csv文件" Click="ButtonCheck_Click" />
-					<Button Content="加载样例数据" Click="ButtonOpen_Click" />
-				</StackPanel>
-			</GroupBox>
-			<GroupBox Header="查找">
-				<StackPanel>
-					<ComboBox Name="comboOpenLevel">
-						<ComboBoxItem Tag="0">自动打开0级</ComboBoxItem>
-						<ComboBoxItem Tag="1">自动打开1级</ComboBoxItem>
-						<ComboBoxItem Tag="2" IsSelected="True">自动打开2级</ComboBoxItem>
-						<ComboBoxItem Tag="3">自动打开3级</ComboBoxItem>
-						<ComboBoxItem Tag="5">自动打开5级</ComboBoxItem>
-						<ComboBoxItem Tag="10">自动打开10级</ComboBoxItem>
-					</ComboBox>
-					<!--<ComboBox Name="comboSearchType">
-						<ComboBoxItem IsSelected="True">根据ID查找</ComboBoxItem>
-						<ComboBoxItem>根据姓名查找</ComboBoxItem>
-						<ComboBoxItem>根据级别查找</ComboBoxItem>
-						<ComboBoxItem>根据下线人数查找</ComboBoxItem>
-						<ComboBoxItem>根据下线层数查找</ComboBoxItem>
-					</ComboBox>
-					<TextBox Name="txtSearch" BorderBrush="Black" Background="LightYellow" />-->
-					<my:SearchFilter Width="200" x:Name="mySearchFilter"/>
-					<Button Content="开始查找" Click="ButtonSearch_Click" />
-				<!--<Button Content="查找多个并导出" Click="ButtonSearchMulti_Click" />-->
-				</StackPanel>
-			</GroupBox>
-			<GroupBox Header="导出表格">
-				<StackPanel>
-					<Button Content="当前选中的树节点" Click="ButtonExportSelectedNode_Click" />
-					<!--<Button Content="森林中所有的树" Click="ButtonExportTrees_Click" />
-					<Button Content="所有信息不完整的节点" Click="ButtonExportInfoErrNodes_Click" />
-					<Button Content="所有构成闭环的节点" Click="ButtonExportRingNodes_Click" />-->
-				</StackPanel>
-			</GroupBox>
-			<GroupBox Header="导出图形">
-				<StackPanel>
-					<Button Name="btnExportImg" Content="导出png图片" Click="btnExportImg_Click" />
-					<Button Name="btnExportPDF" Content="导出PDF分页" Click="btnExportPDF_Click" />
-					<Button Name="btnPrint" Content="打印" Click="btnPrint_Click" />
-				</StackPanel>
-			</GroupBox>
-			<GroupBox Header="显示">
-				<StackPanel>
-					<ComboBox x:Name="comboTreeStyle" SelectionChanged="TreeStyle_SelectionChanged">
-						<ComboBoxItem>最简风格树视图</ComboBoxItem>
-						<ComboBoxItem IsSelected="True">带连接线树视图</ComboBoxItem>
-						<ComboBoxItem>水平组织结构树视图</ComboBoxItem>
-						<ComboBoxItem>垂直组织结构树视图</ComboBoxItem>
-					</ComboBox>
-				</StackPanel>
-			</GroupBox>
-		</StackPanel>
-		<Grid Grid.Column="1" Name="mainGrid">
-			<my:MyNodeList x:Name="listNodes" MouseDoubleClick="NodeListView_MouseDoubleClick" Visibility="Hidden" />
-			<my:MyTreeView x:Name="myTreeView" Visibility="Hidden" />
-			<my:MyForest x:Name="forestView" Visibility="Hidden" />
-			<my:CommonView x:Name="commonView" Visibility="Hidden" />
-		</Grid>
-		<my:WelcomeView x:Name="homeView" Grid.Column="1" Width="auto" Height="auto" />
-		<my:ProgressView x:Name="progressView" Grid.Column="1" Visibility="Hidden" />
-		<StatusBar Grid.Row="1" Grid.ColumnSpan="2">
-			<StatusBarItem>
-				<TextBlock Name="statusMessage" Text="就绪" />
-			</StatusBarItem>
-			<StatusBarItem>
-				<ProgressBar Name="progressBar" Width="300" Height="20" Visibility="Collapsed" />
-			</StatusBarItem>
-			<StatusBarItem Name="statusView" HorizontalAlignment="Right" Padding="0" Visibility="Collapsed">
-				<TabControl Name="tabView" Padding="0" TabStripPlacement="Bottom" SelectionChanged="TabView_Changed">
-					<TabItem Name="tabHome" Header="概要视图" />
-					<TabItem Name="tabNoParent" Header="森林视图" />
-					<TabItem Name="tabTree" Header="会员树视图" />
-					<TabItem Name="tabFindResult" Header="查找结果" />
-					<TabItem Name="tabIdConflict" Header="Id重复的节点" Foreground="Orange" />
-					<TabItem Name="tabRingErr" Header="形成闭环的节点" Foreground="HotPink" />
-					<TabItem Name="tabIdNull" Header="信息不完整的节点" Foreground="Red" />
-				</TabControl>
-			</StatusBarItem>
-		</StatusBar>
+		<my:WelcomeView x:Name="welcomeView"/>
 	</Grid>
 </Window>

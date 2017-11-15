@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Windows;
 
-namespace MemberTree
+namespace MemberTreeView
 {
     /// <summary>
     /// App.xaml 的交互逻辑

@@ -50,12 +50,12 @@ namespace MemberTree
 				if(value)
 				{
 					this.BorderThickness = new Thickness(1);
-					this.img.Source = new BitmapImage(new Uri("/MemberTree;component/Image/user1.png", UriKind.Relative));
+					this.img.Source = new BitmapImage(new Uri("/MemberTreeCommon;component/Image/user1.png", UriKind.Relative));
 				}
 				else
 				{
 					this.BorderThickness = new Thickness(0);
-					this.img.Source = new BitmapImage(new Uri("/MemberTree;component/Image/user.png", UriKind.Relative));
+					this.img.Source = new BitmapImage(new Uri("/MemberTreeCommon;component/Image/user.png", UriKind.Relative));
 				}
 			}
 		}

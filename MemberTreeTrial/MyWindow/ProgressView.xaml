@@ -17,63 +17,63 @@
 		</Grid.RowDefinitions>
 		<TextBlock Name="txtCsvFile" Grid.ColumnSpan="3" Margin="10, 10, 10, 0"/>
 		<Image
-			Source="/MemberTree;component/Image/tree7.jpg"
+			Source="/MemberTreeCommon;component/Image/tree7.jpg"
 			Margin="90,90,10,10" Grid.Row="1">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale7"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree0.jpg"
+			Source="/MemberTreeCommon;component/Image/tree0.jpg"
 			Margin="50" Grid.Column="1" Grid.Row="1">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale0"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree1.jpg"
+			Source="/MemberTreeCommon;component/Image/tree1.jpg"
 			Margin="10,90,90,10" Grid.Column="2" Grid.Row="1">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale1"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree6.jpg"
+			Source="/MemberTreeCommon;component/Image/tree6.jpg"
 			Margin="50" Grid.Row="2">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale6"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree.png"
+			Source="/MemberTreeCommon;component/Image/tree.png"
 			Grid.Row="2" Grid.Column="1" Width="140" Height="140">
 			<Image.RenderTransform>
                 <RotateTransform Angle="90" CenterX="70" CenterY="70" x:Name="treeRotate"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree2.jpg"
+			Source="/MemberTreeCommon;component/Image/tree2.jpg"
 			Margin="50" Grid.Row="2" Grid.Column="2">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale2"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree5.jpg"
+			Source="/MemberTreeCommon;component/Image/tree5.jpg"
 			Margin="90,10,10,90" Grid.Row="3">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale5"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree4.jpg"
+			Source="/MemberTreeCommon;component/Image/tree4.jpg"
 			Margin="50" Grid.Row="3" Grid.Column="1">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale4"/>
             </Image.RenderTransform>
 		</Image>
 		<Image
-			Source="/MemberTree;component/Image/tree3.jpg"
+			Source="/MemberTreeCommon;component/Image/tree3.jpg"
 			Margin="10,10,90,90" Grid.Row="3" Grid.Column="2">
 			<Image.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" x:Name="treeScale3"/>

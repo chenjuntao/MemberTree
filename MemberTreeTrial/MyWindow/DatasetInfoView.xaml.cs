@@ -14,8 +14,6 @@ using System.Windows.Media;
 
 namespace MemberTree
 {
-	public delegate void InvokeStringDelegate(string str);
-	
 	/// <summary>
 	/// 单个数据集概要信息
 	/// </summary>
@@ -28,18 +26,18 @@ namespace MemberTree
 			InitializeComponent();
 		}
 		
-		public void Init(string name)
+		public void Init(DatasetInfo ds)
 		{
-			txtDB.Text = name;
+			txtDB.Text = ds.Name;
 			
-			btnAll.Content = "所有节点总数" + MyTrees.AllNodeCount;
-			btnTree.Content =  MyTrees.ForestNodeCount + "个节点构成" + MyTrees.NoParentNodes.Count + "课树";
-			btnLeaf.Content = MyTrees.LeafAloneNodes.Count + "个孤立的叶子节点" ;
-			btnLeaf.Visibility = MyTrees.LeafAloneNodes.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-			btnRing.Content = MyTrees.RingNodes.Count + "个构成闭环的节点";
-			btnRing.Visibility = MyTrees.RingNodes.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-			btnConflict.Content = MyTrees.IdConflictNodes.Count + "个ID重复的节点";
-			btnConflict.Visibility = MyTrees.IdConflictNodes.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+			btnAll.Content = "所有节点总数" + ds.AllNodeCount;
+			btnTree.Content =  ds.TreeNodeCount + "个节点构成" + ds.TreeCount + "课树";
+			btnLeaf.Content = ds.LeafCount + "个孤立的叶子节点" ;
+			btnLeaf.Visibility = ds.LeafCount > 0 ? Visibility.Visible : Visibility.Collapsed;
+			btnRing.Content = ds.RingCount + "个构成闭环的节点";
+			btnRing.Visibility = ds.RingCount > 0 ? Visibility.Visible : Visibility.Collapsed;
+			btnConflict.Content = ds.ConflictCount + "个ID重复的节点";
+			btnConflict.Visibility = ds.ConflictCount > 0 ? Visibility.Visible : Visibility.Collapsed;
 		}
 		
 		public void SetCallBack(InvokeStringDelegate btnClickDelegate)
