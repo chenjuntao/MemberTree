@@ -324,6 +324,12 @@ namespace MemberTree
 	                }
 	                treeDB.TransCommit(true);
 	                
+	                WindowAdmin.notify.SetStatusMessage("【第一步：读取数据完成】——>【第二步：构造树结构完成】——>【第三步：正在创建数据库索引。。。】"); 
+	                treeDB.CreateIndex(); 
+
+	                WindowAdmin.notify.SetStatusMessage("【第一步：读取数据完成】——>【第二步：构造树结构完成】——>【第三步：正在写入数据概要信息。。。】"); 
+	                treeDB.CreateProfile(); 
+	                
 	                WindowAdmin.notify.SetProcessBarVisible(false);
             		WindowAdmin.notify.SetStatusMessage("计算完成！");
 //	            }
