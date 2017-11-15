@@ -28,9 +28,5 @@ namespace MemberTree
 		void InsertNodes(MyTreeNode node, string[] optCols);
 		
 		void TransCommit(bool end);
-		
-		void CreateIndex();
-		
-		void CreateProfile();
     }  
 }

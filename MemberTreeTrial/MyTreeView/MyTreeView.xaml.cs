@@ -314,21 +314,6 @@ namespace MemberTree
                 }
             }
 
-            if (MyTrees.IdNullNodes.Count > 0)
-            {
-                TreeViewItem nodeInfoErrItem = new TreeViewItem();
-                nodeInfoErrItem.Header = "信息不完整的节点（共" + MyTrees.IdNullNodes.Count + "个)";
-                nodeInfoErrItem.ToolTip = "信息不完整的节点（共" + MyTrees.IdNullNodes.Count + "个)";
-                nodeInfoErrItem.Expanded += item_Expanded;
-                nodeInfoErrItem.Collapsed += item_Collapsed;
-                memberTreeView.Items.Add(nodeInfoErrItem);
-                foreach (MyTreeNode node in MyTrees.IdNullNodes)
-                {
-                    TreeViewItem subItem = NewTreeViewItem(node);
-                    nodeInfoErrItem.Items.Add(subItem);
-                }
-            }
-
             if (MyTrees.RingNodes.Count > 0)
             {
                 TreeViewItem ringErrItem = new TreeViewItem();

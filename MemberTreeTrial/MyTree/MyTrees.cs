@@ -197,7 +197,7 @@ namespace MemberTree
         
         public static List<MyTreeNode> IdConflictNodes = new List<MyTreeNode>();
 
-        public static List<MyTreeNode> IdNullNodes = new List<MyTreeNode>();
+        public static List<MyTreeNode> LeafAloneNodes = new List<MyTreeNode>();
         
         public static Dictionary<string, MyTreeNode> RingNodes = new Dictionary<string, MyTreeNode>();
 
@@ -220,11 +220,7 @@ namespace MemberTree
                 	string line = mysr.ReadLine();
 		            MyTreeNode myNode = new MyTreeNode(line);
 		        	
-		            if(myNode.SysId == "") //信息不完整（ID为空）的节点
-		            {
-		            	IdNullNodes.Add(myNode);
-		            }
-		           	else if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
+		            if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
 		            {
 		                IdConflictNodes.Add(myNode);
 		            }
@@ -296,7 +292,7 @@ namespace MemberTree
             allNodes.Clear();
             NoParentNodes.Clear();
             IdConflictNodes.Clear();
-            IdNullNodes.Clear();
+            LeafAloneNodes.Clear();
             RingNodes.Clear();
         }
 

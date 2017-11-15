@@ -63,26 +63,12 @@ namespace MemberTree
                 tabView.SelectedItem = tabHome;
                 
                 myTreeView.SetRootNode(MyTrees.RootNode);
-                
-                //myGraphView.InitMyTree();
-                //显示统计信息
-                commonView.SetSummary(file, 
-                                      MyTrees.ForestNodeCount,
-                                      MyTrees.IdConflictNodes.Count,
-                                      MyTrees.RingNodes.Count,
-                                      MyTrees.IdNullNodes.Count,
-                                      MyTrees.AllNodeCount);
-                tabNoParent.Header = "森林（一共" + MyTrees.NoParentNodes.Count + "棵树）";
-                tabIdConflict.Header = "Id有重复（" + MyTrees.IdConflictNodes.Count + "个）";
-                tabIdNull.Header = "信息不完整（" + MyTrees.IdNullNodes.Count + "个）";
-                tabRingErr.Header = "形成闭环（" + MyTrees.RingNodes.Count + "个）";
             }
         	else
         	{
         		MessageBox.Show("样例数据不存在！");
         	}
         }
-        
 
         //查找
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
@@ -107,46 +93,7 @@ namespace MemberTree
                 MessageBox.Show("必须选中一个节点！");
             }
         }
-        
-        //导出全部森林中的树
-        private void ButtonExportTrees_Click(object sender, RoutedEventArgs e)
-        {
-        	if(MyTrees.NoParentNodes.Count > 0)
-        	{
-        		ExportCSV.ExportNodes(MyTrees.NoParentNodes);
-        	}
-        	else
-            {
-                MessageBox.Show("森林中没有树！");
-            }
-        }
-        
-		//导出信息不完整的节点
-        private void ButtonExportInfoErrNodes_Click(object sender, RoutedEventArgs e)
-        {
-            if(MyTrees.IdNullNodes.Count > 0)
-        	{
-        		ExportCSV.ExportNodes(MyTrees.IdNullNodes);
-        	}
-        	else
-            {
-                MessageBox.Show("没有信息不完整的节点！");
-            }
-        }
-
-		//导出全部闭环中的节点
-        private void ButtonExportRingNodes_Click(object sender, RoutedEventArgs e)
-        {
-            if(MyTrees.RingNodes.Count > 0)
-        	{
-        		ExportCSV.ExportNodes(MyTrees.RingNodes.Values.ToList());
-        	}
-        	else
-            {
-                MessageBox.Show("没有形成闭环的节点！");
-            }
-        }        
-            	
+        	
         #endregion
 
         //导出图片
@@ -268,7 +215,7 @@ namespace MemberTree
                 }
                 else if (tabView.SelectedItem == tabIdNull)
                 {
-                    listNodes.NodeListView.ItemsSource = MyTrees.IdNullNodes;
+                    listNodes.NodeListView.ItemsSource = MyTrees.LeafAloneNodes;
                 }
                 else if (tabView.SelectedItem == tabRingErr)
                 {

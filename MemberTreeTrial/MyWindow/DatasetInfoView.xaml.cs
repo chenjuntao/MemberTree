@@ -14,7 +14,7 @@ using System.Windows.Media;
 
 namespace MemberTree
 {
-	public delegate void InvokeStringDelegate(string);
+	public delegate void InvokeStringDelegate(string str);
 	
 	/// <summary>
 	/// 单个数据集概要信息
@@ -32,28 +32,14 @@ namespace MemberTree
 		{
 			txtDB.Text = name;
 			
-			Dictionary<string, int> counts = treeDB.GetCounts();
-			
-			//显示统计信息
-            commonView.SetSummary(file, 
-                                  MyTrees.ForestNodeCount,
-                                  MyTrees.IdConflictNodes.Count,
-                                  MyTrees.RingNodes.Count,
-                                  MyTrees.IdNullNodes.Count,
-                                  MyTrees.AllNodeCount);
-            tabNoParent.Header = "森林（一共" + MyTrees.NoParentNodes.Count + "棵树）";
-            tabIdConflict.Header = "Id有重复（" + MyTrees.IdConflictNodes.Count + "个）";
-            tabIdNull.Header = "信息不完整（" + MyTrees.IdNullNodes.Count + "个）";
-            tabRingErr.Header = "形成闭环（" + MyTrees.RingNodes.Count + "个）";
-			
 			btnAll.Content = "所有节点总数" + MyTrees.AllNodeCount;
-			btnTree.Content =  counts["TreeNodeCount"] + "个节点构成" + counts["TreeCount"] + "课树";
-			btnLeaf.Content = counts["LeafCount"] + "个孤立的叶子节点" ;
-			btnLeaf.Visibility = counts["LeafCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
-			btnRing.Content = counts["RingCount"] + "个构成闭环的节点";
-			btnRing.Visibility = counts["RingCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
-			btnConflict.Content = counts["ConflictCount"] + "个ID重复的节点";
-			btnConflict.Visibility = counts["ConflictCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
+			btnTree.Content =  MyTrees.ForestNodeCount + "个节点构成" + MyTrees.NoParentNodes.Count + "课树";
+			btnLeaf.Content = MyTrees.LeafAloneNodes.Count + "个孤立的叶子节点" ;
+			btnLeaf.Visibility = MyTrees.LeafAloneNodes.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+			btnRing.Content = MyTrees.RingNodes.Count + "个构成闭环的节点";
+			btnRing.Visibility = MyTrees.RingNodes.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+			btnConflict.Content = MyTrees.IdConflictNodes.Count + "个ID重复的节点";
+			btnConflict.Visibility = MyTrees.IdConflictNodes.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 		}
 		
 		public void SetCallBack(InvokeStringDelegate btnClickDelegate)
