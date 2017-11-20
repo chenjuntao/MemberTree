@@ -82,7 +82,7 @@
 			</TextBlock>
 		</StackPanel>
 		
-		<GroupBox Name="selectDBGrid" Header="" Grid.ColumnSpan="2" Grid.Row="1">
+		<GroupBox Name="selectDBGrid" Header="打开样例数据" Grid.ColumnSpan="2" Grid.Row="1">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
 				<WrapPanel x:Name="mainPanel">
 				</WrapPanel>

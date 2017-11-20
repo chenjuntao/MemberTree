@@ -115,7 +115,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MyTree\DatasetInfo.cs" />
     <Compile Include="MyTree\MyTrees.cs" />
+    <Compile Include="MyTree\SampleData.cs" />
     <Compile Include="MyWindow\DatasetBtn.xaml.cs">
       <DependentUpon>DatasetBtn.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -213,7 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Util\DatasetInfo.cs" />
     <Compile Include="Util\INotify.cs" />
     <Compile Include="Util\InvokeDelegate.cs" />
     <Compile Include="Util\TimingUtil.cs" />
