@@ -33,7 +33,7 @@ namespace MemberTree
 		
 		internal void InitCols()
 		{		
-			List<string> optCols = MyTrees.GetTableOptCols();
+			List<string> optCols = MyTrees.TableOptCols;
 			for (int i = 0; i < optCols.Count; i++) 
 			{
 				mainGrid.RowDefinitions.Add(new RowDefinition());

@@ -28,7 +28,7 @@ namespace MemberTree
             myStatusBar.SetShowHideView(null, new UIElement[]{leftMenu, mainGrid}, null);
             notify = myStatusBar;
             
-            datasetInfoView.Init(null);
+            datasetInfoView.Init();
 			datasetInfoView.SetCallBack(SwitchTabView);
 			mySearchFilter.InitCols();
 			listNodes.InitCols();

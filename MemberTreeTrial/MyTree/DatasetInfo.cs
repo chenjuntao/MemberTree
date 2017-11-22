@@ -15,6 +15,17 @@ namespace MemberTree
 	/// </summary>
 	public class DatasetInfo
 	{
+		public static string CSVHeader = "会员Id,上级Id,会员姓名,所在层级,下级层级,直接下级数,总下级会员数";
+    	public static void SetCSVHeader(string line)
+    	{
+    		string[] ary = line.Split(new char[] { ',' });
+    		 for (int i = 3; i < ary.Length; i++) 
+    		 {
+        		CSVHeader+=(","+ary[i]);
+        		MyTrees.TableOptCols.Add(ary[i]);
+            }
+    	}
+		
 		public string Name;		//数据集名字
 		public int ColCount;	//列数
 		public int RowCount;	//行数，节点数量

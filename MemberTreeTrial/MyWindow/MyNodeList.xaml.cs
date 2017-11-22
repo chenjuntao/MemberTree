@@ -27,7 +27,7 @@ namespace MemberTree
         
         public void InitCols()
         {
-        	List<string> tableOptCols = MyTrees.GetTableOptCols();
+        	List<string> tableOptCols = MyTrees.TableOptCols;
         	for (int i = 0; i < tableOptCols.Count; i++) {
         		GridViewColumn col = new GridViewColumn();
 	        	col.Header = tableOptCols[i];

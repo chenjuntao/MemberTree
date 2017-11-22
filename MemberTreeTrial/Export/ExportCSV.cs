@@ -62,7 +62,7 @@ namespace MemberTree
   
             StreamWriter mysw = new StreamWriter(outputfile, true, Encoding.Default);
            
-            List<string> optCols = MyTrees.GetTableOptCols();
+            List<string> optCols = MyTrees.TableOptCols;
             string header = string.Join(",", optCols.ToArray());
             header = "会员ID,父级ID,会员姓名,所在层级,下级层数,直接下级会员数,下级会员总数," + header;
             mysw.WriteLine(header);

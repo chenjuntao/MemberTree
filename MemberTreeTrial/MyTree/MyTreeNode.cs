@@ -9,14 +9,7 @@ namespace MemberTree
 {
     public class MyTreeNode
     {
-    	public static string CSVHeader = "会员Id,上级Id,会员姓名,所在层级,下级层级,直接下级数,总下级会员数";
-    	public static void SetCSVHeader(string line)
-    	{
-    		string[] ary = line.Split(new char[] { ',' });
-    		 for (int i = 3; i < ary.Length; i++) {
-        		CSVHeader+=(","+ary[i]);
-            }
-    	}
+    	
     	
         public string SysId { get; set; }
         public string TopId { get; set; }
@@ -42,6 +35,8 @@ namespace MemberTree
         		OtherProps.Add(ary[i]);
         	}
         }
+        
+        public List<MyTreeNode> ChildrenNodes = new List<MyTreeNode>();
 
         public override string ToString()
         {

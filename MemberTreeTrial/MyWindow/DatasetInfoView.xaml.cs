@@ -26,8 +26,9 @@ namespace MemberTree
 			InitializeComponent();
 		}
 		
-		public void Init(DatasetInfo ds)
+		public void Init()
 		{
+			DatasetInfo ds = MyTrees.dataset;
 			txtDB.Text = ds.Name;
 			
 			btnAll.Content = "所有节点总数" + ds.AllNodeCount;

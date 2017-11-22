@@ -41,7 +41,7 @@ namespace MemberTree
 			addCol("直接下级数：");
 			addCol("下级总数：");
 			
-			List<string> optCols = MyTrees.GetTableOptCols();
+			List<string> optCols = MyTrees.TableOptCols;
 			for (int i = 0; i < optCols.Count; i++) 
 			{
 				addCol(optCols[i] + "：");

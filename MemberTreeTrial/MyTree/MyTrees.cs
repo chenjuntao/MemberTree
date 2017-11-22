@@ -11,6 +11,8 @@ namespace MemberTree
 	/// </summary>
     public static class MyTrees
     {
+    	public static DatasetInfo dataset;
+    	
     	public static void InitTreeDB(bool isSqlite)
     	{
     	}
@@ -28,14 +30,28 @@ namespace MemberTree
 		{
 		}
 		
+		public static MyTreeNode FindParentNode(string parentId)
+        {
+        	if(parentId != "")
+        	{
+	            if (allNodes.ContainsKey(parentId))
+	            {
+	                return allNodes[parentId];
+	            }
+        	}
+
+            return null;
+        }
+		
         #region 查询特定不同类型的节点
         
         private static Dictionary<string, MyTreeNode> allNodes = new Dictionary<string, MyTreeNode>();
-        internal static MyTreeNode RootNode=null;
         internal static List<MyTreeNode> NoParentNodes = new List<MyTreeNode>();
-        internal static List<MyTreeNode> IdConflictNodes = new List<MyTreeNode>();
+        internal static List<MyTreeNode> TreeRootNodes = new List<MyTreeNode>();
         internal static List<MyTreeNode> LeafAloneNodes = new List<MyTreeNode>();
+        internal static List<MyTreeNode> IdConflictNodes = new List<MyTreeNode>();
         internal static Dictionary<string, MyTreeNode> RingNodes = new Dictionary<string, MyTreeNode>();
+        internal static List<string> TableOptCols = new List<string>();
         
         internal static int GetTreeRootNodesCount()
         {
@@ -63,7 +79,6 @@ namespace MemberTree
         {
             return null;
         }
-        private static List<string> leafAloneNodeIds;
         internal static List<string> GetLeafAloneNodeIds()
         {
         	return null;
@@ -77,14 +92,7 @@ namespace MemberTree
         {
         	return null;
         }
-       	private static List<string> ringNodes;
         internal static List<string> GetRingNodeIds()
-        {
-        	return null;
-        }
-        
-        private static List<string> tableOptCols;
-        internal static List<string> GetTableOptCols()
         {
         	return null;
         }
@@ -147,98 +155,84 @@ namespace MemberTree
         
         #endregion
     
-        
-        
-         
-        public static void OpenCSVFile(string filepath)
+        public static void OpenSampleData(string datName)
         {
-            ClearAllNodes();
-            StreamReader mysr = new StreamReader(filepath, Encoding.UTF8);
             int row = 0;
-            List<string> errLines = new List<string>();
-            try
+            string datStr = SampleData1.DAT;
+            if(datName == "样例数据2")
             {
-                string firstLine = mysr.ReadLine(); //第一行是表头，读取之后不处理，直接跳过
-                MyTreeNode.SetCSVHeader(firstLine);
+            	datStr = SampleData2.DAT;
+            }
+            string[] allLines = datStr.Split(new String[]{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+            
+            string firstLine = allLines[0]; //第一行是表头，读取之后不处理，直接跳过
+            DatasetInfo.SetCSVHeader(firstLine);
                 
-                while(!mysr.EndOfStream)
-                {
-                	string line = mysr.ReadLine();
-		            MyTreeNode myNode = new MyTreeNode(line);
+            for (int i = 1; i < allLines.Length; i++) 
+            {
+            	string line = allLines[i];
+		        MyTreeNode myNode = new MyTreeNode(line);
 		        	
-		            if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
-		            {
-		                IdConflictNodes.Add(myNode);
-		            }
-		            else
-		            {
-		                allNodes.Add(myNode.SysId, myNode);
-		            }
+		        if(allNodes.ContainsKey(myNode.SysId)) //ID有重复的节点
+		        {
+		            IdConflictNodes.Add(myNode);
+		        }
+		        else
+		        {
+		            allNodes.Add(myNode.SysId, myNode);
+		        }
 		
-		            row++;
-		            if (row % 1000 == 0)
-		            {
-//		                MainWindow.notify.SetStatusMessage("【第一步：正在读取第" + row + "个节点】——>【第二步：构造树结构】——>【第三步：写入数据库】");
-		            }
-                }
-                
-                //处理出错的数据
-	            if(errLines.Count>0)
+		        row++;
+		        if (row % 1000 == 0)
 	            {
-	            	MessageBox.Show("该csv数据文件中包含大量的错误数据，请先对csv文件进行检查校准！");
-	            	return;
+//		            MainWindow.notify.SetStatusMessage("【第一步：正在读取第" + row + "个节点】——>【第二步：构造树结构】——>【第三步：写入数据库】");
 	            }
-                
-                allNodeCount = row;
-            }
-            catch (Exception ex)
-            {
-            	MessageBox.Show("文件读取出错！+\n" + ex.Message);
-                return;
-            }
-            finally
-            {
-                mysr.Close();
             }
             
 			//构造计算树结构----------------------------------------------------------------------------------------------------------
-            try
+            row = 0;
+            foreach (MyTreeNode node in allNodes.Values)
             {
-                row = 0;
-                foreach (MyTreeNode node in allNodes.Values)
-                {
-                    //将节点加入树中合适的位置去
-                    ConstructTree(node);
+                //将节点加入树中合适的位置去
+                ConstructTree(node);
 
-                    row++;
-                    if (row % 1000 == 0)
-                    {
+                row++;
+                if (row % 1000 == 0)
+                {
 //                    	MainWindow.notify.SetProcessBarValue(row * 100.0 / allNodeCount);
-//                        MainWindow.notify.SetStatusMessage("【第一步：读取数据完成】——>【第二步：正在构造树结构" + row + "/" + allNodeCount +"】——>【第三步：写入数据库】");
-                    }
+//                      MainWindow.notify.SetStatusMessage("【第一步：读取数据完成】——>【第二步：正在构造树结构" + row + "/" + allNodeCount +"】——>【第三步：写入数据库】");
                 }
-                foreach (MyTreeNode node in IdConflictNodes)
-                {
-                    //将节点加入树中合适的位置去
-                    ConstructTree(node);
-                }
-
-//                MainWindow.notify.SetProcessBarVisible(false);
-//                MainWindow.notify.SetStatusMessage("计算完成！");
             }
-            catch (Exception ex)
+            foreach (MyTreeNode node in IdConflictNodes)
             {
-            	MessageBox.Show("发生异常：" + ex.Message + "在第" + row + "行!");
+                //将节点加入树中合适的位置去
+                ConstructTree(node);
             }
-        }
-        
-        private static void ClearAllNodes()
-        {
-            allNodes.Clear();
-            NoParentNodes.Clear();
-            IdConflictNodes.Clear();
-            LeafAloneNodes.Clear();
-            RingNodes.Clear();
+            
+            #region 找出所有构成树的节点
+            foreach (MyTreeNode node in NoParentNodes) 
+            {
+            	if(node.ChildrenCount > 0)
+            	{
+            		TreeRootNodes.Add(node);
+            	}
+            }
+            foreach (MyTreeNode node in TreeRootNodes) 
+            {
+            	NoParentNodes.Remove(node);
+            }
+            #endregion
+			dataset = new DatasetInfo();
+			dataset.Name = datName;
+			dataset.CreateData = DateTime.Today;
+			dataset.ColCount = 33;
+			dataset.AllNodeCount = allNodes.Count;
+			dataset.RowCount = allNodes.Count;
+			dataset.TreeCount = TreeRootNodes.Count;
+			dataset.TreeNodeCount = TreeRootNodes.Count;
+			dataset.ConflictCount = IdConflictNodes.Count;
+			dataset.LeafCount = LeafAloneNodes.Count;
+			dataset.RingCount = RingNodes.Count;
         }
 
         //构建树（将节点加进树结构中合适的位置）
