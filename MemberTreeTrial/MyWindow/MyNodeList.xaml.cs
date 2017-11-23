@@ -31,7 +31,7 @@ namespace MemberTree
         	for (int i = 0; i < tableOptCols.Count; i++) {
         		GridViewColumn col = new GridViewColumn();
 	        	col.Header = tableOptCols[i];
-	        	col.DisplayMemberBinding = new Binding("["+ (i + 7) +"]");
+	        	col.DisplayMemberBinding = new Binding("["+ (i + 3) +"]");
 	        	gridView.Columns.Add(col);
         	}
         }
@@ -60,9 +60,9 @@ namespace MemberTree
 			foreach (MyTreeNode node in nodes) 
         	{
 				List<string> nodeProps = node.OtherProps;
-				nodeProps.Insert(0, node.SysId);
-				nodeProps.Insert(0, node.TopId);
 				nodeProps.Insert(0, node.Name);
+				nodeProps.Insert(0, node.TopId);
+				nodeProps.Insert(0, node.SysId);
 				nodeList.Items.Add(nodeProps.ToArray());
         	}
         }

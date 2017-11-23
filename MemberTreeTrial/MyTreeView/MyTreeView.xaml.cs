@@ -140,11 +140,7 @@ namespace MemberTree
         		MyTreeNode node = selectedItem.Tag as MyTreeNode;
         		if(node != null)
         		{
-        			string nodeDB = MyTrees.GetStringBySysId(node.SysId);
-	        		if(nodeDB != null)
-	        		{
-	        			myNodeInfo.SetNode(nodeDB);
-	        		}
+	        		myNodeInfo.SetNode(node);
         		}
         	}
         }
@@ -241,7 +237,6 @@ namespace MemberTree
 
         public void SetRootNode(MyTreeNode rootNode)
         {
-        	pager.Visibility = Visibility.Hidden;
             memberTreeView.Items.Clear();
             ringNodeIds.Clear();
 
@@ -302,83 +297,8 @@ namespace MemberTree
             btnUpLevelNode.IsEnabled = false;
             btnUpRootNode.IsEnabled = false;
             
-            pager.Visibility = Visibility.Visible;
-            pager.Init(treeRootCount);
-            
-        	#region 旧代码，一次性加载所有
-//        	List<MyTreeNode> treeRootNodes = MyTrees.GetTreeRootNodes();
-//        	string rootHeader = "森林（共" + treeRootNodes.Count + "棵树）";
-//        	
-//        	if(memberTreeView.HasItems)
-//        	{
-//        		TreeViewItem rootItem = memberTreeView.Items[0] as TreeViewItem;
-//        		if(rootItem.Header.Equals(rootHeader))
-//	            {
-//	            	WindowView.notify.SetStatusMessage("当前已经是所有树视图！");
-//	            	return;
-//	            }
-//        	}
-//            
-//        	TimingUtil.StartTiming();
-//       		WindowView.notify.SetProcessBarVisible(true);
-//            WindowView.notify.SetStatusMessage("正在查询所有构成树的节点。。。");
-//            SetRootNode(null);
-//            
-//            int process = 0;
-//            if (treeRootNodes.Count > 0)
-//            {
-//                TreeViewItem treeItem = new TreeViewItem();
-//                treeItem.Header = rootHeader;
-//                treeItem.ToolTip = rootHeader;
-//                memberTreeView.Items.Add(treeItem);
-//                treeItem.IsExpanded = true;
-//                int loadCount = (treeRootNodes.Count > 10000) ? 10000 : treeRootNodes.Count;
-//                for (int i = 0; i < loadCount; i++) {
-//                	TreeViewItem subItem = NewTreeViewItem(treeRootNodes[i]);
-//                    treeItem.Items.Add(subItem);
-//                    //如果还有子节点，则添加一个节点，使该节点具有折叠的"+"
-//	                subItem.Items.Add(NewTreeViewItem(null));
-//	                
-//	                int newProcess = i * 100 / loadCount;
-//		            if (newProcess > process)
-//		            {
-//		            	WindowView.notify.SetStatusMessage("正在向树视图中添加构成树的节点。。。");
-//		            	WindowView.notify.SetProcessBarValue(newProcess);
-//		            	process = newProcess;
-//		            }
-//                }
-//                
-//                if(treeRootNodes.Count > loadCount)
-//                {
-//	                //太多而无法加载
-//	                TreeViewItem moreItem = NewTreeViewItem(null);
-//	                treeItem.Items.Add(moreItem);
-//	                WindowView.notify.SetStatusMessage("由于树太多而只添加部分树，还有"+(treeRootNodes.Count-loadCount)+"棵树无法加载！");
-//                }
-//                else
-//                {
-//                	 WindowView.notify.SetStatusMessage("查询并添加所有树成功！");
-//                }
-//            }
-//
-//            btnUpLevelNode.IsEnabled = false;
-//            btnUpRootNode.IsEnabled = false;
-//            
-//            TimingUtil.EndTiming();
-//        	WindowView.notify.SetProcessBarVisible(false);
-        	#endregion
-        }
-        
-        /// <summary>  
-		/// 分页控件回调函数  
-		/// </summary>
-		/// <param name="pageNo">页码，由分页控件传入</param>
-		/// <param name="pageSize">每页记录数</param>
-		/// <returns></returns>  
-		private void LoadPageData(int pageNo, int pageSize) 
-        {
-         	List<MyTreeNode> treeRootNodes = MyTrees.TreeRootNodes;
-            
+            //加载所有树节点
+            List<MyTreeNode> treeRootNodes = MyTrees.TreeRootNodes;
             TreeViewItem rootItem = memberTreeView.Items[0] as TreeViewItem;
             rootItem.Items.Clear();
             if (rootItem!=null && treeRootNodes.Count > 0)
@@ -392,7 +312,7 @@ namespace MemberTree
                 }
             }
         }
-
+        
         //展开选中项的子项
         private void item_Expand(object sender, RoutedEventArgs e)
         {
@@ -402,7 +322,7 @@ namespace MemberTree
     	    	MenuItem menu = sender as MenuItem;
             	int expLevel = int.Parse(menu.Tag.ToString());
             	MyTreeNode node = treeItem.Tag as MyTreeNode;
-            	if(expLevel > 1000 && node.ChildrenCountAll > 10000)
+            	if(expLevel > 1000 && node.ChildrenCount > 10000)
             	{
             		string warnTxt = "你确定要一次性展开全部子节点吗？\n展开层级过大可能会由于数据量太大而造成程序卡死。";
             		MessageBoxResult result = MessageBox.Show(warnTxt,"警告",MessageBoxButton.YesNo);

@@ -60,15 +60,20 @@ namespace MemberTree
 			nodeInfoCols.Add(val);
 		}
 		
-		internal void SetNode(string node)
+		internal void SetNode(MyTreeNode node)
 		{
-			string[] nodes = node.Split(new String[]{","}, StringSplitOptions.None);
-			
-			grpNodeInfo.Header = "单个节点详细信息 - " +  nodes[2] + "(" + nodes[0] + ")";
+			grpNodeInfo.Header = "单个节点详细信息 - " +  node.Name + "(" + node.SysId + ")";
 
-			for (int i = 0; i < nodes.Length; i++) 
+			nodeInfoCols[0].Text = node.SysId;
+			nodeInfoCols[1].Text = node.TopId;
+			nodeInfoCols[2].Text = node.Name;
+			nodeInfoCols[3].Text = node.Level.ToString();
+			nodeInfoCols[4].Text = node.ChildrenLevels.ToString();
+			nodeInfoCols[5].Text = node.ChildrenNodes.Count.ToString();
+			nodeInfoCols[6].Text = node.ChildrenCount.ToString();
+			for (int i = 0; i < node.OtherProps.Count; i++) 
 			{
-				nodeInfoCols[i].Text = nodes[i];
+				nodeInfoCols[i+7].Text = node.OtherProps[i];
 			}
 		}
 		

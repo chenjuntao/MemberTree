@@ -48,9 +48,9 @@ namespace MemberTree
 				PdfWriter.GetInstance(doc, new FileStream(openfileDlg.FileName, FileMode.Create));
 		        
 		        //设置PDF的头信息，一些属性设置，在Document.Open 之前完成
-		        doc.AddAuthor("TomChen");
+		        doc.AddAuthor("Administrator");
 		        doc.AddCreationDate();
-		        doc.AddCreator("湖南警察学院");
+		        doc.AddCreator("hnpolice");
 		        doc.AddSubject("将选中的会员树导出为PDF格式，如果数据量大，则导出为多张PDF页面");
 		        doc.AddTitle("将选中的会员树导出为PDF");
 		        doc.AddKeywords("会员树,会员层级,PDF");
@@ -123,7 +123,7 @@ namespace MemberTree
 		{
 			mytreeview.SetRootNode(node);
 			//如果全部子节点数量小于50，则直接全部打开
-			if(node.ChildrenCountAll<50)
+			if(node.ChildrenCount<50)
 			{
 				mytreeview.ExpandRootNode(node.ChildrenLevels);
 			}
@@ -149,12 +149,12 @@ namespace MemberTree
 				foreach (TreeViewItem subItem in rootItem.Items)
 				{
 					MyTreeNode subNode = subItem.Tag as MyTreeNode;
-					if(subNode.ChildrenCountAll >0)
+					if(subNode.ChildrenCount >0)
 					{
-						if(subNode.ChildrenCountAll < 10 || subNode.ChildrenCountAll + expNodeCount < 50)
+						if(subNode.ChildrenCount < 10 || subNode.ChildrenCount + expNodeCount < 50)
 						{//如果全部子节点数量小于10，或者全部子节点数量加上已打开的节点数量小于50，则该子节点全部打开
 							mytreeview.ExpandNode(subItem, subNode.ChildrenLevels);
-							expNodeCount += subNode.ChildrenCountAll;
+							expNodeCount += subNode.ChildrenCount;
 						}
 						else if(subNode.ChildrenCount + expNodeCount < 50)
 						{//如果则该节点一级子节点数量加上已打开的节点数量小于50，则该子节点打开子一级节点
@@ -164,10 +164,10 @@ namespace MemberTree
 							foreach (TreeViewItem grandItem in subItem.Items)
 							{
 								MyTreeNode grandNode = grandItem.Tag as MyTreeNode;
-								if(grandNode.ChildrenCountAll < 10 || grandNode.ChildrenCountAll + expNodeCount < 50)
+								if(grandNode.ChildrenCount < 10 || grandNode.ChildrenCount + expNodeCount < 50)
 								{
 									mytreeview.ExpandNode(grandItem, grandNode.ChildrenLevels);
-									expNodeCount += grandNode.ChildrenCountAll;
+									expNodeCount += grandNode.ChildrenCount;
 								}
 								else
 								{
@@ -184,7 +184,7 @@ namespace MemberTree
 			}
 			exportNodes.Remove(node);
 			WindowView.notify.SetStatusMessage("正在导出图片"+ node.SysId);
-			ExportIMG.SaveImage(mytreeview, TMP_DIR + "/" + node.SysId + ".png");
+			ExportIMG.SaveImage(mytreeview.memberTreeView, TMP_DIR + "/" + node.SysId + ".png");
 		}
 	}
 }

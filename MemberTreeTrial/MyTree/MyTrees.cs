@@ -24,8 +24,6 @@ namespace MemberTree
             }
     	}
     	
-		
-		
         #region 查询特定不同类型的节点
         
         private static Dictionary<string, MyTreeNode> allNodes = new Dictionary<string, MyTreeNode>();
@@ -55,21 +53,8 @@ namespace MemberTree
         #endregion
 
         #region 自定义查找
-        
-        internal static MyTreeNode FindNodeById(string parentId)
-        {
-        	if(parentId != "")
-        	{
-	            if (allNodes.ContainsKey(parentId))
-	            {
-	                return allNodes[parentId];
-	            }
-        	}
 
-            return null;
-        }
-        
-        public static List<MyTreeNode> FindToRootNodeList(string parentId)
+        internal static List<MyTreeNode> FindToRootNodeList(string parentId)
         {
         	List<MyTreeNode> nodes = new List<MyTreeNode>();
         	MyTreeNode parentNode = GetNodeBySysId(parentId);
@@ -82,45 +67,37 @@ namespace MemberTree
         	return nodes;
         }
         
-        public static List<string> FindToRootAllList(string parentId)
-        {
-        	List<string> nodes = new List<string>();
-        	string parentNode = GetStringBySysId(parentId);
-        	while(parentNode != null)
-        	{
-        		nodes.Add(parentNode);
-        		string[] parentNodes = parentNode.Split(new char[] { ',' });
-        		parentNode = GetStringBySysId(parentNodes[1]);
-        	}
-        	
-        	return nodes;
-        }
-        
-        public static List<MyTreeNode> FindBySql(string sql, List<string> param)
+        internal static List<MyTreeNode> FindBySql(string sql, List<string> param)
         {
         	return null;
         }
         
-        public static MyTreeNode GetNodeBySysId(string sysId)
+        internal static MyTreeNode GetNodeBySysId(string sysId)
 		{
-			return null;
-		}
+			if(sysId != "")
+        	{
+	            if (allNodes.ContainsKey(sysId))
+	            {
+	                return allNodes[sysId];
+	            }
+        	}
 
-        public static string GetStringBySysId(string sysId)
-		{
-			return null;
+            return null;
 		}
 		
-		public static List<MyTreeNode> GetNodesByTopId(string topId)
+		internal static List<MyTreeNode> GetNodesByTopId(string topId)
 		{
-			return null;
+			if(topId != "")
+        	{
+	            if (allNodes.ContainsKey(topId))
+	            {
+	                return allNodes[topId].ChildrenNodes;
+	            }
+        	}
+
+            return null;
 		}
 		
-		public static List<string> GetAllByTopIds(string topIds)
-		{
-			return null;
-		}
-        
         #endregion
     
         public static void OpenSampleData(string datName)
@@ -198,7 +175,7 @@ namespace MemberTree
         private static void ConstructTree(MyTreeNode myNode)
         {
             //是否包含父节点
-            MyTreeNode parentNode = FindNodeById(myNode.TopId);
+            MyTreeNode parentNode = GetNodeBySysId(myNode.TopId);
             if (parentNode != null)
             {
                 ChildrenCountInc(myNode);//所有父节点的子孙节点加1
@@ -220,7 +197,7 @@ namespace MemberTree
             //parentList.Add(node.SysId, node);
 
             ushort deepLevel = 0; //深度（父节点到子节点之间的层级数之差）
-            MyTreeNode parent = FindNodeById(node.TopId);
+            MyTreeNode parent = GetNodeBySysId(node.TopId);
             while (parent != null)
             {
             	//判断是否构成闭环
@@ -250,7 +227,7 @@ namespace MemberTree
                 }
                 
                 //继续循环遍历查找父节点的父节点，直到根节点
-                parent = FindNodeById(parent.TopId);
+                parent = GetNodeBySysId(parent.TopId);
             }
             
             if(node.Level == 0)

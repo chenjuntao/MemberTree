@@ -59,7 +59,6 @@
 				</TreeView.Resources>
 			</TreeView>
 		</ScrollViewer>
-		<my:PageBar x:Name="pager" Grid.Row="3" GetDataDelegateHandler="LoadPageData"/>
 		<my:MyNodeInfo Grid.Column="1" Grid.RowSpan="4"  x:Name="myNodeInfo" Width="220"/>
 	</Grid>
 </UserControl>

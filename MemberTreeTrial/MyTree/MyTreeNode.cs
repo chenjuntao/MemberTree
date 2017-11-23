@@ -15,7 +15,7 @@ namespace MemberTree
         public int Level { get; set; }
         public int ChildrenLevels { get; set; }
         public int ChildrenCount { get; set; }
-        public int ChildrenCountAll { get; set; }
+//        public int ChildrenCountAll { get; set; }
         
         public List<string> OtherProps = new List<string>();
         
@@ -39,7 +39,7 @@ namespace MemberTree
         public override string ToString()
         {
         	return string.Format("{0}({1}),父ID{2},所在层级{3},下级层数{4},直接下级{5},下级会员总数{6}",
-        	                     Name, SysId, TopId, Level, ChildrenLevels, ChildrenCount, ChildrenCountAll);
+        	                     Name, SysId, TopId, Level, ChildrenLevels, ChildrenNodes.Count, ChildrenCount);
         }
     }
 }

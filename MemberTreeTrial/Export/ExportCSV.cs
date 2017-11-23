@@ -70,18 +70,13 @@ namespace MemberTree
             StringBuilder allLines = new StringBuilder();
          
             row = 2;
-            allRow = node.ChildrenCountAll + 1;
+            allRow = node.ChildrenCount + 1;
   
             //导出所有父节点
             ExportAllParents2CSV(mysw, allLines, node);
             
-            //导出该节点
-            string nodestr = MyTrees.GetStringBySysId(node.SysId);
-            mysw.WriteLine(nodestr);
+            Export2CSVImp(mysw, allLines, node, true);
             
-            //导出该节点所有子节点
-            ExportAllChildren2CSV(mysw, allLines, node);
-
             mysw.Close();
 
             WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());
@@ -92,35 +87,35 @@ namespace MemberTree
         private static void ExportAllParents2CSV(StreamWriter mysw, StringBuilder allLines, MyTreeNode node)
         {
         	WindowView.notify.SetStatusMessage("正在导出该节点的所有父节点。。。");
-            List<string> parentNodes = MyTrees.FindToRootAllList(node.TopId);
+            List<MyTreeNode> parentNodes = MyTrees.FindToRootNodeList(node.TopId);
             parentNodes.Reverse();
             allRow += parentNodes.Count;
             
             for (int i = 0; i < parentNodes.Count; i++) 
             {
-            	mysw.WriteLine(parentNodes[i]);
-            }
-        }
-        
-        //导出所有子孙节点
-        private static void ExportAllChildren2CSV(StreamWriter mysw, StringBuilder allLines, MyTreeNode node)
-        {
-        	List<string> topIds = new List<string>();
-        	List<string> subNodes = MyTrees.GetAllByTopIds("'"+node.SysId+"'");
-        	int levelNum = 1;
-        	while (subNodes.Count > 0) 
-        	{
-	        	topIds.Clear();
-	        	for (int i = 0; i < subNodes.Count; i++) 
+            	MyTreeNode parentNode = parentNodes[i];
+            	allLines.Clear();
+	            allLines.Append(parentNode.SysId);
+	            allLines.Append(",");
+	            allLines.Append(parentNode.TopId);
+	            allLines.Append(",");
+	            allLines.Append(parentNode.Name);
+	            allLines.Append(",");
+	            allLines.Append(parentNode.Level);
+	            allLines.Append(",");
+	            allLines.Append(parentNode.ChildrenLevels);
+	            allLines.Append(",");
+	            allLines.Append(parentNode.ChildrenNodes.Count);
+	            allLines.Append(",");
+	            allLines.Append(parentNode.ChildrenCount);
+	            foreach (string otherProp in parentNode.OtherProps) 
 	            {
-	        		mysw.WriteLine(subNodes[i]);
-	        		topIds.Add("'"+subNodes[i].Substring(0,subNodes[i].IndexOf(","))+"'");
+	            	allLines.Append(",");
+	            	allLines.Append(otherProp);
 	            }
-	        	WindowView.notify.SetStatusMessage("正在导出该节点的第"+levelNum+"层（共"+subNodes.Count+"个）子节点，共有"+node.ChildrenLevels+"层子节点");
-	        	WindowView.notify.SetProcessBarValue((int)(100.0 * levelNum / node.ChildrenLevels));
-	        	levelNum++;
-	        	subNodes = MyTrees.GetAllByTopIds(string.Join(",", topIds));
-        	}
+	            
+	            mysw.WriteLine(allLines.ToString());
+            }
         }
 
         private static void Export2CSVImp(StreamWriter mysw, StringBuilder allLines, MyTreeNode node, bool recu)
@@ -141,10 +136,9 @@ namespace MemberTree
             allLines.Append(",");
             allLines.Append(node.ChildrenLevels);
             allLines.Append(",");
+            allLines.Append(node.ChildrenNodes.Count);
+            allLines.Append(",");
             allLines.Append(node.ChildrenCount);
-            allLines.Append(",");
-            allLines.Append(node.ChildrenCountAll);
-            allLines.Append(",");
             foreach (string otherProp in node.OtherProps) 
             {
             	allLines.Append(",");

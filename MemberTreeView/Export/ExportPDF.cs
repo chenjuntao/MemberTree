@@ -186,7 +186,7 @@ namespace MemberTree
 			}
 			exportNodes.Remove(node);
 			WindowView.notify.SetStatusMessage("正在导出图片"+ node.SysId);
-			ExportIMG.SaveImage(mytreeview, TMP_DIR + "/" + node.SysId + ".png");
+			ExportIMG.SaveImage(mytreeview.memberTreeView, TMP_DIR + "/" + node.SysId + ".png");
 		}
 	}
 }
