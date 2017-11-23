@@ -11,24 +11,17 @@
 		<GroupBox.Header>
 			<TextBlock FontWeight="Bold" FontSize="13" Name="grpHeader"/>
 		</GroupBox.Header>
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
-			<ListView Name="nodeList">
-				<ListView.View>
-					<GridView x:Name="gridView">
-						<GridViewColumn Header="会员ID"
-							DisplayMemberBinding="{Binding [0]}" />
-						<GridViewColumn Header="父节点ID"
-							DisplayMemberBinding="{Binding [1]}" />
-						<GridViewColumn Header="会员名字"
-							DisplayMemberBinding="{Binding [2]}" />
-					</GridView>
-				</ListView.View>
-			</ListView>
-			<my:PageBar x:Name="pager" Grid.Row="1" GetDataDelegateHandler="LoadPageData"/>
-		</Grid>
+		<ListView Name="nodeList">
+			<ListView.View>
+				<GridView x:Name="gridView">
+					<GridViewColumn Header="会员ID"
+						DisplayMemberBinding="{Binding [0]}" />
+					<GridViewColumn Header="父节点ID"
+						DisplayMemberBinding="{Binding [1]}" />
+					<GridViewColumn Header="会员名字"
+						DisplayMemberBinding="{Binding [2]}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
 	</GroupBox>
 </UserControl>

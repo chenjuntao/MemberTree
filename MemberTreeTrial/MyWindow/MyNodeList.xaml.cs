@@ -40,55 +40,30 @@ namespace MemberTree
         {
         	this.dsType = dsType;
         	
-        	int nodesCount = 0;
+        	nodeList.Items.Clear();
+			List<MyTreeNode> nodes = new List<MyTreeNode>();
         	if (dsType == "conflict")
             {
         		grpHeader.Text = "ID重复的节点";
-        		nodesCount = MyTrees.GetIdConflictNodesCount();
+            	nodes = MyTrees.IdConflictNodes;
             }
             else if (dsType == "leaf")
             {
             	grpHeader.Text = "孤立的叶子节点";
-            	nodesCount = MyTrees.GetLeafAloneNodesCount();
+            	nodes = MyTrees.LeafAloneNodes.Values.ToList();
             }
             else if (dsType == "ring")
             {
             	grpHeader.Text = "构成闭环的节点";
-            	nodesCount = MyTrees.GetRingNodesCount();
+            	nodes = MyTrees.RingNodes.Values.ToList();
             }
-            
-            pager.Init(nodesCount);
-        }
-
-		/// <summary>  
-		/// 分页控件回调函数  
-		/// </summary>  
-		/// <param name="pageNo">页码，由分页控件传入</param>
-		/// <param name="pageSize">每页记录数</param>
-		/// <returns></returns>  
-		private void LoadPageData(int pageNo, int pageSize) 
-        {
-			nodeList.Items.Clear();
-			List<string> nodes = new List<string>();
-        	if (dsType == "conflict")
-            {
-        		grpHeader.Text = "ID重复的节点";
-            	nodes = MyTrees.GetIdConflictNodes(pageNo, pageSize);
-            }
-            else if (dsType == "leaf")
-            {
-            	grpHeader.Text = "孤立的叶子节点";
-            	nodes = MyTrees.GetLeafAloneNodes(pageNo, pageSize).Values.ToList();
-            }
-            else if (dsType == "ring")
-            {
-            	grpHeader.Text = "构成闭环的节点";
-            	nodes = MyTrees.GetRingNodes(pageNo, pageSize).Values.ToList().ToList();
-            }
-			foreach (string node in nodes) 
+			foreach (MyTreeNode node in nodes) 
         	{
-            	string[] nodeProp = node.Split(new String[]{","}, StringSplitOptions.None);
-        		nodeList.Items.Add(nodeProp);
+				List<string> nodeProps = node.OtherProps;
+				nodeProps.Insert(0, node.SysId);
+				nodeProps.Insert(0, node.TopId);
+				nodeProps.Insert(0, node.Name);
+				nodeList.Items.Add(nodeProps.ToArray());
         	}
         }
     }

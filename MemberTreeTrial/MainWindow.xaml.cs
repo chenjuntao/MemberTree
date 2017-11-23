@@ -29,7 +29,6 @@ namespace MemberTreeView
 		private void StartUp(string selectDB)
 		{
 			MyTrees.OpenSampleData(selectDB);
-			MyTrees.SetDBName(selectDB);
 			
 			WindowView windowView = new WindowView();
 			mainGrid.Children.Remove(welcomeView);

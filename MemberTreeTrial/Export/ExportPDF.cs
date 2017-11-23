@@ -112,13 +112,11 @@ namespace MemberTree
 			mytreeview.BeginExportImg();
 			exportNodes.Clear();
 			exportNodes.Add(node);
-			MyTrees.OpenDB();
 			while(exportNodes.Count>0)
 			{
 				ExportImg(mytreeview, exportNodes[0]);
 			}
 			mytreeview.EndExportImg();
-			MyTrees.CloseDB();
 		}
 		
 		private static void ExportImg(MyTreeView mytreeview, MyTreeNode node)

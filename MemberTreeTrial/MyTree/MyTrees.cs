@@ -11,26 +11,52 @@ namespace MemberTree
 	/// </summary>
     public static class MyTrees
     {
-    	public static DatasetInfo dataset;
+    	internal static string DatasetName;
     	
-    	public static void InitTreeDB(bool isSqlite)
+    	internal static string CSVHeader = "会员Id,上级Id,会员姓名,所在层级,下级层级,直接下级数,总下级会员数";
+    	internal static void SetCSVHeader(string line)
     	{
+    		string[] ary = line.Split(new char[] { ',' });
+    		 for (int i = 3; i < ary.Length; i++) 
+    		 {
+        		CSVHeader+=(","+ary[i]);
+        		MyTrees.TableOptCols.Add(ary[i]);
+            }
     	}
     	
-    	public static void SetDBName(string dbName)
-    	{
-    		
-    	}
-    	
-    	private static int openTimes = 0;
-		public static void OpenDB()
-		{
-		}
-		public static void CloseDB()
-		{
-		}
 		
-		public static MyTreeNode FindParentNode(string parentId)
+		
+        #region 查询特定不同类型的节点
+        
+        private static Dictionary<string, MyTreeNode> allNodes = new Dictionary<string, MyTreeNode>();
+        private static List<MyTreeNode> NoParentNodes = new List<MyTreeNode>();
+        internal static List<MyTreeNode> TreeRootNodes = new List<MyTreeNode>();
+        internal static List<MyTreeNode> IdConflictNodes = new List<MyTreeNode>();
+        internal static Dictionary<string, MyTreeNode> LeafAloneNodes = new Dictionary<string, MyTreeNode>();
+        internal static Dictionary<string, MyTreeNode> RingNodes = new Dictionary<string, MyTreeNode>();
+        internal static List<string> TableOptCols = new List<string>();
+        internal static int AllNodeCount
+        {
+        	get { return allNodes.Count + IdConflictNodes.Count; }
+        }
+        internal static int TreeNodeCount
+        {
+        	get
+        	{
+        		int count = TreeRootNodes.Count;
+        		foreach (MyTreeNode node in TreeRootNodes) 
+        		{
+        			count += node.ChildrenCount;
+        		}
+        		return count;
+        	}
+        }
+        	
+        #endregion
+
+        #region 自定义查找
+        
+        internal static MyTreeNode FindNodeById(string parentId)
         {
         	if(parentId != "")
         	{
@@ -42,64 +68,6 @@ namespace MemberTree
 
             return null;
         }
-		
-        #region 查询特定不同类型的节点
-        
-        private static Dictionary<string, MyTreeNode> allNodes = new Dictionary<string, MyTreeNode>();
-        internal static List<MyTreeNode> NoParentNodes = new List<MyTreeNode>();
-        internal static List<MyTreeNode> TreeRootNodes = new List<MyTreeNode>();
-        internal static List<MyTreeNode> LeafAloneNodes = new List<MyTreeNode>();
-        internal static List<MyTreeNode> IdConflictNodes = new List<MyTreeNode>();
-        internal static Dictionary<string, MyTreeNode> RingNodes = new Dictionary<string, MyTreeNode>();
-        internal static List<string> TableOptCols = new List<string>();
-        
-        internal static int GetTreeRootNodesCount()
-        {
-            return 0;
-        }
-        internal static List<MyTreeNode> GetTreeRootNodes(int pageNo, int pageSize)
-        {
-            return null;
-        }
-
-        internal static int GetIdConflictNodesCount()
-        {
-            return 0;
-        }
-        internal static List<string> GetIdConflictNodes(int pageNo, int pageSize)
-        {
-            return null;
-        }
-        
-        internal static int GetLeafAloneNodesCount()
-        {
-            return 0;
-        }
-        internal static Dictionary<string, string> GetLeafAloneNodes(int pageNo, int pageSize)
-        {
-            return null;
-        }
-        internal static List<string> GetLeafAloneNodeIds()
-        {
-        	return null;
-        }
-        
-       	internal static int GetRingNodesCount()
-       	{
-       		return 0;
-       	}
-        internal static Dictionary<string, string> GetRingNodes(int pageNo, int pageSize)
-        {
-        	return null;
-        }
-        internal static List<string> GetRingNodeIds()
-        {
-        	return null;
-        }
-        	
-        #endregion
-
-        #region 自定义查找
         
         public static List<MyTreeNode> FindToRootNodeList(string parentId)
         {
@@ -158,6 +126,7 @@ namespace MemberTree
         public static void OpenSampleData(string datName)
         {
             int row = 0;
+            DatasetName = datName;
             string datStr = SampleData1.DAT;
             if(datName == "样例数据2")
             {
@@ -166,7 +135,7 @@ namespace MemberTree
             string[] allLines = datStr.Split(new String[]{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
             
             string firstLine = allLines[0]; //第一行是表头，读取之后不处理，直接跳过
-            DatasetInfo.SetCSVHeader(firstLine);
+            SetCSVHeader(firstLine);
                 
             for (int i = 1; i < allLines.Length; i++) 
             {
@@ -216,30 +185,20 @@ namespace MemberTree
             	{
             		TreeRootNodes.Add(node);
             	}
+            	else if(!LeafAloneNodes.ContainsKey(node.SysId))
+            	{
+            		LeafAloneNodes.Add(node.SysId, node);
+            	}
             }
-            foreach (MyTreeNode node in TreeRootNodes) 
-            {
-            	NoParentNodes.Remove(node);
-            }
+            NoParentNodes.Clear();
             #endregion
-			dataset = new DatasetInfo();
-			dataset.Name = datName;
-			dataset.CreateData = DateTime.Today;
-			dataset.ColCount = 33;
-			dataset.AllNodeCount = allNodes.Count;
-			dataset.RowCount = allNodes.Count;
-			dataset.TreeCount = TreeRootNodes.Count;
-			dataset.TreeNodeCount = TreeRootNodes.Count;
-			dataset.ConflictCount = IdConflictNodes.Count;
-			dataset.LeafCount = LeafAloneNodes.Count;
-			dataset.RingCount = RingNodes.Count;
         }
 
         //构建树（将节点加进树结构中合适的位置）
         private static void ConstructTree(MyTreeNode myNode)
         {
             //是否包含父节点
-            MyTreeNode parentNode = FindParentNode(myNode.TopId);
+            MyTreeNode parentNode = FindNodeById(myNode.TopId);
             if (parentNode != null)
             {
                 ChildrenCountInc(myNode);//所有父节点的子孙节点加1
@@ -261,7 +220,7 @@ namespace MemberTree
             //parentList.Add(node.SysId, node);
 
             ushort deepLevel = 0; //深度（父节点到子节点之间的层级数之差）
-            MyTreeNode parent = FindParentNode(node.TopId);
+            MyTreeNode parent = FindNodeById(node.TopId);
             while (parent != null)
             {
             	//判断是否构成闭环
@@ -291,7 +250,7 @@ namespace MemberTree
                 }
                 
                 //继续循环遍历查找父节点的父节点，直到根节点
-                parent = FindParentNode(parent.TopId);
+                parent = FindNodeById(parent.TopId);
             }
             
             if(node.Level == 0)

@@ -78,7 +78,7 @@ namespace MemberTree
             MyTreeNode selectedNode = currentList.SelectedItem as MyTreeNode;
             if (selectedNode != null)
             {
-            	if(MyTrees.GetLeafAloneNodeIds().Contains(selectedNode.SysId))
+            	if(MyTrees.LeafAloneNodes.ContainsKey(selectedNode.SysId))
             	{
             		listNodes.Visibility = Visibility.Visible;
                	 	myTreeView.Visibility = Visibility.Collapsed;
@@ -86,7 +86,7 @@ namespace MemberTree
             		listNodes.nodeList.ItemsSource = new List<MyTreeNode>{selectedNode};
             		datasetInfoView.SelectTab("leaf");
             	}
-            	else if(MyTrees.GetRingNodeIds().Contains(selectedNode.SysId))
+            	else if(MyTrees.RingNodes.ContainsKey(selectedNode.SysId))
             	{
             		listNodes.Visibility = Visibility.Visible;
                 	myTreeView.Visibility = Visibility.Collapsed;

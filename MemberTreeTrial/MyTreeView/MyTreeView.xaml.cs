@@ -42,7 +42,7 @@ namespace MemberTree
         //判断闭环是否关闭
         private static bool isRingClose(string id)
         {
-        	if (MyTrees.GetRingNodeIds().Contains(id))
+        	if (MyTrees.RingNodes.ContainsKey(id))
             {
                 if (ringNodeIds.Contains(id))
                 {
@@ -60,9 +60,7 @@ namespace MemberTree
         public void ExpandRootNode(int maxLevel)
         {
             levels = 0;
-            MyTrees.OpenDB();
             ExpandNode(memberTreeView.Items[0] as TreeViewItem, maxLevel);
-            MyTrees.CloseDB();
         }
         public void ExpandNode(TreeViewItem item, int maxLevel)
         {
@@ -113,11 +111,6 @@ namespace MemberTree
         	{
         		//先移除为使该节点具有折叠的"+"而添加的虚假的子节点
             	item.Items.Clear();
-            	
-	        	if((e.Source as TreeViewItem).IsSelected)
-	        	{
-	        		MyTrees.OpenDB();
-	        	}
 	        	
 	            MyTreeNode node = item.Tag as MyTreeNode;
 	            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(node.SysId);
@@ -136,11 +129,6 @@ namespace MemberTree
 	                
 	                WindowView.notify.SetStatusMessage("正在展开节点" + subItem.Header);
 	            }
-	            
-				if((e.Source as TreeViewItem).IsSelected)
-				{
-					MyTrees.CloseDB();
-				}
         	}
         }
         
@@ -152,9 +140,7 @@ namespace MemberTree
         		MyTreeNode node = selectedItem.Tag as MyTreeNode;
         		if(node != null)
         		{
-        			MyTrees.OpenDB();
         			string nodeDB = MyTrees.GetStringBySysId(node.SysId);
-        			MyTrees.CloseDB();
 	        		if(nodeDB != null)
 	        		{
 	        			myNodeInfo.SetNode(nodeDB);
@@ -166,7 +152,6 @@ namespace MemberTree
         //显示到顶级根节点
         private void btnUpRootNode_Click(object sender, RoutedEventArgs e)
         {
-        	MyTrees.OpenDB();
             TreeViewItem oldRootItem = memberTreeView.Items[0] as TreeViewItem;
             MyTreeNode oldRootNode = oldRootItem.Tag as MyTreeNode;
             MyTreeNode newRootNode = MyTrees.GetNodeBySysId(oldRootNode.TopId); 
@@ -176,7 +161,6 @@ namespace MemberTree
             }
 
 	        List<MyTreeNode> parentNodes = MyTrees.FindToRootNodeList(oldRootNode.TopId);
-	        MyTrees.OpenDB();
 	        if(parentNodes.Count > 0)
 	        {
 	        	//先移除旧的根节点
@@ -202,7 +186,6 @@ namespace MemberTree
         //显示上一级节点
         private void btnUpLevelNode_Click(object sender, RoutedEventArgs e)
         {
-        	MyTrees.OpenDB();
             TreeViewItem oldRootItem = memberTreeView.Items[0] as TreeViewItem;
             MyTreeNode oldRootNode = oldRootItem.Tag as MyTreeNode;
             MyTreeNode newRootNode = MyTrees.GetNodeBySysId(oldRootNode.TopId);
@@ -254,7 +237,6 @@ namespace MemberTree
                 btnUpLevelNode.IsEnabled = false;
                 btnUpRootNode.IsEnabled = false;
             }
-            MyTrees.CloseDB();
         }
 
         public void SetRootNode(MyTreeNode rootNode)
@@ -275,7 +257,6 @@ namespace MemberTree
                 	rootItem.Items.Add(NewTreeViewItem(null));
                 }
 
-				MyTrees.OpenDB();
                 //判断当前根节点是否存在父节点
                 if(MyTrees.GetNodeBySysId(rootNode.TopId)!=null)
                 {
@@ -287,7 +268,6 @@ namespace MemberTree
                     btnUpLevelNode.IsEnabled = false;
                     btnUpRootNode.IsEnabled = false;
                 }
-                MyTrees.CloseDB();
             }
         }
 
@@ -309,7 +289,7 @@ namespace MemberTree
 
         private void btnAllNode_Click(object sender, RoutedEventArgs e)
         {
-        	int treeRootCount = MyTrees.GetTreeRootNodesCount();
+        	int treeRootCount = MyTrees.TreeRootNodes.Count;
         	string rootHeader = "森林（共" + treeRootCount + "棵树）";
         	
         	SetRootNode(null);
@@ -397,7 +377,7 @@ namespace MemberTree
 		/// <returns></returns>  
 		private void LoadPageData(int pageNo, int pageSize) 
         {
-         	List<MyTreeNode> treeRootNodes = MyTrees.GetTreeRootNodes(pageNo, pageSize);
+         	List<MyTreeNode> treeRootNodes = MyTrees.TreeRootNodes;
             
             TreeViewItem rootItem = memberTreeView.Items[0] as TreeViewItem;
             rootItem.Items.Clear();
@@ -434,11 +414,9 @@ namespace MemberTree
             	
             	levels = 0;
             	TimingUtil.StartTiming();
-            	MyTrees.OpenDB();
             	WindowView.notify.SetProcessBarVisible(true);
         		ExpandNode(treeItem, expLevel);
         		WindowView.notify.SetProcessBarVisible(false);
-        		MyTrees.CloseDB();
         		WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());
             }
         }

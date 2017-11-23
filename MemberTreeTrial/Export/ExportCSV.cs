@@ -39,7 +39,7 @@ namespace MemberTree
         //判断闭环是否关闭
         private static bool isRingClose(string id)
         {
-        	if (MyTrees.GetRingNodeIds().Contains(id))
+        	if (MyTrees.RingNodes.ContainsKey(id))
             {
                 if (ringNodeIds.Contains(id))
                 {
@@ -68,8 +68,7 @@ namespace MemberTree
             mysw.WriteLine(header);
 
             StringBuilder allLines = new StringBuilder();
-            MyTrees.OpenDB();
-            
+         
             row = 2;
             allRow = node.ChildrenCountAll + 1;
   
@@ -83,7 +82,6 @@ namespace MemberTree
             //导出该节点所有子节点
             ExportAllChildren2CSV(mysw, allLines, node);
 
-            MyTrees.CloseDB();
             mysw.Close();
 
             WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());

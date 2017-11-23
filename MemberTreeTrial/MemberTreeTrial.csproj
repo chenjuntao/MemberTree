@@ -115,14 +115,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyTree\DatasetInfo.cs" />
     <Compile Include="MyTree\MyTrees.cs" />
     <Compile Include="MyTree\SampleData1.cs" />
     <Compile Include="MyTree\SampleData2.cs" />
-    <Compile Include="MyWindow\DatasetBtn.xaml.cs">
-      <DependentUpon>DatasetBtn.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MyWindow\DatasetInfoView.xaml.cs">
       <DependentUpon>DatasetInfoView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -185,7 +180,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MyWindow\DatasetBtn.xaml" />
     <Page Include="MyWindow\DatasetInfoView.xaml" />
     <Page Include="MyWindow\MyNodeInfo.xaml" />
     <Page Include="MyWindow\MyNodeList.xaml">

@@ -9,8 +9,6 @@ namespace MemberTree
 {
     public class MyTreeNode
     {
-    	
-    	
         public string SysId { get; set; }
         public string TopId { get; set; }
         public string Name { get; set; }
