@@ -23,11 +23,12 @@ namespace MemberTreeView
             InitializeComponent();
             
             this.Title = "会员关系树分析工具 - v5.13 (试用版)";
-            welcomeView.SetCallBack(new InvokeStringDelegate(StartUp));
         }
-
-		private void StartUp(string selectDB)
+        
+        private void Btn_Click(object sender, RoutedEventArgs e)
 		{
+			Button btn = sender as Button;
+			string selectDB = btn.Content.ToString();
 			MyTrees.OpenSampleData(selectDB);
 			
 			WindowView windowView = new WindowView();

@@ -6,15 +6,11 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	mc:Ignorable="d"
-	d:DesignHeight="300"
-	d:DesignWidth="500">
+	d:DesignHeight="200"
+	d:DesignWidth="600">
 	<UserControl.Resources>
 		<Style TargetType="TextBlock">
 			<Setter Property="Margin" Value="10, 5"></Setter>
-		</Style>
-		<Style TargetType="Button">
-			<Setter Property="Margin" Value="5"></Setter>
-			<Setter Property="Padding" Value="10,5"></Setter>
 		</Style>
 	</UserControl.Resources>
 	<UserControl.Background>
@@ -82,14 +78,5 @@
 				<Run Text="邮政编码：410138，电话：0731-82791600" />
 			</TextBlock>
 		</StackPanel>
-		
-		<GroupBox Name="selectDBGrid" Header="打开样例数据" Grid.ColumnSpan="2" Grid.Row="1">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<WrapPanel x:Name="mainPanel">
-					<Button Click="Btn_Click">样例数据1</Button>
-					<Button Click="Btn_Click">样例数据2</Button>
-				</WrapPanel>
-			</ScrollViewer>
-		</GroupBox>
 	</Grid>
 </UserControl>

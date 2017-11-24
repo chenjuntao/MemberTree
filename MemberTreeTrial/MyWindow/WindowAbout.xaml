@@ -1,0 +1,40 @@
+<Window x:Class="MemberTree.WindowAbout"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:MemberTree"
+	ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+    Title="关于会员关系树分析工具（试用版）" Width="600" Height="390">
+	<Window.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="10, 5"></Setter>
+			<Setter Property="Padding" Value="10, 5"></Setter>
+			<Setter Property="Width" Value="260"></Setter>
+		</Style>
+	</Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<my:WelcomeView x:Name="welcomView"/>
+		<GroupBox Margin="5" Grid.Row="1" Header="您当前使用的是试用版，更多更强大功能，请使用正式版，支持以下更多功能：">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Button Content="既支持本地单机模式，也支持远程联网模式" Click="BtnLocalNet_Click" Grid.Row="0" Grid.Column="0"/>
+				<Button Content="远程联网模式下，支持用户权限认证管理" Click="BtnAuthorize_Click" Grid.Row="0" Grid.Column="1"/>
+				<Button Content="导出支持CSV、图片、PDF等多种文件格式" Click="BtnExport_Click" Grid.Row="1" Grid.Column="0"/>
+				<Button Content="导入既支持文件格式，也支持直连数据库" Click="BtnImport_Click" Grid.Row="1" Grid.Column="1"/>
+				<Button Content="支持导入数据的不固定动态列，灵活又方便" Click="BtnDynamicCol_Click" Grid.Row="2" Grid.Column="0"/>
+				<Button Content="千万数量级数据支持，深度优化使用流畅" Click="BtnQuantity_Click" Grid.Row="2" Grid.Column="1"/>
+			</Grid>
+		</GroupBox>
+	</Grid>
+</Window>

@@ -104,11 +104,8 @@ namespace MemberTree
         }
 		private void BtnAboutApp_Click(object sender, RoutedEventArgs e)
 		{
-
-		}
-		private void BtnAboutUser_Click(object sender, RoutedEventArgs e)
-		{
-
+			WindowAbout winAbout = new WindowAbout();
+			winAbout.ShowDialog();
 		}
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Window 
 	x:Class="MemberTreeView.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,15 +6,25 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:my="clr-namespace:MemberTree"
-	mc:Ignorable="d" Width="600" Height="360" ResizeMode="NoResize"
+	mc:Ignorable="d" Width="600" Height="300" ResizeMode="NoResize"
 	WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+	
 	<Grid x:Name="mainGrid">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<my:WelcomeView x:Name="welcomeView"/>
+		<GroupBox Name="selectDBGrid" Header="打开样例数据" Grid.Row="1" Margin="10,5">
+			<ScrollViewer VerticalScrollBarVisibility="Auto">
+				<WrapPanel x:Name="mainPanel">
+					<Button Margin="10,5" Padding="10,5" Click="Btn_Click">样例数据1</Button>
+					<Button Margin="10,5" Padding="10,5" Click="Btn_Click">样例数据2</Button>
+				</WrapPanel>
+			</ScrollViewer>
+		</GroupBox>
 	</Grid>
 </Window>

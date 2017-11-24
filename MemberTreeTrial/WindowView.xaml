@@ -65,7 +65,6 @@
 			
 			<GroupBox Grid.Column="1" Header="关于">
 				<StackPanel Orientation="Horizontal">
-					<Button Padding="10,3" Margin="10,2,5,2" Content="本用户" Click="BtnAboutUser_Click" x:Name="btnUser" Visibility="Collapsed"/>
 					<Button Padding="10,3" Margin="5,2,10,2" Content="本程序" Click="BtnAboutApp_Click"/>
 				</StackPanel>
 			</GroupBox>

@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="MemberTree.MyTreeViewWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MemberTree"
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="700">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <TreeView Name="memberTreeView" Grid.ColumnSpan="2" >
+            <TreeView.Resources>
+                <ResourceDictionary Source="LineTreeViewItemStyle.xaml" />
+            </TreeView.Resources>
+        </TreeView>
+        <TextBlock x:Name="statusText" Grid.Row="1"/>
+        <CheckBox x:Name="isAutoExpand" Content="鼠标经过节点时自动展开节点" Grid.Row="1" Grid.Column="1" />
+    </Grid>
+</UserControl>

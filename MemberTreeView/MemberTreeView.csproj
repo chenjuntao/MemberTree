@@ -161,13 +161,6 @@
       <DependentUpon>UserInfoWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TreeViewGraph\DPoint.cs" />
-    <Compile Include="TreeViewGraph\ITreeNode.cs" />
-    <Compile Include="TreeViewGraph\LayeredTreeDraw.cs" />
-    <Compile Include="TreeViewGraph\TreeConnection.cs" />
-    <Compile Include="TreeViewGraph\TreeContainer.cs" />
-    <Compile Include="TreeViewGraph\TreeNode.cs" />
-    <Compile Include="TreeViewGraph\TreeNodeGroup.cs" />
     <Compile Include="MyTreeView\MyTreeView.xaml.cs">
       <DependentUpon>MyTreeView.xaml</DependentUpon>
     </Compile>
@@ -200,10 +193,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MyWindow\UserInfoWindow.xaml" />
+    <Page Include="TreeViews\BoxTreeView\BoxTreeViewItemStyle.xaml" />
+    <Page Include="TreeViews\BoxTreeView\MyBoxTreeView.xaml" />
+    <Page Include="TreeViews\GraphTreeView\MyGraphView.xaml" />
+    <Page Include="TreeViews\LineTreeView\LineTreeViewItemStyle.xaml" />
+    <Page Include="TreeViews\LineTreeView\MyLineTreeView.xaml" />
+    <Page Include="TreeViews\SquareTreeView\MySquareView.xaml" />
+    <Page Include="TreeViews\SquareTreeView\SquareTreeViewItemStyle.xaml" />
     <Page Include="WindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="TreeViews\BoxTreeView\ItemsPanelOrientationConverter.cs" />
+    <Compile Include="TreeViews\BoxTreeView\MyBoxTreeView.xaml.cs" />
+    <Compile Include="TreeViews\GraphTreeView\DPoint.cs" />
+    <Compile Include="TreeViews\GraphTreeView\ITreeNode.cs" />
+    <Compile Include="TreeViews\GraphTreeView\LayeredTreeDraw.cs" />
+    <Compile Include="TreeViews\GraphTreeView\MyGraphView.xaml.cs" />
+    <Compile Include="TreeViews\GraphTreeView\TreeConnection.cs" />
+    <Compile Include="TreeViews\GraphTreeView\TreeContainer.cs" />
+    <Compile Include="TreeViews\GraphTreeView\TreeNode.cs" />
+    <Compile Include="TreeViews\GraphTreeView\TreeNodeGroup.cs" />
+    <Compile Include="TreeViews\LineTreeView\MyLineTreeView.xaml.cs" />
+    <Compile Include="TreeViews\LineTreeView\TreeViewLineConverter.cs" />
+    <Compile Include="TreeViews\SquareTreeView\MySquareView.xaml.cs" />
     <Compile Include="WindowView.xaml.cs">
       <DependentUpon>WindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -216,19 +229,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TreeViewGraph\MyGraphView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MyTreeView\MyTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TreeViewGraph\MyGraphView.xaml.cs">
-      <DependentUpon>MyGraphView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -257,6 +263,11 @@
     <Folder Include="MyWindow" />
     <Folder Include="DB" />
     <Folder Include="Export" />
+    <Folder Include="TreeViews" />
+    <Folder Include="TreeViews\BoxTreeView" />
+    <Folder Include="TreeViews\GraphTreeView" />
+    <Folder Include="TreeViews\LineTreeView" />
+    <Folder Include="TreeViews\SquareTreeView" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MemberTreeCommon\MemberTreeCommon.csproj">
