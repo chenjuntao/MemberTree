@@ -67,11 +67,6 @@ namespace MemberTree
         	return nodes;
         }
         
-        internal static List<MyTreeNode> FindBySql(string sql, List<string> param)
-        {
-        	return null;
-        }
-        
         internal static MyTreeNode GetNodeBySysId(string sysId)
 		{
 			if(sysId != "")
@@ -97,6 +92,56 @@ namespace MemberTree
 
             return null;
 		}
+
+        internal static List<MyTreeNode> FindBySql(List<string> searchParams)
+        {
+        	List<MyTreeNode> result = new List<MyTreeNode>();
+        	string sysId = searchParams[0];
+        	string opt = searchParams[1];
+        	if(sysId!="")
+        	{
+        		if(opt=="等于")
+        		{
+        			MyTreeNode node = GetNodeBySysId(sysId);
+        			if(node !=null)
+        			{
+        				result.Add(node);
+        			}
+        		}
+        		else if(opt=="开头")
+        		{
+        			foreach (string id in allNodes.Keys) 
+        			{
+        				if(id.StartsWith(sysId))
+        				{
+        					result.Add(allNodes[id]);
+        				}
+        			}
+        		}
+        		else if(opt=="结尾")
+        		{
+        			foreach (string id in allNodes.Keys) 
+        			{
+        				if(id.EndsWith(sysId))
+        				{
+        					result.Add(allNodes[id]);
+        				}
+        			}
+        		}
+        		else if(opt=="包含")
+        		{
+        			foreach (string id in allNodes.Keys) 
+        			{
+        				if(id.Contains(sysId))
+        				{
+        					result.Add(allNodes[id]);
+        				}
+        			}
+        		}
+        	}
+        	
+        	return result;
+        }
 		
         #endregion
     

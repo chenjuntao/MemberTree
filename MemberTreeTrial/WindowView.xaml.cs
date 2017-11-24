@@ -25,7 +25,7 @@ namespace MemberTree
         public WindowView()
         {
             InitializeComponent();
-            myStatusBar.SetShowHideView(null, new UIElement[]{leftMenu, mainGrid}, null);
+            myStatusBar.SetShowHideView(new UIElement[]{leftMenu, mainGrid}, null);
             notify = myStatusBar;
             
             datasetInfoView.Init();
@@ -41,14 +41,13 @@ namespace MemberTree
         //查找
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-			string searchsql = mySearchFilter.GetSearchSql();
-			if(searchsql != null)
+			List<string> searchParams = mySearchFilter.GetSearchParams();
+			if(searchParams != null)
 			{
 				TimingUtil.StartTiming();
 				WindowView.notify.SetStatusMessage("正在查询，请稍后。。。");
             	WindowView.notify.SetProcessBarVisible(true);
-				List<string> searchParams = mySearchFilter.GetSearchParams();
-				searchResults.NodeListView.ItemsSource = MyTrees.FindBySql(searchsql, searchParams);
+				searchResults.NodeListView.ItemsSource = MyTrees.FindBySql(searchParams);
 				WindowView.notify.SetStatusMessage("查询完成！");
 				WindowView.notify.SetProcessBarVisible(false);
 	        	WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());

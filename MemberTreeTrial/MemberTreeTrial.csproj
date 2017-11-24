@@ -144,10 +144,6 @@
       <DependentUpon>MyStatusBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyWindow\ProgressView.xaml.cs">
-      <DependentUpon>ProgressView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MyWindow\SearchFilter.xaml.cs">
       <DependentUpon>SearchFilter.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -191,7 +187,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MyWindow\MyStatusBar.xaml" />
-    <Page Include="MyWindow\ProgressView.xaml" />
     <Page Include="MyWindow\SearchFilter.xaml" />
     <Page Include="MyWindow\SearchResult.xaml">
       <SubType>Designer</SubType>

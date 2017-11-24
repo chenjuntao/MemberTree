@@ -29,12 +29,10 @@ namespace MemberTree
 			InitializeComponent();
 		}
 		
-		private ProgressView progressView;
 		private UIElement[] disableViews;
 		private UIElement[] hideViews;
-		public void SetShowHideView(ProgressView showView, UIElement[] disableViews, UIElement[] hideViews)
+		public void SetShowHideView(UIElement[] disableViews, UIElement[] hideViews)
 		{
-			this.progressView = showView;
 			if(disableViews == null){
 				this.disableViews = new UIElement[]{};
 			}else{
@@ -66,11 +64,11 @@ namespace MemberTree
         	int a = Environment.TickCount;
             progressBar.Value = 0;
             progressBar.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-            if(progressView !=null)
-            {
-            	progressView.ReSetProgressValue();
-            	progressView.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-            }
+//            if(progressView !=null)
+//            {
+//            	progressView.ReSetProgressValue();
+//            	progressView.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+//            }
             foreach (UIElement element in disableViews) 
             {
             	element.IsEnabled = !visible;
@@ -96,10 +94,10 @@ namespace MemberTree
         private void SetProcessBarValueImp(double step)
         {
             this.progressBar.Value = step;
-            if(progressView != null)
-            {
-            	progressView.SetProgressValue(step);
-            }
+//            if(progressView != null)
+//            {
+//            	progressView.SetProgressValue(step);
+//            }
         }
 
         //设置状态栏提示文本
@@ -116,10 +114,10 @@ namespace MemberTree
         private void SetStatusMessageImp(string message)
         {
             statusMessage.Text = message;
-            if(progressView != null)
-            {
-            	progressView.SetWaitting();
-            }
+//            if(progressView != null)
+//            {
+//            	progressView.SetWaitting();
+//            }
         }
 
         private void DoEvents()

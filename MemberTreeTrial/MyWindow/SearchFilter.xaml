@@ -30,54 +30,54 @@
 			<TextBox Grid.Column="2" Grid.Row="1" x:Name="txtSysid"/>
 
 			<TextBlock Text="上级ID" Grid.Row="2"/>
-			<ComboBox Grid.Column="1" Grid.Row="2" x:Name="comboTopid">
+			<ComboBox Grid.Column="1" Grid.Row="2">
 				<ComboBoxItem Content="等于" IsSelected="True"/>
 				<ComboBoxItem Content="开头"/>
 				<ComboBoxItem Content="结尾"/>
 				<ComboBoxItem Content="包含"/>
 			</ComboBox>
-			<TextBox Grid.Column="2" Grid.Row="2" x:Name="txtTopid"/>
+			<TextBox Grid.Column="2" Grid.Row="2" IsEnabled="False" Text="试用版不支持"/>
 			
 			<TextBlock Text="会员名字" Grid.Row="3"/>
-			<ComboBox Grid.Column="1" Grid.Row="3" x:Name="comboName">
+			<ComboBox Grid.Column="1" Grid.Row="3">
 				<ComboBoxItem Content="等于" IsSelected="True"/>
 				<ComboBoxItem Content="开头"/>
 				<ComboBoxItem Content="结尾"/>
 				<ComboBoxItem Content="包含"/>
 			</ComboBox>
-			<TextBox Grid.Column="2" Grid.Row="3" x:Name="txtName"/>
+			<TextBox Grid.Column="2" Grid.Row="3" IsEnabled="False" Text="试用版不支持"/>
 	
 			<TextBlock Text="所在层级" Grid.Row="4"/>
-			<ComboBox Grid.Column="1" Grid.Row="4" x:Name="comboLevel">
+			<ComboBox Grid.Column="1" Grid.Row="4">
 				<ComboBoxItem Content="等于" IsSelected="True"/>
 				<ComboBoxItem Content="大于"/>
 				<ComboBoxItem Content="小于"/>
 			</ComboBox>
-			<TextBox Grid.Column="2" Grid.Row="4" x:Name="txtLevel"/>
+			<TextBox Grid.Column="2" Grid.Row="4" IsEnabled="False" Text="试用版不支持"/>
 			
 			<TextBlock Text="下级层数" Grid.Row="5"/>
-			<ComboBox Grid.Column="1" Grid.Row="5" x:Name="comboSubLevels">
+			<ComboBox Grid.Column="1" Grid.Row="5">
 				<ComboBoxItem Content="等于"/>
 				<ComboBoxItem Content="大于" IsSelected="True"/>
 				<ComboBoxItem Content="小于"/>
 			</ComboBox>
-			<TextBox Grid.Column="2" Grid.Row="5" x:Name="txtSubLevels"/>
+			<TextBox Grid.Column="2" Grid.Row="5" IsEnabled="False" Text="试用版不支持"/>
 			
 			<TextBlock Text="直接下级数" Grid.Row="6"/>
-			<ComboBox Grid.Column="1" Grid.Row="6" x:Name="comboSubCount">
+			<ComboBox Grid.Column="1" Grid.Row="6">
 				<ComboBoxItem Content="等于"/>
 				<ComboBoxItem Content="大于" IsSelected="True"/>
 				<ComboBoxItem Content="小于"/>
 			</ComboBox>
-			<TextBox Grid.Column="2" Grid.Row="6" x:Name="txtSubCount"/>
+			<TextBox Grid.Column="2" Grid.Row="6" IsEnabled="False" Text="试用版不支持"/>
 		
 			<TextBlock Text="下级会员总数" Grid.Row="7"/>
-			<ComboBox Grid.Column="1" Grid.Row="7" x:Name="comboAllSubCount">
+			<ComboBox Grid.Column="1" Grid.Row="7">
 				<ComboBoxItem Content="等于"/>
 				<ComboBoxItem Content="大于" IsSelected="True"/>
 				<ComboBoxItem Content="小于"/>
 			</ComboBox>
-			<TextBox Grid.Column="2" Grid.Row="7" x:Name="txtAllSubCount"/>
+			<TextBox Grid.Column="2" Grid.Row="7" IsEnabled="False" Text="试用版不支持"/>
 		</Grid>
 	</ScrollViewer>
 </UserControl>
