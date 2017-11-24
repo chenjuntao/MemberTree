@@ -32,8 +32,7 @@ namespace MemberTreeView
 			MyTrees.OpenSampleData(selectDB);
 			
 			WindowView windowView = new WindowView();
-			mainGrid.Children.Remove(welcomeView);
-			mainGrid.Children.Add(windowView);
+			this.Content = windowView;
 				
 			this.WindowState = WindowState.Maximized;
 			this.ResizeMode = ResizeMode.CanResize;
