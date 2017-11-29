@@ -52,7 +52,7 @@
 				<TextBlock.Effect>
 					<DropShadowEffect Opacity="0.6" />
 				</TextBlock.Effect>
-				<Run Text="会员关系树分析工具" />
+				<Run Text="网络传销会员层级分析系统" />
 			</TextBlock>
 			<TextBlock
 				FontSize="18"

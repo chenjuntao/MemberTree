@@ -22,7 +22,7 @@ namespace MemberTreeView
         {
             InitializeComponent();
             
-            this.Title = "会员关系树分析工具 - v5.13 (试用版)";
+            this.Title = "网络传销会员层级分析系统 - v5.13 (试用版)";
         }
         
         private void Btn_Click(object sender, RoutedEventArgs e)
