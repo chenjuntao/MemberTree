@@ -1,0 +1,56 @@
+<Window x:Class="SoftRegister.Window1"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="网络传销会员层级分析系统——软件授权注册工具" 
+    WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+    Height="300" Width="500">
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="LightGreen" Offset="0" />
+			<GradientStop Color="White" Offset="0.8" />
+			<GradientStop Color="LightCoral" Offset="1" />
+		</LinearGradientBrush>
+	</Window.Background>
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+		<TextBlock Grid.ColumnSpan="2" Foreground="LightCyan" FontWeight="Bold" FontSize="22" Margin="10">
+			<TextBlock.Effect>
+				<DropShadowEffect Opacity="0.6" />
+			</TextBlock.Effect>
+			<Run Text="网络传销会员层级分析系统" />
+		</TextBlock>
+		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontSize="18" Margin="15, 5, 0, 5" Foreground="RoyalBlue">
+			<Run Text="软件授权注册工具 v5.13" />
+		</TextBlock>
+		
+		<GroupBox Grid.Row="2" Header="待注册文件（*.reginfo）存放路径">
+			<TextBox x:Name="txtRegInfo" IsReadOnly="True"/>
+		</GroupBox>
+		<Button Grid.Row="2" Grid.Column="1" Margin="10" Padding="5" x:Name="btnBrowser" 
+		        Content="导入待注册文件" Click="BtnBrowser_Click"/>
+		
+		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="14" Foreground="BlueViolet">
+			<TextBlock Text="  授权给：（单位："/>
+			<TextBlock Name="txtCom" />
+			<TextBlock Text=" ，用户："/>
+			<TextBlock Name="txtUsr" />
+			<TextBlock Text="）"/>
+		</TextBlock>
+	
+		<GroupBox Grid.Row="4" Header="注册密钥文件（*.regkey）生成路径">
+			<TextBox x:Name="txtRegKey" IsReadOnly="True" Background="LightGray"/>
+		</GroupBox>
+		<Button Grid.Row="4" Grid.Column="1" Margin="10" Padding="5" IsEnabled="False" 
+		        x:Name="btnOK" Content="生成注册密钥文件" Click="BtnOK_Click"/>
+	</Grid>
+</Window>

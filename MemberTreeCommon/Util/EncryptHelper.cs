@@ -68,7 +68,7 @@ namespace MemberTree
         /// </summary>  
         /// <param name="str">要加密的字符串</param>  
         /// <returns>加密后的字符串</returns>  
-        public static string Encrypt(string str)  
+        public static string Encrypt(string str)
         {    
             DESCryptoServiceProvider descsp = new DESCryptoServiceProvider();   //实例化加/解密类对象
             byte[] key = Encoding.ASCII.GetBytes(SECRETKEY); //定义字节数组，用来存储密钥
