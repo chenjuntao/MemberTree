@@ -30,7 +30,7 @@ namespace MemberTree
 		
 		void BtnBrowser_Click(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			
 		}
 	}
 }

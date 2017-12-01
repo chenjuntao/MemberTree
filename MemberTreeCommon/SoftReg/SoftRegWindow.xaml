@@ -27,7 +27,7 @@
 			<Run Text="软件尚未注册授权，请联系版权方获取授权密钥文件!" />
 		</TextBlock>
 		
-		<TabControl Grid.Row="2" FontSize="15">
+		<TabControl Grid.Row="2" FontSize="13">
 			<TabItem Header="步骤一：我没有授权密钥文件">
 				<Grid Margin="10">
 					<Grid.RowDefinitions>
@@ -60,7 +60,7 @@
 					<TextBlock Text="注册密钥文件：" VerticalAlignment="Center"/>
 					<TextBox Grid.Column="1" Margin="10, 6" x:Name="txtRegKey" IsReadOnly="True"/>
 					<Button Grid.Column="2" Margin="5" Padding="5" x:Name="btnBrowser" 
-					        Content="导入注册密钥" Click="BtnBrowser_Click"/>
+					        Content="导入密钥文件" Click="BtnBrowser_Click"/>
 					
 					<TextBlock Grid.Row="1" Text="公司/单位：" VerticalAlignment="Center"/>
 					<TextBox Grid.Row="1" Grid.Column="1" Margin="10, 6" x:Name="txtCom"/>

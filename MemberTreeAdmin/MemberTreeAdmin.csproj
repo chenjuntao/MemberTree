@@ -111,13 +111,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Import\ConnMysql.xaml.cs">
+      <DependentUpon>ConnMysql.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Import\ImportFromDB.xaml.cs">
+      <DependentUpon>ImportFromDB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DB\DBUtil.cs" />
     <Compile Include="DB\IMyTreeDBA.cs" />
     <Compile Include="DB\MyTreeDBASqlite.cs" />
     <Compile Include="DB\MyTreeDBAMysql.cs" />
-    <Compile Include="BL\TextUtil.cs" />
-    <Compile Include="BL\MyTrees.cs" />
-    <Compile Include="BL\MyTreeNode.cs" />
+    <Compile Include="Import\CsvErrCheck.xaml.cs">
+      <DependentUpon>CsvErrCheck.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Import\WindowColsCheck.xaml.cs">
+      <DependentUpon>WindowColsCheck.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyTree\TextUtil.cs" />
+    <Compile Include="MyTree\MyTrees.cs" />
+    <Compile Include="MyTree\MyTreeNode.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -141,16 +155,6 @@
     <Compile Include="UI\ConnDBView.xaml.cs">
       <DependentUpon>ConnDBView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ConnMysql.xaml.cs">
-      <DependentUpon>ConnMysql.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ConnSqlserver.xaml.cs">
-      <DependentUpon>ConnSqlserver.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\CsvErrCheck.xaml.cs">
-      <DependentUpon>CsvErrCheck.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="UI\UserInfoSet.xaml.cs">
       <DependentUpon>UserInfoSet.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -163,10 +167,6 @@
       <DependentUpon>UserPrivilege2.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\WindowColsCheck.xaml.cs">
-      <DependentUpon>WindowColsCheck.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="WindowAdmin.xaml.cs">
       <DependentUpon>WindowAdmin.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -175,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Import\ConnMysql.xaml" />
+    <Page Include="Import\ImportFromDB.xaml" />
+    <Page Include="Import\CsvErrCheck.xaml" />
+    <Page Include="Import\WindowColsCheck.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,13 +188,9 @@
     <Page Include="UI\BtnDataset.xaml" />
     <Page Include="UI\BtnUserInfo.xaml" />
     <Page Include="UI\ConnDBView.xaml" />
-    <Page Include="UI\ConnMysql.xaml" />
-    <Page Include="UI\ConnSqlserver.xaml" />
-    <Page Include="UI\CsvErrCheck.xaml" />
     <Page Include="UI\UserInfoSet.xaml" />
     <Page Include="UI\UserPrivilege1.xaml" />
     <Page Include="UI\UserPrivilege2.xaml" />
-    <Page Include="UI\WindowColsCheck.xaml" />
     <Page Include="WindowAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -214,6 +214,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Image\about.jpg" />
+    <Resource Include="Image\csv.jpg" />
+    <Resource Include="Image\db.jpg" />
+    <Resource Include="Image\file.jpg" />
+    <Resource Include="Image\import.jpg" />
+    <Resource Include="Image\manage.jpg" />
+    <Resource Include="Image\mysql.jpg" />
+    <Resource Include="Image\option.jpg" />
+    <Resource Include="Image\sqlserver.jpg" />
+    <Resource Include="Image\tab.jpg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -221,9 +231,11 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BL" />
+    <Folder Include="MyTree" />
     <Folder Include="DB" />
     <Folder Include="UI" />
+    <Folder Include="Import" />
+    <Folder Include="Image" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MemberTreeCommon\MemberTreeCommon.csproj">

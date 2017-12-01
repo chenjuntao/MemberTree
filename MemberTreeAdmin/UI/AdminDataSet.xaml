@@ -22,7 +22,13 @@
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<StackPanel Grid.RowSpan="2" Background="Azure">
-			<GroupBox Header="数据选项">
+			<GroupBox BorderThickness="1" BorderBrush="DarkBlue">
+				<GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/MemberTreeAdmin;component/Image/option.jpg" Width="36" Height="36"/>
+						<TextBlock Text="数据导入选项" FontSize="16" VerticalAlignment="Center"/>
+					</StackPanel>
+				</GroupBox.Header>
 				<StackPanel>
 					<ComboBox Name="comboToLower">
 						<ComboBoxItem IsSelected="True">不转换大小写</ComboBoxItem>
@@ -42,23 +48,57 @@
 					</ComboBox>
 				</StackPanel>
 			</GroupBox>
-			<GroupBox Header="直连数据库">
+			<GroupBox BorderThickness="1" BorderBrush="DarkBlue">
+				<GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/MemberTreeAdmin;component/Image/import.jpg" Width="36" Height="36"/>
+						<TextBlock Text="导入数据并计算" FontSize="16" VerticalAlignment="Center"/>
+					</StackPanel>
+				</GroupBox.Header>
 				<StackPanel>
-					<Button Content="Sqlserver导出csv" Click="ButtonSqlServer2CSV_Click" />
-					<Button Content="直连Mysql" Click="ButtonConnectMysql_Click" />
+					<GroupBox BorderBrush="LightBlue">
+						<GroupBox.Header>
+							<StackPanel Orientation="Horizontal">
+								<Image Source="/MemberTreeAdmin;component/Image/db.jpg" Width="30" Height="30"/>
+								<TextBlock Text="从数据库导入" FontSize="14" VerticalAlignment="Center"/>
+							</StackPanel>
+						</GroupBox.Header>
+						<StackPanel>
+							<Button Content="Sqlserver导出csv" Click="ButtonSqlServer2CSV_Click" />
+							<Button Content="直连Mysql" Click="ButtonConnectMysql_Click" />
+						</StackPanel>
+					</GroupBox>
+					<GroupBox BorderBrush="LightBlue">
+						<GroupBox.Header>
+							<StackPanel Orientation="Horizontal">
+								<Image Source="/MemberTreeAdmin;component/Image/file.jpg" Width="30" Height="30"/>
+								<TextBlock Text="从文件导入" FontSize="14" VerticalAlignment="Center"/>
+							</StackPanel>
+						</GroupBox.Header>
+						<StackPanel>
+							<Button Content="检查csv文件" Click="ButtonCheck_Click"/>
+							<Button Content="打开csv文件" Click="ButtonOpen_Click" />
+							<Button Content="打开tab文件" Click="ButtonOpen_Click" />
+						</StackPanel>
+					</GroupBox>
 				</StackPanel>
 			</GroupBox>
-			<GroupBox Header="打开文件">
-				<StackPanel>
-					<Button Content="检查csv文件" Click="ButtonCheck_Click"/>
-					<Button Content="打开csv文件" Click="ButtonOpen_Click" />
-					<Button Content="打开tab文件" Click="ButtonOpen_Click" />
-				</StackPanel>
-			</GroupBox>
-			<GroupBox Header="数据集管理">
+			<GroupBox BorderThickness="1" BorderBrush="DarkBlue">
+				<GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/MemberTreeAdmin;component/Image/manage.jpg" Width="36" Height="36"/>
+						<TextBlock Text="数据集管理" FontSize="16" VerticalAlignment="Center"/>
+					</StackPanel>
+				</GroupBox.Header>
 				<Button Content="删除选中的数据集" Click="ButtonDelete_Click" />
 			</GroupBox>
-			<GroupBox Header="关于">
+			<GroupBox BorderThickness="1" BorderBrush="DarkBlue">
+				<GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/MemberTreeAdmin;component/Image/about.jpg" Width="36" Height="36"/>
+						<TextBlock Text="关于" FontSize="16" VerticalAlignment="Center"/>
+					</StackPanel>
+				</GroupBox.Header>
 				<Button Content="关于本程序" Click="BtnAbout_Click"/>
 			</GroupBox>
 		</StackPanel>
