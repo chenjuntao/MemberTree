@@ -64,8 +64,18 @@
 							</StackPanel>
 						</GroupBox.Header>
 						<StackPanel>
-							<Button Content="Sqlserver导出csv" Click="ButtonSqlServer2CSV_Click" />
-							<Button Content="直连Mysql" Click="ButtonConnectMysql_Click" />
+							<Button Click="ButtonSqlServer2CSV_Click">
+								<StackPanel Orientation="Horizontal">
+									<Image Source="/MemberTreeAdmin;component/Image/sqlserver.jpg" Width="25" Height="25"/>
+									<TextBlock Text="从sqlserver导入" FontSize="12" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
+							<Button Click="ButtonConnectMysql_Click">
+								<StackPanel Orientation="Horizontal">
+									<Image Source="/MemberTreeAdmin;component/Image/mysql.jpg" Width="25" Height="25"/>
+									<TextBlock Text="从mysql导入" FontSize="12" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
 						</StackPanel>
 					</GroupBox>
 					<GroupBox BorderBrush="LightBlue">
@@ -76,9 +86,19 @@
 							</StackPanel>
 						</GroupBox.Header>
 						<StackPanel>
-							<Button Content="检查csv文件" Click="ButtonCheck_Click"/>
-							<Button Content="打开csv文件" Click="ButtonOpen_Click" />
-							<Button Content="打开tab文件" Click="ButtonOpen_Click" />
+							<Button Content="csv文件检查" Click="ButtonCheck_Click"/>
+							<Button Click="ButtonOpen_Click">
+								<StackPanel Orientation="Horizontal">
+									<Image Source="/MemberTreeAdmin;component/Image/csv.jpg" Width="25" Height="25"/>
+									<TextBlock Text="导入csv文件" FontSize="12" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
+							<Button Click="ButtonOpen_Click">
+								<StackPanel Orientation="Horizontal">
+									<Image Source="/MemberTreeAdmin;component/Image/tab.jpg" Width="25" Height="25"/>
+									<TextBlock Text="导入tab文件" FontSize="12" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
 						</StackPanel>
 					</GroupBox>
 				</StackPanel>
