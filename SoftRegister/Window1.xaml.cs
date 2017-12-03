@@ -30,12 +30,6 @@ namespace SoftRegister
 		public Window1()
 		{
 			InitializeComponent();
-//			keyPair = RSAHelper.GetRASKey();
-//			//获取当前系统磁盘符方法1，返回：C:
-//			string path = Environment.GetEnvironmentVariable("systemdrive");
-//			//获取当前系统磁盘符方法2,返回：C:
-//			string path = Environment.ExpandEnvironmentVariables("%systemdrive%");
-//			Console.WriteLine(path);
 		}
 		
 		void BtnBrowser_Click(object sender, RoutedEventArgs e)

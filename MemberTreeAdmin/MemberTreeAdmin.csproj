@@ -242,6 +242,10 @@
       <Project>{492B1029-CD3F-4DB5-8AD1-ADCD84CABA1A}</Project>
       <Name>MemberTreeCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RSACommon\RSACommon.csproj">
+      <Project>{DA2CC842-DF95-4DEE-BECC-EB7F9971CC7A}</Project>
+      <Name>RSACommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

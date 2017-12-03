@@ -7,23 +7,31 @@
  * 要改变这种模板请点击 工具|选项|代码编写|编辑标准头文件
  */
 using System;
+using System.IO;
 using System.Management;
+using System.Windows;
+using RSACommon;
 
 namespace MemberTree
 {
 	public class SoftReg
     {
+		public static string Com = "";
+		public static string Usr = "";
+		
         // 取得设备硬盘的卷标号
-        public string GetDiskVolumeSerialNumber()
+        private static string GetDiskVolumeSerialNumber()
         {
+			//获取当前系统磁盘符方法1，返回：C:
+			string sys_path = Environment.GetEnvironmentVariable("systemdrive");
             ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid=\"d:\"");
+            ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid=\""+ sys_path +"\"");
             disk.Get();
             return disk.GetPropertyValue("VolumeSerialNumber").ToString();
         }
 
         //获得CPU的序列号
-        public string getCpu()
+        private static string getCpu()
         {
             string strCpu = null;
             ManagementClass myCpu = new ManagementClass("win32_Processor");
@@ -37,11 +45,34 @@ namespace MemberTree
         }
 
         //生成机器码
-        public string getMNum()
+        public static string getMNum()
         {
             string strNum = getCpu() + GetDiskVolumeSerialNumber();//获得24位Cpu和硬盘序列号
             string strMNum = strNum.Substring(0,24);//从生成的字符串中取出前24个字符做为机器码
             return strMNum;
+        }
+        
+        //判断是否已经注册
+        public static bool hasReged()
+        {
+        	string mNum = getMNum();
+        	if(File.Exists("reg.dll"))
+        	{
+        		try 
+        		{
+        			string regMsg = EncryptHelper.FileDecrypt("reg.dll", mNum);
+        			string[] regList = regMsg.Split(new String[]{mNum}, StringSplitOptions.None);
+        			Com = RSAHelper.DecryptString(regList[0]);
+        			Usr = RSAHelper.DecryptString(regList[1]);
+        			return true;
+        		} 
+        		catch (Exception ex)
+        		{
+        			MessageBox.Show("注册密钥不正确！\n"+ex.Message);
+        			return false;
+        		}
+        	}
+        	return false;
         }
 
         public int[] intCode = new int[127];//存储密钥

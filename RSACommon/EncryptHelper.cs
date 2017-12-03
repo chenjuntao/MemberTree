@@ -22,22 +22,22 @@ namespace MemberTree
         /// <summary>
         /// 加密字符
         /// </summary>
-        private const string SECRETKEY = "HNPOLICE";
+        public const string SECRETKEY = "HNPOLICE";
 
          /// <summary>
         /// 加密文件
         /// </summary>
         /// <param name="filename">文件存放路径</param>
-        /// <param name="soce">加密内容</param>
-        internal static void FileEncrypt(string filename, string soce)
+        /// <param name="msg">加密内容</param>
+        public static void FileEncrypt(string filename, string msg, string seckey=SECRETKEY)
         {
             FileStream fsEncrypted = new FileStream(filename,FileMode.Create, FileAccess.Write);
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
-            DES.Key = ASCIIEncoding.ASCII.GetBytes(SECRETKEY);
-            DES.IV = ASCIIEncoding.ASCII.GetBytes(SECRETKEY);
+            DES.Key = ASCIIEncoding.ASCII.GetBytes(seckey);
+            DES.IV = ASCIIEncoding.ASCII.GetBytes(seckey);
             ICryptoTransform desencrypt = DES.CreateEncryptor();
             CryptoStream cryptostream = new CryptoStream(fsEncrypted,  desencrypt, CryptoStreamMode.Write);
-            byte[] fsInput = Encoding.UTF8.GetBytes(soce);
+            byte[] fsInput = Encoding.UTF8.GetBytes(msg);
             cryptostream.Write(fsInput, 0, fsInput.Length);
             cryptostream.Close();
             fsEncrypted.Close();
@@ -48,11 +48,11 @@ namespace MemberTree
         /// </summary>
         /// <param name="filename">打开文件路径</param>
         /// <returns>返回加密文件的内容</returns>
-        internal static string FileDecrypt(string filename)
+        public static string FileDecrypt(string filename, string seckey=SECRETKEY)
         {
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
-            DES.Key = ASCIIEncoding.ASCII.GetBytes(SECRETKEY);
-            DES.IV = ASCIIEncoding.ASCII.GetBytes(SECRETKEY);
+            DES.Key = ASCIIEncoding.ASCII.GetBytes(seckey);
+            DES.IV = ASCIIEncoding.ASCII.GetBytes(seckey);
             FileStream fsread = new FileStream(filename,  FileMode.Open,  FileAccess.Read);
             ICryptoTransform desdecrypt = DES.CreateDecryptor();
             CryptoStream cryptostreamDecr = new CryptoStream(fsread,  desdecrypt,  CryptoStreamMode.Read);
@@ -68,10 +68,10 @@ namespace MemberTree
         /// </summary>  
         /// <param name="str">要加密的字符串</param>  
         /// <returns>加密后的字符串</returns>  
-        public static string Encrypt(string str)
+        public static string Encrypt(string str, string seckey=SECRETKEY)
         {    
             DESCryptoServiceProvider descsp = new DESCryptoServiceProvider();   //实例化加/解密类对象
-            byte[] key = Encoding.ASCII.GetBytes(SECRETKEY); //定义字节数组，用来存储密钥
+            byte[] key = Encoding.ASCII.GetBytes(seckey); //定义字节数组，用来存储密钥
             byte[] data = Encoding.ASCII.GetBytes(str);//定义字节数组，用来存储要加密的字符串  
             MemoryStream MStream = new MemoryStream(); //实例化内存流对象      
             //使用内存流实例化加密流对象   
@@ -88,10 +88,10 @@ namespace MemberTree
         /// </summary>  
         /// <param name="str">要解密的字符串</param>  
         /// <returns>解密后的字符串</returns>  
-        public static string Decrypt(string str)  
+        public static string Decrypt(string str, string seckey=SECRETKEY)  
         {      
             DESCryptoServiceProvider descsp = new DESCryptoServiceProvider();   //实例化加/解密类对象
-            byte[] key = Encoding.ASCII.GetBytes(SECRETKEY); //定义字节数组，用来存储密钥    
+            byte[] key = Encoding.ASCII.GetBytes(seckey); //定义字节数组，用来存储密钥    
             byte[] data = Convert.FromBase64String(str);//定义字节数组，用来存储要解密的字符串  
             MemoryStream MStream = new MemoryStream(); //实例化内存流对象      
             //使用内存流实例化解密流对象       

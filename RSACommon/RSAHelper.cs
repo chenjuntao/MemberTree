@@ -18,6 +18,8 @@ namespace RSACommon
         /// RSA的容器 可以解密的源字符串长度为 DWKEYSIZE/8-11 
         /// </summary>
         public const int DWKEYSIZE = 1024;
+        
+        public const string publicKey ="AwEAAdRuUg26vNnnSLp1JRPsDWQWjr/S+fX67Blv2Er5XiIuksPWbBq9L7WpcPN2yiiQdlOlqhLgMigKaDaHwRp2ob8y2aCCja1Vi3nZymFK23h9wWwdfPuV0vfnuQ74EcF7K6vOTw6iOcaOUTvDe3tZuS9raCgdfaLrPKzwotc0Jn31";
 
         /// <summary>
         /// RSA加密的密匙结构  公钥和私匙
@@ -113,7 +115,7 @@ namespace RSACommon
         /// <param name="source">源字符串 明文</param>
         /// <param name="key">密匙</param>
         /// <returns>加密遇到错误将会返回原字符串</returns>
-        public static string EncryptString(string source,string key)
+        public static string EncryptString(string source,string key=publicKey)
         {
             string encryptString = string.Empty;
             byte[] d;
@@ -143,7 +145,7 @@ namespace RSACommon
         /// <param name="encryptString">密文</param>
         /// <param name="key">密钥</param>
         /// <returns>遇到解密失败将会返回原字符串</returns>
-        public static string DecryptString(string encryptString, string key)
+        public static string DecryptString(string encryptString, string key=publicKey)
         {
             string source = string.Empty;
             byte[] e;

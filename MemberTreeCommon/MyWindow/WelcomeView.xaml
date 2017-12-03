@@ -14,18 +14,10 @@
 		</Style>
 	</UserControl.Resources>
 	<UserControl.Background>
-		<LinearGradientBrush
-			EndPoint="0.5,1"
-			StartPoint="0.5,0">
-			<GradientStop
-				Color="LightGreen"
-				Offset="0" />
-			<GradientStop
-				Color="White"
-				Offset="0.8" />
-			<GradientStop
-				Color="LightCoral"
-				Offset="1" />
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="LightGreen" Offset="0" />
+			<GradientStop Color="White" Offset="0.8" />
+			<GradientStop Color="LightCoral" Offset="1" />
 		</LinearGradientBrush>
 	</UserControl.Background>
 	<Grid>
@@ -37,80 +29,48 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Image
-			Name="imgAdmin"
-			Visibility="Hidden"
-			Width="100"
-			Height="100"
-			Margin="30, 20, 10, 10"
+		<Image Name="imgAdmin" Visibility="Hidden" 
+		    Width="100" Height="100" Margin="30, 20, 10, 10"
 			Source="/MemberTreeCommon;component/Image/treeadmin.png" />
-		<Image
-			Name="imgView"
-			Visibility="Hidden"
-			Width="100"
-			Height="100"
-			Margin="30, 20, 10, 10"
+		<Image Name="imgView" Visibility="Hidden" 
+		    Width="100" Height="100" Margin="30, 20, 10, 10"
 			Source="/MemberTreeCommon;component/Image/treeview.png" />
 		<StackPanel Grid.Column="1">
-			<TextBlock
-				Foreground="LightCyan"
-				FontWeight="Bold"
-				FontSize="28"
-				x:Name="txtHead"
-				Grid.Column="1"
-				Margin="0, 20, 0, 5">
+			<TextBlock x:Name="txtHead" FontSize="28" 
+			    Foreground="LightCyan" FontWeight="Bold" 
+			    Grid.Column="1" Margin="0, 20, 0, 5">
 				<TextBlock.Effect>
 					<DropShadowEffect Opacity="0.6" />
 				</TextBlock.Effect>
 				<Run Text="网络传销会员层级分析系统" />
 			</TextBlock>
-			<TextBlock
-				FontSize="18"
-				Foreground="RoyalBlue"
-				x:Name="txtVer"
-				Grid.Column="1"
-				Grid.Row="1">
+			<TextBlock x:Name="txtVer" FontSize="18"
+				Foreground="RoyalBlue" Grid.Column="1" Grid.Row="1">
 				<Run Text="版本：v 5.0.0.1212" />
 			</TextBlock>
-			<TextBlock
-				FontSize="16"
-				Foreground="BlueViolet"
-				x:Name="txtCpy"
-				Grid.Column="1"
-				Grid.Row="2">
+			<TextBlock x:Name="txtCpy" FontSize="16"
+				Foreground="BlueViolet" Grid.Column="1" Grid.Row="2">
 				<Run Text="Copyright(c)tanry，2014-2017" />
 			</TextBlock>
-			<TextBlock
-				FontSize="14"
-				TextWrapping="WrapWithOverflow"
-				Foreground="DarkCyan"
-				x:Name="txtTel"
-				Grid.Column="1"
-				Grid.Row="3">
+			<TextBlock x:Name="txtTel" FontSize="14"
+				TextWrapping="WrapWithOverflow" Foreground="DarkCyan"
+			    Grid.Column="1" Grid.Row="3">
 				<Run Text="联系电话：xxxxxxxxxxx" />
 			</TextBlock>
 		</StackPanel>
 		
-		<Grid Name="selectDBGrid"
-			Grid.ColumnSpan="2"
-			Grid.Row="1">
+		<Grid Name="selectDBGrid" Grid.ColumnSpan="2" Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
-			<Button
-				Width="160"
-				Height="80"
-				Content="使用本地Sqlite数据库"
-				Click="BtnSqlite_Click" />
-			<Button
-				Width="160"
-				Height="80"
-				Content="使用远程Mysql数据库"
-				Grid.Column="1"
-				Click="BtnMysql_Click" />
+			<Button Click="BtnSqlite_Click" Width="200" Height="100">
+				<Image Source="/MemberTreeCommon;component/Image/sqlite.jpg" />
+			</Button>
+			<Button Click="BtnMysql_Click" Width="200" Height="100" Grid.Column="1">
+				<Image Source="/MemberTreeCommon;component/Image/mysql.jpg" />
+			</Button>
 		</Grid>
-		
 		
 		<Grid Name="verGrid" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Row="1">
 			<Grid.ColumnDefinitions>

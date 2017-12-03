@@ -21,14 +21,24 @@ namespace MemberTree
 	/// <summary>
 	/// Interaction logic for SoftRegWindow.xaml
 	/// </summary>
-	public partial class SoftRegWindow : Window
+	public partial class SoftRegWindow : UserControl
 	{
 		public SoftRegWindow()
 		{
 			InitializeComponent();
 		}
 		
-		void BtnBrowser_Click(object sender, RoutedEventArgs e)
+		private void BtnRegInfo_Click(object sender, RoutedEventArgs e)
+		{
+			
+		}
+		
+		private void BtnBrowser_Click(object sender, RoutedEventArgs e)
+		{
+			
+		}
+		
+		private void BtnRegKey_Click(object sender, RoutedEventArgs e)
 		{
 			
 		}

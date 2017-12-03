@@ -110,7 +110,6 @@
       <DependentUpon>SoftRegWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Util\EncryptHelper.cs" />
     <Compile Include="Util\INotify.cs" />
     <Compile Include="Util\InvokeDelegate.cs" />
     <Compile Include="Util\SysInfo.cs" />
@@ -160,6 +159,10 @@
       <Project>{ac47e1bc-4103-4b9f-a39b-65880d2304e2}</Project>
       <Name>RSACommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\mysql.jpg" />
+    <Resource Include="Image\sqlite.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

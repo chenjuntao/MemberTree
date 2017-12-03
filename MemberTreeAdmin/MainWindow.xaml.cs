@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using MemberTree;
 
@@ -17,9 +18,17 @@ namespace MemberTreeAdmin
         public MainWindow()
         {
             InitializeComponent();
-            
-			this.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
-			welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(ConnectDB));
+            if(SoftReg.hasReged())
+            {
+            	this.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
+				welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(ConnectDB));
+            }
+            else
+            {
+            	this.Title = "网络传销会员层级分析系统——软件授权注册向导";
+            	mainGrid.Children.Remove(welcomeView);
+            	mainGrid.Children.Add(new SoftRegWindow());
+            }
         }
         
         private void ConnectDB(bool isSqlite)
