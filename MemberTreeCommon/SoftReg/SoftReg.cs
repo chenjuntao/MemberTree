@@ -71,14 +71,27 @@ namespace MemberTree
         		{
         			string regMsg = EncryptHelper.FileDecrypt("reg.dll", GetDisk);
         			string[] regList = regMsg.Split(new String[]{getCpu}, StringSplitOptions.None);
-        			Com = RSAHelper.DecryptString(regList[0]);
-        			Usr = RSAHelper.DecryptString(regList[1]);
-        			return true;
+        			if(regList.Length == 3)
+        			{
+        				if(RSAHelper.DecryptString(regList[0]) == GetDisk)
+        				{
+		        			Com = RSAHelper.DecryptString(regList[1]);
+		        			Usr = RSAHelper.DecryptString(regList[2]);
+		        			return true;
+        				}
+        				else
+        				{
+        					MessageBox.Show("注册密钥无效！");
+        				}
+        			}
+        			else
+        			{
+        				MessageBox.Show("注册密钥无效！");
+        			}
         		} 
         		catch (Exception ex)
         		{
         			MessageBox.Show("注册密钥无效！\n"+ex.Message);
-        			return false;
         		}
         	}
         	return false;
@@ -89,9 +102,9 @@ namespace MemberTree
         {
         	Com = RSAHelper.EncryptString(com);
         	Usr = RSAHelper.EncryptString(usr);
-        	string[] regList = new string[]{Com, Usr};
+        	string[] regList = new string[]{GetDisk, Com, Usr};
         	string regMsg = string.Join(getCpu, regList);
-        	EncryptHelper.FileEncrypt(filePath, regMsg, GetDisk);
+        	EncryptHelper.FileEncrypt(filePath, regMsg);
         }
 
         public int[] intCode = new int[127];//存储密钥

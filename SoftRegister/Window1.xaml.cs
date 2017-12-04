@@ -15,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using MemberTree;
 using Microsoft.Win32;
 using RSACommon;
 
@@ -40,6 +41,8 @@ namespace SoftRegister
             if (openfileDlg.ShowDialog() == true)
             {
             	
+            	string regMsg = EncryptHelper.FileDecrypt("reg.dll");
+        		string[] regList = regMsg.Split(new String[]{getCpu}, StringSplitOptions.None);
             }
 		}
 		
