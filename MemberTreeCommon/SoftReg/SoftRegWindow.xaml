@@ -46,7 +46,7 @@
 					        Content="生成注册信息文件" Click="BtnRegInfo_Click"/>
 					
 					<TextBlock Grid.Row="3" Grid.ColumnSpan="3" Foreground="RoyalBlue" TextWrapping="WrapWithOverflow"
-					           Text="请填写上面的注册信息，然后生成注册信息文件(*.reginfo); 将注册信息文件发送给软件版权方，获取授权密钥文件（*.regkey）。"/>	
+					           Text="请填写上面的注册信息，然后生成待注册信息文件(*.reginfo); 将待注册信息文件发送给软件版权方，获取授权密钥文件（*.regkey），进行注册。"/>	
 				</Grid>
 				
 			</TabItem>

@@ -19,35 +19,45 @@ namespace MemberTree
 		public static string Com = "";
 		public static string Usr = "";
 		
-        // 取得设备硬盘的卷标号
-        private static string GetDiskVolumeSerialNumber()
+        private static string diskStr = "";
+        private static string GetDisk
         {
-			//获取当前系统磁盘符方法1，返回：C:
-			string sys_path = Environment.GetEnvironmentVariable("systemdrive");
-            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid=\""+ sys_path +"\"");
-            disk.Get();
-            return disk.GetPropertyValue("VolumeSerialNumber").ToString();
+        	get{
+        		if(diskStr == "")
+        		{
+					//获取当前系统磁盘符方法1，返回：C:
+					string sysVolume = Environment.GetEnvironmentVariable("systemdrive");
+		            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+		            ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid=\""+ sysVolume +"\"");
+		            disk.Get();
+		            diskStr = disk.GetPropertyValue("VolumeSerialNumber").ToString();
+        		}
+        		return diskStr;
+        	}
         }
 
-        //获得CPU的序列号
-        private static string getCpu()
+        private static string cpuStr = "";
+        private static string getCpu
         {
-            string strCpu = null;
-            ManagementClass myCpu = new ManagementClass("win32_Processor");
-            ManagementObjectCollection myCpuConnection = myCpu.GetInstances();
-            foreach (ManagementObject myObject in myCpuConnection)
-            {
-                strCpu = myObject.Properties["Processorid"].Value.ToString();
-                break;
-            }
-            return strCpu;
+        	get{
+	        	if(cpuStr == "")
+	        	{
+		            ManagementClass myCpu = new ManagementClass("win32_Processor");
+		            ManagementObjectCollection myCpuConnection = myCpu.GetInstances();
+		            foreach (ManagementObject myObject in myCpuConnection)
+		            {
+		                cpuStr = myObject.Properties["Processorid"].Value.ToString();
+		                break;
+		            }
+	        	}
+	            return cpuStr;
+        	}
         }
 
         //生成机器码
         public static string getMNum()
         {
-            string strNum = getCpu() + GetDiskVolumeSerialNumber();//获得24位Cpu和硬盘序列号
+            string strNum = getCpu + GetDisk;//获得24位Cpu和硬盘序列号
             string strMNum = strNum.Substring(0,24);//从生成的字符串中取出前24个字符做为机器码
             return strMNum;
         }
@@ -55,24 +65,33 @@ namespace MemberTree
         //判断是否已经注册
         public static bool hasReged()
         {
-        	string mNum = getMNum();
         	if(File.Exists("reg.dll"))
         	{
         		try 
         		{
-        			string regMsg = EncryptHelper.FileDecrypt("reg.dll", mNum);
-        			string[] regList = regMsg.Split(new String[]{mNum}, StringSplitOptions.None);
+        			string regMsg = EncryptHelper.FileDecrypt("reg.dll", GetDisk);
+        			string[] regList = regMsg.Split(new String[]{getCpu}, StringSplitOptions.None);
         			Com = RSAHelper.DecryptString(regList[0]);
         			Usr = RSAHelper.DecryptString(regList[1]);
         			return true;
         		} 
         		catch (Exception ex)
         		{
-        			MessageBox.Show("注册密钥不正确！\n"+ex.Message);
+        			MessageBox.Show("注册密钥无效！\n"+ex.Message);
         			return false;
         		}
         	}
         	return false;
+        }
+        
+        //获取注册信息文件
+        public static void getRegInfo(string filePath, string com, string usr)
+        {
+        	Com = RSAHelper.EncryptString(com);
+        	Usr = RSAHelper.EncryptString(usr);
+        	string[] regList = new string[]{Com, Usr};
+        	string regMsg = string.Join(getCpu, regList);
+        	EncryptHelper.FileEncrypt(filePath, regMsg, GetDisk);
         }
 
         public int[] intCode = new int[127];//存储密钥
