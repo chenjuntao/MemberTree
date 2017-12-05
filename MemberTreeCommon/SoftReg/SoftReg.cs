@@ -62,6 +62,21 @@ namespace MemberTree
             return strMNum;
         }
         
+//        Microsoft.Win32.RegistryKey retkey1 = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("software", true).CreateSubKey("WXK").CreateSubKey("WXK.INI");
+//            foreach (string strName in retkey1.GetSubKeyNames())//判断注册码是否过期
+//            {
+//                if (strName == textBox3.Text)//如果注册表中已经存在
+//                {
+//                    MessageBox.Show("此注册码已经过期");
+//                    return;
+//                }
+//            }
+//            //在注册表中创建子项
+//            Microsoft.Win32.RegistryKey retkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("software", true).CreateSubKey("WXK").CreateSubKey("WXK.INI").CreateSubKey(textBox3.Text.TrimEnd());
+//            retkey.SetValue("UserName", textBox2.Text);//向注册表中写入公司名称
+//            retkey.SetValue("capataz", textBox1.Text);//向注册表中写入用户名称
+//            retkey.SetValue("Code", textBox3.Text);//向注册表中写入注册码
+        
         //判断是否已经注册
         public static bool hasReged()
         {
@@ -97,16 +112,25 @@ namespace MemberTree
         	return false;
         }
         
-        //获取注册信息文件
+        //生成注册信息文件
         public static void getRegInfo(string filePath, string com, string usr)
         {
-        	Com = RSAHelper.EncryptString(com);
-        	Usr = RSAHelper.EncryptString(usr);
-        	string[] regList = new string[]{GetDisk, Com, Usr};
-        	string regMsg = string.Join(getCpu, regList);
-        	EncryptHelper.FileEncrypt(filePath, regMsg);
+        	try 
+        	{
+        		string cpu = RSAHelper.EncryptString(getCpu);
+        		com = RSAHelper.EncryptString(com);
+	        	usr = RSAHelper.EncryptString(usr);
+	        	string regMsg = GetDisk + cpu + GetDisk + com + GetDisk + usr + GetDisk;
+	        	EncryptHelper.FileEncrypt(filePath, regMsg);
+	        	MessageBox.Show("生成注册信息文件成功！\n");
+        	} 
+        	catch (Exception ex)
+        	{
+        		MessageBox.Show("生成注册信息文件失败！\n"+ex.Message);
+        	}
         }
 
+        //----------------------------------------------------------------------------------------------------------------
         public int[] intCode = new int[127];//存储密钥
         public int[] intNumber = new int[25];//存机器码的Ascii值
         public char[] Charcode = new char[25];//存储机器码字

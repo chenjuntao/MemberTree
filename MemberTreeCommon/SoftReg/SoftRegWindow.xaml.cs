@@ -47,7 +47,7 @@ namespace MemberTree
 			{
 				SaveFileDialog saveFileDlg = new SaveFileDialog();
 			    saveFileDlg.Title = "选择将会员树导出为文件的位置";
-				saveFileDlg.Filter = "待注册信息文件|*.reginfo";
+				saveFileDlg.Filter = "注册信息文件|*.reginfo";
 			    saveFileDlg.FileName = Dns.GetHostName();
 			    if (saveFileDlg.ShowDialog() == true)
 			    {

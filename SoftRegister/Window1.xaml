@@ -39,12 +39,9 @@
 		<Button Grid.Row="2" Grid.Column="1" Margin="10" Padding="5" x:Name="btnBrowser" 
 		        Content="导入待注册文件" Click="BtnBrowser_Click"/>
 		
-		<TextBlock Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="14" Foreground="BlueViolet">
-			<TextBlock Text="  授权给：（单位："/>
-			<TextBlock Name="txtCom" />
-			<TextBlock Text=" ，用户："/>
-			<TextBlock Name="txtUsr" />
-			<TextBlock Text="）"/>
+		<TextBlock x:Name="txtRegMsg" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" 
+		           TextWrapping="WrapWithOverflow" FontSize="15" Foreground="Red" Margin="5"
+		           Text="请先导入客户发过来的注册信息文件(*.reginfo)，然后再生成注册密钥文件(*.regkey)，发送回给客户供用户注册。">
 		</TextBlock>
 	
 		<GroupBox Grid.Row="4" Header="注册密钥文件（*.regkey）生成路径">
