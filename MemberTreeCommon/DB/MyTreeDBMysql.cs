@@ -78,7 +78,7 @@ namespace MemberTree
 			ConnectDB("");
 			OpenDB();
 			//查询数据库tree下面所有的表名
-			cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'tree' order by create_time";
+			cmd.CommandText = RegConfig.MYSQL_QUERY_ALL_TABLE_NAME;
 			MySqlDataReader reader = cmd.ExecuteReader();
 			List<string> tables = new List<string>();
 			while(reader.Read())
@@ -152,18 +152,17 @@ namespace MemberTree
 		        if(conn.Ping())
 		        {
 		        	//如果不存在tree数据库，则创建一个
-		        	cmd.CommandText = "CREATE DATABASE if not exists tree DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_bin";
+		        	cmd.CommandText = RegConfig.MYSQL_CREATE_DATABASE;
 		        	cmd.ExecuteNonQuery();
 		        	//切换到tree数据库
 		        	conn.ChangeDatabase("tree");
 
 		        	cmd.ExecuteNonQuery();
 		        	//如果不存在用户信息表，则创建一个(Id,姓名,密码,备注,是否启用,创建时间,修改时间，最近一次登陆时间,登陆次数,在线时长分钟数,限制到期日期,限制最大使用时长)
-		        	cmd.CommandText = "create table if not exists tree_userinfo(id varchar(16), name varchar(32), pwd varchar(32), remark varchar(100), enable tinyint," +
-		        	"create_date datetime, modify_date datetime, last_login_date datetime, login_times int, online_time int, due_date datetime, due_time int)";
+		        	cmd.CommandText = RegConfig.MYSQL_CREATE_TABLE_USER_INFO;
 		        	cmd.ExecuteNonQuery();
 		        	//如果不存在用户权限表，则创建一个
-		        	cmd.CommandText = "create table if not exists tree_userprivilege(user_id varchar(16), data_name varchar(64))";
+		        	cmd.CommandText = RegConfig.MYSQL_CREATE_TABLE_USER_PRIVILEGE;
 		        	cmd.ExecuteNonQuery();
 		        	conn.Close();
 		        	return true;

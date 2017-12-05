@@ -87,13 +87,13 @@
 						</GroupBox.Header>
 						<StackPanel>
 							<Button Content="csv文件检查" Click="ButtonCheck_Click"/>
-							<Button Click="ButtonOpen_Click">
+							<Button Click="ButtonOpen_Click" x:Name="btnImportCsv">
 								<StackPanel Orientation="Horizontal">
 									<Image Source="/MemberTreeAdmin;component/Image/csv.jpg" Width="25" Height="25"/>
 									<TextBlock Text="导入csv文件" FontSize="12" VerticalAlignment="Center"/>
 								</StackPanel>
 							</Button>
-							<Button Click="ButtonOpen_Click">
+							<Button Click="ButtonOpen_Click" x:Name="btnImportTab">
 								<StackPanel Orientation="Horizontal">
 									<Image Source="/MemberTreeAdmin;component/Image/tab.jpg" Width="25" Height="25"/>
 									<TextBlock Text="导入tab文件" FontSize="12" VerticalAlignment="Center"/>

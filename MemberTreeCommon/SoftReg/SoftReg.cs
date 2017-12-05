@@ -57,9 +57,8 @@ namespace MemberTree
         //生成机器码
         public static string getMNum()
         {
-            string strNum = getCpu + GetDisk;//获得24位Cpu和硬盘序列号
-            string strMNum = strNum.Substring(0,24);//从生成的字符串中取出前24个字符做为机器码
-            return strMNum;
+            string strNum = getCpu + GetDisk;//机器码=Cpu序列号+硬盘序列号
+            return strNum;
         }
         
 //        Microsoft.Win32.RegistryKey retkey1 = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("software", true).CreateSubKey("WXK").CreateSubKey("WXK.INI");

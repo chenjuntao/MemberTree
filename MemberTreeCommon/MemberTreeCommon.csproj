@@ -105,6 +105,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoftReg\RegConfig.cs" />
     <Compile Include="SoftReg\SoftReg.cs" />
     <Compile Include="SoftReg\SoftRegWindow.xaml.cs">
       <DependentUpon>SoftRegWindow.xaml</DependentUpon>

@@ -90,7 +90,7 @@ namespace MemberTree
 			{
 	            SQLiteConnectionStringBuilder connstr =new SQLiteConnectionStringBuilder();
 	            connstr.DataSource = "db/" + dbName + ".db";
-	//            connstr.Password = "passwd";
+	            connstr.Password = "passwd";
 	            connstr.Version = 3;
 	
 				conn = new SQLiteConnection();

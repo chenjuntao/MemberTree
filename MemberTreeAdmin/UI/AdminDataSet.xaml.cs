@@ -47,9 +47,7 @@ namespace MemberTree
         //打开文件
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
-        	string btnTxt = (sender as Button).Content.ToString();
-        	bool csv_or_tab = (btnTxt == "打开csv文件");
-        	
+        	bool csv_or_tab = (sender == btnImportCsv);
             OpenFileDialog openfileDlg = new OpenFileDialog();
             openfileDlg.Title = "打开要作为会员树数据源的文件";
             openfileDlg.Filter = csv_or_tab ? "CSV逗号分隔文件|*.csv" : "TAB键分割文件|*.tab";

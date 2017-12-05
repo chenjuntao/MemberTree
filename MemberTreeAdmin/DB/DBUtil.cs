@@ -112,16 +112,7 @@ namespace MemberTree
 		public static string GetCreateTableSql()
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.Append("(sysid varchar(");
-			sb.Append(idLen);
-		    sb.Append("),topid varchar(");
-			sb.Append(idLen);
-		    sb.Append("),name varchar(");
-		    sb.Append(nameLen);
-		    sb.Append("),level int");
-			sb.Append(",sublevel int");
-			sb.Append(",subcount int");
-			sb.Append(",subcountall int");
+			sb.Append(string.Format(RegConfig.TABLE_CALC_COLS, idLen, idLen, nameLen));
 			for (int i = 0; i < OptCols.Count; i++) 
 			{	
 				sb.Append(",");

@@ -33,6 +33,7 @@ namespace SoftRegister
 		public Window1()
 		{
 			InitializeComponent();
+			RegConfig.Init();
 		}
 		
 		private void BtnBrowser_Click(object sender, RoutedEventArgs e)
@@ -91,7 +92,27 @@ namespace SoftRegister
 		//生成注册密钥文件
 		private void BtnOK_Click(object sender, RoutedEventArgs e)
 		{
-			
+			try 
+        	{
+				//加密处理生成密钥文件*.regkey
+				List<string> regList = new List<string>();
+				regList.Add(RSAHelper.EncryptString(cpu+disk, privateKey));
+				regList.Add(RSAHelper.EncryptString(com, privateKey));
+				regList.Add(RSAHelper.EncryptString(usr, privateKey));
+	        	foreach (string confKey in RegConfig.config.Keys) 
+	        	{
+	        		string key = RSAHelper.EncryptString(confKey, privateKey);
+	        		string val = RSAHelper.EncryptString(RegConfig.config[confKey], privateKey);
+	        		regList.Add(key + disk + val);
+	        	}
+	        	string regMsg = string.Join(cpu, regList);
+	        	EncryptHelper.FileEncrypt(txtRegKey.Text, regMsg);
+	        	MessageBox.Show("生成注册信息文件成功！\n");
+        	} 
+        	catch (Exception ex)
+        	{
+        		MessageBox.Show("生成注册信息文件失败！\n"+ex.Message);
+        	}
 		}
 	}
 }
