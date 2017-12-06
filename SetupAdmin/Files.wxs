@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<DirectoryRef Id="TARGETDIR">
+			<Directory Id="ProgramFilesFolder" Name="PFiles">
+				<Directory Id="INSTALLDIR" Name="MemberTree">
+					<Component Id="MyComponent" Guid="FC3F67C5-EC79-42B6-A6B3-514F0E6D113E" DiskId="1">
+						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
+                        <File Id='MemberTreeView' Name='MemberTreeView.exe' Source="../../bin/MemberTreeView.exe" />
+                    </Component>
+				</Directory>
+			</Directory>
+		</DirectoryRef>
+	</Fragment>
+</Wix>

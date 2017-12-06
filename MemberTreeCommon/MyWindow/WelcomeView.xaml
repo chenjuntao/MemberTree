@@ -45,6 +45,7 @@
 			<TextBlock x:Name="txtVer" FontSize="18"
 				Foreground="RoyalBlue" Grid.Column="1" Grid.Row="1">
 				<Run Text="版本：v 5.0.0.1212" />
+				<TextBlock x:Name="txtRegister"/>
 			</TextBlock>
 			<TextBlock x:Name="txtCpy" FontSize="16"
 				Foreground="BlueViolet" Grid.Column="1" Grid.Row="2">
