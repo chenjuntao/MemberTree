@@ -112,7 +112,7 @@ namespace MemberTree
 		public static string GetCreateTableSql()
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.Append(string.Format(RegConfig.TABLE_CALC_COLS, idLen, idLen, nameLen));
+			sb.Append(string.Format(RegConfig.config["TABLE_CALC_COLS"], idLen, idLen, nameLen));
 			for (int i = 0; i < OptCols.Count; i++) 
 			{	
 				sb.Append(",");

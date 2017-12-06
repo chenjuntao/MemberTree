@@ -78,7 +78,7 @@ namespace MemberTree
 			ConnectDB("");
 			OpenDB();
 			//查询数据库tree下面所有的表名
-			cmd.CommandText = RegConfig.MYSQL_QUERY_ALL_TABLE_NAME;
+			cmd.CommandText = RegConfig.config["MYSQL_QUERY_ALL_TABLE_NAME"];
 			MySqlDataReader reader = cmd.ExecuteReader();
 			List<string> tables = new List<string>();
 			while(reader.Read())
@@ -152,17 +152,17 @@ namespace MemberTree
 		        if(conn.Ping())
 		        {
 		        	//如果不存在tree数据库，则创建一个
-		        	cmd.CommandText = RegConfig.MYSQL_CREATE_DATABASE;
+		        	cmd.CommandText = RegConfig.config["MYSQL_CREATE_DATABASE"];
 		        	cmd.ExecuteNonQuery();
 		        	//切换到tree数据库
 		        	conn.ChangeDatabase("tree");
 
 		        	cmd.ExecuteNonQuery();
 		        	//如果不存在用户信息表，则创建一个(Id,姓名,密码,备注,是否启用,创建时间,修改时间，最近一次登陆时间,登陆次数,在线时长分钟数,限制到期日期,限制最大使用时长)
-		        	cmd.CommandText = RegConfig.MYSQL_CREATE_TABLE_USER_INFO;
+		        	cmd.CommandText = RegConfig.config["MYSQL_CREATE_TABLE_USER_INFO"];
 		        	cmd.ExecuteNonQuery();
 		        	//如果不存在用户权限表，则创建一个
-		        	cmd.CommandText = RegConfig.MYSQL_CREATE_TABLE_USER_PRIVILEGE;
+		        	cmd.CommandText = RegConfig.config["MYSQL_CREATE_TABLE_USER_PRIVILEGE"];
 		        	cmd.ExecuteNonQuery();
 		        	conn.Close();
 		        	return true;

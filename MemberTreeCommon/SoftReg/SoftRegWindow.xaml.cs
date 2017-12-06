@@ -8,9 +8,12 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -58,12 +61,34 @@ namespace MemberTree
 		
 		private void BtnBrowser_Click(object sender, RoutedEventArgs e)
 		{
-			
+			OpenFileDialog openfileDlg = new OpenFileDialog();
+            openfileDlg.Title = "选择需要进行注册的密钥文件(*.regkey)";
+            openfileDlg.Filter = "注册密钥文件|*.regkey";
+            if (openfileDlg.ShowDialog() == true)
+            {
+            	txtRegKey.Text = openfileDlg.FileName;
+            	if(SoftReg.DecryptRegKey(txtRegKey.Text))
+            	{
+            		txtRegMsg.Text = string.Format("授权给（公司/单位：{0}，用户：{1}）", SoftReg.Com, SoftReg.Usr);
+            		btnRegKey.IsEnabled = true;
+            	}
+            	else
+            	{
+            		txtRegMsg.Text = "注册密钥文件不正确！";
+            		btnRegKey.IsEnabled = false;
+            	}
+            }
 		}
 		
 		private void BtnRegKey_Click(object sender, RoutedEventArgs e)
 		{
-			
+			if(SoftReg.InstallRegKey(txtRegKey.Text))
+			{
+				MessageBox.Show("注册成功！");
+				Assembly asm1 = Assembly.GetEntryAssembly();
+				System.Diagnostics.Process.Start(asm1.Location);
+				Application.Current.Shutdown();
+			}
 		}
 	}
 }

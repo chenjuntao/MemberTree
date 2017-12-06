@@ -41,8 +41,7 @@
 		
 		<TextBlock x:Name="txtRegMsg" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" 
 		           TextWrapping="WrapWithOverflow" FontSize="15" Foreground="Red" Margin="5"
-		           Text="请先导入客户发过来的注册信息文件(*.reginfo)，然后再生成注册密钥文件(*.regkey)，发送回给客户供用户注册。">
-		</TextBlock>
+		           Text="请先导入客户发过来的注册信息文件(*.reginfo)，然后再生成注册密钥文件(*.regkey)，发送回给客户供用户注册。"/>
 	
 		<GroupBox Grid.Row="4" Header="注册密钥文件（*.regkey）生成路径">
 			<TextBox x:Name="txtRegKey" IsReadOnly="True" Background="LightGray"/>

@@ -8,6 +8,9 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Windows;
+using Microsoft.Win32;
+using RSACommon;
 
 namespace MemberTree
 {
@@ -18,13 +21,26 @@ namespace MemberTree
 	{
 		public static Dictionary<string, string> config = new Dictionary<string, string>();
 		
-		//MyTreeDBMysql
-		public static string MYSQL_QUERY_ALL_TABLE_NAME = "";
-		public static string MYSQL_CREATE_DATABASE = "";
-		public static string MYSQL_CREATE_TABLE_USER_INFO = "";
-		public static string MYSQL_CREATE_TABLE_USER_PRIVILEGE = "";
-		
-		//DBUtil
-		public static string TABLE_CALC_COLS = "";
+		public static bool InitConfig(RegistryKey retkey)
+		{
+			try 
+        	{
+				string[] retSqlNames = retkey.GetValueNames();
+				foreach (string retKey in retSqlNames) 
+				{
+					string retVal = retkey.GetValue(retKey).ToString();
+					string key = RSAHelper.DecryptString(retKey);
+					string val = RSAHelper.DecryptString(retVal);
+					config.Add(key, val);
+				}
+				return true;
+			}
+        	catch (Exception ex)
+        	{
+        		MessageBox.Show("读取注册子信息列表失败！\n"+ex.Message);
+        	}
+        	
+        	return false;
+		}
 	}
 }

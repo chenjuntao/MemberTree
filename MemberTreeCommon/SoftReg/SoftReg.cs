@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Management;
 using System.Windows;
+using Microsoft.Win32;
 using RSACommon;
 
 namespace MemberTree
@@ -61,56 +62,6 @@ namespace MemberTree
             return strNum;
         }
         
-//        Microsoft.Win32.RegistryKey retkey1 = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("software", true).CreateSubKey("WXK").CreateSubKey("WXK.INI");
-//            foreach (string strName in retkey1.GetSubKeyNames())//判断注册码是否过期
-//            {
-//                if (strName == textBox3.Text)//如果注册表中已经存在
-//                {
-//                    MessageBox.Show("此注册码已经过期");
-//                    return;
-//                }
-//            }
-//            //在注册表中创建子项
-//            Microsoft.Win32.RegistryKey retkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("software", true).CreateSubKey("WXK").CreateSubKey("WXK.INI").CreateSubKey(textBox3.Text.TrimEnd());
-//            retkey.SetValue("UserName", textBox2.Text);//向注册表中写入公司名称
-//            retkey.SetValue("capataz", textBox1.Text);//向注册表中写入用户名称
-//            retkey.SetValue("Code", textBox3.Text);//向注册表中写入注册码
-        
-        //判断是否已经注册
-        public static bool hasReged()
-        {
-        	if(File.Exists("reg.dll"))
-        	{
-        		try 
-        		{
-        			string regMsg = EncryptHelper.FileDecrypt("reg.dll", GetDisk);
-        			string[] regList = regMsg.Split(new String[]{getCpu}, StringSplitOptions.None);
-        			if(regList.Length == 3)
-        			{
-        				if(RSAHelper.DecryptString(regList[0]) == GetDisk)
-        				{
-		        			Com = RSAHelper.DecryptString(regList[1]);
-		        			Usr = RSAHelper.DecryptString(regList[2]);
-		        			return true;
-        				}
-        				else
-        				{
-        					MessageBox.Show("注册密钥无效！");
-        				}
-        			}
-        			else
-        			{
-        				MessageBox.Show("注册密钥无效！");
-        			}
-        		} 
-        		catch (Exception ex)
-        		{
-        			MessageBox.Show("注册密钥无效！\n"+ex.Message);
-        		}
-        	}
-        	return false;
-        }
-        
         //生成注册信息文件
         public static void getRegInfo(string filePath, string com, string usr)
         {
@@ -127,6 +78,101 @@ namespace MemberTree
         	{
         		MessageBox.Show("生成注册信息文件失败！\n"+ex.Message);
         	}
+        }
+        
+        //对注册密钥文件进行解密
+		public static bool DecryptRegKey(string file)
+		{
+			try 
+			{
+				string regMsg = EncryptHelper.FileDecrypt(file);
+				string[] regList = regMsg.Split(new String[]{getCpu}, StringSplitOptions.RemoveEmptyEntries);
+				string mNum = RSAHelper.DecryptString(regList[0]);
+				if(mNum == getMNum())
+				{
+					Com = RSAHelper.DecryptString(regList[1]);
+					Usr = RSAHelper.DecryptString(regList[2]);
+					return true;
+				}
+				else
+				{
+					MessageBox.Show("注册密钥机器码不正确！");
+					return false;
+				}
+			} 
+			catch (Exception ex)
+        	{
+        		MessageBox.Show("解析注册密钥文件失败！\n"+ex.Message);
+        		return false;
+        	}
+		}
+		
+		//安装注册密钥
+		public static bool InstallRegKey(string file)
+		{
+			try 
+			{
+				string regMsg = EncryptHelper.FileDecrypt(file);
+				string[] regList = regMsg.Split(new String[]{getCpu}, StringSplitOptions.RemoveEmptyEntries);
+				RegistryKey retkey = Registry.CurrentUser.OpenSubKey("software", true).CreateSubKey("MemTree");
+				retkey.SetValue("MNum", regList[0]);
+				retkey.SetValue("Com", regList[1]);
+				retkey.SetValue("Usr", regList[2]);
+				for (int i = 3; i < regList.Length; i++) 
+				{
+					string[] retItems = regList[i].Split(new String[]{GetDisk}, StringSplitOptions.RemoveEmptyEntries);
+					RegistryKey retkeySql = retkey.CreateSubKey("SQL");
+					retkeySql.SetValue(retItems[0], retItems[1]);
+				}
+				return true;
+			} 
+			catch (Exception ex)
+        	{
+        		MessageBox.Show("安装注册密钥失败！\n"+ex.Message);
+        		return false;
+        	}
+		}
+		
+		//判断是否已经注册
+        public static bool hasReged()
+        {
+        	try 
+        	{
+	        	RegistryKey retkey = Registry.CurrentUser.OpenSubKey("software").OpenSubKey("MemTree");
+	        	if(retkey != null)
+	        	{
+	        		string mNum = retkey.GetValue("MNum").ToString();
+	        		string com = retkey.GetValue("Com").ToString();
+	        		string usr = retkey.GetValue("Usr").ToString();
+	        		if(mNum!=null && com!=null && usr!=null)
+	        		{
+	        			Com = RSAHelper.DecryptString(com);
+	        			Usr = RSAHelper.DecryptString(usr);
+	        			mNum = RSAHelper.DecryptString(mNum);
+	        			if(mNum == getMNum())
+	        			{
+	        				RegistryKey retkeySql = retkey.OpenSubKey("SQL");
+	        				if(retkeySql!=null)
+	        				{
+	        					if(RegConfig.InitConfig(retkeySql))
+	        					{
+	        						return true;
+	        					}
+	        				}
+	        			}
+	        			else
+	        			{
+	        				MessageBox.Show("注册码不正确！");
+	        			}
+	        		}
+	        	}
+        	} 
+        	catch (Exception ex)
+        	{
+        		MessageBox.Show("读取注册信息失败！\n"+ex.Message);
+        	}
+        	
+        	return false;
         }
 
         //----------------------------------------------------------------------------------------------------------------

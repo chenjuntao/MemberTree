@@ -28,7 +28,6 @@ namespace SoftRegister
 	public partial class Window1 : Window
 	{
 		private string cpu, disk, com, usr;
-		private string publicKey ="AwEAAdRuUg26vNnnSLp1JRPsDWQWjr/S+fX67Blv2Er5XiIuksPWbBq9L7WpcPN2yiiQdlOlqhLgMigKaDaHwRp2ob8y2aCCja1Vi3nZymFK23h9wWwdfPuV0vfnuQ74EcF7K6vOTw6iOcaOUTvDe3tZuS9raCgdfaLrPKzwotc0Jn31";
 		private string privateKey = "gBwg95CF15fq/kBiXqSCr0s/iWtxHlQqA7Vij/tthb90904jSHFJ99VQOHqkkiRI7MIqv5h8Q2f16NK/qxw79TLEJZOYqH6l+EUzS/kOvGKDJ1zUEZqhNCye+J7X4/hfPCSy9fGIkDXfSkAiYPZpDM9QPA6Drj7VcL3jvfA2ZwsJ1G5SDbq82edIunUlE+wNZBaOv9L59frsGW/YSvleIi6Sw9ZsGr0vtalw83bKKJB2U6WqEuAyKApoNofBGnahvzLZoIKNrVWLednKYUrbeH3BbB18+5XS9+e5DvgRwXsrq85PDqI5xo5RO8N7e1m5L2toKB19ous8rPCi1zQmffU=";
 		public Window1()
 		{
@@ -39,7 +38,7 @@ namespace SoftRegister
 		private void BtnBrowser_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog openfileDlg = new OpenFileDialog();
-            openfileDlg.Title = "选择需要进行注册的用户文件(*.reginfo)";
+            openfileDlg.Title = "选择需要进行注册的用户信息文件(*.reginfo)";
             openfileDlg.Filter = "注册信息文件|*.reginfo";
             if (openfileDlg.ShowDialog() == true)
             {
@@ -107,11 +106,11 @@ namespace SoftRegister
 	        	}
 	        	string regMsg = string.Join(cpu, regList);
 	        	EncryptHelper.FileEncrypt(txtRegKey.Text, regMsg);
-	        	MessageBox.Show("生成注册信息文件成功！\n");
+	        	MessageBox.Show("生成注册密钥文件成功！\n");
         	} 
         	catch (Exception ex)
         	{
-        		MessageBox.Show("生成注册信息文件失败！\n"+ex.Message);
+        		MessageBox.Show("生成注册密钥文件失败！\n"+ex.Message);
         	}
 		}
 	}
