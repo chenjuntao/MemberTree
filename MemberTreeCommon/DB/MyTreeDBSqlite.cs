@@ -63,22 +63,29 @@ namespace MemberTree
 			{
 				if(ConnectDB(dsName))
 				{
-					OpenDB();
-					DatasetInfo dsInfo = new DatasetInfo();
-					dsInfo.Name = dsName;
-					dsInfo.RowCount = getCount("select v from tree_profile where k = 'AllNodeCount'");
-					dsInfo.ColCount = 7 + getCount("select count(*) from tree_profile where k = 'TableOptCol'");
-					
-					#region 获取创建时间
-					FileInfo file = new FileInfo("db/"+dsName+".db");
-					if(file != null)
+					try 
 					{
-						dsInfo.CreateData = file.CreationTime;
+						OpenDB();
+						DatasetInfo dsInfo = new DatasetInfo();
+						dsInfo.Name = dsName;
+						dsInfo.RowCount = getCount("select v from tree_profile where k = 'AllNodeCount'");
+						dsInfo.ColCount = 7 + getCount("select count(*) from tree_profile where k = 'TableOptCol'");
+						
+						#region 获取创建时间
+						FileInfo file = new FileInfo("db/"+dsName+".db");
+						if(file != null)
+						{
+							dsInfo.CreateData = file.CreationTime;
+						}
+						#endregion
+						
+						result.Add(dsInfo);
+						CloseDB();
+					} 
+					catch (Exception ex)
+					{
+						MessageBox.Show(dsName + ".db密码不正确而无法打开！\n" + ex.Message);
 					}
-					#endregion
-					
-					result.Add(dsInfo);
-					CloseDB();
 				}
 			}
 			return result;
@@ -91,29 +98,18 @@ namespace MemberTree
 			string dbFile = "db/" + dbName + ".db";
 			if(File.Exists(dbFile))
 			{
-				try 
-				{
-					SQLiteConnectionStringBuilder connstr =new SQLiteConnectionStringBuilder();
-		            connstr.DataSource = "db/" + dbName + ".db";
-		            connstr.Password = "passwd";
-		            connstr.Version = 3;
-		
-					conn = new SQLiteConnection();
-					conn.ConnectionString = connstr.ConnectionString;
-		            
-		            cmd = new SQLiteCommand();
-			        cmd.Connection = conn;
-			        
-			        conn.Open();
-			        conn.ChangePassword("passwd");
-			        conn.Close();
-			        
-			        return true;
-				} 
-				catch (Exception ex)
-				{
-					MessageBox.Show(dbName + ".db" + "密码不正确而无法打开！\n" + ex.Message);
-				}
+				SQLiteConnectionStringBuilder connstr =new SQLiteConnectionStringBuilder();
+	            connstr.DataSource = "db/" + dbName + ".db";
+	            connstr.Password = "passwd";
+	            connstr.Version = 3;
+	
+				conn = new SQLiteConnection();
+				conn.ConnectionString = connstr.ConnectionString;
+	            
+	            cmd = new SQLiteCommand();
+		        cmd.Connection = conn;
+		        
+		        return true;
 			}
 			return false;
 		}

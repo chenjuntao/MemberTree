@@ -23,9 +23,10 @@ namespace MemberTree
 	/// </summary>
 	public partial class WindowAbout : Window
 	{
-		public WindowAbout()
+		public WindowAbout(bool isAdmin)
 		{
 			InitializeComponent();
+			welcomView.Init(isAdmin);
 		}
 		
 		void BtnOpenImg_Click(object sender, RoutedEventArgs e)

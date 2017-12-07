@@ -93,12 +93,5 @@ namespace MemberTree
         		}
         	}
         }
-        
-        //关于
-        private void BtnAbout_Click(object sender, RoutedEventArgs e)
-		{
-			WindowVerLog verLog = new WindowVerLog(true);
-			verLog.ShowDialog();
-		}
 	}
 }

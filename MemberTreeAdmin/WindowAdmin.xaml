@@ -7,10 +7,11 @@
 	xmlns:my1="clr-namespace:MemberTree;assembly=MemberTreeCommon">
 	<Grid>
 		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
 			<RowDefinition />
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<TabControl x:Name="mainTab">
+		<TabControl x:Name="mainTab" Grid.RowSpan="2">
 			<TabItem>
 				<TabItem.Header>
 					<TextBlock Margin="10,2" FontWeight="Bold" FontSize="15" Text="会员关系树数据集管理" MouseDown="TextBlock_MouseDown"/>
@@ -24,7 +25,19 @@
 				<my:AdminUser x:Name="adminUser" />
 			</TabItem>
 		</TabControl>
-		<my1:ProgressView x:Name="progressView" Visibility="Hidden"/>
-		<my1:MyStatusBar Grid.Row="1" x:Name="myStatusBar"/>
+		<my1:ProgressView Grid.RowSpan="2" x:Name="progressView" Visibility="Hidden"/>
+		<my1:MyStatusBar Grid.Row="2" x:Name="myStatusBar"/>
+		<GroupBox BorderThickness="1" BorderBrush="DarkBlue" Background="LightCyan" HorizontalAlignment="Right">
+			<GroupBox.Header>
+				<StackPanel Orientation="Horizontal">
+					<Image Source="/MemberTreeAdmin;component/Image/about.jpg" Width="25" Height="25"/>
+					<TextBlock Text="关于" FontSize="16" VerticalAlignment="Center"/>
+				</StackPanel>
+			</GroupBox.Header>
+			<StackPanel Orientation="Horizontal">
+				<Button Margin="5,2,10,2" Padding="5,3" Content="软件功能特点" Click="BtnAbout_Click"/>
+				<Button Margin="10,2,5,2" Padding="5,3" Content="历史版本记录" Click="BtnVerLog_Click"/>
+			</StackPanel>
+		</GroupBox>
 	</Grid>
 </UserControl>

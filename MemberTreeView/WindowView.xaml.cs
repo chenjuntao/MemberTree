@@ -133,15 +133,21 @@ namespace MemberTree
             }
             Refresh_Online_time();
         }
-		private void BtnAboutApp_Click(object sender, RoutedEventArgs e)
-		{
-			WindowVerLog verLog = new WindowVerLog(false);
-			verLog.ShowDialog();
-		}
-		private void BtnAboutUser_Click(object sender, RoutedEventArgs e)
+        
+        private void BtnAboutUser_Click(object sender, RoutedEventArgs e)
 		{
 			UserInfoWindow userWindow = new UserInfoWindow(UserID);
 			userWindow.ShowDialog();
+		}
+		private void BtnAboutApp_Click(object sender, RoutedEventArgs e)
+		{
+			WindowAbout about = new WindowAbout(false);
+			about.ShowDialog();
+		}
+		private void BtnVerLog_Click(object sender, RoutedEventArgs e)
+		{
+			WindowVerLog verLog = new WindowVerLog(false);
+			verLog.ShowDialog();
 		}
         #endregion
     }

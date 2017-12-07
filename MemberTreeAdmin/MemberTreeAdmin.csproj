@@ -224,6 +224,8 @@
     <Resource Include="Image\option.jpg" />
     <Resource Include="Image\sqlserver.jpg" />
     <Resource Include="Image\tab.jpg" />
+    <Resource Include="Image\check.jpg" />
+    <Resource Include="Image\delete.jpg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

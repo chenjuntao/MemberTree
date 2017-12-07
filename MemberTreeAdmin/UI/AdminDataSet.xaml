@@ -86,7 +86,12 @@
 							</StackPanel>
 						</GroupBox.Header>
 						<StackPanel>
-							<Button Content="csv文件检查" Click="ButtonCheck_Click"/>
+							<Button Click="ButtonCheck_Click">
+								<StackPanel Orientation="Horizontal">
+									<Image Source="/MemberTreeAdmin;component/Image/check.jpg" Width="25" Height="25"/>
+									<TextBlock Text="检查csv文件" FontSize="12" VerticalAlignment="Center"/>
+								</StackPanel>
+							</Button>
 							<Button Click="ButtonOpen_Click" x:Name="btnImportCsv">
 								<StackPanel Orientation="Horizontal">
 									<Image Source="/MemberTreeAdmin;component/Image/csv.jpg" Width="25" Height="25"/>
@@ -110,16 +115,12 @@
 						<TextBlock Text="数据集管理" FontSize="16" VerticalAlignment="Center"/>
 					</StackPanel>
 				</GroupBox.Header>
-				<Button Content="删除选中的数据集" Click="ButtonDelete_Click" />
-			</GroupBox>
-			<GroupBox BorderThickness="1" BorderBrush="DarkBlue">
-				<GroupBox.Header>
+				<Button Click="ButtonDelete_Click" >
 					<StackPanel Orientation="Horizontal">
-						<Image Source="/MemberTreeAdmin;component/Image/about.jpg" Width="36" Height="36"/>
-						<TextBlock Text="关于" FontSize="16" VerticalAlignment="Center"/>
+						<Image Source="/MemberTreeAdmin;component/Image/delete.jpg" Width="25" Height="25"/>
+						<TextBlock Text="删除选中的数据集" FontSize="12" VerticalAlignment="Center"/>
 					</StackPanel>
-				</GroupBox.Header>
-				<Button Content="关于本程序" Click="BtnAbout_Click"/>
+				</Button>
 			</GroupBox>
 		</StackPanel>
 		<my1:DatasetListView Grid.Column="1" x:Name="datasetListView" />
