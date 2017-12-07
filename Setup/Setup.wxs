@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*"
+		Name="网络传销会员层级分析系统"
+		Language="2052"
+		Version="5.15.0.0"
+	    Codepage="936"
+		UpgradeCode="C4235BC0-6431-4894-8382-B19DBBB8A0D0"
+		Manufacturer="湖南警察学院">
+		<Package Description="#Description"
+			Comments="Comments"
+			InstallerVersion="200"
+			Compressed="yes"/>
+		<!--
+			Source media for the installation. 
+ 			Specifies a single cab file to be embedded in the installer's .msi. 
+		-->
+		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high"/>
+		
+		 <!--检测必备环境-->
+<!--		<PropertyRef Id="NETFRAMEWORK20" />
+        <Condition Message="您的计算机必须安装.NET Framework 2.0,否则本软件无法使用 ([NETFRAMEWORK20])">
+          Installed OR NETFRAMEWORK20
+        </Condition>-->
+        <!--检测必备环境-->
+		
+		<!-- Installation directory and files are defined in Files.wxs -->
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<!--开始菜单-->
+            <Directory Id="ProgramMenuFolder">   
+                <Directory Id="ShortcutMenuFolder" Name="网络传销会员层级分析系统" />   
+            </Directory> 
+            <!--开始菜单结束 -->
+            <!--桌面快捷方式 -->
+            <Directory Id="DesktopFolder" Name="Desktop">
+                <Component Id="DesktopSpider" Guid="aede1637-df5a-4c41-94b6-f077d03e5372">
+                <RegistryKey Root="HKCU"  Key="Software\网络传销会员层级分析系统\desktop">
+                <RegistryValue Value="SPIDERClient" Type="string" KeyPath="yes" />
+                </RegistryKey>
+                <Shortcut Id="shortcut.desk" Directory="DesktopFolder" Name="网络传销会员层级分析系统" Target="[INSTALLDIR]ruanjian.exe" WorkingDirectory="INSTALLDIR"  IconIndex="0"/>
+                </Component>
+            </Directory>
+            <!--桌面快捷方式结束 -->
+		</Directory>
+		
+		<!--开始菜单设置 -->
+        <DirectoryRef Id="ShortcutMenuFolder">   
+              <Component Id="ApplicationShortcut" Guid="C919F5ED-D2B3-42E8-9F7C-63269274FE79">   
+                <Shortcut Id="ApplicationStartMenuShortcut" Name="网络传销会员层级分析系统" Target="[INSTALLDIR]ruanjian.exe" WorkingDirectory="INSTALLDIR" />   
+                <Shortcut Id="UninstallProduct" Name="卸载（网络传销会员层级分析系统）" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />   
+                   
+                <RemoveFolder Id="ShortcutMenuFolder" On="uninstall" />  
+          
+                <RegistryValue Root="HKCU" Key="Software\网络传销会员层级分析系统" Name="installed" Type="integer" KeyPath="yes" Value="1"  />   
+              </Component>   
+        </DirectoryRef> 
+       <!--开始菜单 -->
+		
+		<Feature Id="Complete"
+		         Title="网络传销会员层级分析系统"
+                 Description="网络传销会员层级分析系统"
+                 Level="1"
+                 ConfigurableDirectory="INSTALLDIR">
+<!--                 <ComponentRef Id="ExecutableFile"/>-->
+                 <ComponentRef Id="MyComponent"/>
+                 <ComponentRef Id="ApplicationShortcut"/>
+                 <ComponentRef Id="DesktopSpider"/>
+		</Feature>
+		
+		<!--
+ 			Using the Wix UI library.
+
+			WixUI_Minimal is the most basic of the WixUI stock dialog sets.
+ 			Its sole dialog combines the welcome and license-agreement 
+			dialogs and omits the feature customization dialog. 
+			WixUI_Minimal is appropriate when your product has no optional 
+			features.
+ 		-->
+		<UIRef Id="WixUI_FeatureTree"/>
+	</Product>
+</Wix>
