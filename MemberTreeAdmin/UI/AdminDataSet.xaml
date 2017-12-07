@@ -64,7 +64,7 @@
 							</StackPanel>
 						</GroupBox.Header>
 						<StackPanel>
-							<Button Click="ButtonSqlServer2CSV_Click">
+							<Button Click="ButtonConnSqlserver_Click">
 								<StackPanel Orientation="Horizontal">
 									<Image Source="/MemberTreeAdmin;component/Image/sqlserver.jpg" Width="25" Height="25"/>
 									<TextBlock Text="从sqlserver导入" FontSize="12" VerticalAlignment="Center"/>

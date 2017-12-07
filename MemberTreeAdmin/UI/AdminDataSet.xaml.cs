@@ -63,17 +63,18 @@ namespace MemberTree
             }
         }
         
-        //sqlserver导出csv文件
-        private void ButtonSqlServer2CSV_Click(object sender, RoutedEventArgs e)
+        //直连sqlserver
+        private void ButtonConnSqlserver_Click(object sender, RoutedEventArgs e)
         {
-        	ConnSqlserver connDB = new ConnSqlserver();
+        	WindowConnDB connDB = new WindowConnDB("sqlserver");
         	connDB.ShowDialog();
+        	datasetListView.RefreshDB(MyTrees.treeDB, "");
         }
         
         //直连Mysql
         private void ButtonConnectMysql_Click(object sender, RoutedEventArgs e)
         {
-        	ConnMysql connDB = new ConnMysql();
+        	WindowConnDB connDB = new WindowConnDB("mysql");
         	connDB.ShowDialog();
         	datasetListView.RefreshDB(MyTrees.treeDB, "");
         }

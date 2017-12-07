@@ -14,23 +14,30 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Data.SqlClient;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using MySql.Data.MySqlClient;
 
 namespace MemberTree
 {
 	/// <summary>
-	/// 连接到mysql数据库导出数据
+	/// 连接到Sqlserver并导出数据
 	/// </summary>
-	public partial class ConnMysql : Window
+	public partial class WindowConnDB : Window
 	{
-		private MySqlConnection conn;
-	    private MySqlCommand cmd;
-	    
-		public ConnMysql()
+		private IConnDB connDB;
+		
+		public WindowConnDB(string db)
 		{
 			InitializeComponent();
+			if(db == "mysql")
+			{
+				connDB = new ConnMysql();
+			}
+			else if(db == "sqlserver")
+			{
+				connDB = new ConnSqlserver();
+			}
 		}
 		
 		private void SetEnabled(bool enabled, params Control[] controls)
@@ -62,7 +69,7 @@ namespace MemberTree
 			if(btnConnect != null)
 			{
 				if(txtDBServer.Text!="" &&
-				   txtPort.Text!="" &&
+
 				   txtUserName.Text!="" &&
 				   txtPwd.Password!="")
 				{
@@ -78,41 +85,14 @@ namespace MemberTree
 		
 		private void btnDisConnect_Click(object sender, RoutedEventArgs e)
 		{
-			SetEnabled(true, btnConnect, txtDBServer, txtPort, txtUserName, txtPwd);
+			SetEnabled(true, btnConnect, txtDBServer, txtUserName, txtPwd);
 			SetEnabled(false, btnDisConnect, txtDBName, txtTable, txtSysid, txtTopid, txtName, btnExport, btnCompute);
 			ClearItems(txtDBName, txtTable, txtSysid, txtTopid, txtName, optColsPanel);
 		}
 		
 		private bool Connect()
 		{
-			uint port  = 3306;
-			if(!uint.TryParse(txtPort.Text, out port))
-			{
-				MessageBox.Show("端口号必须为大于0的数字！");
-			}
-				
-			MySqlConnectionStringBuilder sqlStrBuilder = new MySqlConnectionStringBuilder();
-			sqlStrBuilder.Server = txtDBServer.Text; //server ip
-			sqlStrBuilder.Port = port; //端口号
-			sqlStrBuilder.UserID = txtUserName.Text;  //用户名
-			sqlStrBuilder.Password = txtPwd.Password;  //密码
-
-            conn = new MySqlConnection(sqlStrBuilder.ConnectionString);
-            try {
-	        	conn.Open();
-		        if(conn.Ping())
-		        {
-		        	cmd = new MySqlCommand();
-		        	cmd.Connection = conn;
-		        	conn.Close();
-		        	return true;
-		        }
-		        conn.Close();
-		        return false;
-	        } catch (Exception ex) {
-	        	MessageBox.Show("数据库连接错误:"+ex.Message);
-	        	return false;
-	        }
+			return connDB.Connect(txtDBServer.Text, txtUserName.Text, txtPwd.Password, "3306");
 		}
 
 		private void btnConnect_Click(object sender, RoutedEventArgs e)
@@ -120,27 +100,13 @@ namespace MemberTree
 			if(Connect())
 			{
 				SetEnabled(true, btnDisConnect, txtDBName);
-				SetEnabled(false, btnConnect, txtDBServer, txtPort, txtUserName, txtPwd);
-	            try
-	            {
-	            	//查出所有的数据库名
-	            	conn.Open();
-	            	cmd.CommandText = "SELECT SCHEMA_NAME FROM information_schema.SCHEMATA";
-	                MySqlDataReader reader = cmd.ExecuteReader();
-	                while (reader.Read())
-	                {
-	                	txtDBName.Items.Add(reader.GetString(0));
-	                }
-	                reader.Close();
-	            }
-	            catch (Exception ex)
-	            {
-	                MessageBox.Show(ex.Message);
-	            }
-	            finally
-	            {
-	            	 conn.Close();
-	            }
+				SetEnabled(false, btnConnect, txtDBServer, txtUserName, txtPwd);
+				
+				List<string> dbList = connDB.GetAllDB();
+				foreach (string db in dbList) 
+				{
+					txtDBName.Items.Add(db);
+				}
 			}
 		}
 		
@@ -152,28 +118,13 @@ namespace MemberTree
 				SetEnabled(true, txtTable);
 				SetEnabled(false, btnExport, btnCompute);
 				ClearItems(txtTable, txtSysid, txtTopid, txtName, optColsPanel);
-				try
-	            {
-	            	//查出所有的表名
-	            	conn.Open();
-	            	string db = e.AddedItems[0].ToString();
-	            	conn.ChangeDatabase(db);
-	            	cmd.CommandText = string.Format("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '{0}'", db);
-	                MySqlDataReader reader = cmd.ExecuteReader();
-	                while (reader.Read())
-	                {
-	                	txtTable.Items.Add(reader.GetString(0));
-	                }
-	                reader.Close();
-	            }
-	            catch (Exception ex)
-	            {
-	                MessageBox.Show(ex.Message);
-	            }
-	            finally
-	            {
-	            	 conn.Close();
-	            }
+				
+				string db = e.AddedItems[0].ToString();
+				List<string> tabList = connDB.GetAllTab(db);
+				foreach (string tab in tabList) 
+				{
+					txtTable.Items.Add(tab);
+				}
 			}
 		}
 		
@@ -185,42 +136,26 @@ namespace MemberTree
 				SetEnabled(true, txtSysid, txtTopid, txtName);
 				SetEnabled(false, btnExport, btnCompute);
 				ClearItems(txtSysid, txtTopid, txtName, optColsPanel);
-	            try
-	            {
-	            	//查出所有的列名
-	            	conn.Open();
-	            	string db = txtDBName.Text;
-	            	string tb = e.AddedItems[0].ToString();
-	            	cmd.CommandText = string.Format("select column_name from information_schema.columns where table_schema = '{0}' and table_name = '{1}'", db, tb);
-	                MySqlDataReader reader = cmd.ExecuteReader();
-	                while (reader.Read())
-	                {
-	                	ComboBoxItem item = new ComboBoxItem();
-	                	item.Content = reader.GetString(0);
-	                	txtSysid.Items.Add(item);
-	                	ComboBoxItem item2 = new ComboBoxItem();
-	                	item2.Content = reader.GetString(0);
-	                	txtTopid.Items.Add(item2);
-	                	ComboBoxItem item3 = new ComboBoxItem();
-	                	item3.Content = reader.GetString(0);
-	                	txtName.Items.Add(item3);
-	                	Button btn = new Button();
-						btn.Content = reader.GetString(0);
-						btn.Margin = new Thickness(2);
-						btn.Padding = new Thickness(2);
-						btn.IsEnabled = true;
-						optColsPanel.Children.Add(btn);
-	                }
-	                reader.Close();
-	            }
-	            catch (Exception ex)
-	            {
-	                MessageBox.Show(ex.Message);
-	            }
-	            finally
-	            {
-	            	 conn.Close();
-	            }
+	            string tb = e.AddedItems[0].ToString();
+				List<string> colList = connDB.GetAllCol(tb);
+				foreach (string col in colList) 
+				{
+					ComboBoxItem item = new ComboBoxItem();
+			    	item.Content = col;
+			    	txtSysid.Items.Add(item);
+			    	ComboBoxItem item2 = new ComboBoxItem();
+			    	item2.Content = col;
+			    	txtTopid.Items.Add(item2);
+			    	ComboBoxItem item3 = new ComboBoxItem();
+			    	item3.Content = col;
+			    	txtName.Items.Add(item3);
+			    	Button btn = new Button();
+					btn.Content = col;
+					btn.Margin = new Thickness(2);
+					btn.Padding = new Thickness(2);
+					btn.IsEnabled = true;
+					optColsPanel.Children.Add(btn);
+				}
 			}
 		}
 		
@@ -314,86 +249,36 @@ namespace MemberTree
 	   	private bool ExportData(string file)
 	   	{
 	   		bool result = false;
-	   		//保存到tab文件中，以tab键分割
+	   		
+	   		SetEnabled(false, btnDisConnect, btnExport, btnCompute, txtDBName, txtTable, txtSysid, txtTopid, txtName);
+        	prograss.Visibility = Visibility.Visible;
+            labelMessage.Text = "开始导出数据......";
+            DoEvents();
            
             StreamWriter mysw = new StreamWriter(file, false, Encoding.UTF8);
-            try
+            
+            //表头第一行
+            List<string> headCols = new List<string>();
+            headCols.Add((txtSysid.SelectedValue as ComboBoxItem).Content.ToString());
+			headCols.Add((txtTopid.SelectedValue as ComboBoxItem).Content.ToString());
+			headCols.Add((txtName.SelectedValue as ComboBoxItem).Content.ToString());
+            foreach (UIElement element in optColsPanel.Children)
             {
-            	SetEnabled(false, btnDisConnect, btnExport, btnCompute, txtDBName, txtTable, txtSysid, txtTopid, txtName);
-            	prograss.Visibility = Visibility.Visible;
-	            labelMessage.Text = "开始导出数据......";
-	            DoEvents();
-
-            	//先查出总数量
-            	conn.Open();
-            	cmd.CommandText = "select count(*) from " + txtTable.SelectedValue;
-                MySqlDataReader sdr = cmd.ExecuteReader();
-                sdr.Read();
-                int allRow = sdr.GetInt32(0);
-                sdr.Close();
+            	Button btn = element as Button;
+            	if(btn.Visibility==Visibility.Visible)
+            	{
+            		headCols.Add(btn.Content.ToString());
+            	}
+            }
+            mysw.WriteLine(string.Join("\t", headCols));
                 
-                //表头第一行
-                List<string> headCols = new List<string>();
-                headCols.Add((txtSysid.SelectedValue as ComboBoxItem).Content.ToString());
-				headCols.Add((txtTopid.SelectedValue as ComboBoxItem).Content.ToString());
-				headCols.Add((txtName.SelectedValue as ComboBoxItem).Content.ToString());
-                foreach (UIElement element in optColsPanel.Children)
-	            {
-                	Button btn = element as Button;
-                	if(btn.Visibility==Visibility.Visible)
-                	{
-                		headCols.Add(btn.Content.ToString());
-                	}
-	            }
-                mysw.WriteLine(string.Join("\t", headCols));
-                
-                //再查询所有的数据
-				cmd.CommandText = "select " + string.Join(",", headCols) + " from " + txtTable.SelectedValue;
-	            sdr = cmd.ExecuteReader();
-
-	            int row = 0;
-	            int step = allRow > 100 ? allRow / 100 : 1;
-	            object[] objs = new object[sdr.FieldCount];
-	            
-            	while (sdr.Read())
-                {
-                	sdr.GetValues(objs);
-                	for (int i = 0; i < objs.Length; i++) {
-                		string obj = objs[i].ToString();
-                		if(obj.Contains("\t"))
-                		{
-                			objs[i] = obj.Replace("\t", " ");
-                		}
-                	}
-					string line = string.Join("\t", objs);
-                	mysw.WriteLine(line);
-                	
-		            row++;
-		            if (row % step == 0)
-		            {
-		            	prograss.Value = (int)(100.0 * row / allRow);
-		                labelMessage.Text = "正在导出第" + row + "（总共" + allRow + "）";
-		                DoEvents();
-		            }
-                }
+            result = connDB.ExportData(mysw, headCols, txtTable.SelectedValue.ToString(), this);
  
-                sdr.Close();
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-            	 conn.Close();
-            	 mysw.Close();
-            }
             SetEnabled(true, btnDisConnect, btnExport, btnCompute, txtDBName, txtTable, txtSysid, txtTopid, txtName);
             return result;
 	   	}
 		
-	    private void DoEvents()
+	    public void DoEvents()
         {
             DispatcherFrame frame = new DispatcherFrame();
             Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,

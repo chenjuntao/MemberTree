@@ -14,21 +14,21 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Data.SqlClient;
 using System.Windows.Threading;
 using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 
 namespace MemberTree
 {
 	/// <summary>
-	/// 连接到Sqlserver并导出数据
+	/// 连接到mysql数据库导出数据
 	/// </summary>
-	public partial class ConnSqlserver : Window
+	public partial class ConnMysql : Window
 	{
-		private SqlConnection conn;
-		private SqlCommand cmd;
-		
-		public ConnSqlserver()
+		private MySqlConnection conn;
+	    private MySqlCommand cmd;
+	    
+		public ConnMysql()
 		{
 			InitializeComponent();
 		}
@@ -62,7 +62,7 @@ namespace MemberTree
 			if(btnConnect != null)
 			{
 				if(txtDBServer.Text!="" &&
-
+				   txtPort.Text!="" &&
 				   txtUserName.Text!="" &&
 				   txtPwd.Password!="")
 				{
@@ -78,32 +78,41 @@ namespace MemberTree
 		
 		private void btnDisConnect_Click(object sender, RoutedEventArgs e)
 		{
-			SetEnabled(true, btnConnect, txtDBServer, txtUserName, txtPwd);
+			SetEnabled(true, btnConnect, txtDBServer, txtPort, txtUserName, txtPwd);
 			SetEnabled(false, btnDisConnect, txtDBName, txtTable, txtSysid, txtTopid, txtName, btnExport, btnCompute);
 			ClearItems(txtDBName, txtTable, txtSysid, txtTopid, txtName, optColsPanel);
 		}
 		
 		private bool Connect()
 		{
-            SqlConnectionStringBuilder sqlStrBuilder = new SqlConnectionStringBuilder();
-            sqlStrBuilder.DataSource = txtDBServer.Text; //server ip
-            sqlStrBuilder.InitialCatalog = txtDBName.Text; //数据库名
-            sqlStrBuilder.UserID = txtUserName.Text;  //用户名
-            sqlStrBuilder.Password = txtPwd.Password;  //密码
-            sqlStrBuilder.IntegratedSecurity = false; //false:用户名密码验证；true：windows身份验证
-            conn = new SqlConnection(sqlStrBuilder.ConnectionString);
-            try
-            {
-                cmd = conn.CreateCommand();
-                conn.Open();
-                conn.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("数据库连接错误:" + ex.Message);
-                return false;
-            }
+			uint port  = 3306;
+			if(!uint.TryParse(txtPort.Text, out port))
+			{
+				MessageBox.Show("端口号必须为大于0的数字！");
+			}
+				
+			MySqlConnectionStringBuilder sqlStrBuilder = new MySqlConnectionStringBuilder();
+			sqlStrBuilder.Server = txtDBServer.Text; //server ip
+			sqlStrBuilder.Port = port; //端口号
+			sqlStrBuilder.UserID = txtUserName.Text;  //用户名
+			sqlStrBuilder.Password = txtPwd.Password;  //密码
+
+            conn = new MySqlConnection(sqlStrBuilder.ConnectionString);
+            try {
+	        	conn.Open();
+		        if(conn.Ping())
+		        {
+		        	cmd = new MySqlCommand();
+		        	cmd.Connection = conn;
+		        	conn.Close();
+		        	return true;
+		        }
+		        conn.Close();
+		        return false;
+	        } catch (Exception ex) {
+	        	MessageBox.Show("数据库连接错误:"+ex.Message);
+	        	return false;
+	        }
 		}
 
 		private void btnConnect_Click(object sender, RoutedEventArgs e)
@@ -111,13 +120,13 @@ namespace MemberTree
 			if(Connect())
 			{
 				SetEnabled(true, btnDisConnect, txtDBName);
-				SetEnabled(false, btnConnect, txtDBServer, txtUserName, txtPwd);
+				SetEnabled(false, btnConnect, txtDBServer, txtPort, txtUserName, txtPwd);
 	            try
 	            {
 	            	//查出所有的数据库名
 	            	conn.Open();
-	            	cmd.CommandText = "SELECT Name FROM Master..SysDatabases ORDER BY Name";
-	                SqlDataReader reader = cmd.ExecuteReader();
+	            	cmd.CommandText = "SELECT SCHEMA_NAME FROM information_schema.SCHEMATA";
+	                MySqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {
 	                	txtDBName.Items.Add(reader.GetString(0));
@@ -149,8 +158,8 @@ namespace MemberTree
 	            	conn.Open();
 	            	string db = e.AddedItems[0].ToString();
 	            	conn.ChangeDatabase(db);
-	            	cmd.CommandText = string.Format("SELECT Name FROM SysObjects Where XType='U' ORDER BY Name");
-	                SqlDataReader reader = cmd.ExecuteReader();
+	            	cmd.CommandText = string.Format("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '{0}'", db);
+	                MySqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {
 	                	txtTable.Items.Add(reader.GetString(0));
@@ -180,10 +189,11 @@ namespace MemberTree
 	            {
 	            	//查出所有的列名
 	            	conn.Open();
-	            	string db = txtDBName.Text;
+//	            	string db = txtDBName.Text;
 	            	string tb = e.AddedItems[0].ToString();
-	            	cmd.CommandText = string.Format("select name from syscolumns where id=(select max(id) from sysobjects where xtype='u' and name='{0}')", tb);
-	                SqlDataReader reader = cmd.ExecuteReader();
+//	            	cmd.CommandText = string.Format("select column_name from information_schema.columns where table_schema = '{0}' and table_name = '{1}'", db, tb);
+	            	cmd.CommandText = string.Format("select column_name from information_schema.columns where table_name = '{0}'", tb);
+	                MySqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {
 	                	ComboBoxItem item = new ComboBoxItem();
@@ -318,7 +328,7 @@ namespace MemberTree
             	//先查出总数量
             	conn.Open();
             	cmd.CommandText = "select count(*) from " + txtTable.SelectedValue;
-                SqlDataReader sdr = cmd.ExecuteReader();
+                MySqlDataReader sdr = cmd.ExecuteReader();
                 sdr.Read();
                 int allRow = sdr.GetInt32(0);
                 sdr.Close();

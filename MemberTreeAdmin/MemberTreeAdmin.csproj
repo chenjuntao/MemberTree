@@ -111,18 +111,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Import\ConnMysql.xaml.cs">
-      <DependentUpon>ConnMysql.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Import\ConnSqlserver.xaml.cs">
-      <DependentUpon>ConnSqlserver.xaml</DependentUpon>
+    <Compile Include="Import\ConnMysql.cs" />
+    <Compile Include="Import\ConnSqlserver.cs" />
+    <Compile Include="Import\IConnDB.cs" />
+    <Compile Include="Import\WindowConnDB.xaml.cs">
+      <DependentUpon>WindowConnDB.xaml</DependentUpon>
     </Compile>
     <Compile Include="DB\DBUtil.cs" />
     <Compile Include="DB\IMyTreeDBA.cs" />
     <Compile Include="DB\MyTreeDBASqlite.cs" />
     <Compile Include="DB\MyTreeDBAMysql.cs" />
-    <Compile Include="Import\CsvErrCheck.xaml.cs">
-      <DependentUpon>CsvErrCheck.xaml</DependentUpon>
+    <Compile Include="Import\WindowCsvErrCheck.xaml.cs">
+      <DependentUpon>WindowCsvErrCheck.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Import\WindowColsCheck.xaml.cs">
@@ -175,9 +175,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Import\ConnMysql.xaml" />
-    <Page Include="Import\ConnSqlserver.xaml" />
-    <Page Include="Import\CsvErrCheck.xaml" />
+    <Page Include="Import\WindowConnDB.xaml" />
+    <Page Include="Import\WindowCsvErrCheck.xaml" />
     <Page Include="Import\WindowColsCheck.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
