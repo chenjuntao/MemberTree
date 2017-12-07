@@ -22,7 +22,7 @@ namespace MemberTree
 	/// </summary>
 	public class ExportPDF
 	{
-		private const string TMP_DIR = "temp";
+//		private const string TMP_DIR = "temp";
 		
 		public static void Export2PDF(MyTreeView mytreeview, MyTreeNode node)
 		{
@@ -39,7 +39,7 @@ namespace MemberTree
 		    if (openfileDlg.ShowDialog() == true)
 		    {
 		    	TimingUtil.StartTiming();
-				Directory.CreateDirectory(TMP_DIR);
+				Directory.CreateDirectory(MemData.MemDataTemp);
 				ExportAllImgs(mytreeview, node);
 				
 				//定义一个Document，并设置页面大小为A4，竖向 
@@ -59,7 +59,7 @@ namespace MemberTree
 		        
 		        doc.Open();
 		        
-		        string[] imgfiles = Directory.GetFiles(TMP_DIR, "*.png");
+		        string[] imgfiles = Directory.GetFiles(MemData.MemDataTemp, "*.png");
 		        
 		        //首页
 		        //写入文字
@@ -98,7 +98,7 @@ namespace MemberTree
 		        }
 		
 		        doc.Close();
-		        Directory.Delete(TMP_DIR, true);
+		        Directory.Delete(MemData.MemDataTemp, true);
 		        WindowView.notify.SetProcessBarVisible(false);
 		        WindowView.notify.SetStatusMessage(TimingUtil.EndTiming());
 		        MessageBox.Show("导出PDF完成！");
@@ -186,7 +186,7 @@ namespace MemberTree
 			}
 			exportNodes.Remove(node);
 			WindowView.notify.SetStatusMessage("正在导出图片"+ node.SysId);
-			ExportIMG.SaveImage(mytreeview.memberTreeView, TMP_DIR + "/" + node.SysId + ".png");
+			ExportIMG.SaveImage(mytreeview.memberTreeView, MemData.MemDataTemp + "/" + node.SysId + ".png");
 		}
 	}
 }

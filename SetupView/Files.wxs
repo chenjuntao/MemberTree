@@ -2,14 +2,30 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Fragment>
 		<DirectoryRef Id="TARGETDIR">
-			<Directory Id="ProgramFilesFolder" Name="PFiles">
-				<Directory Id="INSTALLDIR" Name="MemberTree">
-					<Component Id="MyComponent" Guid="C440C40E-5220-435B-A343-56B2931FF7FF" DiskId="1">
-						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
-						<File Id='MemberTreeView' Name='MemberTreeView.exe' Source="../../bin/MemberTreeView.exe"/>
-					</Component>
+	<!--		<Directory Id="ProgramFilesFolder" Name="PFiles">-->
+				<Directory Id="MemTreeDir" Name="MemberTree" DiskId="1">
+					<Directory Id="INSTALLDIR" Name="Bin">
+						<Component Id="MyComponentView" Guid="C440C40E-5220-435B-A343-56B2931FF7FF" DiskId="1">
+							<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
+							<File Id='itextsharp' Name='itextsharp.dll' Source="../../bin/itextsharp.dll"/>
+							<File Id='NewtonJson' Name='Newtonsoft.Json.dll' Source="../../bin/Newtonsoft.Json.dll"/>
+							<File Id='Mysql' Name='MySql.Data.dll' Source="../../bin/MySql.Data.dll"/>
+							<File Id='SQLite' Name='System.Data.SQLite.dll' Source="../../bin/System.Data.SQLite.dll"/>
+							<File Id='verlog' Name='verlog.dll' Source="../../bin/verlog.dll"/>
+							<File Id='ver' Name='ver.dll' Source="../../bin/ver.dll"/>
+							<File Id='RSACommon' Name='RSACommon.dll' Source="../../bin/RSACommon.dll"/>
+							<File Id='MemberTreeCommon' Name='MemberTreeCommon.dll' Source="../../bin/MemberTreeCommon.dll"/>
+							<File Id='MemberTreeView' Name='MemberTreeView.exe' Source="../../bin/MemberTreeView.exe"/>
+						</Component>
+						<Component Id="MyComponentUnReg" Guid="f57e2720-ed93-40bd-88ea-36d09229753e" DiskId="1">
+							<File Id='SoftUnRegister' Name='SoftUnRegister.exe' Source="../../bin/SoftUnRegister.exe"/>
+						</Component>
+						<Component Id="MyComponentUpdate" Guid="00890a5d-6607-4c14-bb72-b6f3516eaa77" DiskId="1">
+							<File Id='AutoUpdate' Name='AutoUpdate.exe' Source="../../bin/AutoUpdate.exe"/>
+						</Component>
+					</Directory>
 				</Directory>
-			</Directory>
+<!--			</Directory>-->
 		</DirectoryRef>
 	</Fragment>
 </Wix>

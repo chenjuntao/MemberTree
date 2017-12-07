@@ -2,14 +2,33 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Fragment>
 		<DirectoryRef Id="TARGETDIR">
-			<Directory Id="ProgramFilesFolder" Name="PFiles">
-				<Directory Id="INSTALLDIR" Name="MemberTree">
-					<Component Id="MyComponent" Guid="FC3F67C5-EC79-42B6-A6B3-514F0E6D113E" DiskId="1">
-						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
-                        <File Id='MemberTreeView' Name='MemberTreeView.exe' Source="../../bin/MemberTreeView.exe" />
-                    </Component>
+<!--			<Directory Id="PRIMARYFOLDER" Name="PFiles" DiskId>-->
+				<Directory Id="MemTreeDir" Name="MemberTree" DiskId="1">
+					<Directory Id="INSTALLDIR" Name="Bin">
+						<Component Id="MyComponentAdmin" Guid="9506a37d-b318-4f7d-8c06-fd5900552f8b" DiskId="1">
+							<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
+							<File Id='NewtonJson' Name='Newtonsoft.Json.dll' Source="../../bin/Newtonsoft.Json.dll"/>
+							<File Id='Mysql' Name='MySql.Data.dll' Source="../../bin/MySql.Data.dll"/>
+							<File Id='SQLite' Name='System.Data.SQLite.dll' Source="../../bin/System.Data.SQLite.dll"/>
+							<File Id='verlog' Name='verlog.dll' Source="../../bin/verlog.dll"/>
+							<File Id='ver' Name='ver.dll' Source="../../bin/ver.dll"/>
+							<File Id='RSACommon' Name='RSACommon.dll' Source="../../bin/RSACommon.dll"/>
+							<File Id='MemberTreeCommon' Name='MemberTreeCommon.dll' Source="../../bin/MemberTreeCommon.dll"/>
+							<File Id='MemberTreeAdmin' Name='MemberTreeAdmin.exe' Source="../../bin/MemberTreeAdmin.exe"/>
+						</Component>
+						<Component Id="MyComponentView" Guid="a5fca5d0-5079-4e82-8130-4fa1b2075bb8" DiskId="1">
+							<File Id='itextsharp' Name='itextsharp.dll' Source="../../bin/itextsharp.dll"/>
+							<File Id='MemberTreeView' Name='MemberTreeView.exe' Source="../../bin/MemberTreeView.exe"/>
+						</Component>
+						<Component Id="MyComponentUnReg" Guid="8b04b756-08a7-41bc-a424-7eb72b8851bc" DiskId="1">
+							<File Id='SoftUnRegister' Name='SoftUnRegister.exe' Source="../../bin/SoftUnRegister.exe"/>
+						</Component>
+						<Component Id="MyComponentUpdate" Guid="39f9f384-6395-4883-9ecf-303587db3228" DiskId="1">
+							<File Id='AutoUpdate' Name='AutoUpdate.exe' Source="../../bin/AutoUpdate.exe"/>
+						</Component>
+					</Directory>
 				</Directory>
-			</Directory>
+<!--			</Directory>-->
 		</DirectoryRef>
 	</Fragment>
 </Wix>

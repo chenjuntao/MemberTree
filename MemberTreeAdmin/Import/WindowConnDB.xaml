@@ -51,11 +51,12 @@
 		</Grid.RowDefinitions>
 		
 		<TextBlock Text="服务器IP："/>
-		<TextBox Grid.Column="1" x:Name="txtDBServer" Text="10.1.1.106" TextChanged="TextChanged"/>
-		<TextBlock Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Text="（如果连接本机，请直接输入“.”）" />
+		<TextBox Grid.Column="1" x:Name="txtDBServer" Text="114.55.33.130" TextChanged="TextChanged"/>
+		<TextBlock Grid.Column="2" x:Name="txtblk" Text="端口号："/>
+		<TextBox Grid.Column="3" x:Name="txtPort" Text="3306" TextChanged="TextChanged"/>
 		
 		<TextBlock Grid.Row="1" Text="用户名："/>
-		<TextBox Grid.Row="1" Grid.Column="1" x:Name="txtUserName" Text="sa" TextChanged="TextChanged"/>
+		<TextBox Grid.Row="1" Grid.Column="1" x:Name="txtUserName" Text="user1" TextChanged="TextChanged"/>
 		<TextBlock Grid.Row="1" Grid.Column="2" Text="密码："/>
 		<PasswordBox Grid.Row="1" Grid.Column="3" x:Name="txtPwd" HorizontalAlignment="Left"
 		             Margin="5" Width="120" Height="20" PasswordChanged="TextChanged"/>

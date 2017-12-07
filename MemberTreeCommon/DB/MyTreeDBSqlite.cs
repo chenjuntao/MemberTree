@@ -37,13 +37,8 @@ namespace MemberTree
 		}
 		
 		public List<string> GetDatasetNames()
-		{			
-			//创建一个数据库文件
-			if(!Directory.Exists("db"))
-			{
-				Directory.CreateDirectory("db");
-			}
-			DirectoryInfo dir = new DirectoryInfo("db");
+		{
+			DirectoryInfo dir = new DirectoryInfo(MemData.MemDataSqlite);
 			FileInfo[] files = dir.GetFiles("*.db");
 			//按创建时间排序
 			Array.Sort(files, (FileInfo x, FileInfo y) => x.CreationTime.CompareTo(y.CreationTime));
@@ -72,7 +67,7 @@ namespace MemberTree
 						dsInfo.ColCount = 7 + getCount("select count(*) from tree_profile where k = 'TableOptCol'");
 						
 						#region 获取创建时间
-						FileInfo file = new FileInfo("db/"+dsName+".db");
+						FileInfo file = new FileInfo(MemData.MemDataSqlite + "/"+dsName+".db");
 						if(file != null)
 						{
 							dsInfo.CreateData = file.CreationTime;
@@ -95,11 +90,11 @@ namespace MemberTree
 		{
 			//连接数据库
 			this.datasetName = dbName;
-			string dbFile = "db/" + dbName + ".db";
+			string dbFile = MemData.MemDataSqlite + "/" + dbName + ".db";
 			if(File.Exists(dbFile))
 			{
 				SQLiteConnectionStringBuilder connstr =new SQLiteConnectionStringBuilder();
-	            connstr.DataSource = "db/" + dbName + ".db";
+	            connstr.DataSource = MemData.MemDataSqlite + "/" + dbName + ".db";
 	            connstr.Password = "passwd";
 	            connstr.Version = 3;
 	

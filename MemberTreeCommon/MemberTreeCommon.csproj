@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Util\INotify.cs" />
     <Compile Include="Util\InvokeDelegate.cs" />
+    <Compile Include="Util\MemData.cs" />
     <Compile Include="Util\SysInfo.cs" />
     <Compile Include="Util\TimingUtil.cs" />
   </ItemGroup>

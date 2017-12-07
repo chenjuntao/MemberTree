@@ -36,6 +36,5 @@ namespace MemberTree
 		public string COMPANY = (Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute).Company;
 		public string COPYRIGHT = (Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute).Copyright;
 		public string DESCRIPTION = (Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute).Description;
-		
 	}
 }

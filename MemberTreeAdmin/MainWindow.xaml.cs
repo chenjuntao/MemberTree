@@ -18,6 +18,9 @@ namespace MemberTreeAdmin
         public MainWindow()
         {
             InitializeComponent();
+            
+            MemData.InitMemData();
+            
             if(SoftReg.hasReged())
             {
             	this.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;

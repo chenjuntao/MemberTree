@@ -37,6 +37,10 @@ namespace MemberTree
 			else if(db == "sqlserver")
 			{
 				connDB = new ConnSqlserver();
+				txtblk.Text="连本机直接输入“.”";
+				txtblk.HorizontalAlignment=HorizontalAlignment.Left;
+				txtPort.Visibility = Visibility.Collapsed;
+				txtUserName.Text = "sa";
 			}
 		}
 		
@@ -69,9 +73,9 @@ namespace MemberTree
 			if(btnConnect != null)
 			{
 				if(txtDBServer.Text!="" &&
-
 				   txtUserName.Text!="" &&
-				   txtPwd.Password!="")
+				   txtPwd.Password!=""&&
+				   txtPort.Text!="")
 				{
 					SetEnabled(true, btnConnect);
 				}
@@ -233,11 +237,11 @@ namespace MemberTree
 	   	
 	   	private void btnCompute_Click(object sender, RoutedEventArgs e)
 	   	{
-	   		if(!Directory.Exists("temp"))
+	   		if(!Directory.Exists(MemData.MemDataTemp))
 	   		{
-	   			Directory.CreateDirectory("temp");
+	   			Directory.CreateDirectory(MemData.MemDataTemp);
 	   		}
-	   		string expName = "temp/exp_" + txtTable.SelectedValue + ".tab";
+	   		string expName = MemData.MemDataTemp + "/exp_" + txtTable.SelectedValue + ".tab";
 	    	if(ExportData(expName))
 	    	{
 	    		this.Close();

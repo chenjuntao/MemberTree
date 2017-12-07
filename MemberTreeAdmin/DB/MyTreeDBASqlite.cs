@@ -22,7 +22,7 @@ namespace MemberTree
 	{
 		public bool CreateDB(string dbName)
 		{
-			string dbFile = "db/" + dbName + ".db";
+			string dbFile = MemData.MemDataSqlite + "/" + dbName + ".db";
 
 			SQLiteConnection.CreateFile(dbFile);
 			ConnectDB(dbName);
@@ -56,7 +56,7 @@ namespace MemberTree
 			}
 			GC.Collect();  
 			GC.WaitForPendingFinalizers();  
-			string dbFile = "db/" + dbName + ".db";
+			string dbFile = MemData.MemDataSqlite + "/" + dbName + ".db";
 			File.Delete(dbFile);
 		}
 

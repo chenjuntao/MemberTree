@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<DirectoryRef Id="TARGETDIR">
+			<Directory Id="MemTreeDir" Name="MemberTree" DiskId="1">
+					<Directory Id="INSTALLDIR" Name="Trial">
+						<Component Id="MyComponent" Guid="4d9fbcc1-5873-4d6a-8331-a3b0c8f69347" DiskId="1">
+							<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
+							<File Id='itextsharp' Name='itextsharp.dll' Source="../../trial/itextsharp.dll"/>
+							<File Id='SoftRegister' Name='MemberTreeTrial.exe' Source="../../trial/MemberTreeTrial.exe"/>
+						</Component>
+					</Directory>
+				</Directory>
+		</DirectoryRef>
+	</Fragment>
+</Wix>

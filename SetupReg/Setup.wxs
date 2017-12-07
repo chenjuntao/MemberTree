@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product Id="*"
-		Name="网络传销会员层级分析系统-客户端"
+		Name="网络传销会员层级分析系统-软件注册授权工具"
 		Language="2052"
 		Version="5.15.0.0"
 	    Codepage="936"
-		UpgradeCode="213835E6-3930-4F8F-BDE1-F38388B1E1ED"
+		UpgradeCode="7DA69E57-FBC2-4E9F-81C7-243823AF8113"
 		Manufacturer="湖南警察学院">
 		<Package Description="#Description"
 			Comments="Comments"
@@ -31,7 +30,7 @@ xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
                 <RegistryKey Root="HKCU"  Key="Software\网络传销会员层级分析系统\desktop">
                 <RegistryValue Value="SPIDERClient" Type="string" KeyPath="yes" />
                 </RegistryKey>
-                <Shortcut Id="shortcut.desk" Directory="DesktopFolder" Name="数据分析查看工具" Target="[INSTALLDIR]MemberTreeView.exe" WorkingDirectory="INSTALLDIR"  IconIndex="0"/>
+                <Shortcut Id="shortcut.desk" Directory="DesktopFolder" Name="软件注册授权工具" Target="[INSTALLDIR]SoftRegister.exe" WorkingDirectory="INSTALLDIR"  IconIndex="0"/>
                 </Component>
             </Directory>
             <!--桌面快捷方式结束 -->
@@ -39,42 +38,24 @@ xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 		
 		<!--开始菜单设置 -->
         <DirectoryRef Id="ShortcutMenuFolder">   
-            <Component Id="ApplicationShortcut" Guid="C919F5ED-D2B3-42E8-9F7C-63269274FE79">
-            	<Shortcut Id="ApplicationStartMenuShortcut" Name="数据分析查看工具" Target="[INSTALLDIR]MemberTreeView.exe" WorkingDirectory="INSTALLDIR" />
-            	<Shortcut Id="ApplicationStartMenuShortcut2" Name="注册信息清除工具" Target="[INSTALLDIR]SoftUnRegister.exe" WorkingDirectory="INSTALLDIR" />
-            	<Shortcut Id="UninstallProduct" Name="卸载（数据分析查看工具）" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" /> 
-
+              <Component Id="ApplicationShortcut" Guid="C919F5ED-D2B3-42E8-9F7C-63269274FE79">   
+                <Shortcut Id="ApplicationStartMenuShortcut" Name="软件注册授权工具" Target="[INSTALLDIR]SoftRegister.exe" WorkingDirectory="INSTALLDIR" />   
+                <Shortcut Id="UninstallProduct" Name="卸载（软件注册授权工具）" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />   
+                   
                 <RemoveFolder Id="ShortcutMenuFolder" On="uninstall" />  
           
                 <RegistryValue Root="HKCU" Key="Software\网络传销会员层级分析系统" Name="installed" Type="integer" KeyPath="yes" Value="1"  />   
-            </Component>
+              </Component>   
         </DirectoryRef> 
        <!--开始菜单 -->
 		
-		<Feature Id="ViewTool"
-		         Title="数据分析查看工具"
-                 Description="查看已计算完成的数据集，分析会员关系树结构，导出数据表格，打印图片，或者生成PDF文件。"
+		<Feature Id="RegTool"
+		         Title="软件注册授权工具"
+                 Description="对未注册的机器进行注册授权认证，注意，该软件一定要保存好，不可泄漏！！！"
                  Level="1"
                  ConfigurableDirectory="INSTALLDIR">
-                 <ComponentRef Id="MyComponentView"/>
-                 <ComponentRef Id="ApplicationShortcut"/>
-                 <ComponentRef Id="DesktopSpider"/>
-		</Feature>
-		<Feature Id="UnRegTool"
-		         Title="注册信息清除工具"
-                 Description="清除当前机器上的注册信息。"
-                 Level="1"
-                 ConfigurableDirectory="INSTALLDIR">
-                 <ComponentRef Id="MyComponentUnReg"/>
-                 <ComponentRef Id="ApplicationShortcut"/>
-                 <ComponentRef Id="DesktopSpider"/>
-		</Feature>
-		<Feature Id="UpdateTool"
-		         Title="自动升级工具"
-                 Description="自动联网检测新版本并进行升级。"
-                 Level="1"
-                 ConfigurableDirectory="INSTALLDIR">
-                 <ComponentRef Id="MyComponentUpdate"/>
+<!--                 <ComponentRef Id="ExecutableFile"/>-->
+                 <ComponentRef Id="MyComponent"/>
                  <ComponentRef Id="ApplicationShortcut"/>
                  <ComponentRef Id="DesktopSpider"/>
 		</Feature>

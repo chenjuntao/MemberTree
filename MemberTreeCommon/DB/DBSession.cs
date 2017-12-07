@@ -44,16 +44,12 @@ namespace MemberTree
 		
 		private static string GetSessionFileName(string sessionName)
 		{
-			return "key/" + sessionName + ".key";
+			return MemData.MemDataMysqlKey + "/" + sessionName + ".key";
 		}
 		
 		public static List<string> GetSessionNames()
 		{
-			if(!Directory.Exists("key"))
-			{
-				Directory.CreateDirectory("key");
-			}
-			DirectoryInfo dir = new DirectoryInfo("key");
+			DirectoryInfo dir = new DirectoryInfo(MemData.MemDataMysqlKey);
 			FileInfo[] files = dir.GetFiles("*.key");
 			List<string> sessions = new List<string>();
 			foreach (FileInfo file in files) {

@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product Id="*"
-		Name="网络传销会员层级分析系统"
+		Name="网络传销会员层级分析系统-试用版"
 		Language="2052"
 		Version="5.15.0.0"
 	    Codepage="936"
-		UpgradeCode="C4235BC0-6431-4894-8382-B19DBBB8A0D0"
+		UpgradeCode="A3BD937D-92E6-4B46-9F20-4CA0B495C7D3"
 		Manufacturer="湖南警察学院">
 		<Package Description="#Description"
 			Comments="Comments"
@@ -17,14 +17,8 @@
 		-->
 		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high"/>
 		
-		 <!--检测必备环境-->
-<!--		<PropertyRef Id="NETFRAMEWORK20" />
-        <Condition Message="您的计算机必须安装.NET Framework 2.0,否则本软件无法使用 ([NETFRAMEWORK20])">
-          Installed OR NETFRAMEWORK20
-        </Condition>-->
-        <!--检测必备环境-->
-		
 		<!-- Installation directory and files are defined in Files.wxs -->
+<!-- Installation directory and files are defined in Files.wxs -->
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<!--开始菜单-->
             <Directory Id="ProgramMenuFolder">   
@@ -33,11 +27,11 @@
             <!--开始菜单结束 -->
             <!--桌面快捷方式 -->
             <Directory Id="DesktopFolder" Name="Desktop">
-                <Component Id="DesktopSpider" Guid="aede1637-df5a-4c41-94b6-f077d03e5372">
+                <Component Id="DesktopSpider" Guid="755a3d8d-1b60-468c-86ae-d54d1ed7b4c8">
                 <RegistryKey Root="HKCU"  Key="Software\网络传销会员层级分析系统\desktop">
                 <RegistryValue Value="SPIDERClient" Type="string" KeyPath="yes" />
                 </RegistryKey>
-                <Shortcut Id="shortcut.desk" Directory="DesktopFolder" Name="网络传销会员层级分析系统" Target="[INSTALLDIR]ruanjian.exe" WorkingDirectory="INSTALLDIR"  IconIndex="0"/>
+                <Shortcut Id="shortcut.desk" Directory="DesktopFolder" Name="网络传销会员层级分析系统-试用版" Target="[INSTALLDIR]MemberTreeTrial.exe" WorkingDirectory="INSTALLDIR"  IconIndex="0"/>
                 </Component>
             </Directory>
             <!--桌面快捷方式结束 -->
@@ -45,9 +39,9 @@
 		
 		<!--开始菜单设置 -->
         <DirectoryRef Id="ShortcutMenuFolder">   
-              <Component Id="ApplicationShortcut" Guid="C919F5ED-D2B3-42E8-9F7C-63269274FE79">   
-                <Shortcut Id="ApplicationStartMenuShortcut" Name="网络传销会员层级分析系统" Target="[INSTALLDIR]ruanjian.exe" WorkingDirectory="INSTALLDIR" />   
-                <Shortcut Id="UninstallProduct" Name="卸载（网络传销会员层级分析系统）" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />   
+              <Component Id="ApplicationShortcut" Guid="d9608390-87b2-4750-83b5-a6d3d45651ab">   
+                <Shortcut Id="ApplicationStartMenuShortcut" Name="网络传销会员层级分析系统-试用版" Target="[INSTALLDIR]MemberTreeTrial.exe" WorkingDirectory="INSTALLDIR" />   
+                <Shortcut Id="UninstallProduct" Name="卸载（网络传销会员层级分析系统-试用版）" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />   
                    
                 <RemoveFolder Id="ShortcutMenuFolder" On="uninstall" />  
           
@@ -56,9 +50,9 @@
         </DirectoryRef> 
        <!--开始菜单 -->
 		
-		<Feature Id="Complete"
-		         Title="网络传销会员层级分析系统"
-                 Description="网络传销会员层级分析系统"
+		<Feature Id="RegTool"
+		         Title="网络传销会员层级分析系统-试用版"
+                 Description="查看样例数据集，分析会员关系树结构，导出数据表格，打印图片，或者生成PDF文件。要使用完整功能，请购买正版！"
                  Level="1"
                  ConfigurableDirectory="INSTALLDIR">
 <!--                 <ComponentRef Id="ExecutableFile"/>-->
@@ -67,15 +61,14 @@
                  <ComponentRef Id="DesktopSpider"/>
 		</Feature>
 		
-		<!--
- 			Using the Wix UI library.
-
-			WixUI_Minimal is the most basic of the WixUI stock dialog sets.
- 			Its sole dialog combines the welcome and license-agreement 
-			dialogs and omits the feature customization dialog. 
-			WixUI_Minimal is appropriate when your product has no optional 
-			features.
- 		-->
+		<!-- 
+			Using the Wix UI library
+ 
+			With the the WixUI_FeatureTree dialog set the user goes 
+			directly from the license agreement dialog to the feature 
+			customization dialog. This dialog set is useful
+			when your product installs all features by default. 
+		-->
 		<UIRef Id="WixUI_FeatureTree"/>
 	</Product>
 </Wix>
