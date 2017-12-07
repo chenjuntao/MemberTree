@@ -158,8 +158,7 @@ namespace MemberTree
 	            	conn.Open();
 	            	string db = e.AddedItems[0].ToString();
 	            	conn.ChangeDatabase(db);
-	            	cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '"
-	            						+ db + "'";
+	            	cmd.CommandText = string.Format("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '{0}'", db);
 	                MySqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {
@@ -192,8 +191,7 @@ namespace MemberTree
 	            	conn.Open();
 	            	string db = txtDBName.Text;
 	            	string tb = e.AddedItems[0].ToString();
-	            	cmd.CommandText = "select column_name from information_schema.columns where table_schema = '"
-	            						+ db + "' and table_name = '" + tb + "'";
+	            	cmd.CommandText = string.Format("select column_name from information_schema.columns where table_schema = '{0}' and table_name = '{1}'", db, tb);
 	                MySqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {

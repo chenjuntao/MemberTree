@@ -114,8 +114,8 @@
     <Compile Include="Import\ConnMysql.xaml.cs">
       <DependentUpon>ConnMysql.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Import\ImportFromDB.xaml.cs">
-      <DependentUpon>ImportFromDB.xaml</DependentUpon>
+    <Compile Include="Import\ConnSqlserver.xaml.cs">
+      <DependentUpon>ConnSqlserver.xaml</DependentUpon>
     </Compile>
     <Compile Include="DB\DBUtil.cs" />
     <Compile Include="DB\IMyTreeDBA.cs" />
@@ -176,7 +176,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Import\ConnMysql.xaml" />
-    <Page Include="Import\ImportFromDB.xaml" />
+    <Page Include="Import\ConnSqlserver.xaml" />
     <Page Include="Import\CsvErrCheck.xaml" />
     <Page Include="Import\WindowColsCheck.xaml" />
     <Page Include="MainWindow.xaml">

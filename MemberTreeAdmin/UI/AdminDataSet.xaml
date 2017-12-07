@@ -122,6 +122,18 @@
 					</StackPanel>
 				</Button>
 			</GroupBox>
+			<GroupBox BorderThickness="1" BorderBrush="DarkBlue">
+				<GroupBox.Header>
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/MemberTreeAdmin;component/Image/about.jpg" Width="36" Height="36"/>
+						<TextBlock Text="关于" FontSize="16" VerticalAlignment="Center"/>
+					</StackPanel>
+				</GroupBox.Header>
+				<StackPanel>
+					<Button Margin="10,5" Padding="10,5" Content="软件功能特点" Click="BtnAbout_Click"/>
+					<Button Margin="10,5" Padding="10,5" Content="历史版本记录" Click="BtnVerLog_Click"/>
+				</StackPanel>
+			</GroupBox>
 		</StackPanel>
 		<my1:DatasetListView Grid.Column="1" x:Name="datasetListView" />
 		<my1:DatasetInfoView Grid.Row="1" Grid.Column="1" x:Name="datasetInfoView"/>

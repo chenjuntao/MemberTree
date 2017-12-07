@@ -62,7 +62,7 @@ namespace MemberTree
 			if(btnConnect != null)
 			{
 				if(txtDBServer.Text!="" &&
-				   txtPort.Text!="" &&
+
 				   txtUserName.Text!="" &&
 				   txtPwd.Password!="")
 				{
@@ -78,19 +78,13 @@ namespace MemberTree
 		
 		private void btnDisConnect_Click(object sender, RoutedEventArgs e)
 		{
-			SetEnabled(true, btnConnect, txtDBServer, txtPort, txtUserName, txtPwd);
+			SetEnabled(true, btnConnect, txtDBServer, txtUserName, txtPwd);
 			SetEnabled(false, btnDisConnect, txtDBName, txtTable, txtSysid, txtTopid, txtName, btnExport, btnCompute);
 			ClearItems(txtDBName, txtTable, txtSysid, txtTopid, txtName, optColsPanel);
 		}
 		
 		private bool Connect()
 		{
-			uint port  = 1433;
-			if(!uint.TryParse(txtPort.Text, out port))
-			{
-				MessageBox.Show("端口号必须为大于0的数字！");
-			}
-            
             SqlConnectionStringBuilder sqlStrBuilder = new SqlConnectionStringBuilder();
             sqlStrBuilder.DataSource = txtDBServer.Text; //server ip
             sqlStrBuilder.InitialCatalog = txtDBName.Text; //数据库名
@@ -100,6 +94,7 @@ namespace MemberTree
             conn = new SqlConnection(sqlStrBuilder.ConnectionString);
             try
             {
+                cmd = conn.CreateCommand();
                 conn.Open();
                 conn.Close();
                 return true;
@@ -116,12 +111,12 @@ namespace MemberTree
 			if(Connect())
 			{
 				SetEnabled(true, btnDisConnect, txtDBName);
-				SetEnabled(false, btnConnect, txtDBServer, txtPort, txtUserName, txtPwd);
+				SetEnabled(false, btnConnect, txtDBServer, txtUserName, txtPwd);
 	            try
 	            {
 	            	//查出所有的数据库名
 	            	conn.Open();
-	            	cmd.CommandText = "SELECT SCHEMA_NAME FROM information_schema.SCHEMATA";
+	            	cmd.CommandText = "SELECT Name FROM Master..SysDatabases ORDER BY Name";
 	                SqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {
@@ -154,8 +149,7 @@ namespace MemberTree
 	            	conn.Open();
 	            	string db = e.AddedItems[0].ToString();
 	            	conn.ChangeDatabase(db);
-	            	cmd.CommandText = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '"
-	            						+ db + "'";
+	            	cmd.CommandText = string.Format("SELECT Name FROM SysObjects Where XType='U' ORDER BY Name");
 	                SqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {
@@ -188,8 +182,7 @@ namespace MemberTree
 	            	conn.Open();
 	            	string db = txtDBName.Text;
 	            	string tb = e.AddedItems[0].ToString();
-	            	cmd.CommandText = "select column_name from information_schema.columns where table_schema = '"
-	            						+ db + "' and table_name = '" + tb + "'";
+	            	cmd.CommandText = string.Format("select name from syscolumns where id=(select max(id) from sysobjects where xtype='u' and name='{0}')", tb);
 	                SqlDataReader reader = cmd.ExecuteReader();
 	                while (reader.Read())
 	                {

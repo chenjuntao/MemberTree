@@ -93,5 +93,18 @@ namespace MemberTree
         		}
         	}
         }
+        
+        //关于软件功能
+        private void BtnAbout_Click(object sender, RoutedEventArgs e)
+		{
+        	WindowAbout winAbout = new WindowAbout(true);
+			winAbout.ShowDialog();
+		}
+        //历史版本记录
+        private void BtnVerLog_Click(object sender, RoutedEventArgs e)
+		{
+			WindowVerLog verLog = new WindowVerLog(true);
+			verLog.ShowDialog();
+		}
 	}
 }
