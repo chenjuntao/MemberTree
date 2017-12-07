@@ -15,6 +15,6 @@
 		<Grid.RowDefinitions>
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<my:WelcomeView x:Name="welcomeView"/>
+		<my:LoginView x:Name="loginView"/>
 	</Grid>
 </Window>

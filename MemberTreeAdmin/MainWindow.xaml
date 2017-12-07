@@ -9,12 +9,6 @@
 	mc:Ignorable="d" Width="600" Height="360" ResizeMode="NoResize"
 	WindowStartupLocation="CenterScreen" Closing="Window_Closing">
 	<Grid x:Name="mainGrid">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		<my:WelcomeView x:Name="welcomeView"/>
+		<my:LoginView x:Name="loginView"/>
 	</Grid>
 </Window>

@@ -57,7 +57,7 @@
 			<TextBlock
 				FontSize="18"
 				Foreground="RoyalBlue">
-				<Run Text="版本：v5.13 -（试用版）" />
+				<Run Text="版本：v5.15 -（试用版）" />
 			</TextBlock>
 			<TextBlock
 				FontSize="16"

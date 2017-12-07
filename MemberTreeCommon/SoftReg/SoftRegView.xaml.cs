@@ -27,9 +27,9 @@ namespace MemberTree
 	/// <summary>
 	/// Interaction logic for SoftRegWindow.xaml
 	/// </summary>
-	public partial class SoftRegWindow : UserControl
+	public partial class SoftRegView : UserControl
 	{
-		public SoftRegWindow()
+		public SoftRegView()
 		{
 			InitializeComponent();
 		}

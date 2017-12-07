@@ -28,13 +28,13 @@ namespace MemberTreeView
             if(SoftReg.hasReged())
             {
             	this.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
-				welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "查看工具", new InvokeBoolDelegate(ConnectDB));
+				loginView.InitSelectDB(false, new InvokeBoolDelegate(ConnectDB));
             }
             else
             {
             	this.Title = "网络传销会员层级分析系统——软件授权注册向导";
-            	mainGrid.Children.Remove(welcomeView);
-            	mainGrid.Children.Add(new SoftRegWindow());
+            	mainGrid.Children.Remove(loginView);
+            	mainGrid.Children.Add(new SoftRegView());
             }
         }
         
@@ -49,7 +49,7 @@ namespace MemberTreeView
        		{
        			UserAdmin.InitDB(MyTrees.treeDB);
        			connectView = new ConnDBView(new InvokeDelegate(SelectDB), MyTrees.treeDB);
-				mainGrid.Children.Remove(welcomeView);
+				mainGrid.Children.Remove(loginView);
 				mainGrid.Children.Add(connectView);
        		}
 		}
@@ -60,9 +60,9 @@ namespace MemberTreeView
        		datasetListView.RefreshDB(MyTrees.treeDB, WindowView.UserID);
        		datasetListView.SetCallBack(new InvokeStringDelegate(StartUp));
        		
-			if(mainGrid.Children.Contains(welcomeView))
+			if(mainGrid.Children.Contains(loginView))
 			{
-				mainGrid.Children.Remove(welcomeView);
+				mainGrid.Children.Remove(loginView);
 			}
 			else if(mainGrid.Children.Contains(connectView))
 			{

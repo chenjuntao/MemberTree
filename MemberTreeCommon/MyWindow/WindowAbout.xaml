@@ -1,0 +1,62 @@
+<Window x:Class="MemberTree.WindowAbout"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:MemberTree"
+	ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+    Title="网络传销会员层级分析系统" Width="600" Height="390">
+	<Window.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="10, 5"></Setter>
+			<Setter Property="Padding" Value="10, 5"></Setter>
+		</Style>
+		<Storyboard x:Key="OpenStoryboard" Storyboard.TargetName="imgCover">
+            <DoubleAnimation From="1" To="0" Duration="0:0:0.6" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[1].Offset"/>
+            <DoubleAnimation From="1" To="0" Duration="0:0:0.6" BeginTime="0:0:0.2" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Offset"/>
+            <ColorAnimation To="#FF000000" Duration="0" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Color"/>
+        </Storyboard>
+		<Storyboard x:Key="CloseStoryboard" Storyboard.TargetName="imgCover">
+	        <DoubleAnimation From="1" To="0" Duration="0:0:0.6" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[1].Offset"/>
+	        <DoubleAnimation From="1" To="0" Duration="0:0:0.6" BeginTime="0:0:0.2" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Offset"/>
+	        <ColorAnimation To="#00000000" Duration="0" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Color"/>
+	    </Storyboard>
+		<LinearGradientBrush x:Key="OpenBrush" StartPoint="0.5,1" EndPoint="0.5,0">
+	        <GradientStop Color="#00000000" Offset="0"/>
+	        <GradientStop Color="#00000000" Offset="1"/>
+	        <GradientStop Color="#00000000" Offset="1"/>
+	    </LinearGradientBrush>
+	    <LinearGradientBrush x:Key="CloseBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+	        <GradientStop Color="#FF000000" Offset="0"/>
+	        <GradientStop Color="#FF000000" Offset="1"/>
+	        <GradientStop Color="#FF000000" Offset="1"/>
+	    </LinearGradientBrush>
+	</Window.Resources>
+	<Grid>
+		<Grid Name="gridMain">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<my:WelcomeView x:Name="welcomView"/>
+			<GroupBox Margin="5" Grid.Row="1" Header="产品特点和优势：">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Button x:Name="localnet" Content="既支持本地单机模式，也支持远程联网模式" Click="BtnOpenImg_Click" Grid.Row="0" Grid.Column="0"/>
+					<Button Name="authorize" Content="远程联网模式下，支持用户权限认证管理" Click="BtnOpenImg_Click" Grid.Row="0" Grid.Column="1"/>
+					<Button Name="export" Content="导出支持CSV、图片、PDF等多种文件格式" Click="BtnOpenImg_Click" Grid.Row="1" Grid.Column="0"/>
+					<Button Name="import" Content="导入既支持文件格式，也支持直连数据库" Click="BtnOpenImg_Click" Grid.Row="1" Grid.Column="1"/>
+					<Button Name="dynamiccol" Content="支持导入数据的不固定动态列，灵活又方便" Click="BtnOpenImg_Click" Grid.Row="2" Grid.Column="0"/>
+					<Button Name="quantity" Content="千万数量级数据支持，深度优化使用流畅" Click="BtnOpenImg_Click" Grid.Row="2" Grid.Column="1"/>
+				</Grid>
+			</GroupBox>
+		</Grid>
+		<Image x:Name="imgCover" Stretch="Fill" MouseDown="ImgCover_MouseDown"/>
+	</Grid>
+</Window>

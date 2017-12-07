@@ -3,8 +3,26 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:my="clr-namespace:MemberTree"
 	ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
-    Title="关于会员关系树分析工具" Width="600" Height="390">
+    Title="关于会员关系树分析工具" Width="600" Height="500">
 	<Grid>
-		<my:WelcomeView x:Name="welcomView"/>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<my:WelcomeView x:Name="welcomeView"/>
+		<GroupBox Grid.Row="1" Header="历史版本更新记录">
+			<Grid Name="verGrid">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
+					<TabControl Name="verTab" TabStripPlacement="Left" SelectionChanged="VerTab_SelectionChanged"/>
+				</ScrollViewer>
+				<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
+					<TextBlock Name="verContent" TextWrapping="WrapWithOverflow"/>
+				</ScrollViewer>
+			</Grid>
+		</GroupBox>
 	</Grid>
 </Window>

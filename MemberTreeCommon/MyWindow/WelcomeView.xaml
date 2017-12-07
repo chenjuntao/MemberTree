@@ -5,7 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="500">
+	mc:Ignorable="d" Height="200" Width="600">
 	<UserControl.Resources>
 		<Style TargetType="TextBlock">
 			<Setter Property="Margin" Value="10, 5"></Setter>
@@ -36,51 +36,32 @@
 		<StackPanel Grid.Column="1">
 			<TextBlock x:Name="txtHead" FontSize="28" 
 			    Foreground="LightCyan" FontWeight="Bold" 
-			    Grid.Column="1" Margin="0, 20, 0, 5">
+			    Grid.Column="1" Margin="5, 20, 0, 5">
 				<TextBlock.Effect>
 					<DropShadowEffect Opacity="0.6" />
 				</TextBlock.Effect>
-				<Run Text="网络传销会员层级分析系统" />
+				<Run Text="**************系统" />
 			</TextBlock>
-			<TextBlock x:Name="txtVer" FontSize="18"
-				Foreground="RoyalBlue" Grid.Column="1" Grid.Row="1">
-				<Run Text="版本：v 5.0.0.1212" />
+			<TextBlock Margin="0">
+				<TextBlock FontSize="22" FontWeight="Bold" Foreground="LightCyan" x:Name="txtSubHead" Text="管理端">
+					<TextBlock.Effect>
+						<DropShadowEffect Opacity="0.5" />
+					</TextBlock.Effect>
+				</TextBlock>
+				<TextBlock FontSize="18" Foreground="RoyalBlue" x:Name="txtVer" Text="版本：v 5.0.0.1212"/>
 			</TextBlock>
 			<TextBlock x:Name="txtCpy" FontSize="16"
-				Foreground="BlueViolet" Grid.Column="1" Grid.Row="2">
+				Foreground="BlueViolet">
 				<Run Text="Copyright(c)tanry，2014-2017" />
 			</TextBlock>
+			<TextBlock x:Name="txtReg" FontSize="15"
+				Foreground="Firebrick">
+				<Run Text="授权给（**公司，**用户）" />
+			</TextBlock>
 			<TextBlock x:Name="txtTel" FontSize="14"
-				TextWrapping="WrapWithOverflow" Foreground="DarkCyan"
-			    Grid.Column="1" Grid.Row="3">
+				TextWrapping="WrapWithOverflow" Foreground="DarkCyan">
 				<Run Text="联系电话：xxxxxxxxxxx" />
 			</TextBlock>
 		</StackPanel>
-		
-		<Grid Name="selectDBGrid" Grid.ColumnSpan="2" Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-			<Button Click="BtnSqlite_Click" Width="200" Height="100">
-				<Image Source="/MemberTreeCommon;component/Image/sqlite.jpg" />
-			</Button>
-			<Button Click="BtnMysql_Click" Width="200" Height="100" Grid.Column="1">
-				<Image Source="/MemberTreeCommon;component/Image/mysql.jpg" />
-			</Button>
-		</Grid>
-		
-		<Grid Name="verGrid" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<TabControl Name="verTab" TabStripPlacement="Left" SelectionChanged="VerTab_SelectionChanged"/>
-			</ScrollViewer>
-			<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
-				<TextBlock Name="verContent" TextWrapping="WrapWithOverflow"/>
-			</ScrollViewer>
-		</Grid>
 	</Grid>
 </UserControl>

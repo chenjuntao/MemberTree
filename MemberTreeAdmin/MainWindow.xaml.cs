@@ -21,13 +21,13 @@ namespace MemberTreeAdmin
             if(SoftReg.hasReged())
             {
             	this.Title = SysInfo.I.PRODUCT + " - " + SysInfo.I.VERSION;
-				welcomeView.InitSelectDB(true, SysInfo.I.PRODUCT + "管理工具", new InvokeBoolDelegate(ConnectDB));
+				loginView.InitSelectDB(true, new InvokeBoolDelegate(ConnectDB));
             }
             else
             {
             	this.Title = "网络传销会员层级分析系统——软件授权注册向导";
-            	mainGrid.Children.Remove(welcomeView);
-            	mainGrid.Children.Add(new SoftRegWindow());
+            	mainGrid.Children.Remove(loginView);
+            	mainGrid.Children.Add(new SoftRegView());
             }
         }
         
@@ -43,16 +43,16 @@ namespace MemberTreeAdmin
        		else
        		{
        			connectView = new ConnDBView(new InvokeDelegate(StartUp), MyTrees.treeDB);
-				mainGrid.Children.Remove(welcomeView);
+				mainGrid.Children.Remove(loginView);
 				mainGrid.Children.Add(connectView);
        		}
 		}
         
         private void StartUp()
 		{
-			if(mainGrid.Children.Contains(welcomeView))
+			if(mainGrid.Children.Contains(loginView))
 			{
-				mainGrid.Children.Remove(welcomeView);
+				mainGrid.Children.Remove(loginView);
 			}
 			else if(mainGrid.Children.Contains(connectView))
 			{
