@@ -25,11 +25,11 @@ namespace SoftRegister
 	/// <summary>
 	/// Interaction logic for Window1.xaml
 	/// </summary>
-	public partial class Window1 : Window
+	public partial class WindowMain : Window
 	{
 		private string cpu, disk, com, usr;
 		private string privateKey = "gBwg95CF15fq/kBiXqSCr0s/iWtxHlQqA7Vij/tthb90904jSHFJ99VQOHqkkiRI7MIqv5h8Q2f16NK/qxw79TLEJZOYqH6l+EUzS/kOvGKDJ1zUEZqhNCye+J7X4/hfPCSy9fGIkDXfSkAiYPZpDM9QPA6Drj7VcL3jvfA2ZwsJ1G5SDbq82edIunUlE+wNZBaOv9L59frsGW/YSvleIi6Sw9ZsGr0vtalw83bKKJB2U6WqEuAyKApoNofBGnahvzLZoIKNrVWLednKYUrbeH3BbB18+5XS9+e5DvgRwXsrq85PDqI5xo5RO8N7e1m5L2toKB19ous8rPCi1zQmffU=";
-		public Window1()
+		public WindowMain()
 		{
 			InitializeComponent();
 			RegConfig.Init();
@@ -112,6 +112,11 @@ namespace SoftRegister
         	{
         		MessageBox.Show("生成注册密钥文件失败！\n"+ex.Message);
         	}
+		}
+		private void ButtonHelp_Click(object sender, RoutedEventArgs e)
+		{
+			WindowHelp winHelp = new WindowHelp();
+			winHelp.ShowDialog();
 		}
 	}
 }

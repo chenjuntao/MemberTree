@@ -1,0 +1,9 @@
+<Window x:Class="SoftRegister.WindowHelp"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="注册流程帮助" Height="770" Width="1100" 
+    WindowState="Maximized">
+	<Grid>
+		<Image Margin="10" Source="/SoftRegister;component/Image/reg.png" />
+	</Grid>
+</Window>

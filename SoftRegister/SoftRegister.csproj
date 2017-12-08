@@ -82,13 +82,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\WPFAssemblyInfo.cs" />
     <Compile Include="RegConfig.cs" />
-    <Compile Include="Window1.xaml.cs">
+    <Compile Include="WindowMain.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>Window1.xaml</DependentUpon>
+      <DependentUpon>WindowMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowHelp.xaml.cs">
+      <DependentUpon>WindowHelp.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Window1.xaml" />
+    <Page Include="WindowMain.xaml" />
+    <Page Include="WindowHelp.xaml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RSACommon\RSACommon.csproj">
@@ -97,7 +102,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\reg.png" />
     <None Include="reg.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Image" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,4 @@
-<Window x:Class="SoftRegister.Window1"
+<Window x:Class="SoftRegister.WindowMain"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	Title="网络传销会员层级分析系统——软件授权注册工具" 
@@ -29,9 +29,11 @@
 			</TextBlock.Effect>
 			<Run Text="网络传销会员层级分析系统" />
 		</TextBlock>
-		<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontSize="18" Margin="15, 5, 0, 5" Foreground="RoyalBlue">
+		<TextBlock Grid.Row="1" FontSize="18" Margin="15, 5, 0, 5" Foreground="RoyalBlue">
 			<Run Text="软件授权注册工具 v5.13" />
 		</TextBlock>
+		
+		<Button Grid.Row="1" Grid.Column="1" Margin="10" Padding="3" Content="查看注册流程帮助" Click="ButtonHelp_Click"/>
 		
 		<GroupBox Grid.Row="2" Header="待注册文件（*.reginfo）存放路径">
 			<TextBox x:Name="txtRegInfo" IsReadOnly="True"/>

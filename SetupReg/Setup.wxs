@@ -5,7 +5,7 @@
 		Language="2052"
 		Version="5.15.0.0"
 	    Codepage="936"
-		UpgradeCode="7DA69E57-FBC2-4E9F-81C7-243823AF8113"
+		UpgradeCode="eca791c2-6fd5-4951-9c1c-920712abb25d"
 		Manufacturer="湖南警察学院">
 		<Package Description="#Description"
 			Comments="Comments"
@@ -26,7 +26,7 @@
             <!--开始菜单结束 -->
             <!--桌面快捷方式 -->
             <Directory Id="DesktopFolder" Name="Desktop">
-                <Component Id="DesktopSpider" Guid="aede1637-df5a-4c41-94b6-f077d03e5372">
+                <Component Id="DesktopSpider" Guid="3a861818-240b-4d7d-8bf4-43550b5a0687">
                 <RegistryKey Root="HKCU"  Key="Software\网络传销会员层级分析系统\desktop">
                 <RegistryValue Value="SPIDERClient" Type="string" KeyPath="yes" />
                 </RegistryKey>
@@ -38,7 +38,7 @@
 		
 		<!--开始菜单设置 -->
         <DirectoryRef Id="ShortcutMenuFolder">   
-              <Component Id="ApplicationShortcut" Guid="C919F5ED-D2B3-42E8-9F7C-63269274FE79">   
+              <Component Id="ApplicationShortcut" Guid="bd541d7d-1714-4be2-8184-ef7359cc6f40">   
                 <Shortcut Id="ApplicationStartMenuShortcut" Name="软件注册授权工具" Target="[INSTALLDIR]SoftRegister.exe" WorkingDirectory="INSTALLDIR" />   
                 <Shortcut Id="UninstallProduct" Name="卸载（软件注册授权工具）" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />   
                    

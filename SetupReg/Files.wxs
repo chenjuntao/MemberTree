@@ -5,7 +5,7 @@
 	<!--		<Directory Id="ProgramFilesFolder" Name="PFiles">-->
 				<Directory Id="MemTreeDir" Name="MemberTree" DiskId="1">
 					<Directory Id="INSTALLDIR" Name="SoftReg">
-						<Component Id="MyComponent" Guid="F9BB8E00-CB44-4539-A678-2A0B4017B9BF" DiskId="1">
+						<Component Id="MyComponent" Guid="7b3f84e5-cf47-4828-944a-071c9de57719" DiskId="1">
 							<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
 							<File Id='RSACommon' Name='RSACommon.dll' Source="../../soft_reg/RSACommon.dll"/>
 							<File Id='SoftRegister' Name='SoftRegister.exe' Source="../../soft_reg/SoftRegister.exe"/>
