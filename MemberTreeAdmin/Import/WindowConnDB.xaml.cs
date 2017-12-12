@@ -37,6 +37,7 @@ namespace MemberTree
 			else if(db == "sqlserver")
 			{
 				connDB = new ConnSqlserver();
+				this.Title="连接到Sqlserver";
 				txtblk.Text="连本机直接输入“.”";
 				txtblk.HorizontalAlignment=HorizontalAlignment.Left;
 				txtPort.Visibility = Visibility.Collapsed;
