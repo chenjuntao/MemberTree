@@ -10,7 +10,6 @@ namespace MemberTree
     public class MyTreeNode
     {    	
     	public string SysId;
-//    	public string Name;
     	public string TopId;
     	public int Level;
         
@@ -31,8 +30,16 @@ namespace MemberTree
         public MyTreeNode(string sysId, string topId)
         {
             this.SysId = sysId;
-//            this.Name = name;
-            this.TopId = topId;
+            //如果sysId = topId，为避免误读为闭环，将topId设置为空
+            if(sysId == topId)
+            {
+            	 this.TopId = "";
+            }
+            else
+            {
+            	 this.TopId = topId;
+            }
+           
             this.Level = 0;
  
             switch (TextUtil.enUpperLower) 
