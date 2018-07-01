@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Window 
 	x:Class="MemberTreeView.MainWindow"
 	xmlns:my="clr-namespace:MemberTree;assembly=MemberTreeCommon"
@@ -16,5 +16,6 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<my:LoginView x:Name="loginView"/>
+		<my:LoadingWait x:Name="myWaiting"  Visibility="Collapsed"/>
 	</Grid>
 </Window>

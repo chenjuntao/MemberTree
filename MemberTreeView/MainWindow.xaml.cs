@@ -77,9 +77,14 @@ namespace MemberTreeView
 		{
 			MyTrees.SetDBName(selectDB);
 			
-			WindowView windowView = new WindowView();
-			mainGrid.Children.Remove(datasetListView);
-			mainGrid.Children.Add(windowView);
+//			new InvokeDelegate(()=>{
+			                   	WindowView windowView = new WindowView();
+						        mainGrid.Children.Remove(datasetListView);
+						        mainGrid.Children.Add(windowView);
+//						        myWaiting.Visibility = Visibility.Visible;
+//			                   }).BeginInvoke(ayncResult=>{
+//			               	myWaiting.Visibility = Visibility.Collapsed;
+//			               }, null);
 				
 			this.WindowState = WindowState.Maximized;
 			this.ResizeMode = ResizeMode.CanResize;

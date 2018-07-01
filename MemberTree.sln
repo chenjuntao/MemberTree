@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 5.0
+# SharpDevelop 5.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "AutoUpdate\AutoUpdate.csproj", "{D43FB560-0C0C-48AC-800D-F88CBA4A2924}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberTreeAdmin", "MemberTreeAdmin\MemberTreeAdmin.csproj", "{E7C0BDC5-9A9C-4D62-9D0A-8C912B9EC232}"

@@ -26,20 +26,37 @@ namespace MemberTree
 			InitializeComponent();
 		}
 		
+		public delegate Dictionary<string, int> MyInvokeDelegate();
+		
 		public void Init(IMyTreeDB treeDB)
 		{
 			txtDB.Text = treeDB.DatasetName;
-			
-			Dictionary<string, int> counts = treeDB.GetCounts();
-			
-			btnAll.Content = "所有节点总数" + counts["AllNodeCount"];
-			btnTree.Content =  counts["TreeNodeCount"] + "个节点构成" + counts["TreeCount"] + "课树";
-			btnLeaf.Content = counts["LeafCount"] + "个孤立的叶子节点" ;
-			btnLeaf.Visibility = counts["LeafCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
-			btnRing.Content = counts["RingCount"] + "个构成闭环的节点";
-			btnRing.Visibility = counts["RingCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
-			btnConflict.Content = counts["ConflictCount"] + "个ID重复的节点";
-			btnConflict.Visibility = counts["ConflictCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
+//			btnAll.Content = "所有节点总数正在查询,请耐心等待...";
+//			btnTree.Visibility = Visibility.Collapsed;
+//			btnLeaf.Visibility = Visibility.Collapsed;
+//			btnRing.Visibility =  Visibility.Collapsed;
+//			btnConflict.Visibility = Visibility.Collapsed;
+//			
+//			MyInvokeDelegate handler = new MyInvokeDelegate(()=>{
+            	Dictionary<string, int> counts = treeDB.GetCounts();
+//            	return counts;
+//			});
+//			handler.BeginInvoke(ayncResult=>{
+//            	Dictionary<string, int> counts = handler.EndInvoke(ayncResult);
+//            	this.Dispatcher.BeginInvoke(new Action(()=>{
+            	                                       	
+				    btnAll.Content = "所有节点总数" + counts["AllNodeCount"];
+				    btnTree.Visibility = Visibility.Visible;
+					btnTree.Content =  counts["TreeNodeCount"] + "个节点构成" + counts["TreeCount"] + "课树";
+					btnLeaf.Content = counts["LeafCount"] + "个孤立的叶子节点" ;
+					btnLeaf.Visibility = counts["LeafCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
+					btnRing.Content = counts["RingCount"] + "个构成闭环的节点";
+					btnRing.Visibility = counts["RingCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
+					btnConflict.Content = counts["ConflictCount"] + "个ID重复的节点";
+					btnConflict.Visibility = counts["ConflictCount"] > 0 ? Visibility.Visible : Visibility.Collapsed;
+					
+//            	}));
+//            }, null);
 		}
 		
 		public void SetCallBack(InvokeStringDelegate btnClickDelegate)

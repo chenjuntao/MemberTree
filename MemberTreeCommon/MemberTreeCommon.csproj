@@ -97,6 +97,9 @@
     <Compile Include="MyWindow\DatasetListView.xaml.cs">
       <DependentUpon>DatasetListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyWindow\LoadingWait.xaml.cs">
+      <DependentUpon>LoadingWait.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyWindow\MyStatusBar.xaml.cs">
       <DependentUpon>MyStatusBar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -137,6 +140,7 @@
     <Page Include="MyWindow\DatasetBtn.xaml" />
     <Page Include="MyWindow\DatasetInfoView.xaml" />
     <Page Include="MyWindow\DatasetListView.xaml" />
+    <Page Include="MyWindow\LoadingWait.xaml" />
     <Page Include="MyWindow\MyStatusBar.xaml" />
     <Page Include="MyWindow\ProgressView.xaml" />
     <Page Include="MyWindow\WelcomeView.xaml">

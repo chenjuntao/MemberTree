@@ -75,5 +75,6 @@
 			<my:MyNodeList Grid.Row="1" Grid.ColumnSpan="2" x:Name="listNodes" Visibility="Hidden" />
 		</Grid>
 		<my1:MyStatusBar Grid.Row="1" Grid.Column="1" x:Name="myStatusBar"/>
+		<my1:LoadingWait x:Name="myWaiting" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"/>
 	</Grid>
 </UserControl>

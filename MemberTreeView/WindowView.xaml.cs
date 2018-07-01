@@ -26,15 +26,15 @@ namespace MemberTree
     	//用于记录用户在线时长
     	internal static int tickCount = 0;
         private List<MyTreeNode> findResultNodes = new List<MyTreeNode>();
+        
 
         public WindowView()
         {
             InitializeComponent();
+            
             myStatusBar.SetShowHideView(null, new UIElement[]{leftMenu, mainGrid}, null);
             notify = myStatusBar;
             
-            datasetInfoView.Init(MyTrees.treeDB);
-			datasetInfoView.SetCallBack(SwitchTabView);
 			mySearchFilter.InitCols();
 			listNodes.InitCols();
 			myTreeView.myNodeInfo.InitCols();
@@ -47,8 +47,11 @@ namespace MemberTree
 				tickCount = Environment.TickCount;
 				btnUser.Visibility = Visibility.Visible;
 			}
+			
+			datasetInfoView.Init(MyTrees.treeDB);
+			datasetInfoView.SetCallBack(SwitchTabView);
         }
-      
+              
         //刷新在线时间
 		internal static void Refresh_Online_time()
 		{
