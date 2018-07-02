@@ -95,6 +95,26 @@ namespace MemberTree
         	}
         }
         
+         //计算案中案管理关系
+        private void ButtonA_B_Click(object sender, RoutedEventArgs e)
+        {
+        	string selectDataset = datasetListView.GetSelectDataset();
+        	if(selectDataset != null)
+        	{
+        		MessageBoxResult msgResult = MessageBox.Show("您确定要对数据集"+selectDataset+"与其他系统关联关系进行计算吗？", 
+        		                                             "确定计算", MessageBoxButton.OKCancel);
+        		if(msgResult == MessageBoxResult.OK)
+        		{
+        			CalcSystemB calcSysB = new CalcSystemB();
+        			calcSysB.ShowDialog();
+        		}
+        	}
+        	else
+        	{
+        		MessageBox.Show("请先在右侧数据集中选中一个要作为系统A的数据集！");
+        	}
+        }
+        
         //关于软件功能
         private void BtnAbout_Click(object sender, RoutedEventArgs e)
 		{

@@ -115,12 +115,20 @@
 						<TextBlock Text="数据集管理" FontSize="16" VerticalAlignment="Center"/>
 					</StackPanel>
 				</GroupBox.Header>
-				<Button Click="ButtonDelete_Click" >
-					<StackPanel Orientation="Horizontal">
-						<Image Source="/MemberTreeAdmin;component/Image/delete.jpg" Width="25" Height="25"/>
-						<TextBlock Text="删除选中的数据集" FontSize="12" VerticalAlignment="Center"/>
-					</StackPanel>
-				</Button>
+				<StackPanel>
+					<Button Click="ButtonDelete_Click" >
+						<StackPanel Orientation="Horizontal">
+							<Image Source="/MemberTreeAdmin;component/Image/delete.jpg" Width="25" Height="25"/>
+							<TextBlock Text="删除选中的数据集" FontSize="12" VerticalAlignment="Center"/>
+						</StackPanel>
+					</Button>
+					<Button Click="ButtonA_B_Click">
+						<StackPanel Orientation="Horizontal">
+							<Image Source="/MemberTreeAdmin;component/Image/a_b.jpg" Width="25" Height="25"/>
+							<TextBlock Text="计算案中案关联关系" FontSize="12" VerticalAlignment="Center"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
 			</GroupBox>
 			<GroupBox BorderThickness="1" BorderBrush="DarkBlue">
 				<GroupBox.Header>

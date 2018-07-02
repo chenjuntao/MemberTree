@@ -95,7 +95,7 @@ namespace MemberTree
 	            return true;
             	
         	} catch (Exception ex) {
-        		
+        		MessageBox.Show(ex.ToString());
         	}
         	finally
         	{

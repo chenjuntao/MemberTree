@@ -100,8 +100,8 @@ namespace MemberTree
                 this.nextPageBtn.IsEnabled = pageNo < pageCount;  
                 this.lastPageBtn.IsEnabled = pageNo < pageCount;  
             } catch (Exception ex) {
-                this.pageNoTbk.Text = "";  
-                this.pageCountTbk.Text = "";  
+                this.pageNoTbk.Text = ex.Message;  
+                this.pageCountTbk.Text = "";
             }  
         }
   

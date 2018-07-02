@@ -102,7 +102,6 @@ namespace MemberTree
             	 conn.Close();
             }
 			return result;
-			return result;
 		}
 	
 		public List<string> GetAllCol(string tb)

@@ -58,7 +58,7 @@ namespace MemberTree
 //                processBarVisibleDelegate = new InvokeBoolDelegate(SetProcessBarVisibleImp);
 //            }
 //            this.Dispatcher.Invoke(processBarVisibleDelegate, visible);
-SetProcessBarVisibleImp(visible);
+			SetProcessBarVisibleImp(visible);
             DoEvents();
         }
         private void SetProcessBarVisibleImp(bool visible)

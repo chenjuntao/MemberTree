@@ -1,0 +1,49 @@
+<Window x:Class="MemberTree.CalcSystemB"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow"
+	Title="MemberTree" Height="300" Width="500">
+	<Window.Resources>
+		<Style TargetType="TextBlock">
+			<Setter Property="HorizontalAlignment" Value="Right" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style TargetType="ProgressBar">
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="Height" Value="20"/>
+		</Style>
+		<Style TargetType="Button">
+			<Setter Property="Width" Value="100" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+	</Window.Resources>
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		
+		<TextBlock>第一步(读取包含系统B的csv数据文件)：</TextBlock>
+		<ProgressBar x:Name="prgStep1" Grid.Column="1"></ProgressBar>
+		
+		<TextBlock Grid.Row="1">第二步(从数据库中读取系统A的数据)：</TextBlock>
+		<ProgressBar x:Name="prgStep2" Grid.Column="1" Grid.Row="1" Value="50"></ProgressBar>
+	
+		<TextBlock Grid.Row="2">第三步(系统A与B之间的关联关系计算)：</TextBlock>
+		<ProgressBar x:Name="prgStep3" Grid.Column="1" Grid.Row="2"></ProgressBar>
+	
+		<TextBlock Grid.Row="3">第四步(将计算得到的结果写入数据库)：</TextBlock>
+		<ProgressBar x:Name="prgStep4" Grid.Column="1" Grid.Row="3"></ProgressBar>
+	
+		<Button Name="btnStart" Click="btnStart_Click" Grid.Row="4">开始</Button>
+        <Button Name="btnCancel" Click="btnCancel_Click" Grid.Row="4" Grid.Column="1" IsEnabled="False">取消</Button>
+	</Grid>
+</Window>

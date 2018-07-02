@@ -112,7 +112,7 @@ namespace MemberTree
             }
         }
 
-        bool isCurrentLeave = false;
+//        bool isCurrentLeave = false;
         void item_MouseMove(object sender, MouseEventArgs e)
         {
             if (isAutoExpand.IsChecked == true)
@@ -124,7 +124,7 @@ namespace MemberTree
                 {
                     statusText.Text = "Id：" + node.SysId + "，TopId：" + node.TopId;
                 }
-                isCurrentLeave = true;
+//                isCurrentLeave = true;
                 e.Handled = true;
             }
         }
