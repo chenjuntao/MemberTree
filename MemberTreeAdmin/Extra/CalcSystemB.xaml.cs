@@ -16,6 +16,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Win32;
 
 namespace MemberTree
 {
@@ -24,10 +25,12 @@ namespace MemberTree
 	/// </summary>
 	public partial class CalcSystemB : Window
 	{
-		BackgroundWorker bgworker = new BackgroundWorker();
-		public CalcSystemB()
+		private int step = 1;
+		private BackgroundWorker bgworker = new BackgroundWorker();
+		public CalcSystemB(string sysA)
 		{
 			InitializeComponent();
+			txtSysA.Text = sysA;
 			
 			bgworker.WorkerReportsProgress = true;
             bgworker.WorkerSupportsCancellation = true;
@@ -36,7 +39,41 @@ namespace MemberTree
             bgworker.RunWorkerCompleted += bgworker_RunWorkerCompleted;
 		}
 		
-		void bgworker_DoWork(object sender, DoWorkEventArgs e)
+		private void btnBrowse_Click(object sender, RoutedEventArgs e)
+        {
+			OpenFileDialog openfileDlg = new OpenFileDialog();
+            openfileDlg.Title = "打开系统B的数据文件";
+            openfileDlg.Filter = "CSV逗号分隔文件|*.csv";
+            if (openfileDlg.ShowDialog() == true)
+            {
+            	txtSysB.Text = openfileDlg.FileName;
+            	btnStart.IsEnabled = true;
+            }
+        }
+		
+		private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            if (!bgworker.IsBusy)
+            {
+                bgworker.RunWorkerAsync();
+                btnStart.IsEnabled = false;
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+        	if(bgworker.IsBusy)
+        	{
+            	bgworker.CancelAsync();
+            	btnStart.IsEnabled = true;
+        	}
+        	else
+        	{
+        		this.Close();
+        	}
+        }
+		
+		private void bgworker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             for (int i = 1; i <= 100; i++)
@@ -53,41 +90,46 @@ namespace MemberTree
             }
         }
        
-        void bgworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void bgworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            prgStep1.Value = e.ProgressPercentage;
+        	if(step == 1)
+        	{
+        		prgStep1.Value = e.ProgressPercentage;
+        	}
+        	else if(step == 2)
+        	{
+        		prgStep2.Value = e.ProgressPercentage;
+        	}
+        	else if(step == 3)
+        	{
+        		prgStep3.Value = e.ProgressPercentage;
+        	}
+        	else if(step == 4)
+        	{
+        		prgStep4.Value = e.ProgressPercentage;
+        	}
         }
 
-        void bgworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void bgworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
-                MessageBox.Show("Background task has been canceled", "info");
+                MessageBox.Show("该次计算任务已经取消！", "取消");
             }
             else
             {
-                MessageBox.Show("Background task finished", "info");
+                if(step<4)
+                {
+                	step++;
+                	bgworker.RunWorkerAsync();
+                }
+                else{
+                	MessageBox.Show("该次计算任务已经完成！", "完成");
+                	step = 1;
+                }
             }
         }
 
-        private void btnStart_Click(object sender, RoutedEventArgs e)
-        {
-            if (!bgworker.IsBusy)
-            {
-                bgworker.RunWorkerAsync();
-                btnStart.IsEnabled = false;
-                btnCancel.IsEnabled = true;
-            }
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-        	if(bgworker.IsBusy)
-        	{
-            	bgworker.CancelAsync();
-            	btnStart.IsEnabled = true;
-                btnCancel.IsEnabled = false;
-        	}
-        }
+      
 	}
 }

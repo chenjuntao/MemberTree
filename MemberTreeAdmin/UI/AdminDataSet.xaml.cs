@@ -101,13 +101,8 @@ namespace MemberTree
         	string selectDataset = datasetListView.GetSelectDataset();
         	if(selectDataset != null)
         	{
-        		MessageBoxResult msgResult = MessageBox.Show("您确定要对数据集"+selectDataset+"与其他系统关联关系进行计算吗？", 
-        		                                             "确定计算", MessageBoxButton.OKCancel);
-        		if(msgResult == MessageBoxResult.OK)
-        		{
-        			CalcSystemB calcSysB = new CalcSystemB();
-        			calcSysB.ShowDialog();
-        		}
+    			CalcSystemB calcSysB = new CalcSystemB(selectDataset);
+    			calcSysB.ShowDialog();
         	}
         	else
         	{
