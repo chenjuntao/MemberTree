@@ -27,6 +27,7 @@
 			<RowDefinition/>
 			<RowDefinition/>
 			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto"/>
@@ -48,7 +49,7 @@
 		</GroupBox>
 		
 		<TextBlock Grid.Row="1">第一步，读取系统B的csv文件：</TextBlock>
-		<ProgressBar x:Name="prgStep1" Grid.Column="1" Grid.Row="1"></ProgressBar>
+		<TextBlock x:Name="prgStep1" Grid.Column="1" Grid.Row="1"/>
 		
 		<TextBlock Grid.Row="2">第二步，读取数据库系统A数据：</TextBlock>
 		<ProgressBar x:Name="prgStep2" Grid.Column="1" Grid.Row="2"></ProgressBar>
@@ -59,7 +60,9 @@
 		<TextBlock Grid.Row="4">第四步，计算结果写入数据库：</TextBlock>
 		<ProgressBar x:Name="prgStep4" Grid.Column="1" Grid.Row="4"></ProgressBar>
 	
-		<Button Name="btnStart" Click="btnStart_Click" Grid.Row="5" IsEnabled="False">开始</Button>
-        <Button Name="btnCancel" Click="btnCancel_Click" Grid.Row="5" Grid.Column="1">取消</Button>
+		<Button x:Name="btnStart" Click="btnStart_Click" Grid.Row="5" IsEnabled="False">开始</Button>
+        <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="5" Grid.Column="1">取消</Button>
+	
+		<TextBlock x:Name="txtMsg" Foreground="Red" Grid.Row="6" Grid.ColumnSpan="2" />
 	</Grid>
 </Window>

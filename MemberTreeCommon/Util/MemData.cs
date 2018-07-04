@@ -16,10 +16,10 @@ namespace MemberTree
 	/// </summary>
 	public class MemData
 	{
-		private static string MemDataRoot = "Data";
-		public static string MemDataSqlite = MemDataRoot + "/db";
-		public static string MemDataMysqlKey = MemDataRoot + "/key";
-		public static string MemDataTemp = MemDataRoot + "/temp";
+		private static string MemDataRoot = System.AppDomain.CurrentDomain.BaseDirectory + "Data";
+		public static string MemDataSqlite = MemDataRoot + "\\db";
+		public static string MemDataMysqlKey = MemDataRoot + "\\key";
+		public static string MemDataTemp = MemDataRoot + "\\temp";
 		
 		public static void InitMemData()
 		{
