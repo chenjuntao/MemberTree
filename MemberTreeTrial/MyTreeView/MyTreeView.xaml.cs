@@ -113,7 +113,7 @@ namespace MemberTree
             	item.Items.Clear();
 	        	
 	            MyTreeNode node = item.Tag as MyTreeNode;
-	            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(node.SysId);
+	            List<MyTreeNode> childrenNodes = MyTrees.GetNodes_ByTopId(node.SysId);
 	            
 	            
 	            foreach (MyTreeNode subNode in childrenNodes)
@@ -199,7 +199,7 @@ namespace MemberTree
             newRootItem.IsExpanded = true;
 
             //新的根节点添加子节点
-            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(newRootNode.SysId);
+            List<MyTreeNode> childrenNodes = MyTrees.GetNodes_ByTopId(newRootNode.SysId);
             bool hasNotAdded = true;
             foreach (MyTreeNode subNode in childrenNodes)
             {

@@ -155,7 +155,7 @@ namespace MemberTree
 
             if(recu)
             {
-				List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(node.SysId);
+				List<MyTreeNode> childrenNodes = MyTrees.GetNodes_ByTopId(node.SysId);
 	            foreach (MyTreeNode subNode in childrenNodes)
 	            {
 	                Export2CSVImp(mysw ,allLines, subNode, recu);

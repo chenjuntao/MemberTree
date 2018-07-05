@@ -43,6 +43,7 @@
 					<Button FontWeight="Bold" Content="开始查找" Grid.Row="1" Click="ButtonSearch_Click" />
 				</Grid>
 			</GroupBox>
+			<GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>
 			<GroupBox Grid.Row="1">
 				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal">
@@ -53,6 +54,7 @@
 				<my:SearchResult Grid.Row="1" x:Name="searchResults" MouseDoubleClick="NodeList_DbClick"/>
 			</GroupBox>
 		</Grid>
+		<GridSplitter VerticalAlignment="Stretch" Grid.RowSpan="2" Width="3"/>
 		<Grid Grid.Column="1" Name="mainGrid">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="auto"/>

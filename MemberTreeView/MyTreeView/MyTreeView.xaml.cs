@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MemberTree
 {
@@ -90,8 +91,17 @@ namespace MemberTree
             TreeViewItem item = new TreeViewItem();
             if(node == null)
             {
-            	item.Header = "更多";
-            	item.ToolTip = "加载更多";
+            	item.Header = "none";
+            	item.ToolTip = "none type node";
+            }
+            else if(node.SysId=="moreNode")
+            {
+            	item.Header = "双击加载更多节点";
+            	item.ToolTip = string.Format("双击加载更多{0}({1})的子节点,已加载节点数:{2},未加载节点数{3}",
+        	             node.Name, node.TopId, node.ChildrenCount, node.ChildrenCountAll-node.ChildrenCount);
+            	item.Tag = node;
+            	item.MouseDoubleClick += moreNode_Load;
+            	item.Foreground = new SolidColorBrush(Colors.Red);
             }
             else
             {
@@ -105,11 +115,47 @@ namespace MemberTree
             }
             return item;
         }
+        
+        //节点太多，点击加载更多未显示的节点
+        void moreNode_Load(object sender, RoutedEventArgs e)
+        {
+        	TreeViewItem moreItem = sender as TreeViewItem;
+        	MyTreeNode node = moreItem.Tag as MyTreeNode;
+        	TreeViewItem parentItem = moreItem.Parent as TreeViewItem;
+        	if(parentItem!=null)
+        	{
+	        	parentItem.Items.Remove(moreItem);
+	        	
+	        	MyTrees.OpenDB();
+				List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopIdPage(node.TopId, node.ChildrenCount);
+				MyTrees.CloseDB();
+				foreach (MyTreeNode subNode in childrenNodes)
+				{
+				    TreeViewItem subItem = NewTreeViewItem(subNode);
+				    parentItem.Items.Add(subItem);
+				    
+				    //如果子节点还有孙子节点，则添加一个虚假的孙节点，使该子节点具有折叠的"+"
+				    if(subNode.ChildrenCount>0)
+				    {
+				    	subItem.Items.Add(NewTreeViewItem(null));
+				    }
+				    
+				    WindowView.notify.SetStatusMessage("正在展开节点" + subItem.Header);
+				}
+				
+				//表示分页加载更多的节点
+				node.ChildrenCount = node.ChildrenCount + MyTrees.getNodePageSize;
+				if(node.ChildrenCount < node.ChildrenCountAll)
+				{
+					parentItem.Items.Add(NewTreeViewItem(node));
+				}
+        	}
+        }
 
         void item_Expanded(object sender, RoutedEventArgs e)
         {
         	TreeViewItem item = e.Source as TreeViewItem;
-        	if(item.HasItems && (item.Items[0] as TreeViewItem).Header.ToString() == "更多")
+        	if(item.HasItems && (item.Items[0] as TreeViewItem).Header.ToString() == "none")
         	{
         		//先移除为使该节点具有折叠的"+"而添加的虚假的子节点
             	item.Items.Clear();
@@ -120,8 +166,7 @@ namespace MemberTree
 	        	}
 	        	
 	            MyTreeNode node = item.Tag as MyTreeNode;
-	            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(node.SysId);
-	            
+	            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopIdPage(node.SysId, 0);
 	            
 	            foreach (MyTreeNode subNode in childrenNodes)
 	            {
@@ -135,6 +180,18 @@ namespace MemberTree
 	                }
 	                
 	                WindowView.notify.SetStatusMessage("正在展开节点" + subItem.Header);
+	            }
+	            
+	            //表示分页加载更多的节点
+	            if(node.ChildrenCount>MyTrees.getNodePageSize)
+	            {
+	            	MyTreeNode moreNode = new MyTreeNode();
+	            	moreNode.SysId = "moreNode";
+	            	moreNode.Name = node.Name;
+	            	moreNode.TopId = node.SysId;
+	            	moreNode.ChildrenCount = MyTrees.getNodePageSize;
+	            	moreNode.ChildrenCountAll = node.ChildrenCount;
+	            	item.Items.Add(NewTreeViewItem(moreNode));
 	            }
 	            
 				if((e.Source as TreeViewItem).IsSelected)
@@ -221,7 +278,7 @@ namespace MemberTree
             newRootItem.IsExpanded = true;
 
             //新的根节点添加子节点
-            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(newRootNode.SysId);
+            List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopIdPage(newRootNode.SysId, 0);
             bool hasNotAdded = true;
             foreach (MyTreeNode subNode in childrenNodes)
             {
@@ -242,6 +299,18 @@ namespace MemberTree
                 {
                 	subItem.Items.Add(NewTreeViewItem(null));
                 }
+            }
+            
+            //表示分页加载更多的节点
+            if(newRootNode.ChildrenCount>MyTrees.getNodePageSize)
+            {
+            	MyTreeNode moreNode = new MyTreeNode();
+            	moreNode.SysId = "moreNode";
+            	moreNode.Name = newRootNode.Name;
+            	moreNode.TopId = newRootNode.SysId;
+            	moreNode.ChildrenCount = MyTrees.getNodePageSize;
+            	moreNode.ChildrenCountAll = newRootNode.ChildrenCount;
+            	newRootItem.Items.Add(NewTreeViewItem(moreNode));
             }
 
             //判断当前根节点是否存在父节点

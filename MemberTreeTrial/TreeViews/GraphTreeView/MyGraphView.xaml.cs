@@ -85,7 +85,7 @@ namespace MemberTree
             MyTreeNode node = tn.Tag as MyTreeNode;
             if (node != null)
             {
-                List<MyTreeNode> childrenNodes = MyTrees.GetNodesByTopId(node.SysId);;
+                List<MyTreeNode> childrenNodes = MyTrees.GetNodes_ByTopId(node.SysId);;
                 foreach (MyTreeNode subNode in childrenNodes)
                 {
                     Button grandson = NewTreeViewItem(subNode);

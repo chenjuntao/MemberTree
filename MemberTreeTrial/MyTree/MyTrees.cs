@@ -80,7 +80,7 @@ namespace MemberTree
             return null;
 		}
 		
-		internal static List<MyTreeNode> GetNodesByTopId(string topId)
+		internal static List<MyTreeNode> GetNodes_ByTopId(string topId)
 		{
 			if(topId != "")
         	{

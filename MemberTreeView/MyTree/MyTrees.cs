@@ -179,7 +179,7 @@ namespace MemberTree
 	            ringNodes = treeDB.SearchString(sql);
 	            MyTrees.CloseDB();
         	}
-            return leafAloneNodeIds;
+            return ringNodes;
         }
         
         private static List<string> tableOptCols;
@@ -259,8 +259,17 @@ namespace MemberTree
 		
 		public static List<MyTreeNode> GetNodesByTopId(string topId)
 		{
-			string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "
-				+ treeDB.TableName + "_calc where topid='" + topId + "' order by subcountall desc";
+			string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "+ treeDB.TableName 
+				+ "_calc where topid='" + topId + "' order by subcountall desc";
+            return treeDB.SearchNode(sql);
+		}
+		
+		//与上一个方法的区别在于这个进行分页查询
+		public static int getNodePageSize = 100;
+		public static List<MyTreeNode> GetNodesByTopIdPage(string topId, int starIndex)
+		{
+			string sql = "select sysid,topid,name,level,sublevel,subcount,subcountall from "+ treeDB.TableName 
+				+ "_calc where topid='" + topId + "' order by subcountall desc limit "+ starIndex + ", " + getNodePageSize;
             return treeDB.SearchNode(sql);
 		}
 		

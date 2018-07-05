@@ -31,6 +31,7 @@ namespace MemberTree
 		private BackgroundWorker bgworker = new BackgroundWorker();
 		private SQLiteConnection conn;
 		private SQLiteCommand cmd;
+		private bool hasError = false;
 		
 		public CalcSystemB(string sysA)
 		{
@@ -108,7 +109,7 @@ namespace MemberTree
             {
             	MessageBox.Show("已取消计算！");
             }
-            else
+            else if(!hasError)
             {
                 if(step==1)
                 {
@@ -148,7 +149,7 @@ namespace MemberTree
         {
         	SQLiteConnectionStringBuilder connstr = new SQLiteConnectionStringBuilder();
             connstr.DataSource = MemData.MemDataSqlite + "\\" + dbName + ".db";
-//            connstr.Password = "passwd";
+            connstr.Password = "passwd";
             connstr.Version = 3;
 			conn = new SQLiteConnection(connstr.ConnectionString);
             cmd = new SQLiteCommand(conn);
@@ -193,10 +194,12 @@ namespace MemberTree
 	                	bgworker.ReportProgress(count++);
                 	}
                 }
+                bgworker.ReportProgress(count, "第一步读取csv数据完成！");
             }
             catch (Exception ex)
             {
-            	bgworker.ReportProgress(count, ex.Message);
+            	bgworker.ReportProgress(count, "第一步出错:" + ex.Message + ex.StackTrace);
+            	hasError = true;
             }
             finally
             {
@@ -227,7 +230,7 @@ namespace MemberTree
 	            //开始查询所有数据
 	            cmd.CommandText = "select sysid, topid from tree_calc";
 				SQLiteDataReader reader1 = cmd.ExecuteReader();
-				int count = 0;
+				int count = 0, step = 0;
 	            while (reader1.Read())
 	            {
 	            	SysABNode node = new SysABNode()
@@ -236,16 +239,21 @@ namespace MemberTree
 		        		TopId = reader1.GetString(1)
 		        	};
 	            	sysAnodes.Add(node.SysId, node);
-	            	bgworker.ReportProgress(100*count/allcount);
+	            	if(100*count/allcount > step)
+	            	{
+	            		step = 100*count/allcount;
+	            		bgworker.ReportProgress(step);
+	            	}
 	            	count++;
 	            }
-	            bgworker.ReportProgress(100);
+	            bgworker.ReportProgress(100, "第二步读取数据库数据完成！");
 	            reader1.Close();
 	            
             }
             catch(Exception ex)
             {
-            	bgworker.ReportProgress(0, ex.Message);
+            	bgworker.ReportProgress(0, "第二步出错：" + ex.Message + ex.StackTrace);
+            	hasError = true;
             }
             finally
             {
@@ -256,6 +264,7 @@ namespace MemberTree
 		//第三步，计算A与B系统的关系--------------------------------------------------------------
 		private void CalcA_B(object sender, DoWorkEventArgs e)
 		{
+			int step = 0;
 			for (int i = 0; i < sysBids.Count; i++) 
 			{
 				if(sysAnodes.ContainsKey(sysBids[i]))
@@ -265,9 +274,13 @@ namespace MemberTree
 					anode.sysBCount = 1;
 					sysABCountInc(anode.TopId);
 				}
-				bgworker.ReportProgress(100*i/sysBids.Count);
+				if(100*i/sysBids.Count > step)
+            	{
+            		step = 100*i/sysBids.Count;
+            		bgworker.ReportProgress(step);
+            	}
 			}
-			bgworker.ReportProgress(100);
+			bgworker.ReportProgress(100, "第三步AB关系计算分析完成！");
 		}
 		//父节点与B系统有关的数量递归+1
 		
@@ -304,28 +317,35 @@ namespace MemberTree
 	            	num = reader.GetInt32(0);
 	            }
 	            reader.Close();
+	            bgworker.ReportProgress(1);
 	            
 	            //如果不存在，则创建列
 	            if(num == 0)
 	            {
 	            	string sqlStr2 = "insert into tree_profile values ('TableOptCol', @1)";
 	            	exeSql(sqlStr2, colId);
+	            	bgworker.ReportProgress(2);
 	            	exeSql(sqlStr2, colCount);
+	            	bgworker.ReportProgress(3);
 	            	
                 	cmd.CommandText = "alter table tree_calc add column " + colId + " varchar(1)";
 	            	cmd.ExecuteNonQuery();
+	            	bgworker.ReportProgress(4);
 	            	cmd.CommandText = "alter table tree_calc add column " + colCount + " varchar(20)";
 	            	cmd.ExecuteNonQuery();
+	            	bgworker.ReportProgress(5);
 	            }
 	            
 	            //设置初始默认值
                	cmd.CommandText = "update tree_calc set " + colId + "=0";
 	            cmd.ExecuteNonQuery();
+	            bgworker.ReportProgress(7);
 	            cmd.CommandText = "update tree_calc set " + colCount + "=0";
 	            cmd.ExecuteNonQuery();
+	            bgworker.ReportProgress(10);
                	
                	//开始写入数据库
-               	int count = 0, allcount = sysAnodes.Count;
+               	int step =0, count = 0;
                	foreach (SysABNode node in sysAnodes.Values)
                	{
                		if(node.sysBCount>0)
@@ -336,15 +356,20 @@ namespace MemberTree
 			        	cmd.Parameters.Add(new SQLiteParameter("@2", node.sysBCount.ToString()));
 			        	cmd.Parameters.Add(new SQLiteParameter("@3", node.SysId));
 			        	cmd.ExecuteNonQuery();
-               			bgworker.ReportProgress(100*count/allcount);
                		}
+               		if(90*count/sysAnodes.Count > step)
+		            {
+		            	step = 90*count/sysAnodes.Count;
+		            	bgworker.ReportProgress(step+10);
+		            }
                		count++;
                	}
-               	bgworker.ReportProgress(100);
+               	bgworker.ReportProgress(100, "第四步写入数据库完成！");
             }
             catch(Exception ex)
             {
-            	bgworker.ReportProgress(0, ex.Message + ex.StackTrace);
+            	bgworker.ReportProgress(0, "第四步出错：" + ex.Message + ex.StackTrace);
+            	hasError = true;
             }
             finally
             {
