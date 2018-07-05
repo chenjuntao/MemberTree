@@ -38,6 +38,9 @@
   <ItemGroup>
     <None Include="license.rtf" />
     <EmbeddedResource Include="WixUI_zh-cn.wxl" />
+    <None Include="安装文件说明.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
 </Project>
